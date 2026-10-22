@@ -1,0 +1,18 @@
+# Python test/build artifacts
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local work products: keep competition rasters and ZIPs out of Git.
+*.tif
+*.tiff
+*.zip
+# A validated, named submission may be published here only after every readiness gate passes.
+!downloads/
+!downloads/*.tif
+# Keep transient evidence scratch out of Git; small final receipts may be tracked.
+evidence/tmp/
+
+# Site build output
+_site/
