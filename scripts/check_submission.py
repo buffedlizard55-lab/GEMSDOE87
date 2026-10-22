@@ -15,13 +15,13 @@ import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path[:0] = [str(ROOT / 'vendor'), str(ROOT / 'src')]
+sys.path[:0] = [str(ROOT), str(ROOT / 'vendor'), str(ROOT / 'src')]
 import numpy as np
 import rasterio
 from gems57 import gates
 from gems57.grid import load_grid
 from gems57.validate import validate
-from gems87.experiment import write_json
+from scripts.validate_submission import _distinct_output_path, _write_json_report
 
 
 def check_bundle(card: dict, root: Path = ROOT, data_dir: Path | None = None) -> dict:
@@ -83,14 +83,38 @@ def check_bundle(card: dict, root: Path = ROOT, data_dir: Path | None = None) ->
                 reasons=reasons, submission_slots_used=card['submission_slots_used'])
 
 
+def checked_report_output(output: Path, card: dict, root: Path = ROOT) -> Path:
+    """A receipt must never overwrite inputs, cards or another existing file."""
+    output = output if output.is_absolute() else root / output
+    default = root / 'docs/evidence/independent_validation.json'
+    if output.suffix.lower() != '.json':
+        raise ValueError('The report output must have a .json extension, not a raster/ZIP path')
+    if output.is_symlink() or (output.exists() and output.stat().st_nlink != 1):
+        raise ValueError('The report output must not be a symbolic/hard-link alias')
+    if output.exists() and output.resolve() != default.resolve():
+        raise ValueError('Refusing to overwrite an existing file other than the designated validation report')
+    protected = [('frozen TIFF', root / 'docs/downloads' / card['submission_file']),
+                 ('frozen ZIP', root / 'docs/downloads' / card['submission_zip']),
+                 ('run card', root / 'run_card.json'),
+                 ('sample', root / 'data/raw/sample_submission.tif'),
+                 ('catalogue', root / 'data/raw/existing_faults.tif')]
+    return _distinct_output_path(output, protected)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--format-only', action='store_true')
-    parser.add_argument('--output', default='docs/evidence/independent_validation.json')
+    parser.add_argument('--output', type=Path, default=Path('docs/evidence/independent_validation.json'),
+                        help='New .json receipt path, or the designated default; existing other files are never overwritten')
     args = parser.parse_args()
     card = json.loads((ROOT / 'docs/evidence/run_card.json').read_text())
-    result = check_bundle(card)
-    write_json(ROOT / args.output, result)
+    try:
+        output = checked_report_output(args.output, card)
+        result = check_bundle(card)
+        _write_json_report(output, json.dumps(result, indent=2, allow_nan=False))
+    except (OSError, ValueError) as exc:
+        print(json.dumps(dict(safe_to_submit=False, inspection_completed=False, errors=[str(exc)]), indent=2))
+        return 2
     print(json.dumps(result, indent=2, allow_nan=False))
     return 0 if result['local_format_valid'] and (args.format_only or result['safe_to_submit']) else 2
 

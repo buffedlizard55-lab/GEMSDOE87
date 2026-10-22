@@ -75,5 +75,6 @@ def test_concurrent_readiness_snapshots_preserve_exact_bytes():
     import hashlib
     manifest = json.loads((ROOT / 'research/upstream_readiness/provenance.json').read_text())
     assert manifest['commit'].startswith('f4f5944')
-    for row in manifest['files']:
+    rows = manifest['files'] + [row for update in manifest.get('updates', []) for row in update['files']]
+    for row in rows:
         assert hashlib.sha256((ROOT / row['archive']).read_bytes()).hexdigest() == row['sha256']

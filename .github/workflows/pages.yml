@@ -47,9 +47,45 @@ jobs:
           cp -r assets .cache/pages-publish/assets
           mkdir -p .cache/pages-publish/data
           cp data/feed.json data/run-card.json data/sources.json data/submission-status.json .cache/pages-publish/data/
+          if [ -d downloads ]; then
+            mkdir -p .cache/pages-publish/downloads
+            cp -R downloads/. .cache/pages-publish/downloads/
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .cache/pages-publish
       - name: Publish validated static pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify the actual public TIFF bytes
+        env:
+          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          FILE=$(python -c "import json; print(json.load(open('run_card.json'))['submission_file'])")
+          SHA=$(python -c "import json; print(json.load(open('run_card.json'))['raster_sha256'])")
+          URL="${PAGES_URL%/}/docs/downloads/$FILE?gems87=$SHA"
+          curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$URL" -o .cache/published-research.tif
+          echo "$SHA  .cache/published-research.tif" | sha256sum --check
+          python - <<'PYRECEIPT'
+          import hashlib, json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          p = Path('.cache/published-research.tif')
+          card = json.loads(Path('run_card.json').read_text())
+          actual = hashlib.sha256(p.read_bytes()).hexdigest()
+          assert actual == card['raster_sha256'] and card['safe_to_submit'] is False
+          receipt = dict(checked_utc=datetime.now(timezone.utc).isoformat(), passed=True,
+                         pages_url=os.environ['PAGES_URL'], public_tiff_sha256=actual,
+                         bytes=p.stat().st_size, safe_to_submit=False,
+                         scope='Public Pages byte check only; no DrivenData upload or slot selection.')
+          Path('.cache/publication-validation.json').write_text(json.dumps(receipt, indent=2) + '\n')
+          print(json.dumps(receipt, indent=2))
+          PYRECEIPT
+      - name: Retain public-byte verification receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-publication-verification
+          path: .cache/publication-validation.json
+          if-no-files-found: warn
+          retention-days: 14

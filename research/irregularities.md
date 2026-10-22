@@ -27,6 +27,9 @@
 | IR87-023 | Main advanced concurrently to readiness-only work at `f4f5944`, producing five merge conflicts with PR #5. | Preserved exact prior snapshots, source audits, format/feed helpers, assets and all 21 earlier regressions. Root compatibility routes/status now lead to the measured negative. Integrated on the fixed branch only; no additional scientific lane or rerun. |
 | IR87-024 | The integration could read Pages state but could not update Pages settings: HTTP 403 Resource not accessible by integration. | No credential workaround. Reuse main's existing upload/deploy workflow pattern, which does not need that settings write; verify actual deployment independently. |
 
+| IR87-025 | Main advanced again through `a7a7c77` with useful report-path hardening and a new H33 source-check document. Its most recent Pages run failed; the staged copy command also has a non-directory final argument. | Preserve the added helpers/tests/docs and exact snapshots. Current staging copies the complete docs directory, retaining optional legacy download publishing rather than the malformed file list. The last failed-run log archive could not be retrieved from its external log host; do not invent unseen log details. |
+| IR87-026 | Review of upstream report-path hardening revealed the same potential destructive `--output` misuse in this branch's independent checker. | Reuse the upstream alias/atomic-report helpers; reject raster outputs, existing cards/other files, symlinks and hard links before inspection. Frozen TIFF/card bytes are checked unchanged by regressions. |
+
 
 
 ## Permissions and publication

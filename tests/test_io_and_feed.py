@@ -253,3 +253,31 @@ def test_redirect_cannot_forge_a_leaderboard_observation(monkeypatch, url):
     assert row['content_verified_by_health_check'] is False
     if url.startswith('http:'):
         assert row['transport_ok'] is False
+
+
+@pytest.mark.parametrize('relative', ['run_card.json', 'docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif'])
+def test_cli_report_cannot_overwrite_frozen_inputs(monkeypatch, relative):
+    path = ROOT / relative
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    def forbidden(*args, **kwargs):
+        pytest.fail('Unsafe output must be refused before reading/scoring any raster')
+    monkeypatch.setattr(check_submission, 'check_bundle', forbidden)
+    monkeypatch.setattr(sys, 'argv', ['check_submission.py', '--format-only', '--output', str(path)])
+    assert check_submission.main() == 2
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == digest
+
+
+def test_designated_report_refuses_symlink_and_hardlink_aliases(tmp_path):
+    source = tmp_path / 'input.tif'
+    source.write_bytes(b'preserved synthetic input')
+    output = tmp_path / 'docs/evidence/independent_validation.json'
+    output.parent.mkdir(parents=True)
+    card = dict(submission_file='fixture.tif', submission_zip='fixture.zip')
+    output.symlink_to(source)
+    with pytest.raises(ValueError, match='link alias'):
+        check_submission.checked_report_output(output, card, tmp_path)
+    output.unlink()
+    output.hardlink_to(source)
+    with pytest.raises(ValueError, match='link alias'):
+        check_submission.checked_report_output(output, card, tmp_path)
+    assert source.read_bytes() == b'preserved synthetic input'
