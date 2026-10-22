@@ -1,8 +1,8 @@
 {
-  "generated_utc": "2026-10-22T23:13:15.953644+00:00",
+  "generated_utc": "2026-10-22T23:21:49.770929+00:00",
   "pytest": {
     "command": ".venv/bin/python -m pytest -q --junitxml=.cache/software-tests.xml",
-    "tests": 102,
+    "tests": 103,
     "failures": 0,
     "errors": 0,
     "skipped": 0
@@ -21,5 +21,6 @@
   "workflow_yaml_structure_valid": true,
   "preserved_readiness_regressions": 25,
   "concurrent_readiness_snapshots_verified": true,
-  "receipt_cannot_overwrite_inputs_or_cards": true
+  "receipt_cannot_overwrite_inputs_or_cards": true,
+  "legacy_pages_refresh_race_regression": true
 }

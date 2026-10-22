@@ -29,14 +29,14 @@ Scientific experimentation and software review are separate. H87-BMTD-01 stopped
 
 **Executed software checks:**
 
-- **102 tests passed, zero failures/errors/skips**, covering exact DTI versus a literal brute-force oracle, max-not-sum coverage, 300 m cutoff, exact known-pixel masking, whole-component tails, physical crop/block alignment, paired pooled terms, deliberate AUC leakage, original source pins, fixed guard fixtures, literal overlap boundary/dense-prior behavior, invalid-file rejection, frozen TIFF/ZIP bytes, authorization refusal, restorer errors, feed parsing/network failures, static evidence and read-only suggestions.
+- **103 tests passed, zero failures/errors/skips**, covering exact DTI versus a literal brute-force oracle, max-not-sum coverage, 300 m cutoff, exact known-pixel masking, whole-component tails, physical crop/block alignment, paired pooled terms, deliberate AUC leakage, original source pins, fixed guard fixtures, literal overlap boundary/dense-prior behavior, invalid-file rejection, frozen TIFF/ZIP bytes, authorization refusal, restorer errors, feed parsing/network failures, static evidence and read-only suggestions.
 - `compileall`, shell syntax, and root `prepare_data.py --help` passed.
 - Format CLI exits **0**; normal authorization CLI exits the expected **2** with `safe_to_submit=false`.
 - Offline site audit: **7 pages plus 4 compatibility entry points, 120 local targets/anchors checked**, no duplicate IDs, exactly one page H1, image alternative text, explicit research/no-go wording and no browser-facing localhost API.
 - Real Chromium 153: **37 checks**, 1440/768/390/320 px, all seven pages, four established root-route redirects, actual browser TIFF download with exact SHA-256, repository-search zero/one-result states, clipboard success and unavailable fallback, failed-feed fallback, and download/decision without JavaScript. Screenshots were inspected locally; CI retains its own screenshots.
 - Actual sandbox source-health attempt: **0/13 transport reachable**, recorded transparently. This does not negate the separate research-tool retrieval or invent current source freshness.
 
-Receipts: [software](../docs/evidence/software_validation.json), [browser](../docs/evidence/browser_validation.json), [site](../docs/evidence/site_validation.json), [independent file](../docs/evidence/independent_validation.json). These are local/software receipts, **not organizer upload acceptance**. GitHub Actions repeats the software checks independently. The 25 earlier readiness/format/feed regressions are retained within the 102-case suite; their standalone workflow still runs them too.
+Receipts: [software](../docs/evidence/software_validation.json), [browser](../docs/evidence/browser_validation.json), [site](../docs/evidence/site_validation.json), [independent file](../docs/evidence/independent_validation.json). These are local/software receipts, **not organizer upload acceptance**. GitHub Actions repeats the software checks independently. The 25 earlier readiness/format/feed regressions are retained within the 103-case suite; their standalone workflow still runs them too.
 
 ## Pass 3 — original-request reconciliation (completed; outcome is negative)
 
@@ -62,14 +62,14 @@ The complete README brief was reread. The following is a requirement-to-evidence
 | Unique identification and short note ≤140 chars | `GEMSDOE87-BMTD-01-NEGATIVE`; 126-character note, browser copy tested. |
 | Exact executive-summary submission walkthrough | Future-cleared-file procedure only; current file expressly excluded. Actual cap and receipt required; no upload made. |
 | Organized user-friendly Pages and auditable knowledge table | Seven responsive static pages, genuine raster-derived visualization, linked evidence and source ledger; accessible no-JS fallback. |
-| Current feed and autonomous suggestions | Read-only official transport/leaderboard parser, stale/failure state, deterministic blocker-based suggestions and daily scheduled workflow. **Not** automatic scientific claim verification or a live hosted training service. Deployment success is checked separately. |
-| Three review passes, improve correctness and reliability | This record, 102 regressions, 37 browser checks, CLI refusal, source provenance and explicit unfixed-at-measurement limitation. |
+| Current feed and autonomous suggestions | Read-only official transport/leaderboard parser, stale/failure state, deterministic blocker-based suggestions and daily scheduled workflow, sequenced after the legacy Pages build on main updates. **Not** automatic scientific claim verification or a live hosted training service. Deployment success is checked separately. |
+| Three review passes, improve correctness and reliability | This record, 103 regressions, 37 browser checks, CLI refusal, source provenance and explicit unfixed-at-measurement limitation. |
 | Create PR and merge main if allowed | Publication uses only the fixed session branch. PR, required checks, merge and deployment are authoritative GitHub operations, not inferred from local tests; their live links/outcome are included in final delivery. |
 | Finish with run card and honest remaining work | Root/public JSON card, negative verdict, hashes, representation-specific HOLDOUT-DTI/CIs, literal registry comparisons, validator, name/note, source defect and remaining blockers retained. |
 
 ## Publication and continuing work
 
-CI is defined in `.github/workflows/ci.yml`. Pages/read-only source refresh is defined in `.github/workflows/pages.yml`, daily at 06:17 UTC and on main pushes. The workflow stages only the public site and compatible root entry points; it does not push main, modify this raster or run/authorize science. A successful deployment is not presumed from the YAML. The PR and Actions run provide externally verifiable publication receipts.
+CI is defined in `.github/workflows/ci.yml`. Pages/read-only source refresh is defined in `.github/workflows/pages.yml`, daily at 06:17 UTC after the legacy main Pages build completes. The workflow stages only the public site and compatible root entry points; it does not push main, modify this raster or run/authorize science. A successful deployment is not presumed from the YAML. The PR and Actions run provide externally verifiable publication receipts.
 
 Concurrent main readiness work at `f4f5944` and hardening through `a7a7c77` was integrated on this same fixed branch, with exact-byte snapshots and its code/tests preserved. Compatibility root status now distinguishes a research download from competition approval; historical documents are labeled as snapshots. No second scientific lane was executed. Pages settings write was denied to the integration; the already successful upload/deploy pattern is reused without changing those settings.
 

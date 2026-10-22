@@ -30,6 +30,8 @@
 | IR87-025 | Main advanced again through `a7a7c77` with useful report-path hardening and a new H33 source-check document. Its most recent Pages run failed; the staged copy command also has a non-directory final argument. | Preserve the added helpers/tests/docs and exact snapshots. Current staging copies the complete docs directory, retaining optional legacy download publishing rather than the malformed file list. The last failed-run log archive could not be retrieved from its external log host; do not invent unseen log details. |
 | IR87-026 | Review of upstream report-path hardening revealed the same potential destructive `--output` misuse in this branch's independent checker. | Reuse the upstream alias/atomic-report helpers; reject raster outputs, existing cards/other files, symlinks and hard links before inspection. Frozen TIFF/card bytes are checked unchanged by regressions. |
 
+| IR87-027 | Public-site verification found the legacy Pages deployment racing the refresh workflow: the public feed remained the committed 22:33 snapshot despite the refresh step succeeding. The legacy deploy completed at 23:16:19, after the custom deployment and just before its job completed at 23:16:21. | Chain the refresh workflow after `pages-build-deployment` completes instead of simultaneously on push. Keep daily/manual triggers and check the actual public feed hash/timestamp as well as TIFF bytes. No settings privilege workaround or scientific rerun. |
+
 
 
 ## Permissions and publication
