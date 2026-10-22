@@ -46,7 +46,7 @@ jobs:
           cp index.html executive-summary.html research.html sources.html README.md _site/
           cp -R assets/. _site/assets/
           cp data/sources.json data/submission-status.json data/run-card.json _site/data/
-          cp docs/experiment-plan.md docs/score-claim-audit.md docs/source-audit.md docs/irregularities.md docs/review-log.md _site/docs/
+          cp docs/experiment-plan.md docs/score-claim-audit.md docs/source-audit.md docs/irregularities.md docs/review-log.md _site/docs/ docs/h33-claim-check-2026-10-22.md
           if [ -d downloads ]; then
             mkdir -p _site/downloads
             cp -R downloads/. _site/downloads/

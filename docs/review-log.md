@@ -41,3 +41,21 @@
 - While PR #7 was open, `main` advanced concurrently. Updated this branch from `origin/main` and resolved conflicts by retaining this branch's push trigger (not another active Arena branch) and preserving both sets of review notes.
 - GitHub Actions test check passed for PR #7. The first local hook invoked the system Python before the ignored environment was active, so it reported missing optional libraries; rerunning the full suite with `.venv/bin/python` passed all 22 tests.
 - No geological experiment was run; all competition-score, holdout, registry, and TIFF fields remain unmeasured/blocked.
+
+## Session 2026-10-22 — second review (passes 1–3)
+
+**Pass 1 — implement and verify.** The sandbox could reach only GitHub, PyPI and npm (see [source audit addendum](source-audit.md)). No competition data, sample grid, shared evaluator, or registry raster is available, so no candidate TIF was produced and none is offered. Verified instead, from GitHub-hosted sources: the H33-2-B2 file hash (`c55bafc4…ab6fa9`), its grid and binary content, the UNSCORED audit status, and the absence of 0.2778 from the full GEMSDOE32 history. Output: [`h33-claim-check-2026-10-22.md`](h33-claim-check-2026-10-22.md).
+
+**Pass 2 — review for bugs and wrong assumptions.**
+- `scripts/validate_submission.py` was read in full. Its CRS, shape, transform, bounds, float32, single-band, NaN-inside, [0,1], and outside-null checks match the stated gate. No change was needed. Its 22 unit tests pass in a venv (numpy 2.4.6, rasterio 1.4.4).
+- Found: the README install command fails under PEP 668 (system Python). Fixed to use a venv.
+- Found: the official reference notebook writes float64 output (`np.zeros` default dtype, `dtype=y_final.dtype`). Recorded as IR-87-11.
+- Found: the prompt's 0.2778 and 0.4413 values conflict with the owner's own repo (0.4413 is a refuted projection there; 0.2778 is absent). Recorded as IR-87-08 and IR-87-09.
+- Found: the README and source audit still say "read directly" for pages that are unreachable from this sandbox. Flagged in IR-87-10 rather than silently kept.
+
+**Pass 3 — recheck against the original request.** Requested items and their status:
+- Submission TIF that is easy to download: **not delivered.** The download gate is still blocked, and the reason is stated at the top of the README and on the landing page.
+- Answer why H33 scored and whether 0.2778 can be beaten: **answered** with evidence classes, a PhD-level mechanism assessment, and no claim beyond the sources.
+- Limitations and access needed: **written** in the README.
+- Uniqueness and novelty: **not run**; the registry is obtainable from GitHub but was not built in this session.
+- Run card: unchanged (negative, no measurement). No DTI, correlation, or hash is claimed.
