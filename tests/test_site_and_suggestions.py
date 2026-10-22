@@ -78,3 +78,10 @@ def test_concurrent_readiness_snapshots_preserve_exact_bytes():
     rows = manifest['files'] + [row for update in manifest.get('updates', []) for row in update['files']]
     for row in rows:
         assert hashlib.sha256((ROOT / row['archive']).read_bytes()).hexdigest() == row['sha256']
+
+
+def test_refreshed_pages_deploys_after_legacy_build_and_checks_public_feed():
+    workflow = (ROOT / '.github/workflows/pages.yml').read_text()
+    assert '  workflow_run:' in workflow and 'workflows: [pages-build-deployment]' in workflow
+    assert 'types: [completed]' in workflow and '\n  push:' not in workflow
+    assert '.cache/published-feed.json' in workflow and 'feed_last_attempt_utc' in workflow

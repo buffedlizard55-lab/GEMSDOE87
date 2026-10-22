@@ -1,7 +1,9 @@
 name: Pages and read-only source feed
 
 on:
-  push:
+  workflow_run:
+    workflows: [pages-build-deployment]
+    types: [completed]
     branches: [main]
   schedule:
     - cron: '17 6 * * *'
@@ -66,6 +68,10 @@ jobs:
           URL="${PAGES_URL%/}/docs/downloads/$FILE?gems87=$SHA"
           curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$URL" -o .cache/published-research.tif
           echo "$SHA  .cache/published-research.tif" | sha256sum --check
+          FEED_SHA=$(sha256sum docs/data/feed.json | cut -d ' ' -f 1)
+          FEED_URL="${PAGES_URL%/}/docs/data/feed.json?gems87_run=$GITHUB_RUN_ID"
+          curl --fail --location --silent --show-error --header 'Cache-Control: no-cache' --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$FEED_URL" -o .cache/published-feed.json
+          echo "$FEED_SHA  .cache/published-feed.json" | sha256sum --check
           python - <<'PYRECEIPT'
           import hashlib, json, os
           from datetime import datetime, timezone
@@ -74,7 +80,10 @@ jobs:
           card = json.loads(Path('run_card.json').read_text())
           actual = hashlib.sha256(p.read_bytes()).hexdigest()
           assert actual == card['raster_sha256'] and card['safe_to_submit'] is False
-          receipt = dict(checked_utc=datetime.now(timezone.utc).isoformat(), passed=True,
+          published_feed = json.loads(Path('.cache/published-feed.json').read_text())
+          local_feed = json.loads(Path('docs/data/feed.json').read_text())
+          assert published_feed['last_attempt_utc'] == local_feed['last_attempt_utc']
+          receipt = dict(feed_last_attempt_utc=published_feed['last_attempt_utc'], checked_utc=datetime.now(timezone.utc).isoformat(), passed=True,
                          pages_url=os.environ['PAGES_URL'], public_tiff_sha256=actual,
                          bytes=p.stat().st_size, safe_to_submit=False,
                          scope='Public Pages byte check only; no DrivenData upload or slot selection.')
