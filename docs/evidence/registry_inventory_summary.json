@@ -1,0 +1,17 @@
+{
+  "generated_utc": "2026-10-22T21:51:09.218503+00:00",
+  "repositories": 93,
+  "valid_unique_rasters": 1164,
+  "errors": [
+    {
+      "sources": [
+        "GEMSDOE63:docs/downloads/smoke.tif"
+      ],
+      "blob": "89ffb2d61840859392a758928ffdbae4260f2918",
+      "error": "89ffb2d61840859392a758928ffdbae4260f2918.tif: MissingRequired:TIFF directory is missing required \"StripOffsets\" field"
+    }
+  ],
+  "complete_accessible_scan": false,
+  "candidate_comparisons": 2,
+  "scope": "Historical pinned inventory union latest public main trees including this repository; inaccessible/private/unlinked rasters cannot be certified."
+}

@@ -1,0 +1,238 @@
+#!/usr/bin/env python3
+"""Build static Pages from immutable research receipts, never inventing a score."""
+from __future__ import annotations
+
+from html import escape as esc
+import json
+from pathlib import Path
+import shutil
+import re
+
+import markdown
+
+ROOT = Path(__file__).resolve().parents[1]
+DOCS = ROOT / 'docs'
+REPO_URL = 'https://github.com/buffedlizard55-lab/GEMSDOE87'
+NAV = [('index.html', 'Overview'), ('executive-summary.html', 'Submission guide'),
+       ('science.html', 'Research'), ('validation.html', 'Validation'),
+       ('registry.html', 'Registry'), ('sources.html', 'Sources')]
+
+
+def load(path):
+    return json.loads((ROOT / path).read_text())
+
+
+def pill(text, kind='negative'):
+    return f'<span class="pill {kind}"><span class="dot" aria-hidden="true"></span>{esc(text)}</span>'
+
+
+def page(filename, title, body, *, card):
+    links = []
+    for url, label in NAV:
+        active = 'active' if url == filename else ''
+        current = ' aria-current="page"' if url == filename else ''
+        links.append(f'<a href="{url}" class="{active}"{current}>{label}</a>')
+    nav = ''.join(links)
+    html = f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A newly generated GeoTIFF with automated format validation, spatial holdout evidence, and an explicit negative / do-not-submit decision.">
+<meta name="theme-color" content="#f7f8f4"><title>{esc(title)} · GEMSDOE87</title>
+<link rel="stylesheet" href="assets/site.css"><script defer src="assets/site.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="shell header-inner"><a class="brand" href="index.html" aria-label="GEMSDOE87 overview"><span class="brand-icon" aria-hidden="true">≋</span>GEMS<small>DOE / 87</small></a><nav class="nav" aria-label="Main navigation">{nav}</nav></div></header>
+<main id="main" class="shell content"><div class="topline"><span>FAULT DISCOVERY / GEODAWN, NEVADA–CALIFORNIA</span>{pill('Run 01 · negative')}</div>{body}</main>
+<footer class="footer"><div class="shell footer-inner"><div class="values"><p><strong>Maximize P(Win).</strong> Preserve slots for evidence, not optimism. <strong>Own the Outcome.</strong> Publish the negative.</p><p>Fault evidence is not proof of a geothermal vent. Local validation is not organizer acceptance.</p></div><div><p><a href="{REPO_URL}">Code &amp; original brief ↗</a> · <a href="evidence/run_card.json">JSON run card</a></p><p>Research snapshot: 22 OCT 2026 · <span data-feed-state>Dated source-health snapshot · see Sources</span></p></div></div></footer>
+</body></html>'''
+    (DOCS / filename).write_text(html)
+
+
+def download(card, *, full=False):
+    name, zip_name = card['submission_file'], card['submission_zip']
+    size = (DOCS / 'downloads' / name).stat().st_size / 1e6
+    filename = f'<div class="file-name">{esc(name)}</div>' if full else ''
+    return f'''<div class="download-panel" id="download"><div class="download-top"><span>NEW GEOTIFF · RESEARCH DOWNLOAD</span>{pill('Do not submit')}</div>
+{filename}<p>Generated from RTP magnetic measurements. Not a copy of a prior submission. Format-valid; scientific and uniqueness gates failed. The frozen negative also retains a disclosed <a href="science.html#research-report">outer-grid guard defect</a>.</p>
+<div class="actions"><a class="button" href="downloads/{esc(name)}" download>↓ Download research .tif <span>· {size:.1f} MB</span></a><a class="button secondary" href="downloads/{esc(zip_name)}" download>Single-TIFF .zip</a></div>
+<p class="verdict-line"><strong>Download: yes, for research. Competition submission: NO.</strong><br>No final submission dots were placed after the duplicate stop.</p>
+<a class="small-link" href="evidence/independent_validation.json">Independent file validation ↗</a> · <a class="small-link" href="evidence/run_card.json">Full run card ↗</a></div>'''
+
+
+def chart(card):
+    scores = card['holdout_dti']
+    items = [('BMTD diagnostic', scores['binary_diagnostic'], '#006c66'),
+             ('Magnetic control', scores['best_comparable_control'], '#8d9e95')]
+    x = lambda v: 145 + v / 0.065 * 260
+    marks = []
+    for i, (label, data, color) in enumerate(items):
+        yy = 35 + 49 * i
+        low, high = data['ci95']
+        marks.append(f'<text x="0" y="{yy+4}" fill="#596d73" font-size="11">{label}</text><line x1="{x(low):.2f}" x2="{x(high):.2f}" y1="{yy}" y2="{yy}" stroke="{color}" stroke-width="3"/><circle cx="{x(data["dti"]):.2f}" cy="{yy}" r="5" fill="{color}"/>')
+    return f'''<svg class="ci-chart" viewBox="0 0 440 130" role="img" aria-label="HOLDOUT-DTI intervals overlap: BMTD 0.043385, magnetic control 0.043673. No demonstrated improvement.">
+<line x1="145" x2="405" y1="110" y2="110" stroke="#dce3df"/>{''.join(marks)}<text x="145" y="127" fill="#596d73" font-size="9">0</text><text x="355" y="127" fill="#596d73" font-size="9">0.065 DTI</text></svg>'''
+
+
+def public_leader_snapshot(feed):
+    observation = feed.get('public_leaderboard_observation') or {}
+    value = observation.get('value')
+    if (isinstance(value, (int, float)) and not isinstance(value, bool) and 0 <= value <= 1
+            and observation.get('source_url') == 'https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/'
+            and observation.get('evidence_class') == 'PUBLIC-LEADERBOARD-OBSERVATION'
+            and observation.get('artifact_submission_receipt') is False
+            and observation.get('observed_utc')):
+        return f'{value:.4f}', esc(str(observation['observed_utc']))
+    return 'unavailable', 'no dated public observation'
+
+
+def build_home(card):
+    h = card['holdout_dti']; binary = h['binary_diagnostic']; delta = h['paired_difference_vs_best']
+    leader, leader_date = public_leader_snapshot(load('docs/data/feed.json'))
+    body = f'''<section class="hero" aria-labelledby="hero-heading"><div><p class="eyebrow">Hypothesis H87 · magnetic texture dislocation</p>
+<h1 id="hero-heading">A new GeoTIFF.<br><span>An honest no-go.</span></h1><p class="lead">Testing whether displaced magnetic textures reveal concealed faults. The data produced a new raster—not evidence strong enough to spend a competition slot.</p>{download(card)}</div>
+<div class="hero-map"><img src="assets/h87-map.png" alt="Actual H87 magnetic texture confidence over the GeoDAWN footprint; contextual known faults shown in dark gray. Not a validated discovery map." width="1080" height="820"><div class="map-label"><span>H87 CONFIDENCE / NOT VERIFIED FAULTS</span><span>EPSG:32611 · 100 m</span></div></div></section>
+<div class="evidence-strip"><span>FORMAT CHECKED FROM WRITTEN BYTES</span><span>WHOLE-COMPONENT SPATIAL HOLDOUT</span><span>NO WEEKLY SLOT USED</span></div>
+<section aria-labelledby="finding"><div class="section-heading"><h2 id="finding">The result, without the spin.</h2><p>One fixed experiment. No score projections.</p></div><div class="grid three">
+<article class="card"><p class="metric-label">HOLDOUT-DTI · binary diagnostic</p><div class="metric">{binary['dti']:.5f}</div><p>95% CI [{binary['ci95'][0]:.5f}, {binary['ci95'][1]:.5f}]</p><p>Not significantly better than the magnetic-gradient control.</p><div class="foot">{h['withheld_positive_pixels']:,} withheld positives<br>{esc(h['evaluator_version'])}</div></article>
+<article class="card"><p class="metric-label">Paired HOLDOUT-DTI difference</p><div class="metric compact red">{delta['delta']:+.6f}</div><p>Versus the strongest comparable control.</p><p>Paired 95% CI [{delta['ci95'][0]:.6f}, {delta['ci95'][1]:.6f}] includes zero.</p>{chart(card)}<p class="score-note">Same evaluator and {h['withheld_positive_pixels']:,} withheld positives. Conditional spatial-cluster intervals.</p></article>
+<article class="card"><p class="metric-label">Literal registry overlap</p><div class="metric">100<span style="font-size:22px">%</span></div><p>A continuous prior covers every allowed location within 3 px. The stated rule blocks every nonempty candidate.</p><div class="foot">REGISTRY-MEASUREMENT · not a score<br>No dense-support exception applied</div><a class="read-more" href="registry.html">Read the stop proof →</a></article></div></section>
+<section aria-labelledby="gates"><div class="section-heading"><h2 id="gates">Automatic gates. Explicit decisions.</h2><a class="small-link" href="validation.html">View every validation check →</a></div><div class="pipeline">
+<div class="stage"><div class="stage-number">01 / INPUTS</div><strong>Mirrors hash-pinned</strong><small>Not official authentication</small><div class="state teal">● Integrity checked</div></div>
+<div class="stage"><div class="stage-number">02 / CANARY</div><strong>Every channel tested</strong><small>Not proof of no leakage</small><div class="state teal">● No trigger</div></div>
+<div class="stage"><div class="stage-number">03 / HOLDOUT</div><strong>No control gain</strong><small>Pooled official-formula DTI</small><div class="state red">● Not promoted</div></div>
+<div class="stage"><div class="stage-number">04 / UNIQUENESS</div><strong>Overlap stop</strong><small>Surface checked first</small><div class="state red">● Duplicate rule fired</div></div>
+<div class="stage"><div class="stage-number">05 / SLOT</div><strong>Submission blocked</strong><small>Selector not invoked</small><div class="state red">● Zero slots used</div></div></div></section>
+<div class="grid two"><article class="card"><p class="eyebrow">Scientific record</p><h3>Why the earlier H33 file was worth studying</h3><p>Its geometry is exactly an earlier field with near-catalogue flanks pruned away. That can remove low-credit mass; it is not a new fault detector, and the reported historical result has no receipt here.</p><a href="science.html" class="read-more">Read the measured ancestry &amp; metric derivation →</a></article>
+<article class="card"><p class="eyebrow">Next decision</p><h3>Resolve the rule before another experiment</h3><p>Byte freshness is not geometric uniqueness. The next run needs an explicit resolution of saturated-support overlap and a separately authorized lane—not another renamed file.</p><a href="science.html#next-session-priorities-not-performed-after-the-stop" class="read-more">See the actionable research queue →</a></article></div>
+<section><div class="section-heading"><h2>Official context, clearly separated.</h2><a class="small-link" href="sources.html">Sources &amp; freshness →</a></div><div class="neutral-notice"><p style="margin:0">The recorded public leader is <strong data-leaderboard-value>{leader}</strong> (observation: <span data-leaderboard-observed>{leader_date}</span>). This is a <strong>public-leaderboard observation</strong>, not an organizer submission receipt for our file. Historical claims and local HOLDOUT-DTI are never treated as interchangeable scores.</p><p class="tiny" data-feed-detail>Official page retrieved 22 October 2026; automated feed status loads separately.</p></div></section>'''
+    page('index.html', 'Research dashboard', body, card=card)
+
+
+def build_executive(card):
+    h = card['holdout_dti']['downloadable_continuous_artifact']
+    body = f'''<div class="page-heading"><p class="eyebrow">Executive summary / file to submit</p><h1>Get the file.<br>Know the decision.</h1><p>The current download is a newly generated research GeoTIFF. It passes local file checks, but it is <strong>not approved for competition submission</strong>.</p></div>{download(card, full=True)}
+<div class="badge-stack">{pill('Local format: pass','pass')}{pill('Quality: no gain')}{pill('Uniqueness: fail')}{pill('Weekly slot: blocked')}</div>
+<section class="prose"><h2>What you are downloading</h2><p>A <strong>single-band float32 GeoTIFF</strong> of H87 magnetic-texture confidence, aligned to the pinned sample grid. It is not a PDF, an HTML page, an organizer receipt, or a copied prior submission. The ZIP contains exactly that one TIFF.</p>
+<div class="table-wrap"><table class="status-table"><tbody><tr><td>Submission identification</td><td>{esc(card['submission_name'])}</td></tr><tr><td>Scientific decision</td><td><strong class="red">Negative · DO NOT SUBMIT</strong></td></tr><tr><td>Downloaded representation</td><td>Continuous research confidence, not a final dot-placement file.</td></tr><tr><td>HOLDOUT-DTI for that representation</td><td>{h['dti']:.6f}; 95% CI [{h['ci95'][0]:.6f}, {h['ci95'][1]:.6f}]; {h['withheld_positive_pixels']:,} withheld positives; {esc(h['evaluator_version'])}.</td></tr><tr><td>Organizer-confirmed score</td><td>None. No upload acceptance or submission-page receipt.</td></tr><tr><td>Current account cap / remaining slots</td><td>Unknown: submission page redirects to login. Zero slots used here.</td></tr><tr><td>SHA-256</td><td><code>{card['raster_sha256']}</code></td></tr></tbody></table></div>
+<h2>Identification &amp; short note</h2><p>These identify the research artifact. They are not a recommendation to upload it.</p>
+<div class="copy-box"><code id="submission-name">{esc(card['submission_name'])}</code><button class="copy-button" type="button" data-copy="submission-name">Copy name</button></div>
+<div class="copy-box"><code id="submission-note">{esc(card['submission_note'])}</code><button class="copy-button" type="button" data-copy="submission-note">Copy note</button></div><p class="tiny">{len(card['submission_note'])} characters · limit 140. <span class="copy-feedback" role="status" aria-live="polite" id="copy-feedback"></span></p>
+<h2>Why the project says no</h2><p><strong>Additional defect IR87-016:</strong> the original experiment omitted an explicit outer-grid guard. Current code is fixed and tested synthetically, but this frozen negative was not recomputed after the stop.</p><ol><li>The strongest comparable magnetic control was not beaten with a positive paired lower confidence bound.</li><li>The literal overlap test fails against a continuous registry raster that covers every allowed location. Renaming or changing compression cannot make this a unique lane.</li><li>One registry candidate is malformed, and the authenticated portal cap and receipts are unavailable. Neither absence is silently treated as clearance.</li></ol>
+<div class="notice"><strong>No human inspector is required for these local checks.</strong><p>The pipeline automatically checks actual raster bytes and scientific gates. But software cannot manufacture hidden fault truth, an organizer receipt, legal eligibility, or a logged-in account's current cap. The competition's later expert-review stage is external to this project.</p></div>
+<h2>The exact submission process—for a future cleared file only</h2><p><strong>Do not perform the following upload steps with this negative artifact.</strong> A real submission requires a future independent selector authorization after all gates pass.</p><ol class="steps"><li><strong>Check the file-specific decision.</strong> Confirm the exact hash, format validator, individual feature canaries, spatial holdout improvement, and complete scoped registry clearance. A format PASS alone is not sufficient.</li><li><strong>Obtain separate selector authorization.</strong> The selector must read the actual current cap and remaining usage on the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">authenticated submission page</a>. This run did not select an entry. The rules PDF's weekly limit is not an account-specific receipt.</li><li><strong>Download the cleared .tif or its one-TIFF .zip.</strong> On DrivenData choose <em>New submission → File to submit</em>, then select that TIFF or ZIP—not this website, JSON, or executive summary.</li><li><strong>Use the exact identification and short note.</strong> Keep it within the project limit, and retain the file SHA-256 with the submission-page receipt. Do not represent a projected or holdout value as an organizer score.</li><li><strong>Record the organizer response.</strong> Only a real receipt can establish upload acceptance and the score of that exact artifact. Eligibility and any required generative-AI narrative disclosure still apply.</li></ol>
+<h2>Preventing “Predicted values must be in range [0, 1]”</h2><p>The shared writer rejects invalid values instead of silently repairing them. The published file is re-read: every cell is finite and within [0,1], no nodata tag is carried, and grid metadata match the pinned sample. A second check verifies the ZIP's bytes and CRC. This is a conservative local policy, not proof of portal behavior or a diagnosis of your earlier failed file.</p><p>The official public description permits NaN outside the footprint. We do not assert that NaN caused the earlier error. See the <a href="validation.html">complete automated validation</a> and <a href="sources.html">official specification links</a>.</p></section>'''
+    page('executive-summary.html', 'Executive summary & submission guide', body, card=card)
+
+
+def render_markdown(text):
+    html = markdown.markdown(text, extensions=['tables', 'fenced_code', 'toc'])
+    # Keep one semantic page h1; Markdown documents become nested sections.
+    for level in range(5, 0, -1):
+        html = re.sub(fr'<(/?)h{level}(?=[ >])', fr'<\g<1>h{level + 1}', html)
+    # Markdown tables need a bounded scroll container on small screens. Do not
+    # conceal overflowing scientific evidence with overflow:hidden on the page.
+    return html.replace('<table>', '<div class="table-wrap"><table>').replace('</table>', '</table></div>')
+
+
+def build_science(card):
+    analysis = render_markdown((ROOT / 'research/analysis.md').read_text())
+    hypotheses = render_markdown((ROOT / 'research/hypotheses.md').read_text())
+    body = f'''<div class="page-heading"><p class="eyebrow">Research / hypotheses / negative evidence</p><h1>Measure the hypothesis.<br>Keep the counterevidence.</h1><p>Physical plausibility earns an experiment, not a favorable conclusion. The preregistered magnetic-texture hypothesis did not pass the improvement gate.</p></div><div class="notice"><strong>Scientific optimization stopped.</strong> Only one fixed experiment was run. The other hypotheses below are a future queue, not extra tested candidates. No final dots were placed after the registry stop.</div><div class="anchor-list"><a href="#hypotheses">Ranked hypotheses</a><a href="#research-report">Result &amp; H33 analysis</a><a href="evidence/holdout.json">Raw holdout evidence</a></div>
+<section id="hypotheses" class="prose">{hypotheses}</section><hr class="rule"><section id="research-report" class="prose">{analysis}</section>'''
+    page('science.html', 'Research & measured findings', body, card=card)
+
+
+def build_validation(card):
+    validation = load('docs/evidence/independent_validation.json')
+    rows = ''.join(f'<tr><td>{esc(k.replace("_", " "))}</td><td>{pill("PASS", "pass") if v else pill("FAIL")}</td></tr>'
+                   for k, v in validation['validator']['checks'].items())
+    holdout = load('evidence/holdout.json')
+    canaries = []
+    for name in holdout['folds'][0]['canaries']:
+        vals = [f['canaries'][name]['two_sided_auc'] for f in holdout['folds']]
+        canaries.append(f'<tr><td><code>{esc(name)}</code></td><td>{max(vals):.6f}</td><td>No trigger; not proof of no leakage</td></tr>')
+    scores = holdout['pooled']['scores']
+    metric_rows = ''.join(f'<tr><td>{esc(name)}</td><td>{v["dti"]:.6f}</td><td>[{v["ci95"][0]:.6f}, {v["ci95"][1]:.6f}]</td></tr>' for name, v in scores.items())
+    meta = validation['validator']['meta']
+    body = f'''<div class="page-heading"><p class="eyebrow">Automated validation / no manual inspection gate</p><h1>Format-valid is not<br>submission-approved.</h1><p>Independent checks reopen the exact TIFF and ZIP. Scientific quality, uniqueness, source authenticity, and slot authorization are separate decisions.</p></div>
+<div class="grid two"><article class="card"><p class="metric-label">Independent local file preflight</p><h2 class="teal" style="margin:0">PASS</h2><p>No NaN inside the footprint, finite [0,1] values, matching CRS/shape/transform, and exactly one byte-matching TIFF inside the ZIP.</p><a class="read-more" href="evidence/independent_validation.json">Read validator output →</a></article><article class="card"><p class="metric-label">Competition decision</p><h2 class="red" style="margin:0">DO NOT SUBMIT</h2><p>Neither local preflight nor a fresh hash can override a negative holdout or duplicate gate. No organizer score or weekly-slot authorization exists for this file.</p><a class="read-more" href="evidence/run_card.json">Read the complete run card →</a></article></div>
+<div class="section-heading"><h2>Checks on the written bytes</h2><p>Re-read from the downloadable file, not inferred from model code.</p></div><div class="table-wrap"><table><thead><tr><th>Local format check</th><th>Result</th></tr></thead><tbody>{rows}</tbody></table></div>
+<div class="neutral-notice"><strong>Measured grid:</strong> {esc(meta['crs'])} · {meta['shape'][0]} rows × {meta['shape'][1]} columns · {esc(meta['dtype'])} · {meta['count']} band. <strong>Transform:</strong> <code>{esc(str(meta['transform']))}</code><br><strong>ZIP:</strong> one TIFF, identical bytes, CRC verified. <strong>NoData:</strong> no tag. Zero-fill outside the footprint is the project's conservative range policy; official upload acceptance is not claimed.</div>
+<div class="notice"><strong>Frozen negative, original implementation:</strong> IR87-016 identifies an outer-grid boundary-guard defect in the measured experiment. Current code fixes it; only synthetic regressions were run on the fix. No corrected geophysical result is claimed. <a href="science.html#research-report">Read the exact limitation</a>.</div>
+<div class="section-heading"><h2>Hide-and-recover performance</h2></div><p class="score-note">Every value below is HOLDOUT-DTI · {esc(holdout['evaluator_version'])} · 60,988 withheld positives · 95% conditional physical-cluster CI. No organizer/private-test score or projection.</p><div class="table-wrap"><table><thead><tr><th>Fixed arm / representation</th><th>HOLDOUT-DTI</th><th>95% CI</th></tr></thead><tbody>{metric_rows}</tbody></table></div><p class="tiny">Binary placement diagnostics were computed only for holdout evaluation. The downloadable file is the continuous diagnostic representation; final submission dot placement was stopped.</p>
+<div class="section-heading"><h2>Individual feature leakage canaries</h2><p>HOLDOUT-AUC-CANARY · maximum two-sided AUC across fixed quadrants</p></div><div class="table-wrap"><table><thead><tr><th>Feature/input/control</th><th>Largest two-sided AUC</th><th>Decision, threshold &gt;0.90</th></tr></thead><tbody>{''.join(canaries)}</tbody></table></div><p class="tiny">Every feature was tested before trusting its fold result. Catalogue-zero negatives are unlabelled proxies. A low AUC is not a guarantee against leakage.</p>
+<section class="prose"><h2>Run the same inspection</h2><pre><code>.venv/bin/python scripts/check_submission.py --format-only
+# exit 0: local file format only
+.venv/bin/python scripts/check_submission.py
+# exit 2: current research artifact is NOT cleared to submit</code></pre><p>The validator never uploads, uses no human inspector, and offers no override for this scientific negative. Input mirrors and shared-tool hashes are also verified before the scientific runner can execute.</p><h2>Three-pass software review</h2><p>The implementation, edge-case review, and final request-to-evidence audit are recorded in <a href="verification.html">the verification log</a>. Unit/regression tests do not reopen the stopped scientific experiment.</p></section>'''
+    page('validation.html', 'Automatic file & scientific validation', body, card=card)
+
+
+def build_registry(card):
+    info = card['correlation_overlap_vs_registry']
+    rows = []
+    for phase, key in [('Before final placement', 'surface_before_placement'), ('Serialized research artifact', 'serialized_artifact')]:
+        for r in info[key]:
+            rows.append(f'<tr><td>{phase}</td><td class="long-id">{esc(r["submission"])}</td><td>{r["spearman_full_footprint"]:.6f}</td><td>{r["my_dots_within_3px_of_theirs"]:.2%}</td><td>{pill("STOP") if r["duplicate_by_overlap"] or r["duplicate_by_rho"] else "No trigger in this comparison"}</td></tr>')
+    sites = load('evidence/site_inventory.json')
+    site_rows = []
+    for r in sites['repos']:
+        site_rows.append(f'<tr data-search-row><td><a href="{esc(r["website"], quote=True)}">{esc(r["repo"])}</a></td><td><a href="https://github.com/buffedlizard55-lab/{esc(r["repo"])}/tree/{r["commit"]}"><code>{r["commit"][:12]}</code></a></td><td>Git tree fetched; editorial claims not authenticated</td></tr>')
+    historical = load('registry/historical_index.json')
+    claim_rows = []
+    for r in historical['scored']:
+        url = f'https://github.com/buffedlizard55-lab/{r["repo"]}/blob/{r["blob"]}/{r["path"]}'
+        # Blob IDs cannot be used as commit IDs in a GitHub /blob/<commit>/path
+        # link. The immutable API object is the correct link for this manifest.
+        url = f'https://api.github.com/repos/buffedlizard55-lab/{r["repo"]}/git/blobs/{r["blob"]}'
+        claim_rows.append(f'<tr><td>{esc(r["site_repo"])}</td><td class="long-id"><a href="{esc(url, quote=True)}">{esc(r["submission_name"])}</a></td><td>Unverified historical claim; no submission-page receipt</td></tr>')
+    body = f'''<div class="page-heading"><p class="eyebrow">Registry / immutable evidence / strict stop</p><h1>Fresh bytes.<br>Not a uniqueness clearance.</h1><p>The method generated a different raster from magnetic measurements. The literal overlap rule still rejects it. We do not rename that rejection into success.</p></div>
+<div class="grid three"><article class="card"><p class="metric-label">Repository snapshots</p><div class="metric">{info['inventory_repositories']}</div><p>Accessible owner default branches, pinned to immutable commits.</p></article><article class="card"><p class="metric-label">Valid unique grid TIFFs</p><div class="metric">{info['inventory_valid_unique_rasters']:,}</div><p>Historical pins union current trees. One malformed candidate remains an error.</p></article><article class="card"><p class="metric-label">Candidate comparisons</p><div class="metric">{info['candidate_rasters_compared']}</div><p>Educational H33 reference + a decisive blocking witness. Not an exhaustive candidate clearance.</p></article></div>
+<section class="prose"><h2>The stop proof</h2><p>The shared saturation certificate finds that one earlier continuous field covers <strong>all 5,106,385 allowed off-catalogue cells</strong> within 3 px. Every nonempty dot set on that domain therefore has 100% forward overlap with that registry raster, above the stated 70% limit.</p><p>A continuous field is not evidence that the new detector copied a method. But the prompt's literal rule treats every finite positive pixel as a dot; we did not exempt dense fields, use reverse overlap instead, or change the threshold.</p><div class="notice"><strong>Stopped before final dot placement.</strong><p>A new continuous research TIFF is retained for reproducibility and format inspection. Its positive support is checked below. No final submission dot file was generated after the stop.</p></div><p><a href="evidence/registry_saturation_witness.json">Shared saturation certificate</a> · <a href="evidence/registry_inventory.json">Pinned inventory with exclusions and errors</a></p></section>
+<div class="table-wrap"><table><thead><tr><th>Phase</th><th>Registry reference</th><th>Spearman rho</th><th>Forward 3 px overlap</th><th>Literal result</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div><p class="score-note">REGISTRY-MEASUREMENT, not a performance score. Thresholds: rho &gt;0.90 OR forward overlap &gt;0.70. Byte freshness was checked against all restored valid-file hashes; geometric comparisons were deliberately stopped at the decisive witness. Private/unlinked/inaccessible/later files are not covered.</p>
+<div class="notice"><strong>Malformed source retained as an error:</strong> <code>GEMSDOE63:docs/downloads/smoke.tif</code> is missing the required TIFF StripOffsets field. A failed read is not evidence of uniqueness.</div>
+<p class="score-note"><a href="data/prior_catalog.json">Per-repository prior-approach metadata catalog</a>: filenames and quarantined claim-reference counts, not a full code/editorial audit or authenticated result comparison.</p>
+<div class="section-heading"><h2>Auditable website/repository inventory</h2><p>Tree coverage is not editorial verification of every website claim.</p></div><div class="filter"><label for="repo-filter">Find a repository</label><input id="repo-filter" type="search" placeholder="e.g. GEMSDOE32" data-filter="repo-table" autocomplete="off"><span class="tiny" id="filter-count" aria-live="polite"></span></div><div class="table-wrap"><table id="repo-table"><thead><tr><th>Project site</th><th>Immutable tree source</th><th>What was checked</th></tr></thead><tbody>{''.join(site_rows)}</tbody></table></div>
+<details><summary>Historical artifact references — claims quarantined, not organizer-confirmed scores</summary><p class="tiny">These references come from the inherited owner registry. Their numeric historical claims are preserved only in the original brief and source manifest, not relabelled as HOLDOUT-DTI or organizer receipts. None was a candidate input or a promotion target.</p><div class="table-wrap"><table><thead><tr><th>Site</th><th>Submission reference / immutable blob</th><th>Evidence state</th></tr></thead><tbody>{''.join(claim_rows)}</tbody></table></div></details>'''
+    page('registry.html', 'Registry & uniqueness stop', body, card=card)
+
+
+def build_sources(card):
+    sources = load('registry/sources.json')
+    next_steps = load('docs/data/next_steps.json')
+    suggestions = ''.join(f'<article class="card"><p class="eyebrow">Priority {item["priority"]} · read-only suggestion</p><h3>{esc(item["title"])}</h3><p>{esc(item["reason"])}</p><p class="tiny">{esc(item["execution_scope"])}</p></article>' for item in next_steps['actions'])
+    rows = []
+    for s in sources['sources']:
+        rows.append(f'''<article class="source-row" id="source-{esc(s['id'])}"><div><p class="eyebrow">{esc(s['id'])}</p><p>{esc(s['authority'])}</p><a class="small-link" href="{esc(s['url'], quote=True)}">Open original ↗</a></div><div><h3>{esc(s['title'])}</h3><p class="quote">{esc(s['verified_claim'])}</p><p><strong>Scope / limitation:</strong> {esc(s['qualification'])}</p><p><strong>Reviewed:</strong> {esc(s['retrieval'])} · {esc(s['locator'])}</p></div></article>''')
+    body = f'''<div class="page-heading"><p class="eyebrow">Official sources / claim-level provenance</p><h1>Evidence you can trace.</h1><p>Each assertion has an original source and a scope limit. An accessible page is not automatically a verified claim; a mirror hash is not official authentication.</p></div><div class="neutral-notice"><strong data-feed-state>Dated source-health snapshot · see Sources</strong><p class="tiny" data-feed-detail>Research pages were retrieved on 22 October 2026. Automated URL-health results are displayed separately and do not certify scientific content or submission acceptance.</p><p class="tiny">Scheduled refresh attempts occur independently of scientific runs; failed or stale checks are shown, never replaced with a fabricated current observation. <a href="data/feed.json">Read raw feed</a>.</p></div>
+<section id="next-steps"><div class="section-heading"><h2>Automatically derived next steps</h2><a class="small-link" href="data/next_steps.json">Read suggestion feed →</a></div><p class="score-note">Generated from recorded gates and current URL-health status. These suggestions do not run experiments, verify new geological claims, or authorize a slot.</p><div class="grid two">{suggestions}</div></section>
+{''.join(rows)}<section class="prose"><h2>Additional links from the original brief</h2><p><a href="https://epsg.io/32611">EPSG:32611 reference</a> and <a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky background</a> are useful reading, but are not substituted for the organizer's metric formula or the actual sample grid. Dropbox copies were not required because pinned GitHub mirrors were obtained; no Dropbox authentication or availability is claimed.</p><h2>Access limitations</h2><p>The sandbox's direct network transport is restricted. The research retrieval tool could read public official pages, while autonomous data restoration used the permitted GitHub API. The source-health checker records transport failures rather than guessing. DrivenData originals, account-specific cap/usage, and submission receipts require an authorized connection. No credentials were requested or stored.</p><h2>Rules and AI disclosure</h2><p>The official rules require truthful provenance, reproducible assets, eligibility, and generative-AI-use disclosure. An Arena.ai agent assisted with research, coding, validation, and documentation. It did not fabricate measurements, labels, organizer acceptance, or competition scores. No competition entry was submitted.</p><p><a href="verification.html">Three-pass review &amp; irregularities →</a></p></section>'''
+    page('sources.html', 'Official sources & live feed health', body, card=card)
+
+
+def build_verification(card):
+    content = '\n\n'.join((ROOT / f'research/{name}.md').read_text() for name in ('irregularities', 'verification') if (ROOT / f'research/{name}.md').exists())
+    body = '<div class="page-heading"><p class="eyebrow">Verification / limitations</p><h1>Own the full outcome.</h1><p>Known failures, review passes, and remaining requirements stay visible.</p></div><div class="prose">' + render_markdown(content) + '</div>'
+    page('verification.html', 'Verification & irregularities', body, card=card)
+
+
+def main():
+    card = load('docs/evidence/run_card.json')
+    if card['safe_to_submit'] or card['verdict'] != 'negative':
+        raise ValueError('This build is for the recorded negative, not a fabricated promotion')
+    if not (DOCS / 'evidence/independent_validation.json').is_file():
+        raise FileNotFoundError('Run independent on-disk validation first')
+    DOCS.mkdir(exist_ok=True)
+    for build in (build_home, build_executive, build_science, build_validation, build_registry, build_sources, build_verification):
+        build(card)
+    (DOCS / '.nojekyll').write_text('')
+    (ROOT / '.nojekyll').write_text('')
+    (ROOT / 'index.html').write_text('''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=docs/index.html"><title>GEMSDOE87 — new research GeoTIFF, DO NOT SUBMIT</title></head><body><h1>GEMSDOE87</h1><p><strong>New GeoTIFF available; research only — DO NOT SUBMIT.</strong></p><p><a href="docs/index.html">Open research dashboard and download</a></p></body></html>''')
+    (ROOT / 'executive-summary.html').write_text('''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=docs/executive-summary.html"><title>GEMSDOE87 submission guide</title></head><body><p><a href="docs/executive-summary.html">Executive summary and submission guide — current file: DO NOT SUBMIT</a></p></body></html>''')
+    # Raw linked evidence, without raw raster/data caches.
+    for source, dest in [('registry/sources.json', 'data/sources.json'), ('evidence/site_inventory.json', 'data/site_inventory.json')]:
+        shutil.copyfile(ROOT / source, DOCS / dest)
+    print('Built static pages from the recorded negative; no scientific computation or slot selection.')
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

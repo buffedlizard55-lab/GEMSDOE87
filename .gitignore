@@ -1,0 +1,15 @@
+.venv/
+.cache/
+data/raw/
+data/derived/
+data/bridge/
+artifacts/
+__pycache__/
+.pytest_cache/
+*.pyc
+node_modules/
+playwright-report/
+.DS_Store
+*.partial
+*.assembling
+data/official/
