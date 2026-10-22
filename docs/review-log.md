@@ -64,3 +64,4 @@
 - Re-ran the suite under the base interpreter without raster dependencies; tests now complete successfully and explicitly skip only the rasterio/NumPy cases.
 - No holdout, leakage canary, DTI, confidence interval, registry comparison, TIFF generation, or competition entry was performed. No numerical score is claimed. No external data or credentials were used.
 - `origin/main` advanced during this review; synchronized the active branch with the merged Pages download-packaging change, current landing-page typo fix, and prior CI updates. Updated the push trigger to this fixed branch and preserved the existing review history.
+- After synchronization, re-ran compileall, all **25 unit tests** in both the base interpreter (raster-only tests skipped because optional libraries are absent) and the isolated validation environment, plus `git diff --check`; all passed.

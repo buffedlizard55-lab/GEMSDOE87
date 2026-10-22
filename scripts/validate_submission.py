@@ -349,7 +349,7 @@ def main(argv: list[str] | None = None) -> int:
                 protected_paths.append(("footprint-mask", args.footprint_mask))
             report_path = _distinct_output_path(args.report, protected_paths)
         result = validate_submission(args.prediction, args.reference, args.footprint_mask)
-    except (RuntimeError, ValueError) as exc:
+    except (OSError, RuntimeError, ValueError) as exc:
         print(json.dumps({"ready": False, "errors": [str(exc)]}, indent=2), file=sys.stderr)
         return 2
 
@@ -358,7 +358,7 @@ def main(argv: list[str] | None = None) -> int:
     if report_path is not None:
         try:
             _write_json_report(report_path, rendered)
-        except OSError as exc:
+        except (OSError, ValueError) as exc:
             print(json.dumps({"ready": False, "errors": [f"could not write report: {exc}"]}, indent=2), file=sys.stderr)
             return 2
     return 0 if result["ready"] else 1
