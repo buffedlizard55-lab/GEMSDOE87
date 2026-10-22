@@ -3,6 +3,8 @@
 > **Submission status: NOT READY.** No competition TIFF is currently available to download or submit. This checkout does not contain the training rasters, the cached feature stack, the shared holdout evaluator/writer, registry rasters, or a validated candidate. Do not upload a placeholder.
 >
 > **Start here:** [Project overview](index.html) · [Executive summary: how to submit](executive-summary.html) · [Research plan](research.html) · [Verified-source register](sources.html)
+>
+> **Direct answer to "where is the downloadable TIF?" (2026-10-22):** none can be produced or validated from this checkout. The competition rasters, the official sample grid, the holdout evaluator, and the registry rasters are not in the repo, and the sandbox cannot reach DrivenData. Nothing has been fabricated, and no download is offered. What is needed is listed under [Limitations and access needed](#limitations-and-access-needed). The H33 0.2778 question is answered in [`docs/h33-claim-check-2026-10-22.md`](docs/h33-claim-check-2026-10-22.md): 0.2778 appears in no source file, and the H33 file is labelled UNSCORED.
 
 ## Mission and operating principles
 
@@ -67,14 +69,15 @@ The first is the provisional top candidate because it requires only feature fami
 - [`scripts/validate_submission.py`](scripts/validate_submission.py) is a read-only final-byte preflight; it is not a model writer or holdout evaluator. Example after the authorized files are present:
 
   ```bash
+  python3 -m venv .venv && . .venv/bin/activate
   python -m pip install -r requirements-validation.txt
-  python scripts/validate_submission.py \\
-    --prediction path/to/candidate.tif \\
-    --reference data/sample_submission.tif \\
+  python scripts/validate_submission.py \
+    --prediction path/to/candidate.tif \
+    --reference data/sample_submission.tif \
     --report evidence/validation.json
   ```
 
-Run the local test suite with `python -m unittest discover -s tests -v`. The official sample's validity mask and any optional footprint mask must be confirmed against the actual competition files before using the validator for a real submission.
+Run the local test suite inside the same virtual environment with `python -m unittest discover -s tests -v`. On Debian/Ubuntu system Python, install into a venv: a bare `pip install` is refused under PEP 668 and the validator tests then fail with a missing-numpy error. On 2026-10-22, after merging `origin/main` (PR #8), all 25 tests passed in a venv with numpy 2.4.6 and rasterio 1.4.4; the base interpreter skips the 13 raster tests. The official sample's validity mask and any optional footprint mask must be confirmed against the actual competition files before using the validator for a real submission.
 
 ## Run card — this checkout
 
@@ -108,7 +111,30 @@ Run the local test suite with `python -m unittest discover -s tests -v`. The off
 }
 ```
 
-## Next steps and limitations
+## Limitations and access needed
+
+| # | Limitation | What unblocks it | Status (2026-10-22) |
+|---|---|---|---|
+| 1 | Competition data (`training_features`/`numeric_features`, `labels`, `sample_submission`) must be downloaded by an authorized DrivenData account. | User downloads into `data/` on an unrestricted machine, or grants a sandbox with DrivenData access. | Blocked. DrivenData unreachable. |
+| 2 | Official sample grid (CRS, shape, transform, footprint mask) is needed to validate any TIF. | Same download as row 1. Owner-reported grid for H33 (EPSG:32611, 3730×3292) is not accepted without a check against the official file. | Blocked. |
+| 3 | Shared holdout evaluator, cached feature stack, and submission writer are referenced by the protocol but not present, and no metric code was found. | Locate the shared template and its exact files, or the user supplies them. Do not reimplement from memory. | Missing. |
+| 4 | Registry rasters for the novelty gate. Sibling GEMSDOE TIFs are on GitHub and downloadable (e.g., GEMSDOE32 `docs/downloads/`), which resolves part of this. | Build the registry from GitHub; use only for comparison, never as a submission. | Partly available; not built yet. |
+| 5 | Live leaderboard and submission-page receipts. The sandbox cannot read DrivenData. Scores in this repo are owner claims unless a receipt is provided. | User reads the live leaderboard and provides receipts or screenshots with dates. | Blocked. Three conflicting top values in circulation ([IR-87-15](docs/irregularities.md)). |
+| 6 | The official rules PDF and the problem page were cited in earlier sessions but cannot be re-read from the sandbox. | Re-read from an unrestricted network; record date and hash. | Unverified in this session. |
+| 7 | The reference notebook writes float64, not float32 ([IR-87-17](docs/irregularities.md)). | Any reference-derived output must be cast and re-validated. | Open. |
+| 8 | Generative-AI disclosure and the single-final-selection rule (from the rules PDF read earlier) must appear in the final entry. | Entrant completes the narrative and selects one entry on the portal. | Not yet applicable. |
+
+The user's account is the entrant. This project does not collect or store credentials, and no file is uploaded automatically.
+
+## Next steps (for the next session)
+
+1. Obtain the competition data through the user's authorized DrivenData account. Place files in `data/`, record SHA-256 hashes, and re-read the sample grid.
+2. Locate or confirm the shared template (`evaluate_holdout.py`, `submission_writer.py`, cached feature stack). If it does not exist, say so and ask the user before writing anything new.
+3. Build the registry from GitHub-hosted GEMSDOE TIFs for the novelty gate, then run the surface and dot-overlap checks on any candidate.
+4. Run one matched baseline/candidate pair for the top preregistered lane, with leakage canary and paired CI, before using any weekly slot.
+5. Read the live leaderboard once and record the date. Resolve IR-87-14 and IR-87-15 with receipts.
+
+## Previous next-steps list (superseded by the section above)
 
 1. Locate/restore the shared template and its exact `evaluate_holdout.py`, `submission_writer.py`, cached feature stack, and registry rasters into the working environment; do not reimplement them here.
 2. Obtain competition data via authorized DrivenData access. The public page read in this review redirected to login, and no credentials are available in this environment. Do not put secrets or large data files in Git.

@@ -23,3 +23,15 @@
 - The Dropbox URLs pasted in the user request were not downloaded or independently authenticated in this session. They are not classified as official source links in this audit.
 - No external raster was downloaded, no competition data file was hashed, and no local GeoTIFF format claim is made.
 - Links to current pages are mutable; this audit records when they were read and the scope of each claim.
+
+## Session addendum — 2026-10-22 (second review pass)
+
+Reachability was tested with `curl` from the sandbox. Only GitHub, PyPI and npm answered; every official competition, USGS, OpenEI, NLR, EPSG and Dropbox host returned no response (HTTP 000). Therefore the rows above that say "read directly" were **not re-read in this session**; they stand as the earlier session's records.
+
+| Source read this session | Method | Link for manual review | Result |
+|---|---|---|---|
+| Official reference solution, commit `aebe92f7c8a990f0e3443451b7a825d9afd6336b` | `git clone --depth 1` | [repo](https://github.com/drivendataorg/gems-prize-reference-solution) · [notebook](https://github.com/drivendataorg/gems-prize-reference-solution/blob/main/unet-mc-cv-reference-solution.ipynb) | Reads `data/numeric_features.tif` and `data/labels.tif`; output via `dtype=y_final.dtype` from float64 array ([IR-87-17](irregularities.md)). Says data must be downloaded from the competition site by the user. |
+| GEMSDOE32 repo, commit `780a5a534269c79adfe6d1d7d5aadead161332aa` | `git clone` + GitHub API | [repo](https://github.com/buffedlizard55-lab/GEMSDOE32) | H33-2-B2 audit labels the file UNSCORED; `0.2778` absent from the tree and all history ([h33 check](h33-claim-check-2026-10-22.md)). |
+| H33-2-B2 `zeros.tif` | GitHub API raw download, SHA-256 and rasterio read | [file](https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif) | Hash `c55bafc4…ab6fa9` matches audit; EPSG:32611, 3730×3292, float32, binary 0/1. Not used as a submission. |
+| GEMSDOE32 leaderboard snapshot 2026-10-04 | GitHub API | [snapshot](https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/registry/leaderboard_snapshot_2026-10-04.json) | Owner transcription of the official page on that date; top 0.3262, DARD 0.3195 at rank 3. Not re-read live. |
+| DrivenData leaderboard, data tab, problem page | Attempted `curl` | [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) · [data](https://www.drivendata.org/competitions/306/competition-doe-gems/data/) · [problem](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) | **Unreachable** from the sandbox (HTTP 000). Not verified this session. |
