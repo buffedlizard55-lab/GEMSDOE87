@@ -26,3 +26,12 @@
 - Confirmed internal page links resolve, Python files compile, the unit test suite passes, and `git diff --check` is clean.
 - The initial push-triggered GitHub Pages workflow succeeded after PR #3 merged (run [39862945753](https://github.com/buffedlizard55-lab/GEMSDOE87/actions/runs/39862945753)). The live [landing page](https://buffedlizard55-lab.github.io/GEMSDOE87/) shows the blocked status, and its [published feed](https://buffedlizard55-lab.github.io/GEMSDOE87/data/feed.json) was refreshed at 2026-10-22 22:10 UTC. It reports the official data tab as login-required and public source pages as reachable; it does not collect or publish scores. This verifies one automated refresh and deployment, not the daily schedule, which has not yet run.
 - Final scientific result: negative / blocked. No geological experiment was run, no competition slot was used, no candidate GeoTIFF was generated, and no competition score is claimed.
+
+## Follow-up review in this session (2026-10-22 UTC)
+
+- Read the project brief, research plan, status/run-card JSON, source and irregularity audits, Pages scripts, workflows, and tests before making changes.
+- Found a deployment gap: the readiness page could point to `downloads/<file>.tif`, but the Pages packaging step did not copy the `downloads/` directory into the published site. Updated the workflow to publish that directory when it exists; no file is present now and the status remains blocked.
+- Updated the test workflow's push branch from a stale prior Arena branch to this session's fixed branch, so CI can run on this work branch.
+- Fixed a small landing-page typo in the P(Win) value statement and recorded the conflicting user-reported leaderboard maxima (0.4413 and 0.3195) as unverified claims, not scores.
+- The first local test invocation could not import optional raster libraries. Installed only the pinned project validation requirements into the repository's ignored `.venv/`; the complete suite then passed: 22 tests, using synthetic rasters strictly for validator behavior.
+- Final checks still confirm the scientific work is blocked: competition inputs, shared evaluator/writer, and registry are absent. No TIFF, score, novelty result, or eligibility to submit can be honestly claimed.
