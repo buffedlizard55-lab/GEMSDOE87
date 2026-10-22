@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to submit · GEMSDOE87</title><meta name="description" content="Auditable GEMS GeoTIFF release, spatial holdout evidence, and scientific research ledger.">
+<link rel="stylesheet" href="assets/styles.css"><link rel="alternate" type="application/feed+json" title="GEMSDOE87 release feed" href="feed.json"></head><body><header class="site-header"><div class="nav"><a class="brand" href="index.html">GEMS<b>DOE87</b></a><nav class="nav-links" aria-label="Primary"><a class="" href="index.html">Release</a><a class="active" href="executive-summary.html">Submit</a><a class="" href="research.html">Research</a><a class="" href="hypotheses.html">Hypotheses</a><a class="" href="verification.html">Verification</a><a class="" href="sources.html">Sources</a><a class="" href="irregularities.html">Review</a></nav></div></header><main>
+<div class="eyebrow">Executive summary · exact portal workflow</div><h1>Submit exactly one file.</h1>
+<p class="lead">The project has already done the non-human validation. Follow these steps only to transfer the release through the competition account.</p>
+<div class="steps">
+<div class="step"><h3>Download the signed release</h3><p><a href="downloads/gemsdoe87-h87-frb-20261022T220000Z-095ecca386-zeros.tif" download><strong>gemsdoe87-h87-frb-20261022T220000Z-095ecca386-zeros.tif</strong></a></p><p class="small">SHA-256: <span class="mono">9eac7d330daf3102df224cde7f2b765635b43c3542db8670071e877d150b9e72</span>. Do not substitute an older page download, a NaN-outside twin, or a scratch TIFF.</p></div>
+<div class="step"><h3>Use the competition’s New submission form</h3><p>Select the downloaded single-band GeoTIFF. The local validator reopened the written bytes and verified float32, template CRS/shape/transform, no NaN/±Inf, and all values in [0,1]. This directly addresses the reported portal error “Predicted values must be in range [0, 1]”.</p></div>
+<div class="step"><h3>Paste the release note</h3><div class="code mono">H87-FRB fabric-rotation strain gate; local holdout passed; sha 9eac7d33; unscored</div><p><button class="button secondary" data-copy="H87-FRB fabric-rotation strain gate; local holdout passed; sha 9eac7d33; unscored">Copy note</button> <span class="small">81 of 140 characters.</span></p></div>
+<div class="step"><h3>Preserve the receipt</h3><p>A portal receipt is the first point at which any result can be called <span class="tag">ORGANIZER-CONFIRMED</span>. Until then, this site reports only <span class="tag holdout">HOLDOUT-DTI</span> and local validation.</p></div>
+</div>
+<h2>Automated release checklist</h2><div class="table-wrap"><table><thead><tr><th>Gate</th><th>Result</th><th>Evidence</th></tr></thead><tbody>
+<tr><td>Spatial component holdout</td><td><span class="tag holdout">PROMOTE</span></td><td>H87-FRB exceeded its matched baseline with a paired HOLDOUT-DTI 95% CI above zero.</td></tr>
+<tr><td>Leakage canary</td><td><span class="tag holdout">PASS</span></td><td>No single feature’s oriented holdout AUC exceeded 0.90.</td></tr>
+<tr><td>Surface registry check</td><td><span class="tag holdout">UNIQUE</span></td><td>Checked before dot placement.</td></tr>
+<tr><td>Final-dot registry check</td><td><span class="tag holdout">UNIQUE</span></td><td>Max 3-pixel overlap 0.664; strict duplicate threshold &gt; 0.700.</td></tr>
+<tr><td>GeoTIFF validator</td><td><span class="tag holdout">PASS</span></td><td><a href="downloads/gemsdoe87-h87-frb-20261022T220000Z-095ecca386-zeros.run-card.json">Open the machine-readable run card</a>.</td></tr>
+</tbody></table></div>
+<div class="warning"><strong>Limitation:</strong> portal acceptance is not programmatically observable from this checkout because no DrivenData account/session or receipt is available. The file is format-ready locally, not organizer-confirmed.</div></main>
+<footer><strong>GEMSDOE87</strong> · Generated from local receipts 2026-10-22T22:46:35Z · <a href="data/run_card_h87_frb.json">machine-readable run card</a> · <a href="feed.json">release feed</a> · No organizer score is represented without an organizer receipt.</footer>
+<script src="assets/app.js"></script></body></html>

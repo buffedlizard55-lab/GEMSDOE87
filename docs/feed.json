@@ -1,0 +1,24 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "GEMSDOE87 release and evidence feed",
+  "home_page_url": "https://buffedlizard55-lab.github.io/GEMSDOE87/",
+  "feed_url": "https://buffedlizard55-lab.github.io/GEMSDOE87/feed.json",
+  "description": "Machine-readable local release updates. HOLDOUT-DTI is never an organizer score.",
+  "items": [
+    {
+      "id": "sha256:9eac7d330daf3102df224cde7f2b765635b43c3542db8670071e877d150b9e72",
+      "url": "https://buffedlizard55-lab.github.io/GEMSDOE87/downloads/gemsdoe87-h87-frb-20261022T220000Z-095ecca386-zeros.tif",
+      "title": "gemsdoe87-h87-frb-20261022T220000Z-095ecca386-zeros.tif \u2014 local release PROMOTE",
+      "date_published": "2026-10-22T22:46:35Z",
+      "content_text": "HOLDOUT-DTI 0.08787; local written-byte validator PASS; organizer receipt: absent; registry verdict: UNIQUE.",
+      "attachments": [
+        {
+          "url": "https://buffedlizard55-lab.github.io/GEMSDOE87/downloads/gemsdoe87-h87-frb-20261022T220000Z-095ecca386-zeros.tif",
+          "mime_type": "image/tiff",
+          "title": "gemsdoe87-h87-frb-20261022T220000Z-095ecca386-zeros.tif",
+          "size_in_bytes": 225043
+        }
+      ]
+    }
+  ]
+}

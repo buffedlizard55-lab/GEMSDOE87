@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-22T00:00:00Z",
+  "selection_rule": "Rank candidates before running. Evaluate the top ready candidate with spatial component holdout before any submission artifact may be promoted. A projection is never a score.",
+  "candidates": [
+    {
+      "id": "H87-FRB",
+      "rank": 1,
+      "name": "Fabric-rotation boundary under active strain",
+      "status": "READY-TO-TEST",
+      "layers": ["det_elev (band 12)", "tmi (band 14)", "iso_grav_anom (band 13)", "geod_shearrate (band 7)", "geod_dilaterate (band 8)", "cond_surf (band 17)"],
+      "physical_signature": "A narrow corridor with a strong multiscale change in the local double-angle fabric orientation of independently measured topography, magnetics, and gravity; it is retained only where a strain-gradient and conductivity-gradient corroborate the rotation.",
+      "why_off_catalogue": "Mapped faults are preferentially surface-expressed lineaments. A buried or oblique transfer structure can rotate fabric across the corridor without producing a single obvious scarp, so it can be absent from a surface catalogue while still perturbing geophysical fields and deformation.",
+      "non_fault_mimic": "Lithologic contacts, volcanic-flow margins, drainage divides, and processing seams can also rotate local texture.",
+      "difference_from_known_work": "This tests orientation discontinuity/rotation, not the previously reported multi-physics orientation agreement, simple ridge/scarp response, drainage alignment, tip relay, ring, radon, or direct conductivity-boundary surface. It uses no distance-to-catalogue feature.",
+      "expected_holdout_improvement": "medium (pre-registered qualitative rank; not a score projection)",
+      "implementation_cost": "medium: six core bands and three Gaussian scales; no new external data",
+      "data_status": "Core mirror bytes are locally SHA-256 verified; organizer provenance remains unverified because the official data tab is login-walled."
+    },
+    {
+      "id": "H87-SSB",
+      "rank": 2,
+      "name": "Strain-saddle / magnetic-phase boundary",
+      "status": "READY-IF-H87-FRB-NEGATIVE",
+      "layers": ["geod_2ndinv (band 4)", "geod_shearrate (band 7)", "geod_dilaterate (band 8)", "tmi_hg (band 3)", "tmi_vg (band 9)", "rtp (band 2)"],
+      "physical_signature": "Saddles in the shear–dilatation invariant field co-located with a persistent magnetic phase boundary; the saddle seeks a transfer zone rather than a high-amplitude anomaly.",
+      "why_off_catalogue": "Faults that accommodate distributed strain or partition slip can be weakly expressed at the surface yet impose a geodetic strain transition and a basement magnetic boundary.",
+      "non_fault_mimic": "InSAR/GPS interpolation artefacts, terrain-correlated strain bias, and igneous contacts.",
+      "difference_from_known_work": "Uses a joint strain-invariant saddle and magnetic phase condition; it is not a scalar tilt/Euler/depth-cluster or ridge-thinning method.",
+      "expected_holdout_improvement": "low-to-medium (pre-registered qualitative rank; not a score projection)",
+      "implementation_cost": "low-to-medium: six core bands; no new external data",
+      "data_status": "Core mirror only."
+    },
+    {
+      "id": "H87-CBC",
+      "rank": 3,
+      "name": "Cover-suppressed basement-conductivity boundary",
+      "status": "READY-IF-H87-FRB-AND-H87-SSB-NEGATIVE",
+      "layers": ["depth_to_base_surf (band 15)", "cond_surf (band 17)", "iso_grav_anom (band 13)", "det_elev (band 12)", "det_elev_slope (band 19)"],
+      "physical_signature": "A matched basement-depth, conductivity, and gravity edge deliberately anti-conditioned on a sharp DEM edge, to select an under-cover boundary rather than a visible scarp.",
+      "why_off_catalogue": "The anti-scarp condition explicitly targets covered structures that cannot readily enter a map drawn from surface morphology.",
+      "non_fault_mimic": "Basin-margin lithologic contacts, groundwater salinity boundaries, inversion artefacts, and sedimentary facies contacts.",
+      "difference_from_known_work": "Differs from an unconstrained straight conductivity/depth lineament by requiring three-field concordance and suppressing topographic expression.",
+      "expected_holdout_improvement": "low-to-medium; the visible-catalogue holdout may systematically under-measure this blind-fault hypothesis",
+      "implementation_cost": "medium: five core bands; no new external data",
+      "data_status": "Core mirror only."
+    },
+    {
+      "id": "H87-RHA",
+      "rank": 4,
+      "name": "Radiometric hydrothermal-alteration halo across a concealed edge",
+      "status": "DATA-BLOCKED",
+      "layers": ["GeoDAWN K/Th/U/total-count grids", "cond_surf (band 17)", "tmi/rtp magnetic edge", "det_elev (band 12)"],
+      "physical_signature": "A radiometric ratio anomaly that straddles, rather than follows, a concealed conductivity/magnetic edge; the target is an alteration halo around an upflow conduit.",
+      "why_off_catalogue": "Alteration can persist where a fault trace is buried or lacks a young scarp, providing an independent hydrothermal signal.",
+      "non_fault_mimic": "Primary lithology, soil/regolith variation, survey-striping, and radiometric processing artefacts.",
+      "difference_from_known_work": "The intended test is a ratio-halo/cross-edge geometry, not generic radiometric–scarp fusion.",
+      "expected_holdout_improvement": "medium but unmeasured; not viable until acquisition is independently verified",
+      "implementation_cost": "medium-high",
+      "external_data_required": {
+        "official_source": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+        "obtainability_check": "NOT COMPLETED in this execution: sandbox egress is restricted to GitHub/PyPI. A hash-verified owner-derived mirror exists in earlier repositories but is not a substitute for direct official acquisition."
+      }
+    },
+    {
+      "id": "H87-SCA",
+      "rank": 5,
+      "name": "Spring-chemistry corridor intersection",
+      "status": "DATA-BLOCKED-AND-LOW-PRIORITY",
+      "layers": ["GDR 1391 well/spring temperature and chemistry", "conductivity surface", "basement-depth surface", "magnetic edge"],
+      "physical_signature": "Collinear hot/warm spring chemistry anomalies whose corridor intersects a concealed geophysical boundary.",
+      "why_off_catalogue": "Fluid discharge can reveal a permeable structure that has no map-visible trace.",
+      "non_fault_mimic": "Regional aquifer flow, anthropogenic wells, sampling-density bias, and lithologic permeability contrasts.",
+      "difference_from_known_work": "It requires a chemistry-alignment intersection rather than using spring proximity as a scalar prior; nevertheless it is deliberately de-ranked because earlier hydro-conduit/radon families make novelty uncertain.",
+      "expected_holdout_improvement": "unknown; not a score projection",
+      "implementation_cost": "high",
+      "external_data_required": {
+        "official_source": "https://gdr.openei.org/submissions/1391",
+        "obtainability_check": "NOT COMPLETED in this execution because the official host is outside permitted sandbox egress. Any mirrored table must be independently checked for label-derived columns before use."
+      }
+    }
+  ]
+}

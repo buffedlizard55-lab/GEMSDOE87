@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "updated_utc": "2026-10-22T22:55:00Z",
+  "items": [
+    {
+      "id": "IR87-001",
+      "severity": "provenance",
+      "fact": "Core source files are hash-pinned owner mirrors, not organizer-authenticated downloads.",
+      "disposition": "Keep the MIRROR-VERIFIED warning in receipts and site pages."
+    },
+    {
+      "id": "IR87-002",
+      "severity": "score-attribution",
+      "fact": "The task attributes 0.2778 to the H33 file, while the current owner registry says no organizer score exists for that artifact.",
+      "disposition": "Treat pairing as unverified until an organizer receipt/hash crosswalk is supplied."
+    },
+    {
+      "id": "IR87-003",
+      "severity": "external-validity",
+      "fact": "The holdout uses visible catalogue segments rather than hidden expert-new-fault labels.",
+      "disposition": "Report HOLDOUT-DTI only; do not project it to the leaderboard."
+    },
+    {
+      "id": "IR87-004",
+      "severity": "near-threshold-similarity",
+      "fact": "The final candidate's maximum 3-pixel registry overlap is 0.6641324781599027, below but near the strict >0.70 stop threshold.",
+      "disposition": "Candidate passes the protocol; require a fresh registry check for every revision."
+    },
+    {
+      "id": "IR87-005",
+      "severity": "receipt-absent",
+      "fact": "No DrivenData session, upload response, or organizer receipt is available in this checkout.",
+      "disposition": "Local portal-format validation is not organizer acceptance."
+    },
+    {
+      "id": "IR87-006",
+      "severity": "external-data-blocked",
+      "fact": "Sandbox egress prevents direct official acquisition checks for USGS/GDR data required by two lower-ranked hypotheses.",
+      "disposition": "Keep those hypotheses data-blocked rather than use unverified external features."
+    },
+    {
+      "id": "IR87-007",
+      "severity": "evaluator-correction",
+      "fact": "The first evaluator draft summarized a mean of per-block DTI ratios, whereas the protocol requires pooled DTI. Before release, evaluator v2 was changed to aggregate TP/FP/FN before scoring and to bootstrap pooled block components.",
+      "disposition": "The pre-v2 draft values are not retained as evidence. v2 was later superseded by IR87-008."
+    },
+    {
+      "id": "IR87-008",
+      "severity": "evaluator-correction",
+      "fact": "Evaluator v2 excluded only the in-core portion of a withheld component from background training. A component extending beyond its core and 30-pixel collar could therefore be mislabeled as background. Evaluator v3 excludes the full support of every withheld component; H87-FRB was rerun and the run card/site were regenerated. The final full-data model and GeoTIFF bytes are unchanged because that model does not use fold training masks.",
+      "disposition": "Use only gems87.spatial_component_holdout.v3 results. V2 numbers are superseded and must not be cited as release evidence."
+    },
+    {
+      "id": "IR87-009",
+      "severity": "registry-strengthening",
+      "fact": "The initial surface duplicate gate used a deterministic 250,000-pixel Spearman sample. Although no sampled comparison was near 0.90, that did not literally prove the required all-footprint rank threshold. Registry v2 now computes exact tie-aware Spearman across every footprint pixel for every materialized raster, with a one-time candidate rank vector and full ranks for nonbinary references.",
+      "disposition": "Use the registry v2 exact-surface receipt only. The release card, sidecar, and site were regenerated after this stronger gate passed."
+    }
+  ]
+}

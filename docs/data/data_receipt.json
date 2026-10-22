@@ -1,0 +1,122 @@
+{
+  "status": "PASS",
+  "files": [
+    {
+      "id": "training_features",
+      "path": "/home/user/GEMSDOE87/data/raw/training_features.tif",
+      "exists": true,
+      "expected_bytes": 418912844,
+      "expected_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "provenance": "Owner-supplied mirror of a DrivenData login-walled competition file; 19 float32 bands.",
+      "bytes": 418912844,
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "size_match": true,
+      "hash_match": true,
+      "passed": true
+    },
+    {
+      "id": "labels",
+      "path": "/home/user/GEMSDOE87/data/raw/labels.tif",
+      "exists": true,
+      "expected_bytes": 425830,
+      "expected_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "provenance": "Owner-supplied mirror of the visible catalogue raster; byte-identical to existing_faults.tif in the cited source tree.",
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "size_match": true,
+      "hash_match": true,
+      "passed": true
+    },
+    {
+      "id": "existing_faults",
+      "path": "/home/user/GEMSDOE87/data/raw/existing_faults.tif",
+      "exists": true,
+      "expected_bytes": 425830,
+      "expected_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "provenance": "Owner-supplied mirror used as a consistency check only.",
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "size_match": true,
+      "hash_match": true,
+      "passed": true
+    },
+    {
+      "id": "sample_submission",
+      "path": "/home/user/GEMSDOE87/data/raw/sample_submission.tif",
+      "exists": true,
+      "expected_bytes": 1599597,
+      "expected_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "provenance": "Owner-supplied mirror used as the exact grid/footprint template.",
+      "bytes": 1599597,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "size_match": true,
+      "hash_match": true,
+      "passed": true
+    }
+  ],
+  "all_pins_passed": true,
+  "organizer_authentication": "NOT ESTABLISHED (mirror pins only)",
+  "grid": {
+    "height": 3730,
+    "width": 3292,
+    "count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "features": {
+    "count": 19,
+    "nodata": -3.4028234663852886e+38,
+    "descriptions": [
+      "mag_anom - Magnetic anomaly - deviation from expected Earth's magnetic field",
+      "rtp - Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects",
+      "tmi_hg - Total magnetic intensity horizontal gradient - rate of change in horizontal direction",
+      "geod_2ndinv - Geodetic second invariant - measure of strain rate tensor magnitude",
+      "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+      "tc - Tilt angle or total curvature - magnetic field derivative for edge detection",
+      "geod_shearrate - Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+      "geod_dilaterate - Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)",
+      "tmi_vg - Total magnetic intensity vertical gradient - rate of change in vertical direction",
+      "deq_n100a15 - Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)",
+      "iso_grav_anom_vg - Isostatic gravity anomaly vertical gradient - vertical rate of change",
+      "det_elev - Detrended elevation - topography with regional trends removed",
+      "iso_grav_anom - Isostatic gravity anomaly - gravity after compensating for topographic mass",
+      "tmi - Total magnetic intensity - total strength of magnetic field",
+      "depth_to_base_surf - Depth to basement surface - thickness of sedimentary cover",
+      "ieq_n100a15 - Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)",
+      "cond_surf - Conductivity surface - electrical conductivity of subsurface",
+      "iso_grav_anom_hg - Isostatic gravity anomaly horizontal gradient - horizontal rate of change",
+      "det_elev_slope - Detrended elevation slope - gradient of elevation after detrending"
+    ]
+  },
+  "labels": {
+    "nodata": -1.0,
+    "positive_pixels": 60988
+  },
+  "template": {
+    "footprint_pixels": 5167373,
+    "outside_footprint_pixels": 7111787
+  },
+  "structural_checks": {
+    "features_match_template_grid": true,
+    "labels_match_template_grid": true,
+    "features_have_19_bands": true,
+    "template_has_single_band": true,
+    "nonempty_footprint": true,
+    "labels_inside_footprint": true
+  },
+  "required_hashes": {
+    "training_features": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "labels": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+    "existing_faults": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+    "sample_submission": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+  },
+  "generated_utc": "2026-10-22T21:50:04Z"
+}

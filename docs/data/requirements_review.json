@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "reviewed_utc": "2026-10-22T22:55:00Z",
+  "review_kind": "final implementation, edge-case, and requirements review",
+  "rounds_completed": [
+    {
+      "round": "implementation",
+      "outcome": "PASS",
+      "summary": "Built reproducible data preparation, label-free H87-FRB features, spatial holdout, public-raster registry, fail-closed release writer, static site, and tests."
+    },
+    {
+      "round": "edge-case review",
+      "outcome": "PASS WITH CORRECTIONS",
+      "summary": "Corrected pooled DTI reporting (IR87-007), excluded full withheld components from training background (IR87-008), enforced label/template grid checks, prevented duplicate local reissues, and Git-blob-verified materialized registry bytes."
+    },
+    {
+      "round": "final requirements review",
+      "outcome": "PASS FOR LOCAL RELEASE",
+      "summary": "Strengthened the surface uniqueness screen to exact tie-aware full-footprint Spearman (IR87-009), rebuilt the release evidence/site, and revalidated the exact TIFF bytes."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "unique_tiff",
+      "status": "PASS",
+      "evidence": "docs/downloads/gemsdoe87-h87-frb-20261022T220000Z-095ecca386-zeros.tif; SHA-256 9eac7d330daf3102df224cde7f2b765635b43c3542db8670071e877d150b9e72; registry v2 final verdict UNIQUE"
+    },
+    {
+      "id": "portal_format_validation",
+      "status": "PASS",
+      "evidence": "gems87.submission_writer.v1 reopens written bytes: one float32 band, exact local template CRS/shape/transform, all 12,279,160 cells finite and in [0,1], no visible-catalogue positives"
+    },
+    {
+      "id": "spatial_holdout_and_metric",
+      "status": "PASS",
+      "evidence": "gems87.spatial_component_holdout.v3; whole connected components withheld, 30-pixel collar, full withheld support excluded from training, pixel-exact visible mask, triangular 300-m kernel, alpha=0.2, beta=0.8"
+    },
+    {
+      "id": "pooled_holdout_gate",
+      "status": "PASS",
+      "evidence": "candidate HOLDOUT-DTI 0.08787091987165235, 95% CI [0.08345836443551835, 0.09617805730242027]; paired candidate-baseline contrast +0.008281039785376226, 95% CI [+0.0041592191671279005, +0.018130351595122468]"
+    },
+    {
+      "id": "feature_leakage_canary",
+      "status": "PASS",
+      "evidence": "All 11 feature-alone oriented spatial-holdout AUC values remain below the 0.90 stop threshold; see evidence/experiment_h87_frb.json"
+    },
+    {
+      "id": "registry_surface_gate",
+      "status": "PASS",
+      "evidence": "360/360 Git-blob-verified public candidate rasters; exact tie-aware Spearman across every footprint pixel; maximum 0.33455022458271244 below 0.90"
+    },
+    {
+      "id": "registry_final_dot_gate",
+      "status": "PASS",
+      "evidence": "maximum exact binary Spearman 0.022245447786212274 below 0.90; maximum within-3-pixel dot overlap 0.6641324781599027 below strict >0.70 stop rule"
+    },
+    {
+      "id": "hypothesis_preregistration",
+      "status": "PASS",
+      "evidence": "registry/hypotheses.json ranks five hypotheses by expected local value/cost and documents layer, mechanism, mimic, novelty, and external-data status"
+    },
+    {
+      "id": "single_method_lane",
+      "status": "PASS",
+      "evidence": "registry/lane.md declares H87-FRB as the sole active lane; registry rasters are anti-duplication inputs only"
+    },
+    {
+      "id": "run_card_and_evidence_labels",
+      "status": "PASS",
+      "evidence": "evidence/run_card_h87_frb.json contains hypothesis, mechanism, mimic, HOLDOUT-DTI+CI, registry comparisons, SHA-256, validator output, note length, and local promote verdict; organizer score/receipt are null"
+    },
+    {
+      "id": "documentation_and_pages",
+      "status": "PASS LOCALLY; DEPLOYMENT PENDING",
+      "evidence": "README, generated docs/, JSON feed, and .github/workflows/pages.yml are complete locally. A live GitHub Pages URL requires push/merge and a successful Pages deployment."
+    },
+    {
+      "id": "organizer_receipt_or_score",
+      "status": "NOT AVAILABLE",
+      "evidence": "No DrivenData account/session/upload response or organizer receipt is present. The release is locally format-ready, not organizer-confirmed."
+    }
+  ],
+  "local_release_verdict": "promote",
+  "prohibited_claims": [
+    "Do not call HOLDOUT-DTI a leaderboard score.",
+    "Do not claim portal acceptance without a receipt.",
+    "Do not claim the candidate will exceed any named leaderboard value."
+  ]
+}

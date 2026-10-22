@@ -1,0 +1,22 @@
+# Competition data is large, login-walled at the organizer, and must never be committed.
+data/*
+!data/README.md
+!data/.gitkeep
+work/
+
+# Local Python/tooling state
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Generated site / OS files
+.DS_Store
+site/
+
+# A release TIFF is intentionally tracked only after it passes every gate.
+# Scratch TIFFs belong in work/ and remain ignored.

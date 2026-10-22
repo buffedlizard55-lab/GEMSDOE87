@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "purpose": "Integrity pins for owner-mirrored competition bytes. A pin verifies mirror consistency, not organizer authentication.",
+  "retrieval": "GitHub REST raw-content endpoint; no DrivenData credential is used.",
+  "files": [
+    {
+      "id": "training_features",
+      "group": "core",
+      "repo": "buffedlizard55-lab/GEMSDOE",
+      "ref": "c0c06ac82178f26b94fce3397036ef8f12a2f3a0",
+      "parts": [
+        "data/bridge/gems-geodawn-numerical-features.tif.part-000",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-001",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-002",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-003",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-004"
+      ],
+      "dest": "raw/training_features.tif",
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "bytes": 418912844,
+      "provenance": "Owner-supplied mirror of a DrivenData login-walled competition file; 19 float32 bands."
+    },
+    {
+      "id": "labels",
+      "group": "core",
+      "repo": "buffedlizard55-lab/GEMSDOE24",
+      "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "path": "data/bridge/labels.tif",
+      "dest": "raw/labels.tif",
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830,
+      "provenance": "Owner-supplied mirror of the visible catalogue raster; byte-identical to existing_faults.tif in the cited source tree."
+    },
+    {
+      "id": "existing_faults",
+      "group": "core",
+      "repo": "buffedlizard55-lab/GEMSDOE24",
+      "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "path": "data/bridge/existing_faults.tif",
+      "dest": "raw/existing_faults.tif",
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830,
+      "provenance": "Owner-supplied mirror used as a consistency check only."
+    },
+    {
+      "id": "sample_submission",
+      "group": "core",
+      "repo": "buffedlizard55-lab/GEMSDOE24",
+      "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "path": "data/bridge/sample_submission.tif",
+      "dest": "raw/sample_submission.tif",
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "bytes": 1599597,
+      "provenance": "Owner-supplied mirror used as the exact grid/footprint template."
+    }
+  ]
+}

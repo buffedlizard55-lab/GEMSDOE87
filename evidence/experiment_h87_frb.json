@@ -1,0 +1,664 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-22T22:36:36Z",
+  "experiment": "H87-FRB-1",
+  "evaluator_version": "gems87.spatial_component_holdout.v3",
+  "evidence_label": "HOLDOUT-DTI",
+  "protocol": {
+    "unit": "HOLDOUT-DTI",
+    "folds": "four spatial quadrants; whole connected label components touching each core are withheld",
+    "train_buffer_pixels": 30,
+    "visible_fault_masking": "pixel-exact at metric time",
+    "catalogue_derived_features": [],
+    "kernel": "triangular, radius 3 pixels (300 m at the source grid)",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "emission_fraction": 0.007,
+    "minimum_separation_pixels": 3,
+    "confidence_interval": "nonparametric spatial-block bootstrap of pooled TP/FP/FN, 20000 draws",
+    "organizer_score": {
+      "evidence_label": "ORGANIZER-CONFIRMED",
+      "value": null,
+      "receipt": null
+    }
+  },
+  "grid": {
+    "height": 3730,
+    "width": 3292,
+    "count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "feature_stack": {
+    "path": "/home/user/GEMSDOE87/work/h87_frb_feature_stack.npy",
+    "feature_names": [
+      "fabric_rotation_boundary",
+      "fabric_anisotropy_support",
+      "magnetic_edge",
+      "gravity_edge",
+      "topography_edge",
+      "strain_boundary",
+      "conductivity_edge",
+      "strain_energy",
+      "dilation_positive",
+      "cover_suppression",
+      "h87_frb_surface"
+    ],
+    "labels_used_to_build_features": false
+  },
+  "leakage_canary": {
+    "threshold_auc": 0.9,
+    "passed": true,
+    "per_fold": {
+      "NW": {
+        "fabric_rotation_boundary": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.4914233919126429,
+          "oriented_auc": 0.508576608087357,
+          "n_withheld_positive_pixels": 29305,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "fabric_anisotropy_support": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5395727644599897,
+          "oriented_auc": 0.5395727644599897,
+          "n_withheld_positive_pixels": 29305,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "magnetic_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5288353026360689,
+          "oriented_auc": 0.5288353026360689,
+          "n_withheld_positive_pixels": 29305,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "gravity_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5297488532247057,
+          "oriented_auc": 0.5297488532247057,
+          "n_withheld_positive_pixels": 29305,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "topography_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5632932142552465,
+          "oriented_auc": 0.5632932142552465,
+          "n_withheld_positive_pixels": 29305,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "strain_boundary": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5201443170960587,
+          "oriented_auc": 0.5201443170960587,
+          "n_withheld_positive_pixels": 29305,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "conductivity_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.49957413815901724,
+          "oriented_auc": 0.5004258618409827,
+          "n_withheld_positive_pixels": 29305,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "strain_energy": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5687130954615253,
+          "oriented_auc": 0.5687130954615253,
+          "n_withheld_positive_pixels": 29305,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "dilation_positive": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.49690895836887905,
+          "oriented_auc": 0.503091041631121,
+          "n_withheld_positive_pixels": 29305,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "cover_suppression": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.43670678467838253,
+          "oriented_auc": 0.5632932153216175,
+          "n_withheld_positive_pixels": 29305,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "h87_frb_surface": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5025713355229483,
+          "oriented_auc": 0.5025713355229483,
+          "n_withheld_positive_pixels": 29305,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        }
+      },
+      "NE": {
+        "fabric_rotation_boundary": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.4862929951427439,
+          "oriented_auc": 0.5137070048572561,
+          "n_withheld_positive_pixels": 12610,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "fabric_anisotropy_support": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5925873032315623,
+          "oriented_auc": 0.5925873032315623,
+          "n_withheld_positive_pixels": 12610,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "magnetic_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.49247638035289454,
+          "oriented_auc": 0.5075236196471055,
+          "n_withheld_positive_pixels": 12610,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "gravity_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5796918834258524,
+          "oriented_auc": 0.5796918834258524,
+          "n_withheld_positive_pixels": 12610,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "topography_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5819429545003965,
+          "oriented_auc": 0.5819429545003965,
+          "n_withheld_positive_pixels": 12610,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "strain_boundary": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.49324628865979375,
+          "oriented_auc": 0.5067537113402063,
+          "n_withheld_positive_pixels": 12610,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "conductivity_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.49710481066613804,
+          "oriented_auc": 0.502895189333862,
+          "n_withheld_positive_pixels": 12610,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "strain_energy": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5366570271609833,
+          "oriented_auc": 0.5366570271609833,
+          "n_withheld_positive_pixels": 12610,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "dilation_positive": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.537938465999207,
+          "oriented_auc": 0.537938465999207,
+          "n_withheld_positive_pixels": 12610,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "cover_suppression": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.41805704351705,
+          "oriented_auc": 0.58194295648295,
+          "n_withheld_positive_pixels": 12610,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "h87_frb_surface": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.48955610923869947,
+          "oriented_auc": 0.5104438907613005,
+          "n_withheld_positive_pixels": 12610,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        }
+      },
+      "SW": {
+        "fabric_rotation_boundary": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.4555064081189796,
+          "oriented_auc": 0.5444935918810204,
+          "n_withheld_positive_pixels": 9447,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "fabric_anisotropy_support": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5097498551127342,
+          "oriented_auc": 0.5097498551127342,
+          "n_withheld_positive_pixels": 9447,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "magnetic_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.53934437453689,
+          "oriented_auc": 0.53934437453689,
+          "n_withheld_positive_pixels": 9447,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "gravity_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.4803782053826612,
+          "oriented_auc": 0.5196217946173388,
+          "n_withheld_positive_pixels": 9447,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "topography_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5949198793267705,
+          "oriented_auc": 0.5949198793267705,
+          "n_withheld_positive_pixels": 9447,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "strain_boundary": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.554147865062983,
+          "oriented_auc": 0.554147865062983,
+          "n_withheld_positive_pixels": 9447,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "conductivity_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5178766817508205,
+          "oriented_auc": 0.5178766817508205,
+          "n_withheld_positive_pixels": 9447,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "strain_energy": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.551859972081084,
+          "oriented_auc": 0.551859972081084,
+          "n_withheld_positive_pixels": 9447,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "dilation_positive": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.46015730721393033,
+          "oriented_auc": 0.5398426927860697,
+          "n_withheld_positive_pixels": 9447,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "cover_suppression": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.4050801246427437,
+          "oriented_auc": 0.5949198753572563,
+          "n_withheld_positive_pixels": 9447,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "h87_frb_surface": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.49607542473801197,
+          "oriented_auc": 0.5039245752619881,
+          "n_withheld_positive_pixels": 9447,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        }
+      },
+      "SE": {
+        "fabric_rotation_boundary": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.4815176338821941,
+          "oriented_auc": 0.518482366117806,
+          "n_withheld_positive_pixels": 9626,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "fabric_anisotropy_support": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5463539567317681,
+          "oriented_auc": 0.5463539567317681,
+          "n_withheld_positive_pixels": 9626,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "magnetic_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.498775224002701,
+          "oriented_auc": 0.501224775997299,
+          "n_withheld_positive_pixels": 9626,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "gravity_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5615217354041139,
+          "oriented_auc": 0.5615217354041139,
+          "n_withheld_positive_pixels": 9626,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "topography_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5828264751714107,
+          "oriented_auc": 0.5828264751714107,
+          "n_withheld_positive_pixels": 9626,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "strain_boundary": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5025998896218574,
+          "oriented_auc": 0.5025998896218574,
+          "n_withheld_positive_pixels": 9626,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "conductivity_edge": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5033432935539165,
+          "oriented_auc": 0.5033432935539165,
+          "n_withheld_positive_pixels": 9626,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "strain_energy": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5147837789580304,
+          "oriented_auc": 0.5147837789580304,
+          "n_withheld_positive_pixels": 9626,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "dilation_positive": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5543576907594017,
+          "oriented_auc": 0.5543576907594017,
+          "n_withheld_positive_pixels": 9626,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "cover_suppression": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.41717352547787245,
+          "oriented_auc": 0.5828264745221275,
+          "n_withheld_positive_pixels": 9626,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        },
+        "h87_frb_surface": {
+          "evidence_label": "HOLDOUT-DTI",
+          "raw_auc": 0.5027189863390815,
+          "oriented_auc": 0.5027189863390815,
+          "n_withheld_positive_pixels": 9626,
+          "n_negative_pixels": 80000,
+          "leakage_flag": false
+        }
+      }
+    }
+  },
+  "folds": [
+    {
+      "evidence_label": "HOLDOUT-DTI",
+      "fold": "NW",
+      "n_withheld_components": 1829,
+      "n_withheld_positive_pixels": 29305,
+      "n_visible_positive_pixels": 31431,
+      "n_train_positive_pixels": 30761,
+      "n_test_active_pixels": 2447204,
+      "emission_target_pixels": 17130,
+      "arms": {
+        "h87_frb_surface": {
+          "tp_weighted": 763.4676916348478,
+          "fp_weighted": 16190.427587594855,
+          "fn_weighted": 28541.532308365153,
+          "n_truth": 29305,
+          "n_prediction": 17130,
+          "coverage": 0.02605247198890455,
+          "dti": 0.028450679248969886
+        },
+        "baseline_hgb": {
+          "tp_weighted": 2143.1671472332223,
+          "fp_weighted": 16278.091452506971,
+          "fn_weighted": 27161.832852766776,
+          "n_truth": 29305,
+          "n_prediction": 17130,
+          "coverage": 0.07313315636352917,
+          "dti": 0.07900129980205474
+        },
+        "h87_frb_hgb": {
+          "tp_weighted": 2231.739090997592,
+          "fp_weighted": 16292.664728265638,
+          "fn_weighted": 27073.26090900241,
+          "n_truth": 29305,
+          "n_prediction": 17130,
+          "coverage": 0.07615557382690981,
+          "dti": 0.0822037236234445
+        }
+      }
+    },
+    {
+      "evidence_label": "HOLDOUT-DTI",
+      "fold": "NE",
+      "n_withheld_components": 690,
+      "n_withheld_positive_pixels": 12610,
+      "n_visible_positive_pixels": 48287,
+      "n_train_positive_pixels": 47397,
+      "n_test_active_pixels": 1368257,
+      "emission_target_pixels": 9578,
+      "arms": {
+        "h87_frb_surface": {
+          "tp_weighted": 285.1648204684522,
+          "fp_weighted": 9291.222364022395,
+          "fn_weighted": 12324.835179531548,
+          "n_truth": 12610,
+          "n_prediction": 9578,
+          "coverage": 0.022614180846031104,
+          "dti": 0.02375724646602379
+        },
+        "baseline_hgb": {
+          "tp_weighted": 985.3669649430523,
+          "fp_weighted": 9175.972515885376,
+          "fn_weighted": 11624.633035056948,
+          "n_truth": 12610,
+          "n_prediction": 9578,
+          "coverage": 0.07814171014615799,
+          "dti": 0.08129910769173497
+        },
+        "h87_frb_hgb": {
+          "tp_weighted": 1115.4023538545912,
+          "fp_weighted": 9146.48650307693,
+          "fn_weighted": 11494.597646145408,
+          "n_truth": 12610,
+          "n_prediction": 9578,
+          "coverage": 0.08845379491313174,
+          "dti": 0.09187542388371854
+        }
+      }
+    },
+    {
+      "evidence_label": "HOLDOUT-DTI",
+      "fold": "SW",
+      "n_withheld_components": 381,
+      "n_withheld_positive_pixels": 9447,
+      "n_visible_positive_pixels": 51042,
+      "n_train_positive_pixels": 50384,
+      "n_test_active_pixels": 562729,
+      "emission_target_pixels": 3939,
+      "arms": {
+        "h87_frb_surface": {
+          "tp_weighted": 240.78732781191573,
+          "fp_weighted": 3681.4790021458252,
+          "fn_weighted": 9206.212672188085,
+          "n_truth": 9447,
+          "n_prediction": 3939,
+          "coverage": 0.025488232011423282,
+          "dti": 0.02886427599228418
+        },
+        "baseline_hgb": {
+          "tp_weighted": 769.5627275556687,
+          "fp_weighted": 3645.1712350155994,
+          "fn_weighted": 8677.437272444331,
+          "n_truth": 9447,
+          "n_prediction": 3939,
+          "coverage": 0.08146106992226831,
+          "dti": 0.0911745111392757
+        },
+        "h87_frb_hgb": {
+          "tp_weighted": 832.5782743560676,
+          "fp_weighted": 3648.862005016957,
+          "fn_weighted": 8614.421725643933,
+          "n_truth": 9447,
+          "n_prediction": 3939,
+          "coverage": 0.08813149934964196,
+          "dti": 0.09848465804766705
+        }
+      }
+    },
+    {
+      "evidence_label": "HOLDOUT-DTI",
+      "fold": "SE",
+      "n_withheld_components": 330,
+      "n_withheld_positive_pixels": 9626,
+      "n_visible_positive_pixels": 51013,
+      "n_train_positive_pixels": 50519,
+      "n_test_active_pixels": 789183,
+      "emission_target_pixels": 5524,
+      "arms": {
+        "h87_frb_surface": {
+          "tp_weighted": 174.19944716501135,
+          "fp_weighted": 5312.064788583452,
+          "fn_weighted": 9451.80055283499,
+          "n_truth": 9626,
+          "n_prediction": 5524,
+          "coverage": 0.018096763678060603,
+          "dti": 0.019799772766930665
+        },
+        "baseline_hgb": {
+          "tp_weighted": 604.2414771465502,
+          "fp_weighted": 5292.5817948063495,
+          "fn_weighted": 9021.75852285345,
+          "n_truth": 9626,
+          "n_prediction": 5524,
+          "coverage": 0.06277181354109186,
+          "dti": 0.06804394970849979
+        },
+        "h87_frb_hgb": {
+          "tp_weighted": 798.414009024061,
+          "fp_weighted": 5245.857526516615,
+          "fn_weighted": 8827.585990975938,
+          "n_truth": 9626,
+          "n_prediction": 5524,
+          "coverage": 0.08294348732849169,
+          "dti": 0.08961223202420827
+        }
+      }
+    }
+  ],
+  "summary": {
+    "baseline_hgb": {
+      "evidence_label": "HOLDOUT-DTI",
+      "mean": 0.07958988008627613,
+      "pooled_dti": 0.07958988008627613,
+      "ci95_low": 0.07357232400373419,
+      "ci95_high": 0.08535312044152236,
+      "n_folds": 4,
+      "unweighted_fold_mean_dti": 0.07987971708539131,
+      "n_withheld_positive_pixels": 60988,
+      "n_emitted_pixels": 36171,
+      "pooled_components": {
+        "tp_weighted": 4502.338316878493,
+        "fp_weighted": 34391.81699821429,
+        "fn_weighted": 56485.66168312151
+      },
+      "per_fold_dti": {
+        "NW": 0.07900129980205474,
+        "NE": 0.08129910769173497,
+        "SW": 0.0911745111392757,
+        "SE": 0.06804394970849979
+      }
+    },
+    "h87_frb_surface": {
+      "evidence_label": "HOLDOUT-DTI",
+      "mean": 0.02614625452044307,
+      "pooled_dti": 0.02614625452044307,
+      "ci95_low": 0.021976652881401118,
+      "ci95_high": 0.028548762158533816,
+      "n_folds": 4,
+      "unweighted_fold_mean_dti": 0.02521799361855213,
+      "n_withheld_positive_pixels": 60988,
+      "n_emitted_pixels": 36171,
+      "pooled_components": {
+        "tp_weighted": 1463.6192870802272,
+        "fp_weighted": 34475.19374234653,
+        "fn_weighted": 59524.380712919774
+      },
+      "per_fold_dti": {
+        "NW": 0.028450679248969886,
+        "NE": 0.02375724646602379,
+        "SW": 0.02886427599228418,
+        "SE": 0.019799772766930665
+      }
+    },
+    "h87_frb_hgb": {
+      "evidence_label": "HOLDOUT-DTI",
+      "mean": 0.08787091987165235,
+      "pooled_dti": 0.08787091987165235,
+      "ci95_low": 0.08345836443551835,
+      "ci95_high": 0.09617805730242027,
+      "n_folds": 4,
+      "unweighted_fold_mean_dti": 0.09054400939475958,
+      "n_withheld_positive_pixels": 60988,
+      "n_emitted_pixels": 36171,
+      "pooled_components": {
+        "tp_weighted": 4978.133728232312,
+        "fp_weighted": 34333.87076287614,
+        "fn_weighted": 56009.866271767685
+      },
+      "per_fold_dti": {
+        "NW": 0.0822037236234445,
+        "NE": 0.09187542388371854,
+        "SW": 0.09848465804766705,
+        "SE": 0.08961223202420827
+      }
+    }
+  },
+  "paired_contrast": {
+    "evidence_label": "HOLDOUT-DTI",
+    "contrast": "h87_frb_hgb - baseline_hgb",
+    "mean": 0.008281039785376226,
+    "pooled_dti_difference": 0.008281039785376226,
+    "ci95_low": 0.0041592191671279005,
+    "ci95_high": 0.018130351595122468,
+    "n_folds": 4
+  },
+  "promotion_gate": {
+    "criterion": "candidate beats matched baseline with paired HOLDOUT-DTI 95% CI entirely above zero; no canary AUC > 0.90",
+    "verdict": "PROMOTE",
+    "weekly_submission_slot_used": false,
+    "reason": "All local proxy gates passed; this is not an organizer score or a submission receipt."
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "retrieved_at_utc": "2026-10-22T22:04:04Z",
+  "evidence_classes": {
+    "OFFICIAL-RETRIEVED": "Read directly in this execution from an organizer or agency-controlled GitHub repository/API.",
+    "OFFICIAL-URL": "Manual-review URL on an organizer/agency domain. It was not fetched in this execution because sandbox egress is restricted to GitHub/PyPI.",
+    "MIRROR-VERIFIED": "Owner-hosted GitHub bytes whose SHA-256 matched this repository's pinned manifest; not organizer-authenticated.",
+    "OWNER-REPORT": "A result or statement published by another owner repository/site, not an organizer receipt.",
+    "USER-REPORT": "A value supplied in the task prompt; not independently authenticated here."
+  },
+  "sources": [
+    {
+      "id": "reference_solution",
+      "class": "OFFICIAL-RETRIEVED",
+      "title": "DrivenData GEMS Prize reference solution",
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+      "reviewed": "2026-10-22",
+      "use": "Confirms the organizer's reference-code repository and its instruction to place competition data in data/."
+    },
+    {
+      "id": "competition_problem",
+      "class": "OFFICIAL-URL",
+      "title": "DOE GEMS Prize problem description and performance metric",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "reviewed": null,
+      "use": "Manual review of metric and submission format. No dynamic leaderboard number is asserted from this URL."
+    },
+    {
+      "id": "competition_data",
+      "class": "OFFICIAL-URL",
+      "title": "DOE GEMS Prize data tab",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+      "reviewed": null,
+      "use": "Organizer data location; task prompt reports it requires login."
+    },
+    {
+      "id": "competition_leaderboard",
+      "class": "OFFICIAL-URL",
+      "title": "DOE GEMS Prize public leaderboard",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "reviewed": null,
+      "use": "Manual-review-only dynamic page; no local run may label a score ORGANIZER-CONFIRMED without a receipt."
+    },
+    {
+      "id": "rules_pdf",
+      "class": "OFFICIAL-URL",
+      "title": "GEMS Prize rules PDF (NLR document 96647)",
+      "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+      "reviewed": null,
+      "use": "Manual review of eligibility, submissions, and prize rules."
+    },
+    {
+      "id": "geodawn",
+      "class": "OFFICIAL-URL",
+      "title": "USGS GeoDAWN airborne magnetic and radiometric surveys",
+      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+      "reviewed": null,
+      "use": "Manual review of public source context for magnetic/radiometric inputs."
+    },
+    {
+      "id": "ingenious",
+      "class": "OFFICIAL-URL",
+      "title": "Great Basin Center for Geothermal Energy INGENIOUS project",
+      "url": "https://gbcge.org/current-projects/ingenious/",
+      "reviewed": null,
+      "use": "Manual review of visible-fault catalogue context."
+    },
+    {
+      "id": "core_mirror",
+      "class": "MIRROR-VERIFIED",
+      "title": "Pinned owner mirror receipt",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE/blob/c0c06ac82178f26b94fce3397036ef8f12a2f3a0/data/bridge/",
+      "reviewed": "2026-10-22",
+      "use": "Core local data input only after SHA-256 verification in evidence/data_receipt.json."
+    },
+    {
+      "id": "gemsdoe32_build",
+      "class": "OWNER-REPORT",
+      "title": "GEMSDOE32 submission-build registry",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE32/blob/780a5a534269c79adfe6d1d7d5aadead161332aa/registry/submission_build.json",
+      "reviewed": "2026-10-22",
+      "use": "Explains the owner artifact named h33-h33-2-b2. Its own status line says no organizer score exists; it is not a receipt."
+    },
+    {
+      "id": "gemsdoe32_audit",
+      "class": "OWNER-REPORT",
+      "title": "GEMSDOE32 artifact audit",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE32/blob/780a5a534269c79adfe6d1d7d5aadead161332aa/docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-audit.json",
+      "reviewed": "2026-10-22",
+      "use": "Byte-level metadata for the earlier artifact, not evidence of organizer acceptance or score."
+    },
+    {
+      "id": "faulds_structural",
+      "class": "OFFICIAL-URL",
+      "title": "DOE/OSTI structural investigations for geothermal systems",
+      "url": "https://www.osti.gov/servlets/purl/1110517",
+      "reviewed": null,
+      "use": "Manual-review scientific context for structural controls on geothermal systems."
+    }
+  ]
+}
