@@ -31,7 +31,13 @@
 
 - Read the project brief, research plan, status/run-card JSON, source and irregularity audits, Pages scripts, workflows, and tests before making changes.
 - Found a deployment gap: the readiness page could point to `downloads/<file>.tif`, but the Pages packaging step did not copy the `downloads/` directory into the published site. Updated the workflow to publish that directory when it exists; no file is present now and the status remains blocked.
-- Updated the test workflow's push branch from a stale prior Arena branch to this session's fixed branch, so CI can run on this work branch.
+- Updated the test workflow's push branch to this session's fixed branch, so CI can run on this work branch.
 - Fixed a small landing-page typo in the P(Win) value statement and recorded the conflicting user-reported leaderboard maxima (0.4413 and 0.3195) as unverified claims, not scores.
 - The first local test invocation could not import optional raster libraries. Installed only the pinned project validation requirements into the repository's ignored `.venv/`; the complete suite then passed: 22 tests, using synthetic rasters strictly for validator behavior.
 - Final checks still confirm the scientific work is blocked: competition inputs, shared evaluator/writer, and registry are absent. No TIFF, score, novelty result, or eligibility to submit can be honestly claimed.
+
+## Branch synchronization and pull-request review
+
+- While PR #7 was open, `main` advanced concurrently. Updated this branch from `origin/main` and resolved conflicts by retaining this branch's push trigger (not another active Arena branch) and preserving both sets of review notes.
+- GitHub Actions test check passed for PR #7. The first local hook invoked the system Python before the ignored environment was active, so it reported missing optional libraries; rerunning the full suite with `.venv/bin/python` passed all 22 tests.
+- No geological experiment was run; all competition-score, holdout, registry, and TIFF fields remain unmeasured/blocked.
