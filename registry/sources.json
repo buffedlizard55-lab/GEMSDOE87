@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "reviewed_utc_date": "2026-10-22",
+  "review_method": "Pages retrieved and read with the research fetch tool. Download transport is independently recorded; GitHub mirrors are not organizer-authenticated originals.",
+  "sources": [
+    {
+      "id": "problem",
+      "title": "DrivenData: problem, metric, submission format",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "authority": "competition organizer",
+      "retrieval": "retrieved, both content chunks read",
+      "locator": "Performance metric / Mathematical representation / Submission format",
+      "verified_claim": "Predict fault presence as a single-band float32 GeoTIFF, values [0,1], UTM zone 11N / EPSG:32611, 100 m; use the sample grid. Distance-weighted Tversky has alpha=0.2, beta=0.8, triangular kernel support 300 m.",
+      "qualification": "The public wording allows null/NaN outside bounds. Our zero-filled all-finite export is a stricter local range policy, not proof of authenticated portal acceptance."
+    },
+    {
+      "id": "masking",
+      "title": "DrivenData staff clarification: exact known-fault masking",
+      "url": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2",
+      "authority": "DrivenData Staff (chrisk-dd)",
+      "retrieval": "retrieved thread 11516; staff reply read",
+      "locator": "Staff reply dated September 16",
+      "verified_claim": "Pixels corresponding to known USGS/INGENIOUS faults are excluded from evaluation, including re-evaluation.",
+      "qualification": "This is pixel-exact masking, not permission to remove a broad halo from the scored domain."
+    },
+    {
+      "id": "about",
+      "title": "DrivenData: about the task and data",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/",
+      "authority": "competition organizer",
+      "retrieval": "retrieved and read",
+      "locator": "About the task",
+      "verified_claim": "Faults involve measurable displacement and can be detected with surface observations, magnetic/gravity contrasts, and other methods.",
+      "qualification": "A structural prediction alone does not prove a geothermal vent or commercially viable reservoir."
+    },
+    {
+      "id": "leaderboard",
+      "title": "DrivenData public leaderboard",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "authority": "competition organizer",
+      "retrieval": "retrieved public table; leading rows read",
+      "locator": "Leading public leaderboard row",
+      "verified_claim": "Public table observed on 2026-10-22: first participant xiaofanhu, displayed public value 0.4413.",
+      "qualification": "PUBLIC-LEADERBOARD-OBSERVATION, not a submission-page receipt and not ORGANIZER-CONFIRMED evidence for any GEMSDOE artifact."
+    },
+    {
+      "id": "rules",
+      "title": "GEMS Prize Official Rules, September 2026",
+      "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+      "authority": "official prize rules document",
+      "retrieval": "all seven extracted chunks read, through end of rules",
+      "locator": "Sections 3.2\u20133.5 and Appendix A",
+      "verified_claim": "The rules document describes up to three scoring submissions per week, one final chosen submission, reproducible code delivery, and disclosure of generative-AI assistance.",
+      "qualification": "The authenticated submission-page cap and remaining usage are unavailable; the PDF limit is not substituted for a current account-specific authorization."
+    },
+    {
+      "id": "data",
+      "title": "DrivenData competition data",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+      "authority": "competition organizer",
+      "retrieval": "redirected to login",
+      "locator": "Login redirect",
+      "verified_claim": "Official original downloads were not authenticated in this run.",
+      "qualification": "The required files were restored autonomously from owner mirrors with SHA-256 verification. Hash agreement proves mirror consistency, not official source authenticity."
+    },
+    {
+      "id": "submission_page",
+      "title": "DrivenData submissions and account cap",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/",
+      "authority": "competition organizer",
+      "retrieval": "redirected to login",
+      "locator": "Login redirect",
+      "verified_claim": "No account-specific cap, usage, upload acceptance, or artifact score receipt was accessed.",
+      "qualification": "No competition slot was used; no selector was invoked."
+    },
+    {
+      "id": "reference",
+      "title": "Official GEMS reference solution",
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+      "authority": "DrivenData official source repository",
+      "retrieval": "README retrieved; notebook downloaded through GitHub API at aebe92f7c8a990f0e3443451b7a825d9afd6336b",
+      "locator": "README and unet-mc-cv-reference-solution.ipynb",
+      "verified_claim": "Provides a reproducible starting approach and asks participants to place competition data in data/; GPU training is faster but CPU execution is supported.",
+      "qualification": "H87 is a deterministic CPU image-statistic experiment, not a claimed U-Net training run. Pinned notebook cells 0, 1 and 16 were inspected: ordinary Tversky training loss and random patch Monte Carlo CV are not substitutes for official distance-weighted evaluation or the required whole-component holdout."
+    },
+    {
+      "id": "geodawn",
+      "title": "USGS GeoDAWN magnetic and radiometric survey release",
+      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+      "authority": "USGS data release; DOI 10.5066/P93LGLVQ",
+      "retrieval": "release description and citation/rights read",
+      "locator": "Survey specifications, processing, citation, rights",
+      "verified_claim": "Magnetic surveys support subsurface structure and geology; the release documents east-west flight lines, north-south tie lines, survey blocks, and variable terrain clearance. Rights marked CC0 1.0.",
+      "qualification": "Acquisition artifacts may mimic geological texture; the original flight-line grids were not newly downloaded in this lane."
+    },
+    {
+      "id": "tintina",
+      "title": "USGS: Matching Magnetic Trends and Patterns Across the Tintina Fault",
+      "url": "https://pubs.usgs.gov/sir/2007/5289/SIR2007-5289-C.pdf",
+      "authority": "USGS Scientific Investigations Report 2007\u20135289\u2013C, Richard W. Saltus",
+      "retrieval": "abstract, introduction, and methods retrieved and read",
+      "locator": "Introduction and Methods",
+      "verified_claim": "Cutting/sliding geophysical maps to restore magnetic pattern alignment can inform fault-displacement interpretation.",
+      "qualification": "A different region and scale; does not validate the H87 detector or its chosen pixel shifts."
+    },
+    {
+      "id": "basin_faults",
+      "title": "USGS: Aeromagnetic expression of faults that offset basin fill",
+      "url": "https://www.usgs.gov/publications/aeromagnetic-expression-faults-offset-basin-fill-albuquerque-basin-new-mexico",
+      "authority": "USGS publication record; Grauch, Hudson, Minor; DOI 10.1190/1.1444961",
+      "retrieval": "publication abstract and citation read",
+      "locator": "Abstract",
+      "verified_claim": "High-resolution aeromagnetic data show expressions of faults offsetting basin fill in the Albuquerque basin; juxtaposed magnetic layers can explain the anomalies.",
+      "qualification": "Supports geological plausibility, not detection accuracy in GeoDAWN or a geothermal interpretation."
+    },
+    {
+      "id": "ingenious",
+      "title": "GBCGE INGENIOUS project",
+      "url": "https://gbcge.org/current-projects/ingenious/",
+      "authority": "Great Basin Center for Geothermal Energy",
+      "retrieval": "project purpose, collaborators, linked publications read",
+      "locator": "Project goal and publications",
+      "verified_claim": "Integrates play-fairway analysis, conceptual modeling, field measurements, and other methods to investigate hidden geothermal systems.",
+      "qualification": "Contextual research; no new well, vent, or chemistry data were used as H87 features."
+    },
+    {
+      "id": "gdr1391",
+      "title": "GDR: INGENIOUS Great Basin Regional Dataset Compilation",
+      "url": "https://gdr.openei.org/submissions/1391",
+      "authority": "DOE Geothermal Data Repository; DOI 10.15121/1881483",
+      "retrieval": "description, resource list, and license read",
+      "locator": "Description / Resources / License",
+      "verified_claim": "Public CC BY 4.0 compilation includes faults, conductance, geodetics, seismicity, well/spring chemistry, and other datasets.",
+      "qualification": "Links being listed does not prove this sandbox can obtain every resource; no new external dependency is proposed as experimentally validated."
+    },
+    {
+      "id": "h33",
+      "title": "GEMSDOE32 prior result (educational audit only)",
+      "url": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
+      "authority": "owner project, not an organizer receipt",
+      "retrieval": "both index chunks read; prior TIFF restored by Git blob and SHA-256",
+      "locator": "Primary artifact / Status / What is not claimed",
+      "verified_claim": "The page describes H33-2-B2 as a catalogue-flank-pruned earlier field and says no organizer score exists in that repository.",
+      "qualification": "The user-reported historical result is quarantined as an unverified claim. We measured raster ancestry directly but cannot establish why an unverified hidden-label score changed."
+    }
+  ]
+}

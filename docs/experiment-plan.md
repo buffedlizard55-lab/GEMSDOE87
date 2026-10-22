@@ -1,3 +1,5 @@
+> **Historical readiness snapshot:** retained from concurrent `main` at `f4f5944` before the implemented H87 run was integrated. This is not current data/artifact status. See [the current research dashboard](index.html), [measured result](science.html), and [current verification](verification.html). No extra scientific lane was executed during integration.
+
 # Preregistered experiment plan — GEMSDOE87
 
 **Plan status:** preregistered for a future run; no geology experiment has been executed in this checkout.

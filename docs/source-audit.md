@@ -1,3 +1,5 @@
+> **Historical readiness snapshot:** retained from concurrent `main` at `f4f5944` before the implemented H87 run was integrated. This is not current data/artifact status. See [the current research dashboard](index.html), [measured result](science.html), and [current verification](verification.html). No extra scientific lane was executed during integration.
+
 # Official-source audit
 
 **Checked:** 2026-10-22 UTC. Statements below are limited to what the linked source pages state. Links are included for manual review.

@@ -1,18 +1,23 @@
-# Python test/build artifacts
 .venv/
+.cache/
+data/raw/
+data/derived/
+data/bridge/
+artifacts/
 __pycache__/
-*.py[cod]
 .pytest_cache/
-
-# Local work products: keep competition rasters and ZIPs out of Git.
+*.pyc
+node_modules/
+playwright-report/
+.DS_Store
+*.partial
+*.assembling
+data/official/
+# Keep arbitrary raster artifacts out; only this explicitly required research bundle is tracked.
 *.tif
 *.tiff
 *.zip
-# A validated, named submission may be published here only after every readiness gate passes.
-!downloads/
-!downloads/*.tif
-# Keep transient evidence scratch out of Git; small final receipts may be tracked.
-evidence/tmp/
-
-# Site build output
+!docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif
+!docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.zip
 _site/
+evidence/tmp/

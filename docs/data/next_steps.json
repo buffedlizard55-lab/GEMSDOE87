@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-22T22:33:20.941468+00:00",
+  "based_on_run": "H87-BMTD: a tangential shift restores bilateral magnetic texture similarity across a concealed fault.",
+  "raster_sha256": "10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d",
+  "source_health_last_attempt_utc": "2026-10-22T22:33:20.895788+00:00",
+  "current_verdict": "negative",
+  "safe_to_submit": false,
+  "actions": [
+    {
+      "id": "registry-rule-block",
+      "priority": 1,
+      "title": "Keep scientific execution stopped; resolve the universal-overlap contradiction explicitly.",
+      "reason": "The recorded literal overlap gate rejects every nonempty allowed candidate. No dense-raster exemption is authorized.",
+      "execution_scope": "Protocol decision required before a separately authorized future run; do not change this run or its thresholds.",
+      "automatically_executed": false
+    },
+    {
+      "id": "frozen-defect",
+      "priority": 2,
+      "title": "Do not describe the frozen TIFF as output of the corrected edge guard.",
+      "reason": "The source correction has synthetic regression coverage only; original negative data, hash and measurements are retained.",
+      "execution_scope": "A corrected scientific measurement requires a new authorized run, not an automatic retry.",
+      "automatically_executed": false
+    },
+    {
+      "id": "preserve-weekly-slot",
+      "priority": 3,
+      "title": "Do not spend a weekly competition slot on H87-BMTD-01.",
+      "reason": "The improvement gate did not clear and a byte-fresh TIFF is not a uniqueness or submission authorization.",
+      "execution_scope": "Read-only recommendation; no selector or upload operation exists in this updater.",
+      "automatically_executed": false
+    },
+    {
+      "id": "source-retry",
+      "priority": 4,
+      "title": "Retry official-source transport on the next scheduled refresh; preserve dated observations.",
+      "reason": "13 source transport checks failed or required login. Reachability never verifies a geological claim.",
+      "execution_scope": "Public source-health checks only; no credentials, no authenticated account-state inference.",
+      "automatically_executed": false
+    },
+    {
+      "id": "account-receipt",
+      "priority": 5,
+      "title": "Require an authenticated current cap/usage receipt before any future selector authorization.",
+      "reason": "A rules PDF or public leaderboard does not identify account-specific remaining slots or this artifact's acceptance.",
+      "execution_scope": "No real slot selected or consumed in this project.",
+      "automatically_executed": false
+    },
+    {
+      "id": "physical-research-queue",
+      "priority": 6,
+      "title": "Retain the four ranked geological hypotheses as a future research queue, not tested winners.",
+      "reason": "Fault-specific signatures and named non-fault mimics are documented; no new external dataset or improved result is invented.",
+      "execution_scope": "Do not run another experiment in this stopped lane. Exact layer definitions and official provenance must be checked first.",
+      "automatically_executed": false
+    }
+  ],
+  "scientific_experiments_run_by_updater": 0,
+  "submission_slots_used_by_updater": 0,
+  "scope": "Deterministic next steps from measured blockers and transport status; not semantic verification of new scientific knowledge."
+}

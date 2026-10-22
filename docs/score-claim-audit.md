@@ -1,3 +1,5 @@
+> **Historical readiness snapshot:** retained from concurrent `main` at `f4f5944` before the implemented H87 run was integrated. This is not current data/artifact status. See [the current research dashboard](index.html), [measured result](science.html), and [current verification](verification.html). No extra scientific lane was executed during integration.
+
 # H33 result and leaderboard claim audit
 
 **Reviewed:** 2026-10-22 UTC. This note distinguishes public-source statements, user-supplied claims, and model projections. It does not assert a score for a GEMSDOE87 artifact.

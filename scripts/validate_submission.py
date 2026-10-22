@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Read-only GeoTIFF preflight against the official sample grid.
+"""Preserved legacy readiness-only GeoTIFF preflight.
+
+Its `ready` field means this older local format policy only, not competition
+approval. It requires null/nodata outside the footprint. The current frozen
+research bundle uses the separate hash-pinned all-finite policy in
+check_submission.py, which always refuses submission authorization. This older
+helper is preserved for its existing callers/tests, not used to approve H87.
 
 The validator never writes or repairs a prediction. It fails closed on grid
 mismatches, finite values outside [0, 1], NaN/Inf inside the target footprint,

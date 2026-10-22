@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gemsdoe87"
+version = "0.1.0"
+description = "Auditable magnetic-texture fault hypothesis with fail-closed GeoTIFF delivery"
+requires-python = ">=3.11"
+dependencies = ["numpy>=2.0,<3", "scipy>=1.14,<2", "rasterio>=1.4,<2", "scikit-learn>=1.5,<2", "requests>=2.32,<3", "pillow>=11,<14", "Markdown>=3.7,<4"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "vendor", "."]
+testpaths = ["tests"]
+addopts = "-ra"

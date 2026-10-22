@@ -1,0 +1,188 @@
+{
+  "passed": true,
+  "generated_utc": "2026-10-22T23:13:39.409Z",
+  "browser_version": "153.0.8010.0",
+  "checks": [
+    {
+      "page": "index.html",
+      "viewport": "desktop",
+      "status": 200,
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "executive-summary.html",
+      "viewport": "desktop",
+      "status": 200,
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "science.html",
+      "viewport": "desktop",
+      "status": 200,
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "validation.html",
+      "viewport": "desktop",
+      "status": 200,
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "registry.html",
+      "viewport": "desktop",
+      "status": 200,
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "sources.html",
+      "viewport": "desktop",
+      "status": 200,
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "verification.html",
+      "viewport": "desktop",
+      "status": 200,
+      "no_horizontal_overflow": true
+    },
+    {
+      "actual_tiff_download_verified": true,
+      "raster_sha256": "10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d"
+    },
+    {
+      "registry_search_verified": true
+    },
+    {
+      "compatibility_entrypoint": "index.html",
+      "redirects_to_current_page": "docs/index.html"
+    },
+    {
+      "compatibility_entrypoint": "executive-summary.html",
+      "redirects_to_current_page": "docs/executive-summary.html"
+    },
+    {
+      "compatibility_entrypoint": "research.html",
+      "redirects_to_current_page": "docs/science.html"
+    },
+    {
+      "compatibility_entrypoint": "sources.html",
+      "redirects_to_current_page": "docs/sources.html"
+    },
+    {
+      "clipboard_copy_and_unavailable_fallback_verified": true
+    },
+    {
+      "page": "index.html",
+      "viewport": "320x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "executive-summary.html",
+      "viewport": "320x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "science.html",
+      "viewport": "320x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "validation.html",
+      "viewport": "320x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "registry.html",
+      "viewport": "320x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "sources.html",
+      "viewport": "320x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "verification.html",
+      "viewport": "320x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "index.html",
+      "viewport": "390x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "executive-summary.html",
+      "viewport": "390x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "science.html",
+      "viewport": "390x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "validation.html",
+      "viewport": "390x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "registry.html",
+      "viewport": "390x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "sources.html",
+      "viewport": "390x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "verification.html",
+      "viewport": "390x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "index.html",
+      "viewport": "768x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "executive-summary.html",
+      "viewport": "768x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "science.html",
+      "viewport": "768x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "validation.html",
+      "viewport": "768x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "registry.html",
+      "viewport": "768x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "sources.html",
+      "viewport": "768x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "page": "verification.html",
+      "viewport": "768x844",
+      "no_horizontal_overflow": true
+    },
+    {
+      "missing_feed_fails_honestly_to_dated_snapshot": true
+    },
+    {
+      "download_and_decision_work_without_javascript": true
+    }
+  ],
+  "browser_errors": [],
+  "scope": "Served Pages, actual browser TIFF download hash, 4 compatibility entry points, 4 viewport widths, clipboard success/failure, source-feed failure, no-JavaScript fallback and registry search; not organizer upload acceptance."
+}

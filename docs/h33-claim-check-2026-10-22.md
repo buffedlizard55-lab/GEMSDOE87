@@ -1,3 +1,5 @@
+> **Historical concurrent source-check snapshot at `a7a7c77`, not the current implemented experiment.** Current decoded H33-to-parent forensics and actual research TIFF are in [the scientific report](science.html). Owner-reported projections discussed here are separate from any dated official public-leader observation; matching digits do not authenticate an artifact.
+
 # H33-2-B2 claim check — line-by-line verification
 
 **Checked:** 2026-10-22 UTC from this sandbox. **Reachable from the sandbox:** `github.com`, `api.github.com`, `pypi.org`, `registry.npmjs.org` only. **Not reachable:** DrivenData, the GEMSDOE Pages sites (`buffedlizard55-lab.github.io`), USGS, OpenEI, NLR/docs.nlr.gov, EPSG, Dropbox. Everything below is therefore read from GitHub-hosted source files (the repo a Pages site is built from), not from the rendered pages.

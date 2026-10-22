@@ -10,11 +10,11 @@ from pathlib import Path
 try:
     import numpy as np
     import rasterio
-    from rasterio.transform import from_origin
+    from affine import Affine
 except ImportError:
     np = None
     rasterio = None
-    from_origin = None
+    Affine = None
 
 from scripts.validate_submission import main, validate_submission
 
@@ -26,7 +26,7 @@ class ValidateSubmissionTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         self.reference = self.root / "sample_submission.tif"
         self.prediction = self.root / "candidate.tif"
-        self.transform = from_origin(500000, 4100000, 100, 100)
+        self.transform = Affine(100, 0, 500000, 0, -100, 4100000)
         self.reference_values = np.array(
             [
                 [0.0, 0.0, 0.0, np.nan],
@@ -165,7 +165,7 @@ class ValidateSubmissionTests(unittest.TestCase):
         self.assertFalse(result["checks"]["shape_matches_reference"]["passed"])
 
     def test_wrong_transform_fails(self) -> None:
-        shifted = from_origin(500100, 4100000, 100, 100)
+        shifted = Affine(100, 0, 500100, 0, -100, 4100000)
         self._write(self.prediction, self.valid, transform=shifted, nodata=np.nan)
         result = validate_submission(self.prediction, self.reference)
         self.assertFalse(result["ready"])
@@ -185,7 +185,7 @@ class ValidateSubmissionTests(unittest.TestCase):
 
     def test_reference_with_wrong_resolution_fails_closed(self) -> None:
         wrong_reference = self.root / "wrong_resolution.tif"
-        wrong_transform = from_origin(500000, 4100000, 50, 50)
+        wrong_transform = Affine(50, 0, 500000, 0, -50, 4100000)
         self._write(wrong_reference, self.reference_values, transform=wrong_transform, nodata=np.nan)
         result = validate_submission(self.prediction, wrong_reference)
         self.assertFalse(result["ready"])
