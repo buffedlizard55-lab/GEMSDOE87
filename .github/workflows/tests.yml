@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - arena/bf6c8042-gemsdoe87
+      - arena/dc5a4ad2-gemsdoe87
   pull_request:
     branches:
       - main
