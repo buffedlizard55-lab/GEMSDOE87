@@ -27,9 +27,17 @@
 - The initial push-triggered GitHub Pages workflow succeeded after PR #3 merged (run [39862945753](https://github.com/buffedlizard55-lab/GEMSDOE87/actions/runs/39862945753)). The live [landing page](https://buffedlizard55-lab.github.io/GEMSDOE87/) shows the blocked status, and its [published feed](https://buffedlizard55-lab.github.io/GEMSDOE87/data/feed.json) was refreshed at 2026-10-22 22:10 UTC. It reports the official data tab as login-required and public source pages as reachable; it does not collect or publish scores. This verifies one automated refresh and deployment, not the daily schedule, which has not yet run.
 - Final scientific result: negative / blocked. No geological experiment was run, no competition slot was used, no candidate GeoTIFF was generated, and no competition score is claimed.
 
-## Follow-up review in the current Arena branch
+## Follow-up review in this session (2026-10-22 UTC)
 
-- Re-inspected the tracked tree and confirmed the absent prerequisites remain absent: competition TIFFs, cached feature stack, shared holdout evaluator/writer, and registry rasters. The request's numerical comparison claims cannot be validated from this checkout and the H33 claim remains unconfirmed without a receipt.
-- Environment initially lacked pytest and rasterio/numpy in the default interpreter. Created an ignored local virtual environment, installed `requirements-validation.txt`, and ran `python -m unittest discover -s tests -v`: **21 tests passed**. This tests site/feed/validator behavior with synthetic fixtures only; it is not a scientific holdout result.
-- Found that the CI push trigger still named an earlier Arena branch. Corrected it to `arena/dc5a4ad2-gemsdoe87` so branch pushes run the project tests. Pull requests targeting `main` are also covered.
-- Final disposition remains negative / blocked. No candidate TIFF, model result, DTI, confidence interval, registry novelty measurement, or competition entry was created. The requested high-score gates cannot be met without the missing authorized/shared inputs; fabricating a TIFF would be misleading and unsafe.
+- Read the project brief, research plan, status/run-card JSON, source and irregularity audits, Pages scripts, workflows, and tests before making changes.
+- Found a deployment gap: the readiness page could point to `downloads/<file>.tif`, but the Pages packaging step did not copy the `downloads/` directory into the published site. Updated the workflow to publish that directory when it exists; no file is present now and the status remains blocked.
+- Updated the test workflow's push branch to this session's fixed branch, so CI can run on this work branch.
+- Fixed a small landing-page typo in the P(Win) value statement and recorded the conflicting user-reported leaderboard maxima (0.4413 and 0.3195) as unverified claims, not scores.
+- The first local test invocation could not import optional raster libraries. Installed only the pinned project validation requirements into the repository's ignored `.venv/`; the complete suite then passed: 22 tests, using synthetic rasters strictly for validator behavior.
+- Final checks still confirm the scientific work is blocked: competition inputs, shared evaluator/writer, and registry are absent. No TIFF, score, novelty result, or eligibility to submit can be honestly claimed.
+
+## Branch synchronization and pull-request review
+
+- While PR #7 was open, `main` advanced concurrently. Updated this branch from `origin/main` and resolved conflicts by retaining this branch's push trigger (not another active Arena branch) and preserving both sets of review notes.
+- GitHub Actions test check passed for PR #7. The first local hook invoked the system Python before the ignored environment was active, so it reported missing optional libraries; rerunning the full suite with `.venv/bin/python` passed all 22 tests.
+- No geological experiment was run; all competition-score, holdout, registry, and TIFF fields remain unmeasured/blocked.
