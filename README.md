@@ -63,7 +63,7 @@ The first is the provisional top candidate because it requires only feature fami
 - [`index.html`](index.html) is the GitHub Pages landing page. It prominently shows **NOT READY TO SUBMIT** and does not expose a download while `data/submission-status.json` is blocked.
 - [`executive-summary.html`](executive-summary.html) explains the end-to-end portal submission workflow and the prior range-validation error.
 - [`research.html`](research.html) lists candidate hypotheses and the preregistered holdout gates.
-- [`sources.html`](sources.html) links to verified sources and the current source feed. The Pages workflow checks public source availability daily; it does not log in or scrape leaderboard scores.
+- [`sources.html`](sources.html) links to verified sources and the current source feed. The initial push-triggered Pages workflow succeeded and published a feed checked at 2026-10-22 22:10 UTC; the workflow is configured for daily source-availability refreshes, but a scheduled run has not yet occurred. It does not log in or scrape leaderboard scores.
 - [`scripts/validate_submission.py`](scripts/validate_submission.py) is a read-only final-byte preflight; it is not a model writer or holdout evaluator. Example after the authorized files are present:
 
   ```bash
