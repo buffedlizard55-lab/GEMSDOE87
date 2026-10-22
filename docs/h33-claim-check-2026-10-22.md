@@ -50,7 +50,7 @@ The prompt asserts that `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` scored **
 
 - The H33 TIF grid (EPSG:32611, 100 m, 3730 × 3292, origin 243350 / 4508550) is **the owner's claim** of the competition grid. It must be checked against the official `sample_submission.tif`, which is not reachable here.
 - GEMSDOE32's `registry/` and `docs/downloads/` are on GitHub and downloadable through the API. They can serve as a **registry for the novelty gate** (rank-correlation and 3-px overlap), which resolves part of the "registry rasters absent" blocker. They must not be submitted as our own output.
-- The official reference notebook writes float64 (see [IR-87-11](irregularities.md)); any output must be re-cast and re-validated as float32.
+- The official reference notebook writes float64 (see [IR-87-17](irregularities.md)); any output must be re-cast and re-validated as float32.
 
 ## 6. Run card (this check)
 

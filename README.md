@@ -77,7 +77,7 @@ The first is the provisional top candidate because it requires only feature fami
     --report evidence/validation.json
   ```
 
-Run the local test suite inside the same virtual environment with `python -m unittest discover -s tests -v`. On Debian/Ubuntu system Python, install into a venv: a bare `pip install` is refused under PEP 668 and the validator tests then fail with a missing-numpy error. On 2026-10-22 all 22 tests passed in a venv with numpy 2.4.6 and rasterio 1.4.4. The official sample's validity mask and any optional footprint mask must be confirmed against the actual competition files before using the validator for a real submission.
+Run the local test suite inside the same virtual environment with `python -m unittest discover -s tests -v`. On Debian/Ubuntu system Python, install into a venv: a bare `pip install` is refused under PEP 668 and the validator tests then fail with a missing-numpy error. On 2026-10-22, after merging `origin/main` (PR #8), all 25 tests passed in a venv with numpy 2.4.6 and rasterio 1.4.4; the base interpreter skips the 13 raster tests. The official sample's validity mask and any optional footprint mask must be confirmed against the actual competition files before using the validator for a real submission.
 
 ## Run card — this checkout
 
@@ -119,9 +119,9 @@ Run the local test suite inside the same virtual environment with `python -m uni
 | 2 | Official sample grid (CRS, shape, transform, footprint mask) is needed to validate any TIF. | Same download as row 1. Owner-reported grid for H33 (EPSG:32611, 3730×3292) is not accepted without a check against the official file. | Blocked. |
 | 3 | Shared holdout evaluator, cached feature stack, and submission writer are referenced by the protocol but not present, and no metric code was found. | Locate the shared template and its exact files, or the user supplies them. Do not reimplement from memory. | Missing. |
 | 4 | Registry rasters for the novelty gate. Sibling GEMSDOE TIFs are on GitHub and downloadable (e.g., GEMSDOE32 `docs/downloads/`), which resolves part of this. | Build the registry from GitHub; use only for comparison, never as a submission. | Partly available; not built yet. |
-| 5 | Live leaderboard and submission-page receipts. The sandbox cannot read DrivenData. Scores in this repo are owner claims unless a receipt is provided. | User reads the live leaderboard and provides receipts or screenshots with dates. | Blocked. Three conflicting top values in circulation ([IR-87-09](docs/irregularities.md)). |
+| 5 | Live leaderboard and submission-page receipts. The sandbox cannot read DrivenData. Scores in this repo are owner claims unless a receipt is provided. | User reads the live leaderboard and provides receipts or screenshots with dates. | Blocked. Three conflicting top values in circulation ([IR-87-15](docs/irregularities.md)). |
 | 6 | The official rules PDF and the problem page were cited in earlier sessions but cannot be re-read from the sandbox. | Re-read from an unrestricted network; record date and hash. | Unverified in this session. |
-| 7 | The reference notebook writes float64, not float32 ([IR-87-11](docs/irregularities.md)). | Any reference-derived output must be cast and re-validated. | Open. |
+| 7 | The reference notebook writes float64, not float32 ([IR-87-17](docs/irregularities.md)). | Any reference-derived output must be cast and re-validated. | Open. |
 | 8 | Generative-AI disclosure and the single-final-selection rule (from the rules PDF read earlier) must appear in the final entry. | Entrant completes the narrative and selects one entry on the portal. | Not yet applicable. |
 
 The user's account is the entrant. This project does not collect or store credentials, and no file is uploaded automatically.
@@ -132,7 +132,7 @@ The user's account is the entrant. This project does not collect or store creden
 2. Locate or confirm the shared template (`evaluate_holdout.py`, `submission_writer.py`, cached feature stack). If it does not exist, say so and ask the user before writing anything new.
 3. Build the registry from GitHub-hosted GEMSDOE TIFs for the novelty gate, then run the surface and dot-overlap checks on any candidate.
 4. Run one matched baseline/candidate pair for the top preregistered lane, with leakage canary and paired CI, before using any weekly slot.
-5. Read the live leaderboard once and record the date. Resolve IR-87-08 and IR-87-09 with receipts.
+5. Read the live leaderboard once and record the date. Resolve IR-87-14 and IR-87-15 with receipts.
 
 ## Previous next-steps list (superseded by the section above)
 
