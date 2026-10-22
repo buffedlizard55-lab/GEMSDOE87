@@ -26,3 +26,25 @@
 - Confirmed internal page links resolve, Python files compile, the unit test suite passes, and `git diff --check` is clean.
 - The initial push-triggered GitHub Pages workflow succeeded after PR #3 merged (run [39862945753](https://github.com/buffedlizard55-lab/GEMSDOE87/actions/runs/39862945753)). The live [landing page](https://buffedlizard55-lab.github.io/GEMSDOE87/) shows the blocked status, and its [published feed](https://buffedlizard55-lab.github.io/GEMSDOE87/data/feed.json) was refreshed at 2026-10-22 22:10 UTC. It reports the official data tab as login-required and public source pages as reachable; it does not collect or publish scores. This verifies one automated refresh and deployment, not the daily schedule, which has not yet run.
 - Final scientific result: negative / blocked. No geological experiment was run, no competition slot was used, no candidate GeoTIFF was generated, and no competition score is claimed.
+
+## Follow-up code review — active Arena branch
+
+**Review date:** 2026-10-22 UTC. This review is limited to the currently checked-out branch and does not adopt work from another open branch.
+
+### Pass 1 — inspect actual checkout
+
+- Read the repository brief, experiment plan, source/score audits, status JSON, site pages, source-feed code, TIFF validator, test suite, and workflows.
+- Confirmed from the tracked tree and `data/` directory that this branch has no competition TIFFs, labels/features, cached feature stack, shared holdout evaluator/writer, registry rasters, or candidate. The site correctly remains **NOT READY TO SUBMIT** and exposes no TIFF download.
+- The historical source audit was not re-fetched in this follow-up; no new external-source or scientific claim is made here.
+
+### Pass 2 — look for failure paths
+
+- Found a destructive CLI edge case: `scripts/validate_submission.py --report <same path as prediction>` validated the TIFF, then overwrote it with JSON. The same risk applied to reference/mask paths and hard-link aliases.
+- Found an optional-dependency test bug: `nodata=np.nan` was evaluated while importing the test module, so an environment without NumPy errored instead of cleanly skipping raster tests.
+- Fixed report/input alias rejection (including hard links), atomic JSON report writes, and the test fixture default. Added regression tests for successful receipt writes and collision refusal.
+
+### Pass 3 — verify fixes and original scope
+
+- In an isolated `.venv`, installed the declared validation dependencies and ran compileall, all **24 unit tests**, and `git diff --check`; all passed. The TIFF tests use tiny synthetic fixtures only and are software tests, not geological validation.
+- Re-ran the suite under the base interpreter without raster dependencies; tests now complete successfully and explicitly skip only the rasterio/NumPy cases.
+- No holdout, leakage canary, DTI, confidence interval, registry comparison, TIFF generation, or competition entry was performed. No numerical score is claimed. No external data or credentials were used.
