@@ -54,6 +54,11 @@ class SiteTests(unittest.TestCase):
                 target = (page.parent / href.split("#", 1)[0].split("?", 1)[0]).resolve()
                 self.assertTrue(target.exists(), f"broken local link in {page.name}: {href}")
 
+    def test_pages_workflow_publishes_a_validated_download_directory(self) -> None:
+        workflow = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
+        self.assertIn("if [ -d downloads ]; then", workflow)
+        self.assertIn("cp -R downloads/. _site/downloads/", workflow)
+
     def test_source_register_and_feed_are_parseable(self) -> None:
         sources = json.loads((ROOT / "data/sources.json").read_text(encoding="utf-8"))
         feed = json.loads((ROOT / "data/feed.json").read_text(encoding="utf-8"))
