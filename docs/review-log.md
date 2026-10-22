@@ -41,3 +41,27 @@
 - While PR #7 was open, `main` advanced concurrently. Updated this branch from `origin/main` and resolved conflicts by retaining this branch's push trigger (not another active Arena branch) and preserving both sets of review notes.
 - GitHub Actions test check passed for PR #7. The first local hook invoked the system Python before the ignored environment was active, so it reported missing optional libraries; rerunning the full suite with `.venv/bin/python` passed all 22 tests.
 - No geological experiment was run; all competition-score, holdout, registry, and TIFF fields remain unmeasured/blocked.
+
+## Follow-up code review — active Arena branch
+
+**Review date:** 2026-10-22 UTC. This review is limited to the currently checked-out branch and does not adopt work from another open branch.
+
+### Pass 1 — inspect actual checkout
+
+- Read the repository brief, experiment plan, source/score audits, status JSON, site pages, source-feed code, TIFF validator, test suite, and workflows.
+- Confirmed from the tracked tree and `data/` directory that this branch has no competition TIFFs, labels/features, cached feature stack, shared holdout evaluator/writer, registry rasters, or candidate. The site correctly remains **NOT READY TO SUBMIT** and exposes no TIFF download.
+- The historical source audit was not re-fetched in this follow-up; no new external-source or scientific claim is made here.
+
+### Pass 2 — look for failure paths
+
+- Found a destructive CLI edge case: `scripts/validate_submission.py --report <same path as prediction>` validated the TIFF, then overwrote it with JSON. The same risk applied to reference/mask paths and hard-link aliases.
+- Found an optional-dependency test bug: `nodata=np.nan` was evaluated while importing the test module, so an environment without NumPy errored instead of cleanly skipping raster tests.
+- Fixed report/input alias rejection (including hard links), atomic JSON report writes, and the test fixture default. Added regression tests for successful receipt writes and collision refusal.
+
+### Pass 3 — verify fixes and original scope
+
+- In an isolated `.venv`, installed the declared validation dependencies and ran compileall, all **24 unit tests**, and `git diff --check`; all passed. The TIFF tests use tiny synthetic fixtures only and are software tests, not geological validation.
+- Re-ran the suite under the base interpreter without raster dependencies; tests now complete successfully and explicitly skip only the rasterio/NumPy cases.
+- No holdout, leakage canary, DTI, confidence interval, registry comparison, TIFF generation, or competition entry was performed. No numerical score is claimed. No external data or credentials were used.
+- `origin/main` advanced during this review; synchronized the active branch with the merged Pages download-packaging change, current landing-page typo fix, and prior CI updates. Updated the push trigger to this fixed branch and preserved the existing review history.
+- After synchronization, re-ran compileall, all **25 unit tests** in both the base interpreter (raster-only tests skipped because optional libraries are absent) and the isolated validation environment, plus `git diff --check`; all passed.
