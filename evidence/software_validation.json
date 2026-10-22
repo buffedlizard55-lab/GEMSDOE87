@@ -1,8 +1,8 @@
 {
-  "generated_utc": "2026-10-22T22:46:08.535812+00:00",
+  "generated_utc": "2026-10-22T22:59:54.695659+00:00",
   "pytest": {
     "command": ".venv/bin/python -m pytest -q --junitxml=.cache/software-tests.xml",
-    "tests": 73,
+    "tests": 95,
     "failures": 0,
     "errors": 0,
     "skipped": 0
@@ -18,5 +18,7 @@
   "authorization_json_boolean_override_refused": true,
   "reference_mirror_hashes_rechecked": true,
   "idempotent_bundle_validated_without_rewrite": true,
-  "workflow_yaml_structure_valid": true
+  "workflow_yaml_structure_valid": true,
+  "preserved_readiness_regressions": 21,
+  "concurrent_readiness_snapshots_verified": true
 }

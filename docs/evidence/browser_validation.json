@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "generated_utc": "2026-10-22T22:44:43.808Z",
+  "generated_utc": "2026-10-22T23:00:17.670Z",
   "browser_version": "153.0.8010.0",
   "checks": [
     {
@@ -51,6 +51,22 @@
     },
     {
       "registry_search_verified": true
+    },
+    {
+      "compatibility_entrypoint": "index.html",
+      "redirects_to_current_page": "docs/index.html"
+    },
+    {
+      "compatibility_entrypoint": "executive-summary.html",
+      "redirects_to_current_page": "docs/executive-summary.html"
+    },
+    {
+      "compatibility_entrypoint": "research.html",
+      "redirects_to_current_page": "docs/science.html"
+    },
+    {
+      "compatibility_entrypoint": "sources.html",
+      "redirects_to_current_page": "docs/sources.html"
     },
     {
       "clipboard_copy_and_unavailable_fallback_verified": true
@@ -168,5 +184,5 @@
     }
   ],
   "browser_errors": [],
-  "scope": "Served Pages, actual browser TIFF download hash, 4 viewport widths, clipboard success/failure, source-feed failure, no-JavaScript fallback and registry search; not organizer upload acceptance."
+  "scope": "Served Pages, actual browser TIFF download hash, 4 compatibility entry points, 4 viewport widths, clipboard success/failure, source-feed failure, no-JavaScript fallback and registry search; not organizer upload acceptance."
 }

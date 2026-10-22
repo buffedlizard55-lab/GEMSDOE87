@@ -1,0 +1,17 @@
+> **Historical readiness snapshot:** retained from concurrent `main` at `f4f5944` before the implemented H87 run was integrated. This is not current data/artifact status. See [the current research dashboard](index.html), [measured result](science.html), and [current verification](verification.html). No extra scientific lane was executed during integration.
+
+# Irregularities and review flags
+
+**Checked:** 2026-10-22 UTC. Open issues are kept visible rather than silently resolved.
+
+| ID | Severity | Irregularity | Evidence / consequence | Disposition |
+|---|---|---|---|---|
+| IR-87-01 | High | The prompt attributes an organizer score to the H33-2-B2 TIFF, while the linked GEMSDOE32 page calls that candidate unscored and labels its modeled value a projection. | [GEMSDOE32 landing page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html) and its [claim ledger](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/leaderboard.html) do not provide an organizer receipt tying the exact TIFF bytes to a score. | Open. Treat the reported association as unverified; request/locate a submission-page receipt before calling it ORGANIZER-CONFIRMED. |
+| IR-87-02 | High | The request includes inconsistent claims about the current public-leading result. | The official [DrivenData leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) is mutable. A fetched public row is not a receipt identifying a specific local TIFF. | Open. Link to the live official page; do not copy an unattributed value into the run card. |
+| IR-87-03 | Blocking | The named shared cache, `evaluate_holdout.py`, `submission_writer.py`, registry rasters, competition data, and sample grid are absent from this checkout. | The local tracked tree has no such assets. The official data tab redirected the unauthenticated read to sign-in. | Blocking. No holdout, novelty gate, model run, or submission TIFF can be produced here. Do not recreate shared tools privately. |
+| IR-87-04 | Medium | User-supplied Dropbox mirrors were not independently verified or downloaded. | The public links were not part of the official-source audit and are not available through this session's permitted network path. | Do not treat these mirrors as official or hash-verified inputs. |
+| IR-87-05 | Medium | The instruction to work in a single method lane does not specify the exact paragraph for this checkout. | The prompt requires one lane but does not provide a separate explicit lane declaration. | Recorded as an ambiguity in [`experiment-plan.md`](experiment-plan.md). The provisional top candidate is only a plan; no method was implemented. |
+| IR-87-06 | Informational | “Automatic validation” does not mean automated competition entry. | Official rules require a registered competitor and submission through the DrivenData platform; no authorized account session is present here. | The project automates research/file preflight and leaves credentials private. A competitor must still upload/select an entry through the portal. |
+| IR-87-07 | Informational | The project site is wired to refresh public-source availability, not hidden competition data or leaderboard scores. | [`scripts/refresh_feed.py`](../scripts/refresh_feed.py) records fetch status/title/checksum only and deliberately omits numeric leaderboard rows. | Daily feed checks run through the GitHub Pages workflow. A login-gated source is reported as login required, not bypassed. |
+
+No issue above is resolved by a guessed TIF, a copied sibling artifact, or a synthetic raster.

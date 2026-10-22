@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from html import escape as esc
+from datetime import datetime, timezone
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -204,7 +206,7 @@ def build_sources(card):
         rows.append(f'''<article class="source-row" id="source-{esc(s['id'])}"><div><p class="eyebrow">{esc(s['id'])}</p><p>{esc(s['authority'])}</p><a class="small-link" href="{esc(s['url'], quote=True)}">Open original ↗</a></div><div><h3>{esc(s['title'])}</h3><p class="quote">{esc(s['verified_claim'])}</p><p><strong>Scope / limitation:</strong> {esc(s['qualification'])}</p><p><strong>Reviewed:</strong> {esc(s['retrieval'])} · {esc(s['locator'])}</p></div></article>''')
     body = f'''<div class="page-heading"><p class="eyebrow">Official sources / claim-level provenance</p><h1>Evidence you can trace.</h1><p>Each assertion has an original source and a scope limit. An accessible page is not automatically a verified claim; a mirror hash is not official authentication.</p></div><div class="neutral-notice"><strong data-feed-state>Dated source-health snapshot · see Sources</strong><p class="tiny" data-feed-detail>Research pages were retrieved on 22 October 2026. Automated URL-health results are displayed separately and do not certify scientific content or submission acceptance.</p><p class="tiny">Scheduled refresh attempts occur independently of scientific runs; failed or stale checks are shown, never replaced with a fabricated current observation. <a href="data/feed.json">Read raw feed</a>.</p></div>
 <section id="next-steps"><div class="section-heading"><h2>Automatically derived next steps</h2><a class="small-link" href="data/next_steps.json">Read suggestion feed →</a></div><p class="score-note">Generated from recorded gates and current URL-health status. These suggestions do not run experiments, verify new geological claims, or authorize a slot.</p><div class="grid two">{suggestions}</div></section>
-{''.join(rows)}<section class="prose"><h2>Additional links from the original brief</h2><p><a href="https://epsg.io/32611">EPSG:32611 reference</a> and <a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky background</a> are useful reading, but are not substituted for the organizer's metric formula or the actual sample grid. Dropbox copies were not required because pinned GitHub mirrors were obtained; no Dropbox authentication or availability is claimed.</p><h2>Access limitations</h2><p>The sandbox's direct network transport is restricted. The research retrieval tool could read public official pages, while autonomous data restoration used the permitted GitHub API. The source-health checker records transport failures rather than guessing. DrivenData originals, account-specific cap/usage, and submission receipts require an authorized connection. No credentials were requested or stored.</p><h2>Rules and AI disclosure</h2><p>The official rules require truthful provenance, reproducible assets, eligibility, and generative-AI-use disclosure. An Arena.ai agent assisted with research, coding, validation, and documentation. It did not fabricate measurements, labels, organizer acceptance, or competition scores. No competition entry was submitted.</p><p><a href="verification.html">Three-pass review &amp; irregularities →</a></p></section>'''
+{''.join(rows)}<section class="prose"><h2>Additional links from the original brief</h2><p><a href="https://epsg.io/32611">EPSG:32611 reference</a> and <a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky background</a> are useful reading, but are not substituted for the organizer's metric formula or the actual sample grid. Dropbox copies were not required because pinned GitHub mirrors were obtained; no Dropbox authentication or availability is claimed.</p><h2>Preserved earlier readiness audits</h2><p>The concurrent readiness-only source audit and score-claim review are retained as dated historical documents: <a href="source-audit.md">source audit</a> and <a href="score-claim-audit.md">claim audit</a>. Their former lack-of-data status is superseded by this run, not treated as current.</p><h2>Access limitations</h2><p>The sandbox's direct network transport is restricted. The research retrieval tool could read public official pages, while autonomous data restoration used the permitted GitHub API. The source-health checker records transport failures rather than guessing. DrivenData originals, account-specific cap/usage, and submission receipts require an authorized connection. No credentials were requested or stored.</p><h2>Rules and AI disclosure</h2><p>The official rules require truthful provenance, reproducible assets, eligibility, and generative-AI-use disclosure. An Arena.ai agent assisted with research, coding, validation, and documentation. It did not fabricate measurements, labels, organizer acceptance, or competition scores. No competition entry was submitted.</p><p><a href="verification.html">Three-pass review &amp; irregularities →</a></p></section>'''
     page('sources.html', 'Official sources & live feed health', body, card=card)
 
 
@@ -212,6 +214,58 @@ def build_verification(card):
     content = '\n\n'.join((ROOT / f'research/{name}.md').read_text() for name in ('irregularities', 'verification') if (ROOT / f'research/{name}.md').exists())
     body = '<div class="page-heading"><p class="eyebrow">Verification / limitations</p><h1>Own the full outcome.</h1><p>Known failures, review passes, and remaining requirements stay visible.</p></div><div class="prose">' + render_markdown(content) + '</div>'
     page('verification.html', 'Verification & irregularities', body, card=card)
+
+
+def write_compatibility(card):
+    # Preserve established public URLs while making ONE current research UI.
+    routes = [('index.html', 'index.html', 'Research dashboard and research-only download'),
+              ('executive-summary.html', 'executive-summary.html', 'Executive summary and submission guide'),
+              ('research.html', 'science.html', 'Current scientific report'),
+              ('sources.html', 'sources.html', 'Current source ledger and health feed')]
+    for filename, target, label in routes:
+        html = f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=docs/{target}"><title>GEMSDOE87 — research only, DO NOT SUBMIT</title></head><body><h1>GEMSDOE87</h1><p><strong>New research GeoTIFF available. Competition submission: DO NOT SUBMIT.</strong></p><p><a href="docs/{target}">{esc(label)}</a></p></body></html>'
+        (ROOT / filename).write_text(html)
+    data = ROOT / 'data'
+    data.mkdir(exist_ok=True)
+    (data / 'run-card.json').write_text(json.dumps(card, indent=2) + '\n')
+    h = card['holdout_dti']['downloadable_continuous_artifact']
+    comparisons = card['correlation_overlap_vs_registry']['serialized_artifact']
+    validation = load('docs/evidence/independent_validation.json')
+    status = dict(schema_version=2, updated_at=datetime.now(timezone.utc).isoformat(),
+        status='negative_research_only', submission_ready=False, safe_to_submit=False,
+        reason='Frozen H87 negative: no demonstrated control gain, literal universal-overlap duplicate and disclosed original edge-guard defect. Local format is valid; submission is NOT authorized.',
+        artifact=card['submission_file'], raster_sha256=card['raster_sha256'],
+        submission_name=card['submission_name'], submission_note=card['submission_note'],
+        holdout_dti=dict(evidence_class='HOLDOUT-DTI', evaluator_version=h['evaluator_version'],
+                         withheld_positive_count=h['withheld_positive_pixels'], score=h['dti'], ci_95=h['ci95'],
+                         beats_current_best=False, representation='frozen continuous research artifact'),
+        novelty=dict(rank_correlation_max=max(r['spearman_full_footprint'] for r in comparisons),
+                     fraction_within_3px_max=max(r['my_dots_within_3px_of_theirs'] for r in comparisons),
+                     registry_rasters_checked=len(comparisons), status='duplicate-stop',
+                     maxima_scope='Two inspected references only; not a global correlation maximum or clearance.'),
+        validation=dict(status='local_format_pass_not_submission_approval',
+                        no_nan_inside_footprint=validation['no_nan_inside_footprint'],
+                        finite_values_in_0_1=validation['range_0_1'],
+                        crs_shape_transform_match=validation['crs_shape_transform_match'],
+                        receipt_sha256=hashlib.sha256((DOCS / 'evidence/independent_validation.json').read_bytes()).hexdigest()),
+        gates=[dict(id='competition_data', status='recorded-integrity-pass', detail='Three pinned mirrors restored for the frozen experiment; organizer authenticity unverified and raw caches intentionally unbundled.'),
+               dict(id='shared_template_tools', status='pass', detail='23 unchanged shared modules and unchanged inherited physical-band builder.'),
+               dict(id='holdout_and_leakage', status='negative', detail='Individual canaries did not trigger, but the paired lower confidence bound did not beat the best matched control.'),
+               dict(id='registry_novelty', status='duplicate-stop', detail='Universal saturated-support witness; no final dots or unauthorized density exemption.'),
+               dict(id='tiff_validation', status='local-format-pass', detail='Actual TIFF/ZIP re-read; this cannot authorize a scientific negative.'),
+               dict(id='selector', status='blocked', detail='Zero competition slots; no authenticated cap or selector authorization.')],
+        download=None, research_download='docs/downloads/' + card['submission_file'],
+        research_download_status='RESEARCH ONLY — DO NOT SUBMIT', path_resolution='relative to project site root',
+        current_run_card='docs/evidence/run_card.json')
+    (data / 'submission-status.json').write_text(json.dumps(status, indent=2) + '\n')
+    # Keep prior source/feed schemas for existing clients; mark them as historical
+    # rather than falsely claiming their old readiness snapshot is current.
+    for old, current in [('feed.json', '../docs/data/feed.json'), ('sources.json', '../docs/data/sources.json')]:
+        path = data / old
+        if path.exists():
+            legacy = json.loads(path.read_text())
+            legacy.update(historical_readiness_snapshot=True, superseded_by=current)
+            path.write_text(json.dumps(legacy, indent=2) + '\n')
 
 
 def main():
@@ -225,8 +279,7 @@ def main():
         build(card)
     (DOCS / '.nojekyll').write_text('')
     (ROOT / '.nojekyll').write_text('')
-    (ROOT / 'index.html').write_text('''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=docs/index.html"><title>GEMSDOE87 — new research GeoTIFF, DO NOT SUBMIT</title></head><body><h1>GEMSDOE87</h1><p><strong>New GeoTIFF available; research only — DO NOT SUBMIT.</strong></p><p><a href="docs/index.html">Open research dashboard and download</a></p></body></html>''')
-    (ROOT / 'executive-summary.html').write_text('''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=docs/executive-summary.html"><title>GEMSDOE87 submission guide</title></head><body><p><a href="docs/executive-summary.html">Executive summary and submission guide — current file: DO NOT SUBMIT</a></p></body></html>''')
+    write_compatibility(card)
     # Raw linked evidence, without raw raster/data caches.
     for source, dest in [('registry/sources.json', 'data/sources.json'), ('evidence/site_inventory.json', 'data/site_inventory.json')]:
         shutil.copyfile(ROOT / source, DOCS / dest)

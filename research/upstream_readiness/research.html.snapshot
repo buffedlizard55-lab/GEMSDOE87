@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Preregistered geological hypotheses and validation plan for GEMSDOE87.">
+  <title>Research plan — GEMSDOE87</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="nav-wrap">
+    <a class="brand" href="index.html" aria-label="GEMSDOE87 home"><span class="brand-mark">G87</span><span>GEMSDOE87<small>Fault discovery workspace</small></span></a>
+    <nav class="nav-links" aria-label="Primary navigation"><a href="index.html">Overview</a><a href="research.html" aria-current="page">Research</a><a href="sources.html">Sources</a><a href="executive-summary.html">How to submit</a></nav>
+  </div></header>
+  <main id="main" class="container">
+    <section class="page-hero"><p class="eyebrow">Preregister before looking</p><h1>Four physical hypotheses. One lane at a time.</h1><p class="lede">Candidate ranking is qualitative, not a projected score. The selected top candidate has not been tested because the shared data and evaluator are absent from this checkout.</p></section>
+    <div class="alert"><strong>No experiment has run.</strong> The repository has no cached features, labels, sample grid, shared holdout/writer, or registry rasters. Do not treat any candidate below as validated or unique across sibling projects.</div>
+
+    <section class="section">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Rank</th><th>Candidate / layers</th><th>Physical signature</th><th>Why it might find a missing fault</th><th>Named non-fault mimic</th><th>Difference / risk</th><th>Expected DTI / cost</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1</strong></td><td><strong>Cross-scale paired magnetic–gravity edge persistence</strong><br>Reduced-to-pole magnetic anomaly, TMI and its horizontal/vertical gradients, isostatic gravity anomaly/slope.</td><td>Orientation-aware edges that persist across smoothing scales and co-locate across magnetic and gravity channels; reject isolated single-channel maxima.</td><td>A buried fault/contact may juxtapose rocks with contrasting susceptibility and density. Multi-sensor persistence is a candidate structural boundary where the public catalogue has no trace.</td><td>Lithologic contacts, intrusive margins, and basin edges can create paired potential-field boundaries without fault displacement.</td><td>New in this checkout because it has no method code; similar geophysical/ridge ideas appear in the supplied history. Exact novelty must be tested against the full registry.</td><td><strong>Highest qualitative priority; direction unknown.</strong><br>Medium-high implementation cost.</td></tr>
+            <tr><td><strong>2</strong></td><td><strong>Strain–curvature coincidence</strong><br>Dilatation, shear strain, second invariant, detrended elevation and slope.</td><td>Signed multi-scale terrain curvature or slope breaks aligned with a local strain concentration.</td><td>A fault zone may express both deformation and differential erosion, including where a simple scarp response is weak.</td><td>Landslide headscarps, volcanic margins, and erosional valley fronts; interpolated strain artifacts.</td><td>Prior titles include lidar scarp and topography–geophysics combinations; only a preregistered curvature × strain interaction may be distinct.</td><td>Potentially positive but uncertain.<br>Medium cost.</td></tr>
+            <tr><td><strong>3</strong></td><td><strong>Conductive-base boundary with potential-field corroboration</strong><br>Surface conductivity, depth to conductive base, magnetic gradients, gravity slope.</td><td>Scale-stable conductor-depth break accepted only where an independent magnetic or gravity edge agrees in location/orientation.</td><td>Faults can juxtapose basin fill and basement or channel conductive fluids, creating coincident structural boundaries.</td><td>Basin-fill thickness, clay alteration, groundwater, lithologic boundaries, interpolation seams.</td><td>Prior work names MT, alteration, and geophysical-fusion ideas; overlap risk is material.</td><td>Uncertain.<br>Medium cost.</td></tr>
+            <tr><td><strong>4</strong></td><td><strong>Anisotropic seismic-density/strain fabric</strong><br>Earthquake density, shear strain and second invariant.</td><td>Directional density anisotropy aligned with strain rather than an isotropic event hotspot.</td><td>Reactivated structures may organize seismicity along corridors missed by the mapped trace.</td><td>Magmatic/hydrothermal swarms, aftershocks, sparse-event smoothing, catalogue completeness.</td><td>Prior work includes swarm, coherent-corridor, strain, and geothermal ideas; highest duplication and spatial-autocorrelation risk.</td><td>Low/uncertain.<br>Medium cost.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" style="margin-top:12px">The official problem description says the supplied bands include conductivity, detrended elevation, strain, gravity, magnetics, and earthquake-density products. No external data are required for these first tests. Their local presence and provenance remain unverified until the competition data are restored.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><p class="eyebrow">Top candidate</p><h2>Cross-scale paired magnetic–gravity edge persistence</h2></div><span class="pill pending">Proposed · not tested</span></div>
+      <div class="grid three">
+        <article class="card"><p class="card-label">Mechanism</p><p>Fault-related juxtaposition can create a coherent boundary in magnetic susceptibility and density. Requiring directional agreement across scales and sensors aims to prefer persistent structural boundaries over a noisy local anomaly.</p></article>
+        <article class="card"><p class="card-label">Mimic and uncertainty</p><p>Igneous bodies, lithologic contacts, basement relief, and basin margins can produce the same signature. Such edges do not establish fault displacement or geothermal permeability; the detector may fail to transfer to new faults.</p></article>
+        <article class="card"><p class="card-label">Promotion rule</p><p>First run a single-feature leakage canary, then the preregistered paired holdout. Require a paired improvement over the holdout best with a 95% CI supporting improvement, and pass surface/dot novelty gates before generating or offering a file.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="rule-band">
+        <p class="eyebrow" style="color:#9fd4b5">Metric-aware validation</p>
+        <h2>One blocked split is a screen, not a guarantee.</h2>
+        <p>Use whole fault segments as spatial holdouts, add the required buffer, derive catalogue features from visible faults only, and mask visible pixels exactly. Pool distance-weighted Tversky with the official alpha/beta and triangular-kernel settings. Report evaluator version, withheld-positive count, and 95% CI. A successful catalogue hide-and-recover result is necessary but cannot prove discovery of a genuinely new fault.</p>
+        <div class="hero-actions"><a class="button secondary" href="docs/experiment-plan.md">Read the full preregistration</a><a class="button secondary" href="docs/score-claim-audit.md">Read the H33 claim audit</a><a class="button secondary" href="docs/irregularities.md">Review flagged issues</a></div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><p>GEMSDOE87 · Negative results are valid deliverables.</p><p><a href="sources.html">Source register</a> · <a href="index.html">Overview</a></p></div></footer>
+</body>
+</html>

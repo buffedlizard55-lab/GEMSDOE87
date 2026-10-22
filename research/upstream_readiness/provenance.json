@@ -1,0 +1,56 @@
+{
+  "scope": "Historical readiness-only snapshot, not the current project status; preserved before integrating concurrent main changes.",
+  "commit": "f4f5944b8806ad5f1157f08fb7276050ab28a292",
+  "files": [
+    {
+      "source": "README.md",
+      "archive": "research/upstream_readiness/README.md.snapshot",
+      "sha256": "e6d44546f4152cb8ad7aed60783f3a4a9a194c888746a0d383e98f3c2778452b"
+    },
+    {
+      "source": "index.html",
+      "archive": "research/upstream_readiness/index.html.snapshot",
+      "sha256": "983382d145e581ee8a41dbfea339e9e784f9ac71fc00d1c7cf39d80f35d661c1"
+    },
+    {
+      "source": "executive-summary.html",
+      "archive": "research/upstream_readiness/executive-summary.html.snapshot",
+      "sha256": "7382061d891ad93e98aa87e2b3d6a373f6169bbc010a0c91dcd7d8e0c4031fc9"
+    },
+    {
+      "source": "research.html",
+      "archive": "research/upstream_readiness/research.html.snapshot",
+      "sha256": "569feed4e0c2c5e6935ba8ecf39e1b6fe1047b24d8b1fd6ccef3ac786368cb3a"
+    },
+    {
+      "source": "sources.html",
+      "archive": "research/upstream_readiness/sources.html.snapshot",
+      "sha256": "9c76f4e5249e2b0ef3b904304ac7a26e5bbff62ffa21241c6e67ac813c078d8d"
+    },
+    {
+      "source": "data/feed.json",
+      "archive": "research/upstream_readiness/data__feed.json.snapshot",
+      "sha256": "75bc1ba8a7bbc71c200b0aa8fad5b98baeecc7c626e24d5a6dcf537945f7e417"
+    },
+    {
+      "source": "data/run-card.json",
+      "archive": "research/upstream_readiness/data__run-card.json.snapshot",
+      "sha256": "851bd50c444928ca1b413c1d5859a42d64bca3efd7c9f418a0222238f524820a"
+    },
+    {
+      "source": "data/submission-status.json",
+      "archive": "research/upstream_readiness/data__submission-status.json.snapshot",
+      "sha256": "d9e0047b86048cfdfb1aec19a5fca0cacc291f61dae546884c8088177981db3b"
+    },
+    {
+      "source": ".github/workflows/pages.yml",
+      "archive": "research/upstream_readiness/github__workflows__pages.yml.snapshot",
+      "sha256": "04dca98a82da137941802130729ca9187a1a176ca704251ffe7497aa336bbab8"
+    },
+    {
+      "source": ".github/workflows/tests.yml",
+      "archive": "research/upstream_readiness/github__workflows__tests.yml.snapshot",
+      "sha256": "1b3ed32e795a0eb4977c30572d51a274fcab3f967382c029a76b1e896b022760"
+    }
+  ]
+}

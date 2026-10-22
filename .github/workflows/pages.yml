@@ -43,16 +43,10 @@ jobs:
         run: |
           mkdir -p .cache/pages-publish
           cp -r docs .cache/pages-publish/docs
-          cp index.html executive-summary.html .nojekyll .cache/pages-publish/
-      - name: Configure existing Pages site for the deployment workflow
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          mode="$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .build_type)"
-          if [[ "$mode" != "workflow" ]]; then
-            gh api --method PUT "repos/$GITHUB_REPOSITORY/pages" --raw-field build_type=workflow
-          fi
-      - uses: actions/configure-pages@v5
+          cp index.html executive-summary.html research.html sources.html README.md .nojekyll .cache/pages-publish/
+          cp -r assets .cache/pages-publish/assets
+          mkdir -p .cache/pages-publish/data
+          cp data/feed.json data/run-card.json data/sources.json data/submission-status.json .cache/pages-publish/data/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .cache/pages-publish

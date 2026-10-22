@@ -24,6 +24,9 @@
 | IR87-020 | GitHub REST core quota was exhausted during the cross-project inventory. The observed reset was 2026-10-22 22:41:31 UTC. | No credential workaround or alternate identity used. GraphQL/git remain available; REST-dependent publication checks wait for the normal quota reset. This is not an authentication error or an organizer receipt. |
 | IR87-021 | The requested full previous-project review exceeds what the metadata inventory proves. | 93 pinned trees and 812 quarantined claim references are cataloged; only H33 ancestry is pixel-forensically established. No full editorial/code revalidation or authenticated score comparison of every prior project is claimed. |
 | IR87-022 | Final review identified that mutable JSON approval/receipt flags should never authorize this permanently stopped negative. | Authorization is now unconditionally refused by this frozen-run checker; a regression falsifies all such flags and still gets `safe_to_submit=false`. A future run requires a separate auditable selector. |
+| IR87-023 | Main advanced concurrently to readiness-only work at `f4f5944`, producing five merge conflicts with PR #5. | Preserved exact prior snapshots, source audits, format/feed helpers, assets and all 21 earlier regressions. Root compatibility routes/status now lead to the measured negative. Integrated on the fixed branch only; no additional scientific lane or rerun. |
+| IR87-024 | The integration could read Pages state but could not update Pages settings: HTTP 403 Resource not accessible by integration. | No credential workaround. Reuse main's existing upload/deploy workflow pattern, which does not need that settings write; verify actual deployment independently. |
+
 
 
 ## Permissions and publication

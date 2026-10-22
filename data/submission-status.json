@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "updated_at": "2026-10-22T22:59:48.781461+00:00",
+  "status": "negative_research_only",
+  "submission_ready": false,
+  "safe_to_submit": false,
+  "reason": "Frozen H87 negative: no demonstrated control gain, literal universal-overlap duplicate and disclosed original edge-guard defect. Local format is valid; submission is NOT authorized.",
+  "artifact": "gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif",
+  "raster_sha256": "10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d",
+  "submission_name": "GEMSDOE87-BMTD-01-NEGATIVE",
+  "submission_note": "H87 magnetic texture dislocation; NEGATIVE: no control gain; literal registry-overlap duplicate. Research only; DO NOT SUBMIT.",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "withheld_positive_count": 60988,
+    "score": 0.03853384980666008,
+    "ci_95": [
+      0.03406564258576291,
+      0.042790410997008345
+    ],
+    "beats_current_best": false,
+    "representation": "frozen continuous research artifact"
+  },
+  "novelty": {
+    "rank_correlation_max": 0.06930146333211111,
+    "fraction_within_3px_max": 1.0,
+    "registry_rasters_checked": 2,
+    "status": "duplicate-stop",
+    "maxima_scope": "Two inspected references only; not a global correlation maximum or clearance."
+  },
+  "validation": {
+    "status": "local_format_pass_not_submission_approval",
+    "no_nan_inside_footprint": true,
+    "finite_values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "receipt_sha256": "7bfe37ff40c0596f9bdc407f187d442508b3528855323b42f851cfc624f7e863"
+  },
+  "gates": [
+    {
+      "id": "competition_data",
+      "status": "recorded-integrity-pass",
+      "detail": "Three pinned mirrors restored for the frozen experiment; organizer authenticity unverified and raw caches intentionally unbundled."
+    },
+    {
+      "id": "shared_template_tools",
+      "status": "pass",
+      "detail": "23 unchanged shared modules and unchanged inherited physical-band builder."
+    },
+    {
+      "id": "holdout_and_leakage",
+      "status": "negative",
+      "detail": "Individual canaries did not trigger, but the paired lower confidence bound did not beat the best matched control."
+    },
+    {
+      "id": "registry_novelty",
+      "status": "duplicate-stop",
+      "detail": "Universal saturated-support witness; no final dots or unauthorized density exemption."
+    },
+    {
+      "id": "tiff_validation",
+      "status": "local-format-pass",
+      "detail": "Actual TIFF/ZIP re-read; this cannot authorize a scientific negative."
+    },
+    {
+      "id": "selector",
+      "status": "blocked",
+      "detail": "Zero competition slots; no authenticated cap or selector authorization."
+    }
+  ],
+  "download": null,
+  "research_download": "docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif",
+  "research_download_status": "RESEARCH ONLY \u2014 DO NOT SUBMIT",
+  "path_resolution": "relative to project site root",
+  "current_run_card": "docs/evidence/run_card.json"
+}

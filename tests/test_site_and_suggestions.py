@@ -69,3 +69,11 @@ def test_duplicate_stop_is_exposed_in_download_and_submission_guide():
         assert 'download' in html
         assert 'http://localhost' not in html
         assert 'http://127.0.0.1' not in html
+
+
+def test_concurrent_readiness_snapshots_preserve_exact_bytes():
+    import hashlib
+    manifest = json.loads((ROOT / 'research/upstream_readiness/provenance.json').read_text())
+    assert manifest['commit'].startswith('f4f5944')
+    for row in manifest['files']:
+        assert hashlib.sha256((ROOT / row['archive']).read_bytes()).hexdigest() == row['sha256']

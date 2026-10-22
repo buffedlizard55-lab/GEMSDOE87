@@ -73,6 +73,19 @@ def audit() -> dict:
                 target = pages.get(dest)
                 if target and unquote(link.fragment) not in target.ids:
                     errors.append(f'{path.name}: missing anchor: {href}')
+    compatibility = [('index.html', 'index.html'), ('executive-summary.html', 'executive-summary.html'),
+                     ('research.html', 'science.html'), ('sources.html', 'sources.html')]
+    for filename, target in compatibility:
+        root_page = ROOT / filename
+        html = root_page.read_text()
+        expected = 'docs/' + target
+        if f'content="0;url={expected}"' not in html or f'href="{expected}"' not in html:
+            errors.append(f'{filename}: established entrypoint does not redirect to the current page')
+        if 'DO NOT SUBMIT' not in html or 'research' not in html.lower():
+            errors.append(f'{filename}: compatibility entrypoint hides the negative verdict')
+        if not (ROOT / expected).is_file():
+            errors.append(f'{filename}: compatibility target missing')
+        local_links += 1
     card = json.loads((DOCS / 'evidence/run_card.json').read_text())
     for name in ('index.html', 'executive-summary.html'):
         path = (DOCS / name).resolve()
@@ -90,7 +103,7 @@ def audit() -> dict:
     js = (DOCS / 'assets/site.js').read_text()
     if re.search(r'https?://(?:localhost|127\.0\.0\.1)', js):
         errors.append('JavaScript contains a browser-facing localhost dependency')
-    result = dict(passed=not errors, pages=len(pages), local_links_verified=local_links,
+    result = dict(passed=not errors, pages=len(pages), local_links_verified=local_links, compatibility_entrypoints=len(compatibility),
                   no_go_download_wording_checked=True, errors=errors)
     return result
 

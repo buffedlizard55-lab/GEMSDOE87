@@ -125,6 +125,16 @@
 <td>Final review identified that mutable JSON approval/receipt flags should never authorize this permanently stopped negative.</td>
 <td>Authorization is now unconditionally refused by this frozen-run checker; a regression falsifies all such flags and still gets <code>safe_to_submit=false</code>. A future run requires a separate auditable selector.</td>
 </tr>
+<tr>
+<td>IR87-023</td>
+<td>Main advanced concurrently to readiness-only work at <code>f4f5944</code>, producing five merge conflicts with PR #5.</td>
+<td>Preserved exact prior snapshots, source audits, format/feed helpers, assets and all 21 earlier regressions. Root compatibility routes/status now lead to the measured negative. Integrated on the fixed branch only; no additional scientific lane or rerun.</td>
+</tr>
+<tr>
+<td>IR87-024</td>
+<td>The integration could read Pages state but could not update Pages settings: HTTP 403 Resource not accessible by integration.</td>
+<td>No credential workaround. Reuse main's existing upload/deploy workflow pattern, which does not need that settings write; verify actual deployment independently.</td>
+</tr>
 </tbody>
 </table></div>
 <h3 id="permissions-and-publication">Permissions and publication</h3>
@@ -156,14 +166,14 @@
 </ol>
 <p><strong>Executed software checks:</strong></p>
 <ul>
-<li><strong>73 tests passed, zero failures/errors/skips</strong>, covering exact DTI versus a literal brute-force oracle, max-not-sum coverage, 300 m cutoff, exact known-pixel masking, whole-component tails, physical crop/block alignment, paired pooled terms, deliberate AUC leakage, original source pins, fixed guard fixtures, literal overlap boundary/dense-prior behavior, invalid-file rejection, frozen TIFF/ZIP bytes, authorization refusal, restorer errors, feed parsing/network failures, static evidence and read-only suggestions.</li>
+<li><strong>95 tests passed, zero failures/errors/skips</strong>, covering exact DTI versus a literal brute-force oracle, max-not-sum coverage, 300 m cutoff, exact known-pixel masking, whole-component tails, physical crop/block alignment, paired pooled terms, deliberate AUC leakage, original source pins, fixed guard fixtures, literal overlap boundary/dense-prior behavior, invalid-file rejection, frozen TIFF/ZIP bytes, authorization refusal, restorer errors, feed parsing/network failures, static evidence and read-only suggestions.</li>
 <li><code>compileall</code>, shell syntax, and root <code>prepare_data.py --help</code> passed.</li>
 <li>Format CLI exits <strong>0</strong>; normal authorization CLI exits the expected <strong>2</strong> with <code>safe_to_submit=false</code>.</li>
-<li>Offline site audit: <strong>7 pages, 114 local targets/anchors checked</strong>, no duplicate IDs, exactly one page H1, image alternative text, explicit research/no-go wording and no browser-facing localhost API.</li>
-<li>Real Chromium 153: <strong>33 checks</strong>, 1440/768/390/320 px, all seven pages, actual browser TIFF download with exact SHA-256, repository-search zero/one-result states, clipboard success and unavailable fallback, failed-feed fallback, and download/decision without JavaScript. Screenshots were inspected locally; CI retains its own screenshots.</li>
+<li>Offline site audit: <strong>7 pages plus 4 compatibility entry points, 120 local targets/anchors checked</strong>, no duplicate IDs, exactly one page H1, image alternative text, explicit research/no-go wording and no browser-facing localhost API.</li>
+<li>Real Chromium 153: <strong>37 checks</strong>, 1440/768/390/320 px, all seven pages, four established root-route redirects, actual browser TIFF download with exact SHA-256, repository-search zero/one-result states, clipboard success and unavailable fallback, failed-feed fallback, and download/decision without JavaScript. Screenshots were inspected locally; CI retains its own screenshots.</li>
 <li>Actual sandbox source-health attempt: <strong>0/13 transport reachable</strong>, recorded transparently. This does not negate the separate research-tool retrieval or invent current source freshness.</li>
 </ul>
-<p>Receipts: <a href="../docs/evidence/software_validation.json">software</a>, <a href="../docs/evidence/browser_validation.json">browser</a>, <a href="../docs/evidence/site_validation.json">site</a>, <a href="../docs/evidence/independent_validation.json">independent file</a>. These are local/software receipts, <strong>not organizer upload acceptance</strong>. GitHub Actions repeats the software checks independently.</p>
+<p>Receipts: <a href="../docs/evidence/software_validation.json">software</a>, <a href="../docs/evidence/browser_validation.json">browser</a>, <a href="../docs/evidence/site_validation.json">site</a>, <a href="../docs/evidence/independent_validation.json">independent file</a>. These are local/software receipts, <strong>not organizer upload acceptance</strong>. GitHub Actions repeats the software checks independently. The 21 earlier readiness/format/feed regressions are retained within the 95-case suite; their standalone workflow still runs them too.</p>
 <h3 id="pass-3-original-request-reconciliation-completed-outcome-is-negative">Pass 3 — original-request reconciliation (completed; outcome is negative)</h3>
 <p>The complete README brief was reread. The following is a requirement-to-evidence audit, not a claim that the contradictory scientific goal was achieved.</p>
 <div class="table-wrap"><table>
@@ -252,7 +262,7 @@
 </tr>
 <tr>
 <td>Three review passes, improve correctness and reliability</td>
-<td>This record, 73 regressions, 33 browser checks, CLI refusal, source provenance and explicit unfixed-at-measurement limitation.</td>
+<td>This record, 95 regressions, 37 browser checks, CLI refusal, source provenance and explicit unfixed-at-measurement limitation.</td>
 </tr>
 <tr>
 <td>Create PR and merge main if allowed</td>
@@ -266,6 +276,7 @@
 </table></div>
 <h3 id="publication-and-continuing-work">Publication and continuing work</h3>
 <p>CI is defined in <code>.github/workflows/ci.yml</code>. Pages/read-only source refresh is defined in <code>.github/workflows/pages.yml</code>, daily at 06:17 UTC and on main pushes. The workflow stages only the public site and compatible root entry points; it does not push main, modify this raster or run/authorize science. A successful deployment is not presumed from the YAML. The PR and Actions run provide externally verifiable publication receipts.</p>
+<p>Concurrent main readiness work at <code>f4f5944</code> was integrated on this same fixed branch, with exact-byte snapshots and its code/tests preserved. Compatibility root status now distinguishes a research download from competition approval; historical documents are labeled as snapshots. No second scientific lane was executed. Pages settings write was denied to the integration; the already successful upload/deploy pattern is reused without changing those settings.</p>
 <p>The original request is <strong>not fully satisfied as a winning or protocol-cleared submission</strong>. Literal universal overlap, lack of control improvement, the frozen experiment's edge defect, unauthenticated originals/cap/receipts, one malformed prior, and incomplete historical mechanism review remain explicit. A separately authorized next run must resolve the protocol contradiction before any new experiment; see the research queue. No user action or human inspector is required to repeat local software/file validation, but software cannot create hidden truth or organizer authorization.</p></div></main>
 <footer class="footer"><div class="shell footer-inner"><div class="values"><p><strong>Maximize P(Win).</strong> Preserve slots for evidence, not optimism. <strong>Own the Outcome.</strong> Publish the negative.</p><p>Fault evidence is not proof of a geothermal vent. Local validation is not organizer acceptance.</p></div><div><p><a href="https://github.com/buffedlizard55-lab/GEMSDOE87">Code &amp; original brief ↗</a> · <a href="evidence/run_card.json">JSON run card</a></p><p>Research snapshot: 22 OCT 2026 · <span data-feed-state>Dated source-health snapshot · see Sources</span></p></div></div></footer>
 </body></html>

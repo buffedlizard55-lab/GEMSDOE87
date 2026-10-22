@@ -10,6 +10,7 @@ const modules = process.env.GEMS_BROWSER_NODE_MODULES || (fs.existsSync(cachedMo
 const { chromium: playwright } = require(path.join(modules, 'playwright-core'));
 const { pathToFileURL } = require('node:url');
 let base = process.env.GEMS_PREVIEW_URL || 'http://127.0.0.1:8000';
+let projectBase = process.env.GEMS_PROJECT_URL || null;
 
 (async () => {
   const { default: chromium } = await import(pathToFileURL(path.join(modules, '@sparticuz/chromium/build/index.js')).href);
@@ -38,8 +39,20 @@ let base = process.env.GEMS_PREVIEW_URL || 'http://127.0.0.1:8000';
     server = http.createServer((req, res) => {
       try {
         const name = decodeURIComponent(new URL(req.url, 'http://local.test').pathname);
-        const file = path.resolve(docs, '.' + (name === '/' ? '/index.html' : name));
-        if (!file.startsWith(docs + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
+        let file;
+        if (name.startsWith('/_project/')) {
+          const relative = name.slice('/_project/'.length);
+          const roots = new Set(['index.html', 'executive-summary.html', 'research.html', 'sources.html']);
+          if (roots.has(relative)) file = path.join(root, relative);
+          else if (relative.startsWith('docs/')) {
+            const candidate = path.resolve(root, relative);
+            if (candidate.startsWith(docs + path.sep)) file = candidate;
+          }
+        } else {
+          const candidate = path.resolve(docs, '.' + (name === '/' ? '/index.html' : name));
+          if (candidate.startsWith(docs + path.sep)) file = candidate;
+        }
+        if (!file || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
           res.writeHead(404); res.end('Not found'); return;
         }
         res.writeHead(200, {'Content-Type': types[path.extname(file)] || 'application/octet-stream'});
@@ -48,6 +61,7 @@ let base = process.env.GEMS_PREVIEW_URL || 'http://127.0.0.1:8000';
     });
     await new Promise((resolve, reject) => {server.once('error', reject); server.listen(0, '0.0.0.0', resolve);});
     base = `http://127.0.0.1:${server.address().port}`;
+    projectBase = `${base}/_project`;
   }
   try {
     const context = await browser.newContext({viewport: {width: 1440, height: 1100}, acceptDownloads: true});
@@ -81,6 +95,14 @@ let base = process.env.GEMS_PREVIEW_URL || 'http://127.0.0.1:8000';
     await page.getByLabel('Find a repository').fill('definitely-not-a-project');
     assert.equal(await page.locator('[data-search-row]:visible').count(), 0);
     checks.push({registry_search_verified: true});
+    if (projectBase) {
+      for (const [alias, target] of [['index.html', 'index.html'], ['executive-summary.html', 'executive-summary.html'], ['research.html', 'science.html'], ['sources.html', 'sources.html']]) {
+        await page.goto(`${projectBase}/${alias}`, {waitUntil: 'networkidle'});
+        await page.waitForURL(`**/docs/${target}`, {waitUntil: 'networkidle'});
+        assert.equal(await page.locator('main h1').count(), 1);
+        checks.push({compatibility_entrypoint: alias, redirects_to_current_page: `docs/${target}`});
+      }
+    }
     await page.goto(`${base}/executive-summary.html`, {waitUntil: 'networkidle'});
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     await page.getByRole('button', {name: 'Copy note', exact: true}).click();
@@ -119,7 +141,7 @@ let base = process.env.GEMS_PREVIEW_URL || 'http://127.0.0.1:8000';
     await nojs.close();
     checks.push({download_and_decision_work_without_javascript: true});
     assert.equal(errors.length, 0, errors.join('\n'));
-    const result = {passed: true, generated_utc: new Date().toISOString(), browser_version: browser.version(), checks, browser_errors: errors, scope: 'Served Pages, actual browser TIFF download hash, 4 viewport widths, clipboard success/failure, source-feed failure, no-JavaScript fallback and registry search; not organizer upload acceptance.'};
+    const result = {passed: true, generated_utc: new Date().toISOString(), browser_version: browser.version(), checks, browser_errors: errors, scope: 'Served Pages, actual browser TIFF download hash, 4 compatibility entry points, 4 viewport widths, clipboard success/failure, source-feed failure, no-JavaScript fallback and registry search; not organizer upload acceptance.'};
     fs.writeFileSync(path.join(root, 'docs/evidence/browser_validation.json'), JSON.stringify(result, null, 2) + '\n');
     console.log(JSON.stringify(result, null, 2));
   } finally {
