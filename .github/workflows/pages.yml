@@ -54,6 +54,7 @@ jobs:
             cp -R downloads/. .cache/pages-publish/downloads/
             cp -R downloads/. .cache/pages-publish/docs/downloads/
           fi
+          chmod -R a+rX .cache/pages-publish
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .cache/pages-publish
@@ -86,14 +87,14 @@ jobs:
           p = Path('.cache/published-research.tif')
           card = json.loads(Path('run_card.json').read_text())
           actual = hashlib.sha256(p.read_bytes()).hexdigest()
-          assert actual == card['raster_sha256']
+          assert actual == card['raster_sha256'] and isinstance(card['safe_to_submit'], bool)
           published_feed = json.loads(Path('.cache/published-feed.json').read_text())
           local_feed = json.loads(Path('docs/data/feed.json').read_text())
           assert published_feed['last_attempt_utc'] == local_feed['last_attempt_utc']
           receipt = dict(feed_last_attempt_utc=published_feed['last_attempt_utc'], checked_utc=datetime.now(timezone.utc).isoformat(), passed=True,
-                         pages_url=os.environ['PAGES_URL'], promoted_tiff_sha256=st['artifact']['sha256'],
-                         promoted_bytes=p_prom.stat().st_size, public_tiff_sha256=actual,
-                         bytes=p.stat().st_size, safe_to_submit=True)
+                         pages_url=os.environ['PAGES_URL'], public_tiff_sha256=actual,
+                         bytes=p.stat().st_size, safe_to_submit=bool(card['safe_to_submit']),
+                         scope='Public Pages byte check only; no DrivenData upload or slot selection.')
           Path('.cache/publication-validation.json').write_text(json.dumps(receipt, indent=2) + '\n')
           print(json.dumps(receipt, indent=2))
           PYRECEIPT

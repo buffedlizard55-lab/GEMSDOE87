@@ -5,31 +5,35 @@ node_modules/
 data/raw/
 __pycache__/
 .pytest_cache/
-*.pyc
-node_modules/
-playwright-report/
-.DS_Store
-*.partial
-*.assembling
-data/official/
-# Keep arbitrary raster artifacts out; only explicitly required research bundles are tracked.
+
+# Local work products and heavy restored datasets/caches: keep out of Git.
 *.tif
 *.tiff
 *.zip
-# A validated, named submission may be published here only after every readiness gate passes.
+data/cache/
+data/bridge/
+data/external/
+data/scored/
+data/registry_rasters/
+data/*.csv
+data/*.npz
+
+# A validated, named submission and its single-TIFF ZIP are published in downloads/ after all readiness gates pass.
 !downloads/
 !downloads/*.tif
 !downloads/*.zip
-!docs/downloads/
-!docs/downloads/*.tif
-!docs/downloads/*.zip
-# Keep transient evidence scratch out of Git; small final receipts may be tracked.
+
+# Keep transient evidence scratch out of Git; final machine-readable receipts in evidence/*.json are tracked.
 evidence/tmp/
 
 # Site build output
 _site/
 evidence/tmp/
-!docs/downloads/gems87-pgf1-37654dots-20261023.tif
-!docs/downloads/gems87-pgf1-37654dots-20261023.zip
-_site/
-evidence/tmp/
+node_modules/
+.cache/
+.pytest_cache/
+
+!docs/downloads/*.tif
+!docs/downloads/*.zip
+!downloads/*.tif
+!downloads/*.zip

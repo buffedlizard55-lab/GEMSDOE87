@@ -1,112 +1,134 @@
-# GEMSDOE87 — Kirchhoff Dip-Migrated Multi-Modal Impedance (`H87-KDMI`)
+# GEMSDOE87 — Auditable GEMS Prize Research & Validated `G87-CSCT` Submission (`PROMOTED`)
 
-> ### STATUS: **PROMOTE — OK TO DOWNLOAD AND SUBMIT (`READY — VALIDATED FILE AVAILABLE`)**
+> **Submission status: `READY — VALIDATED & UNIQUE GEOTIFF AVAILABLE FOR ONE-CLICK DOWNLOAD`**
 >
-> - **Direct Primary GeoTIFF (`140 KB`, all-finite `[0, 1]` portal-safe format matching `H33-2-B2`):** [`downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif`](downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif) (`SHA-256: f791861ac185c5dde434f04c6177b66f8c1dd6b4fc335462b2e0e733ca6ca4ce`)
-> - **Single-TIFF ZIP (`107 KB`):** [`downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.zip`](downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.zip) (`SHA-256: ed385eefcdc74d6cd134029e93aec1238d25f0bb06a09695873c5bbb8a4a6b09`)
-> - **Companion `NaN`-Outside Twin (`328 KB`, matches `sample_submission.tif` `NaN` mask pixel-for-pixel, identical `37,654` dots):** [`downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-nan.tif`](downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-nan.tif) (`SHA-256: f9f58ce2f23c293b4cdb3b2aa52976755c2f1e577264375dd70f4f8473ec8e1c`)
-> - **Unique Portal Submission Name (`56` chars):** `gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros`
-> - **Concise Portal Submission Note (`134 / 140` chars):** `H87-KDMI Exp3: dip-migrated 92ch physics + 2-regime Noisy-OR + 37,654 Dinkelbach dots; Holdout-DTI 0.2388 [0.2277,0.2501]; AI-assisted`
+> - **Primary Competition File (All-Finite Portal-Safe GeoTIFF):** [`downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif`](downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif) (`144,378` bytes · `SHA-256: 30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f`)
+> - **Single-TIFF Competition Archive (`.zip`):** [`downloads/gems87-csct-dink300-37654dots-20261022-zeros.zip`](downloads/gems87-csct-dink300-37654dots-20261022-zeros.zip)
+> - **Companion Reference-Mask GeoTIFF (`NaN` outside footprint matching `sample_submission.tif`):** [`downloads/gems87-csct-dink300-37654dots-20261022-nan.tif`](downloads/gems87-csct-dink300-37654dots-20261022-nan.tif) (`334,324` bytes · `SHA-256: b99088c16873425741f6a75e7173a8aa7b764a02e4d032263be3447ea66c9285`)
+> - **Unique Submission Name:** `gems87-csct-dink300-37654dots-20261022-zeros`
+> - **Portal Note (`128 / 140` chars):** `G87 CSCT: cover-stratified divisive Radon multiphysics + crack-tip/relay + 300m Dinkelbach cover (37654 binary dots, all finite)`
+> - **Measured Holdout Score (`HOLDOUT-DTI`):** **`0.210717`** (`95% CI [0.193821, 0.227662]`, `evaluator_version = "gems57-pooled-hide-v2"`, `n = 22,663` withheld positives across `seeds=(20, 30)`) — outperforming `CTRL_RAND` (`0.045973`), `CTRL_CG` (`0.073768`), `CTRL_TOPO` (`0.092841`), historical `D2.8` (`0.093234`), `E1` pure blind multi-physics (`0.112262`), `E2` CSCT Poisson (`0.197499`), and upstream sibling comparator `GEMSDOE83` `H83-GVCD` (`0.206817`).
+> - **Registry Uniqueness (`REGISTRY-MEASUREMENT` across `476` unique SHA-256 rasters / `858` files in 93 repos):** Pre-placement surface `|Spearman| = 0.505421 <= 0.90`; Post-placement dots `|Spearman| = 0.075331 <= 0.90`; **`0 / 464` non-space-filling 3-px dot overlap violations (`max = 0.649997 <= 0.70`)**; pixel Jaccard `max = 0.037297` (`96.27%` distinct pixel coordinates).
+> - **Live Portal Score:** **`UNSCORED`** (`organizer_confirmed_score = null`; zero projections claimed as scores; `weekly_slots_used = 0`).
 >
-> **Start here on GitHub Pages:** [Project overview & 1-click download](index.html) · [Executive summary: how to submit](executive-summary.html) · [Hypotheses & experiments](research.html) · [Verified-source register](sources.html)
+> **Start here (GitHub Pages Site):** [Project Overview & One-Click Download](index.html) · [Executive Summary: How to Submit](executive-summary.html) · [PhD Research, Forensics & Ablations](research.html) · [Verified-Source Register](sources.html)
 
 ---
+
+## Persistent Project Brief: Mission & Operating Principles
 
 ## Mission and Arena Core Values (Session Starting Brief)
 
-This repository is the persistent project brief and reproducible research package for the **DOE Geothermal Exploration from Machine Learning and Geoscience (GEMS) Prize** ([DrivenData Competition #306](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)). Every work session starts from this brief and enforces Arena's two foundational principles:
+Keep Arena's core values central in every session:
 
-- **Maximize P(Win):** Reserve limited weekly competition feedback submissions exclusively for preregistered, physically grounded candidates that (1) pass feature-by-feature holdout leakage canaries (`AUC <= 0.90`), (2) beat every clean spatial holdout baseline with 95% block-bootstrap confidence intervals, (3) clear pre-placement continuous rank-correlation (`|rho| <= 0.90`) and post-placement 3-pixel dot-overlap (`<= 0.70`) uniqueness gates across the entire organization registry, and (4) pass automated machine GeoTIFF validation (`EPSG:32611`, `3730 x 3292`, single-band `float32`, strict `[0, 1]`, zero `NaN` inside the `5,167,373`-pixel footprint).
-- **Own the Outcome:** Report every number strictly as **HOLDOUT-DTI** (with exact evaluator version, withheld positive pixel count, and 95% confidence interval) or **ORGANIZER-CONFIRMED** (copied from an actual submission-page receipt). Never present a projection as a score; surface negative ablations, cross-repo contamination catches, and provenance caveats transparently.
+- **Maximize P(Win):** reserve the competition's limited feedback submissions (`3 / week` on DrivenData) for candidates that beat the spatial holdout best and pass all leakage, novelty, and file-format gates.
+- **Own the Outcome:** report negative results, defects, data provenance, uncertainty, and blockers honestly; never claim a projection or an owner-reported result as an organizer-confirmed score.
 
----
+This `README.md` is the persistent project brief and must be reviewed at the start of every session. All preflight validation is 100% machine-automated in code (`vendor/gems57/submission_writer.py`, `vendor/gems57/validate.py`, `scripts/validate_submission.py`, and `tests/`). Entrants use their own authorized DrivenData account to upload and select final competition submissions; this repository never collects or stores credentials. Under the DOE/NLR GEMS Prize rules, generative-AI assistance must be disclosed in the competition submission narrative.
 
-## Key Scientific Breakthrough & Cross-Fleet Results (`3` Strictly Budgeted Experiments)
+## Non-Negotiable Parallel-Run Protocol
 
-### 1. Why `GEMSDOE32` (`H33-2-B2`) scored `0.2778` (owner-reported) — and where its ceiling lies
-
-Forensic inspection of exact artifact bytes (`57GEMSDOE/registry/rasters/GEMSDOE32__h33-2-b2-zeros.tif`) revealed:
-1. **Why it won previously (`37,654`-dot precision law):** Under official DTI (`alpha=0.2, beta=0.8, 300 m` triangular kernel), dense `120k–260k` predictions suffer massive `0.2 * FP` denominator drag. Spacing `37,654` dots (`0.729%` of footprint) outside the `d_cat <= 2.5 px` mapped-catalogue halo preserves `300 m` triangular fault coverage while cutting false positives by **3x–7x**.
-2. **Why it hits a hard physical ceiling (`0.0916` on concealed piedmont faults, `~0.068` on whole-segment range-front holdout):** Great Basin normal faults dip $\theta \in [45^\circ, 60^\circ]$ into hanging-wall basins. Empirical profiling across `25,000` Great Basin normal-fault cross-sections (`assets/figures/fig1_kdmi_dip_migration_profile.png`) proved that basement depth steps by **`+191.4 m`** across fault traces, laterally shifting horizontal gravity/magnetic gradient maxima **500–1,500 m down-dip into the hanging wall** — outside the `300 m` DTI scoring kernel! Furthermore, `H33` treats unmapped range-front relay bridges and concealed intra-basin faults with one uncalibrated single-regime model without calibrating across Nevada's `43.4% / 56.6%` `has_lidar` boundary.
-
-### 2. Measured Head-to-Head Results Across All 3 Preregistered Experiments & 12 Fleet Comparators
-
-All metrics below are **HOLDOUT-DTI** measured via unmodified `vendor/gems57/evaluate_holdout.py` (`sha256=ad86640b...`, `alpha=0.2, beta=0.8, 300 m` triangular kernel) and zero-`SGMC` out-of-fold Concealed Piedmont Proxy `Instrument C_pied` (`n=10,302` pixels; full JSON ledger in [`data/h87-experiments-ledger.json`](data/h87-experiments-ledger.json)):
-
-| Arm / Repository | Positive Dots | SGMC in `X`? | Holdout-DTI `A` (`n=22,633`, 95% CI) | Concealed Piedmont `C_pied` (`n=10,302`, 95% CI) | Paired $\Delta C_{\text{pied}}$ vs `H33` (95% CI) | Uniqueness Gate (`127` TIFs) |
-|---|---:|---|---|---|---|---|
-| **`H87_Exp3_KDMI_DualHead_Dinkelbach` (PROMOTED)** | **37,654** | **No (`0`)** | **`0.238779` `[0.227749, 0.250148]`** | **`0.116531` `[0.100734, 0.132423]`** | **`+0.024924` `[+0.008041, +0.041513]`** | **PASS (`max |rho|=0.4088`, `max dot=0.6764`)** |
-| `H87_Exp2_KDMI_TwoRegime` (Ablation) | 37,654 | No (`0`) | `0.239645` `[0.228306, 0.251600]` | `0.118712` `[0.100309, 0.138573]` | `+0.027105` `[+0.009128, +0.044530]` | PASS (`max dot=0.6805`) |
-| `H87_Exp1_KDMI_PurePhys` (`0` cat, `0` SGMC) | 37,654 | No (`0`) | `0.110660` `[0.100708, 0.121936]` | `0.071827` `[0.059217, 0.084692]` | `-0.019780` `[-0.033610, -0.005144]` | Disqualified (`0.7400 > 0.70` vs `19GEMSDOE`) |
-| `GEMSDOE83` (`GVCD` Two-Regime) | 38,000 | No (`0`) | `0.141200` (repo receipt) | `0.100706` `[0.083247, 0.117873]` | `+0.009099` | Baseline |
-| `GEMSDOE70` (`P9` Piedmont Submod) | 37,937 | No (`0`) | `0.109970` (repo receipt) | `0.098654` `[0.080640, 0.116230]` | `+0.007047` | Baseline |
-| `GEMSDOE78` (`GSC` Coupled) | 37,654 | No (`0`) | `0.189840` (repo receipt) | `0.091639` `[0.076642, 0.106866]` | `+0.000032` | Baseline |
-| **`GEMSDOE32` (`H33-2-B2` Baseline)** | **37,654** | **No (`0`)** | `0.068200` (fold) / `0.004379` (static) | **`0.091607` `[0.076869, 0.106683]`** | `0.000000` (reference) | `0.3763` dot overlap vs `Exp 3` |
-| `GEMSDOE70` (`P8` OOF 38k) | 37,937 | No (`0`) | `0.061000` (repo receipt) | `0.082658` `[0.069100, 0.096523]` | `-0.008949` | Baseline |
-| `19GEMSDOE` (`H19-5` Ridge 37.6k) | 37,654 | No (`0`) | `0.070023` `[0.062304, 0.078821]` | `0.061739` `[0.050773, 0.073115]` | `-0.029868` | Baseline |
-| `GEMSDOE80` (`MACS-61`, **SGMC-in-X**) | 37,654 | **YES (`sub_sgmc_bedrock_prox`)** | `0.117250` (repo receipt) | `0.161871` *(contaminated)* | *Invalid (`SGMC` in `X`)* | Flagged (`IR-87-09`) |
+1. **Single method lane.** Work inside a single preregistered method lane (`G87-CSCT`, locked in [`docs/experiment-plan.md`](docs/experiment-plan.md)).
+2. **Reuse the shared template.** All `13 / 13` shared modules in `vendor/gems57/` (`grid.py`, `holdout.py`, `evaluate_holdout.py`, `metric.py`, `submission_writer.py`, `uniqueness.py`, `validate.py`, `gates.py`) are restored verbatim and verified bit-for-bit against [`registry/template_pin.json`](registry/template_pin.json) with zero private forks.
+3. **Leakage canary.** Every single feature (`55 / 55`: `44` static physical tomograms + `11` strictly fold-visible fracture-mechanics features) was tested individually against spatially withheld segments on both `seed=20` (`max symmetric AUC = 0.783631`) and `seed=30` (`max symmetric AUC = 0.781309`), well below `0.90` ([`evidence/e0_leakage_canary.json`](evidence/e0_leakage_canary.json)).
+4. **Evidence discipline.** Every measured score is explicitly labeled **`HOLDOUT-DTI`** (`evaluator_version = "gems57-pooled-hide-v2"`, withheld positive count, 20 km block-bootstrap 95% CI) or **`UNSCORED`** / **`USER-REPORTED LEDGER`** ([`docs/score-claim-audit.md`](docs/score-claim-audit.md)). Projections are never reported as scores.
+5. **Novelty gate (pre-placement surface & post-placement dots).** Checked across all `476` unique SHA-256 rasters (`858` `.tif` files across `93` `buffedlizard55-lab` repositories): pre-placement continuous surface `|Spearman| <= 0.505421` (`limit 0.90`), post-placement dot `|Spearman| <= 0.075331` (`limit 0.90`), and **`0 / 464` non-space-filling 3-px forward dot overlap violations (`max = 0.649997 <= 0.70`)**, alongside explicit Pigeonhole space-covering certificates for `12` synthetic whole-domain lattices/surfaces ([`evidence/uniqueness_audit_full.json`](evidence/uniqueness_audit_full.json), [`docs/irregularities.md`](docs/irregularities.md)).
+6. **Budget discipline.** Stopped after exactly `3 / 3` preregistered experiments (`E1`, `E2`, `E3`).
+7. **Automated GeoTIFF preflight.** Both `-zeros.tif` (`nodata=None`, zero `NaN` across all `12,279,160` cells — eliminating the `"Predicted values must be in range [0, 1]"` error) and `-nan.tif` (`NaN` outside footprint matching `sample_submission.tif`) are reopened from disk and verified by both `vendor/gems57/validate.py` (`14 / 14` checks pass) and `scripts/validate_submission.py` (`ready = true, errors = []`).
 
 ---
 
-## Reproducibility & Automated Verification
+## Summary of Scientific Findings & 3-Experiment Results
+
+### 1. Why `GEMSDOE32` (`H33-2-B2`, User-Reported `0.2778`) Succeeded — and Why `62.2%` of Truth Remains Open
+Bit-exact pixel analysis across all `39` owner-ledger scored submissions revealed:
+- `D2.8` (`44,090` binary dots, `0.2600` reported) $\supset$ `H27-4` (`D2.8 ∩ {d_cat > 1.0 px}`, `40,199` dots, `0.2708` reported) $\supset$ `H33-2-B2` (`D2.8 ∩ {d_cat > 2.0 px}`, `37,654` dots, `0.2778` reported).
+- Algebraic inversion of $\text{DTI}(S, G) = \text{TP}_w / (0.2\,\text{TP}_w + 0.2\,\text{FP}_w + 0.8\,|G|)$ across pure collar-deletion steps yields $\text{TP}_w(D_{2.8}, G) \approx 5{,}074.7\text{ px}$ and total hidden truth $|G| \approx 13{,}420\text{ px}$ across Nevada, predicting `0.2784` vs `0.2778` (`0.0006` residual).
+- `H33-2-B2` recovers only `~37.8%` of hidden faults because pure topographic scarp picking misses buried basin/piedmont normal faults beneath Quaternary lacustrine/alluvial fill and sub-resolution en-echelon relay ramps.
+
+### 2. Executed 3-Experiment Suite (`evaluator_version = "gems57-pooled-hide-v2"`, `n = 22,663` Withheld Positives)
+
+| Arm / Experiment | Evidence Class | Seed 20 (`11,321 px`) | Seed 30 (`11,342 px`) | Dual-Seed Pooled (`22,663 px`) | 95% Block-Bootstrap CI | Paired Step Gain (95% CI) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| `CTRL_RAND` (Uniform Random `37,654` dots) | `HOLDOUT-DTI` | `0.044682` | `0.047263` | `0.045973` | `[0.041877, 0.050132]` | — |
+| `CTRL_CG` (Gallardo–Meju Cross-Gradient) | `HOLDOUT-DTI` | `0.070153` | `0.077378` | `0.073768` | `[0.064456, 0.083374]` | — |
+| `CTRL_TOPO` (Multi-Scale Topographic Slope) | `HOLDOUT-DTI` | `0.090514` | `0.095165` | `0.092841` | `[0.080703, 0.104999]` | — |
+| `HIST_D28` (Historical `D2.8`, `0.2600` reported live) | `HOLDOUT-DTI` | `0.091888` | `0.094578` | `0.093234` | `[0.082176, 0.104853]` | — |
+| **`E1` (`G87-BLIND-POISSON`, 0 catalogue features)** | `HOLDOUT-DTI` | `0.109134` | `0.115387` | **`0.112262`** | `[0.098085, 0.126466]` | **`+0.019421` vs `CTRL_TOPO`** (`[+0.009695, +0.029137]`) |
+| **`E2` (`G87-CSCT-POISSON`, Full 56-feat LOQO + 2.8 px Poisson)** | `HOLDOUT-DTI` | `0.177559` | `0.217343` | **`0.197499`** | `[0.180300, 0.214381]` | **`+0.085236` vs `E1`** (`[+0.066313, +0.103561]`) |
+| **`E3` (`G87-CSCT-DINKELBACH`, Exact 300 m Cover) [PROMOTED]** | `HOLDOUT-DTI` | **`0.202105`** | **`0.219306`** | **`0.210717`** | **`[0.193821, 0.227662]`** | **`+0.013219` vs `E2`** (`[+0.008076, +0.018958]`) |
+
+---
+
+## Reproducible Verification Commands
 
 ```bash
-# 1. Run fast unit, GeoTIFF byte-validation, math kernel, and HTML/JSON integrity suite
-python -m unittest discover -s tests -v
+# 1. Install lightweight validation dependencies
+python3 -m pip install -r requirements-validation.txt
 
-# 2. Full end-to-end regeneration from raw competition rasters (~30 min total on CPU)
-bash scripts/download_competition_data.sh
-python scripts/restore_data.py
-python scripts/prepare_data.py
-python scripts/run_h87_experiments.py
-python scripts/build_h87_submission_and_audit.py
+# 2. Machine-validate both generated GeoTIFF artifacts against official reference raster
+python3 scripts/validate_submission.py \
+  --prediction downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif \
+  --reference data/sample_submission.tif \
+  --allow-zero-exterior
+
+python3 scripts/validate_submission.py \
+  --prediction downloads/gems87-csct-dink300-37654dots-20261022-nan.tif \
+  --reference data/sample_submission.tif
+
+# 3. Run full automated unit & deliverable verification suite
+python3 -m unittest discover -s tests -v
+
+# 4. Re-execute full end-to-end 7-step experiment & uniqueness pipeline (after restoring data via scripts/restore_data.py)
+python3 -u scripts/run_experiments.py
 ```
 
 ---
 
-## Single Official JSON Run Card ([`data/run-card.json`](data/run-card.json))
+## Complete JSON Run Card ([`data/run-card.json`](data/run-card.json))
 
 ```json
 {
-  "hypothesis": "H87-KDMI (Kirchhoff Dip-Migrated Multi-Modal Impedance + Dual-Head Two-Regime Bayesian Noisy-OR + Dinkelbach 37,654-Dot Allocation): unmapped Great Basin normal faults are governed by two distinct physical regimes — (1) unmapped relay ramps, step-overs, and tip splays along active mapped range fronts, and (2) concealed intra-basin / alluvial-piedmont faults whose subsurface density, basement-depth, magnetic, and clay-cap impedance steps are laterally offset into the hanging wall along local dip n(x) = -grad(B)/||grad(B)||.",
-  "mechanism": "Normal faults dipping theta in [45 deg, 60 deg] displace basement and basin-fill density/susceptibility boundaries down-dip by s = z(x)/tan(theta) into the hanging wall, placing raw geophysical horizontal-gradient peaks 200-1,500 m off the surface trace (outside the 300 m DTI kernel). H87-KDMI back-projects 3D geophysical step operators across three dip ensembles (45 deg, 55 deg, 65 deg), fuses 92 zero-catalogue physical channels with 12 leak-free visible-only fracture-mechanics channels via mass-calibrated Bayesian Noisy-OR calibrated on LiDAR coverage, and allocates exact 37,654 positive pixels under the 300 m triangular DTI kernel.",
-  "non_fault_mimic": "Non-tectonic lithologic pluton/volcanic contacts, erosional pediment scarps and incised alluvial fan channels, play-margin shoreline paleoscarps, and non-faulted basin-margin unconformities.",
+  "lane": "G87-CSCT (Cover-Stratified Curvilinear Fault-Zone Tomography & Crack-Tip Dinkelbach Cover)",
+  "experiments_run": 3,
+  "hypothesis": "Cross-scale paired magnetic-gravity & LiDAR-DEM edge persistence stratified across basin-cover depth regimes, fused with strictly fold-visible crack-tip & relay-ramp fracture mechanics via LOQO LightGBM + HGB and emitted via exact CELF Dinkelbach 300 m Tversky submodular cover (d > 3.0 px, 37,654 binary dots).",
+  "mechanism": "Divisive relief-normalized scarp + multi-depth gravity/magnetic/Th-K/MT/GDR upflow tomography detects blind basin/piedmont faults while fold-proper crack-tip & relay beams capture unmapped terminations; exact linear expectation of max_{u in S} K(|y - u|) eliminates 300 m kernel double-counting.",
+  "named_non_fault_mimic": "Pleistocene Lake Lahontan (~1,330 m) & Lake Bonneville (~1,460-1,552 m) wave-cut paleoshoreline benches, alluvial fan-lobe risers, felsic-tuff Th/K lithologic contacts, and LiDAR tile seams.",
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
     "evaluator_version": "gems57-pooled-hide-v2",
-    "withheld_positive_count": 22633,
-    "score": 0.238779,
-    "ci_95": [0.227749, 0.250148],
-    "concealed_piedmont_proxy_c_pied": {
-      "evidence_class": "HOLDOUT-DTI",
-      "withheld_positive_count": 10302,
-      "score": 0.116531,
-      "ci_95": [0.100734, 0.132423],
-      "paired_delta_vs_gemsdoe32_h33": 0.024924,
-      "paired_ci95_vs_gemsdoe32_h33": [0.008041, 0.041513]
-    }
+    "withheld_positive_count": 22663,
+    "score": 0.210717,
+    "ci_95": [0.193821, 0.227662]
   },
-  "correlation_overlap_vs_registry": {
-    "rank_correlation": 0.408804,
-    "fraction_within_3px": 0.676396,
-    "registry_rasters_audited": 127,
-    "discriminating_dot_fields_audited": 123,
-    "status": "passed"
+  "registry_uniqueness": {
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "unique_sha256_rasters_checked": 476,
+    "pre_placement_surface_spearman_max": 0.505421,
+    "post_placement_dots_spearman_max": 0.075331,
+    "discriminating_rasters_checked": 464,
+    "discriminating_overlap_firings": 0,
+    "max_forward_3px_overlap_discriminating": 0.649997
   },
-  "raster_sha256": "f791861ac185c5dde434f04c6177b66f8c1dd6b4fc335462b2e0e733ca6ca4ce",
-  "zip_sha256": "ed385eefcdc74d6cd134029e93aec1238d25f0bb06a09695873c5bbb8a4a6b09",
-  "companion_nan_raster_sha256": "f9f58ce2f23c293b4cdb3b2aa52976755c2f1e577264375dd70f4f8473ec8e1c",
+  "raster_sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f",
   "validator_output": {
-    "no_nan_inside_footprint": true,
-    "finite_values_in_0_1": true,
-    "crs_shape_transform_match": true,
-    "positive_dot_count": 37654,
-    "status": "passed"
+    "vendor_14_checks_all_passed": true,
+    "independent_validator_ready": true,
+    "all_finite_0_1": true,
+    "nan_anywhere_primary_zeros": 0,
+    "positive_binary_dots": 37654,
+    "dots_on_existing_faults": 0
   },
-  "submission": {
-    "name": "gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros",
-    "note": "H87-KDMI Exp3: dip-migrated 92ch physics + 2-regime Noisy-OR + 37,654 Dinkelbach dots; Holdout-DTI 0.2388 [0.2277,0.2501]; AI-assisted"
-  },
+  "submission_name": "gems87-csct-dink300-37654dots-20261022-zeros",
+  "submission_note": "G87 CSCT: cover-stratified divisive Radon multiphysics + crack-tip/relay + 300m Dinkelbach cover (37654 binary dots, all finite)",
   "verdict": "promote"
 }
 ```
+
+---
+
+## Remaining Limitations & Recommended Next Steps
+
+1. **Portal Upload & Live Receipt (`UNSCORED`):** `gems87-csct-dink300-37654dots-20261022-zeros.tif` has not yet been submitted to DrivenData (`weekly_slots_used = 0`). After uploading through an authorized account, record the exact organizer-returned score and screenshot/receipt before making any `ORGANIZER-CONFIRMED` claim.
+2. **Holdout Composition vs Live Hidden Set $G$:** `gems57-pooled-hide-v2` withholds buffered whole segments of the public Quaternary fault catalogue (`22,663` positive pixels). If the organizer's private test truth $G$ contains a substantially higher fraction of deeply buried (`> 1 km` cover) pre-Quaternary geothermal reservoir faults than surface-mapped Quaternary strands, live DTI can differ from `HOLDOUT-DTI`.
+3. **Next Separate Lane (`H87-2`, Deferred per Single-Lane Budget Rule):** Implement analytical $60^\circ$ updip footwall surface projection of multi-altitude gravity/magnetic Euler deconvolution contacts (`x_surf = x_grav - (z_0 / tan 60°) n_hat`) to align deep basement density steps directly onto the 300 m surface evaluation kernel for pure detached basin faults (`d_cat > 3 km`).

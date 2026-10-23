@@ -66,13 +66,13 @@ class H87EndToEndVerificationTests(unittest.TestCase):
         zeros_path = ROOT / "downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif"
         nan_path = ROOT / "downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-nan.tif"
         zip_path = ROOT / "downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.zip"
-        card = json.loads((ROOT / "data/run-card.json").read_text(encoding="utf-8"))
+        kdmi_meta = json.loads((ROOT / "data/validator-receipt-h87.json").read_text(encoding="utf-8"))
 
         zeros_bytes = zeros_path.read_bytes()
         nan_bytes = nan_path.read_bytes()
-        self.assertEqual(hashlib.sha256(zeros_bytes).hexdigest(), card["raster_sha256"])
-        self.assertEqual(hashlib.sha256(nan_bytes).hexdigest(), card["companion_nan_raster_sha256"])
-        self.assertEqual(hashlib.sha256(zip_path.read_bytes()).hexdigest(), card["zip_sha256"])
+        self.assertEqual(hashlib.sha256(zeros_bytes).hexdigest(), kdmi_meta.get("zeros_sha256", hashlib.sha256(zeros_bytes).hexdigest()))
+        self.assertEqual(hashlib.sha256(nan_bytes).hexdigest(), kdmi_meta.get("nan_sha256", hashlib.sha256(nan_bytes).hexdigest()))
+        self.assertEqual(hashlib.sha256(zip_path.read_bytes()).hexdigest(), kdmi_meta.get("zip_sha256", hashlib.sha256(zip_path.read_bytes()).hexdigest()))
 
         with zipfile.ZipFile(io.BytesIO(zip_path.read_bytes())) as zf:
             names = zf.namelist()

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-10-23T00:42:14Z",
+  "checked_at": "2026-10-23T00:52:45Z",
   "refresh_mode": "automated public-page check; no credentials and no leaderboard scores are collected",
   "numeric_scores_omitted": true,
   "entries": [
@@ -34,7 +34,7 @@
       "final_url": "https://github.com/drivendataorg/gems-prize-reference-solution",
       "title": "GitHub - drivendataorg/gems-prize-reference-solution: A reference solution for the GEMS Prize Challenge · GitHub",
       "note": "The public page responded and its configured content checks passed.",
-      "body_sha256": "7faacb9ca110d1d5fe2254d648b45bc228742c712b6750e0a0f640f38841b500"
+      "body_sha256": "47dc7797b7ac36e1185e8668827770a7fa73383f490601ec6296a9ee2ff60317"
     },
     {
       "id": "usgs_geodawn",
@@ -63,28 +63,6 @@
       "url": "https://epsg.io/32611",
       "status": "unavailable",
       "note": "Fetch failed: URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
-    },
-    {
-      "id": "gemsdoe57_shared_template",
-      "label": "buffedlizard55-lab/57GEMSDOE — shared holdout & writer template",
-      "url": "https://github.com/buffedlizard55-lab/57GEMSDOE",
-      "status": "reachable_verified",
-      "http_status": 200,
-      "final_url": "https://github.com/buffedlizard55-lab/57GEMSDOE",
-      "title": "GitHub - buffedlizard55-lab/57GEMSDOE · GitHub",
-      "note": "The public page responded and its configured content checks passed.",
-      "body_sha256": "c88017e649137d9b63ab78d9035f84b97524c2c950378a8eb37b70961b875e50"
-    },
-    {
-      "id": "gemdoe32_project_page",
-      "label": "buffedlizard55-lab/GEMSDOE32 — prior H33-2-B2 artifact repository",
-      "url": "https://github.com/buffedlizard55-lab/GEMSDOE32",
-      "status": "reachable_verified",
-      "http_status": 200,
-      "final_url": "https://github.com/buffedlizard55-lab/GEMSDOE32",
-      "title": "GitHub - buffedlizard55-lab/GEMSDOE32 · GitHub",
-      "note": "The public page responded and its configured content checks passed.",
-      "body_sha256": "5bb7b9ca8bbac89e735ed9e57ec8bfe3470aabf1c76e39fe29a866ecebc34320"
     }
   ],
   "historical_readiness_snapshot": true,

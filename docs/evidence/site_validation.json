@@ -1,8 +1,8 @@
 {
   "passed": true,
   "pages": 8,
-  "local_links_verified": 161,
+  "local_links_verified": 141,
   "compatibility_entrypoints": 4,
-  "no_go_download_wording_checked": true,
+  "decision_wording_checked": true,
   "errors": []
 }

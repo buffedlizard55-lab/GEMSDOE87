@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "generated_utc": "2026-10-23T01:04:47.548Z",
+  "generated_utc": "2026-10-23T01:26:57.360Z",
   "browser_version": "153.0.8010.0",
   "checks": [
     {
@@ -46,27 +46,27 @@
       "no_horizontal_overflow": true
     },
     {
-      "actual_promoted_tiff_download_verified": true,
-      "raster_sha256": "f791861ac185c5dde434f04c6177b66f8c1dd6b4fc335462b2e0e733ca6ca4ce"
+      "actual_tiff_download_verified": true,
+      "raster_sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f"
     },
     {
       "registry_search_verified": true
     },
     {
-      "promoted_root_page": "index.html",
-      "no_horizontal_overflow": true
+      "compatibility_entrypoint": "index.html",
+      "redirects_to_current_page": "docs/index.html"
     },
     {
-      "promoted_root_page": "executive-summary.html",
-      "no_horizontal_overflow": true
+      "compatibility_entrypoint": "executive-summary.html",
+      "redirects_to_current_page": "docs/executive-summary.html"
     },
     {
-      "promoted_root_page": "research.html",
-      "no_horizontal_overflow": true
+      "compatibility_entrypoint": "research.html",
+      "redirects_to_current_page": "docs/science.html"
     },
     {
-      "promoted_root_page": "sources.html",
-      "no_horizontal_overflow": true
+      "compatibility_entrypoint": "sources.html",
+      "redirects_to_current_page": "docs/sources.html"
     },
     {
       "clipboard_copy_and_unavailable_fallback_verified": true

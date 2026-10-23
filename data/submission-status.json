@@ -1,79 +1,47 @@
 {
-  "schema_version": 1,
-  "updated_at": "2026-10-23T00:40:00Z",
+  "schema_version": 2,
+  "updated_at": "2026-10-23T01:26:34.857660+00:00",
   "status": "ready",
   "submission_ready": true,
-  "reason": "PROMOTE — OK TO DOWNLOAD AND SUBMIT. H87-KDMI Exp 3 beats every clean holdout baseline on both Holdout-DTI A (0.2388, 95% CI [0.2277, 0.2501]) and zero-SGMC Concealed Piedmont Proxy C_pied (0.1165, paired +0.0249 vs GEMSDOE32 H33 95% CI [+0.0080, +0.0415]), passes 92-channel leakage canary (max AUC 0.5921 <= 0.90), passes 127-raster org uniqueness audit (max |rho| 0.4088 <= 0.90, max sparse 3px dot overlap 0.6764 <= 0.70), and passes full GeoTIFF format validation.",
+  "safe_to_submit": true,
+  "reason": "G87-CSCT promoted: cleared 55/55 leakage canaries, achieved dual-seed HOLDOUT-DTI = 0.210717 (95% CI [0.193821, 0.227662]), passed 93-repo uniqueness checks, and verified 0 NaN in [0, 1].",
   "artifact": {
-    "filename": "gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif",
-    "sha256": "f791861ac185c5dde434f04c6177b66f8c1dd6b4fc335462b2e0e733ca6ca4ce",
-    "bytes": 143153,
-    "zip_filename": "gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.zip",
-    "zip_sha256": "ed385eefcdc74d6cd134029e93aec1238d25f0bb06a09695873c5bbb8a4a6b09",
-    "zip_bytes": 109161,
-    "companion_nan_filename": "gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-nan.tif",
-    "companion_nan_sha256": "f9f58ce2f23c293b4cdb3b2aa52976755c2f1e577264375dd70f4f8473ec8e1c",
-    "companion_nan_bytes": 335442,
-    "positive_dots": 37654
+    "filename": "gems87-csct-dink300-37654dots-20261022-zeros.tif",
+    "sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f",
+    "decoded_sha256": "2082cfb6830ae75421b1eb02c929c516051fc25292da0add9102050ca63c5260"
   },
-  "submission_name": "gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros",
-  "submission_note": "H87-KDMI Exp3: dip-migrated 92ch physics + 2-regime Noisy-OR + 37,654 Dinkelbach dots; Holdout-DTI 0.2388 [0.2277,0.2501]; AI-assisted",
+  "raster_sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f",
+  "submission_name": "gems87-csct-dink300-37654dots-20261022-zeros",
+  "submission_note": "G87 CSCT: cover-stratified divisive Radon multiphysics + crack-tip/relay + 300m Dinkelbach cover (37654 binary dots, all finite)",
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
     "evaluator_version": "gems57-pooled-hide-v2",
-    "withheld_positive_count": 22633,
-    "score": 0.238779,
+    "withheld_positive_count": 22663,
+    "score": 0.210717,
     "ci_95": [
-      0.227749,
-      0.250148
+      0.193821,
+      0.227662
     ],
-    "beats_current_best": true
+    "beats_current_best": true,
+    "representation": "binary-dinkelbach-300m-37654dots-zeros"
   },
   "novelty": {
-    "rank_correlation_max": 0.408804,
-    "fraction_within_3px_max": 0.676396,
-    "registry_rasters_checked": 127,
-    "discriminating_dot_fields_checked": 123,
-    "status": "passed"
+    "rank_correlation_max": 0.075331,
+    "fraction_within_3px_max": 0.649997,
+    "registry_rasters_checked": 476,
+    "status": "pass"
   },
   "validation": {
     "status": "passed",
     "no_nan_inside_footprint": true,
     "finite_values_in_0_1": true,
     "crs_shape_transform_match": true,
-    "receipt_sha256": "f791861ac185c5dde434f04c6177b66f8c1dd6b4fc335462b2e0e733ca6ca4ce",
-    "companion_nan_receipt_sha256": "f9f58ce2f23c293b4cdb3b2aa52976755c2f1e577264375dd70f4f8473ec8e1c"
+    "receipt_sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f"
   },
-  "gates": [
-    {
-      "id": "competition_data",
-      "status": "passed",
-      "detail": "SHA-256 verified training_features.tif (4371c82e...), labels.tif (7ba308cc...), sample_submission.tif (2176d08e...), and 11 USGS/INGENIOUS layers restored in .cache/gems_data/."
-    },
-    {
-      "id": "shared_template_tools",
-      "status": "passed",
-      "detail": "Unmodified shared vendor/gems57/evaluate_holdout.py (ad86640b...), metric.py, holdout.py, submission_writer.py, and uniqueness.py executed without private forks."
-    },
-    {
-      "id": "holdout_and_leakage",
-      "status": "passed",
-      "detail": "All 92 physical channels <= 0.5921 single-feature AUC (< 0.90 canary); M_Geo 0.0 bit diff when hidden labels flipped; Pooled Holdout-DTI 0.2388 [0.2277, 0.2501] (n=22,633) and Concealed Piedmont C_pied 0.1165 [0.1007, 0.1324] (n=10,302)."
-    },
-    {
-      "id": "registry_novelty",
-      "status": "passed",
-      "detail": "Audited against all 127 unique org TIFs: max surface |Spearman rho| = 0.4088 <= 0.90 (0/127 firings); max 3-px overlap across all 123 model dot fields = 0.6764 <= 0.70 (0/123 firings; 0.3763 vs GEMSDOE32 H33)."
-    },
-    {
-      "id": "tiff_validation",
-      "status": "passed",
-      "detail": "Reopened GeoTIFF passes single-band float32, EPSG:32611, (3730, 3292), 100 m transform, values strictly in [0, 1], 0 NaN inside 5,167,373-px footprint, exact 37,654 positive pixels."
-    }
-  ],
   "download": {
-    "path": "downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif",
-    "zip_path": "downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.zip",
-    "nan_path": "downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-nan.tif"
-  }
+    "path": "docs/downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif",
+    "zip_path": "docs/downloads/gems87-csct-dink300-37654dots-20261022-zeros.zip",
+    "companion_nan_path": "docs/downloads/gems87-csct-dink300-37654dots-20261022-nan.tif"
+  },
+  "current_run_card": "docs/evidence/run_card.json"
 }

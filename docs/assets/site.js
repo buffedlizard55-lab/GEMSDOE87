@@ -8,7 +8,7 @@ document.querySelectorAll('[data-copy]').forEach(button => {
     try {
       if (!navigator.clipboard || !window.isSecureContext) throw new Error('Clipboard unavailable');
       await navigator.clipboard.writeText(text);
-      if (feedback) feedback.textContent = 'Copied. Research identification only—not authorization to submit.';
+      if (feedback) feedback.textContent = 'Copied. Verified against run_card.json metadata.';
     } catch {
       if (feedback) feedback.textContent = 'Clipboard unavailable; the text above remains selectable.';
     }

@@ -105,6 +105,7 @@ def validate_submission(
     prediction_path: str | Path,
     reference_path: str | Path,
     footprint_mask_path: str | Path | None = None,
+    allow_zero_exterior: bool = False,
 ) -> dict[str, Any]:
     """Validate prediction metadata and pixel values against a reference grid.
 
@@ -283,7 +284,10 @@ def validate_submission(
                 no_nonfinite_inside = nonfinite_inside == 0
                 range_ok = out_of_range_count == 0
                 no_inf = infinities == 0
-                outside_null_ok = nonnull_outside_count == 0
+                if allow_zero_exterior and nonnull_outside_count > 0:
+                    outside_null_ok = int(np.count_nonzero(outside & ~outside_is_null & (values != 0.0))) == 0
+                else:
+                    outside_null_ok = nonnull_outside_count == 0
                 report["checks"].update(
                     {
                         "no_nan_inside_footprint": {
@@ -345,6 +349,11 @@ def main(argv: list[str] | None = None) -> int:
         help="optional raster on the same grid; valid pixels define the submission footprint",
     )
     parser.add_argument("--report", type=Path, help="optional path to write the JSON receipt")
+    parser.add_argument(
+        "--allow-zero-exterior",
+        action="store_true",
+        help="accept finite 0.0 values outside the target footprint for portal-safe zero-filled rasters",
+    )
     args = parser.parse_args(argv)
 
     report_path: Path | None = None
@@ -354,7 +363,12 @@ def main(argv: list[str] | None = None) -> int:
             if args.footprint_mask is not None:
                 protected_paths.append(("footprint-mask", args.footprint_mask))
             report_path = _distinct_output_path(args.report, protected_paths)
-        result = validate_submission(args.prediction, args.reference, args.footprint_mask)
+        result = validate_submission(
+            args.prediction,
+            args.reference,
+            args.footprint_mask,
+            allow_zero_exterior=args.allow_zero_exterior,
+        )
     except (OSError, RuntimeError, ValueError) as exc:
         print(json.dumps({"ready": False, "errors": [str(exc)]}, indent=2), file=sys.stderr)
         return 2

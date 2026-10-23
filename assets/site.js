@@ -131,19 +131,19 @@
     }
   }
 
-  document.querySelectorAll("[data-copy-text]").forEach((btn) => {
+  for (const btn of document.querySelectorAll("[data-copy-text]")) {
     btn.addEventListener("click", async () => {
-      const txt = btn.getAttribute("data-copy-text") || "";
+      const value = btn.getAttribute("data-copy-text") || "";
       try {
-        await navigator.clipboard.writeText(txt);
-        const orig = btn.textContent;
+        await navigator.clipboard.writeText(value);
+        const prev = btn.textContent;
         btn.textContent = "Copied!";
-        setTimeout(() => { btn.textContent = orig; }, 1600);
+        setTimeout(() => { btn.textContent = prev; }, 1600);
       } catch {
-        window.prompt("Copy text:", txt);
+        btn.textContent = "Select code";
       }
     });
-  });
+  }
 
   loadSubmissionStatus();
   loadFeed();

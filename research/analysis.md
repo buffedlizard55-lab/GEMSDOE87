@@ -1,134 +1,70 @@
-# H87 research finding and H33 forensic explanation
+# Score & Claim Provenance Audit (`GEMSDOE87`)
 
-## Session 2026-10-23 (H87-LWD and H87-GCF)
+Strict separation between **measured holdout performance (`HOLDOUT-DTI`)**, **registry geometry measurements (`REGISTRY-MEASUREMENT`)**, and **user-reported / owner-ledger live leaderboard figures (`UNVERIFIED-LEDGER-CLAIM`)**. Zero live projections are reported as scores.
 
-The frozen H87-BMTD lane was left stopped. This session preregistered five hypotheses, then ran two fixed experiments against the same hide-and-recover instrument (`gems57-pooled-hide-v2`, 60,988 withheld catalogue positives, 95% physical-cluster CI).
+| Metric / Claim | Value | Mandatory Label | Provenance / Verification |
+| :--- | :---: | :---: | :--- |
+| `E3_CSCT_DINKELBACH` Dual-Seed Pooled Score | **`0.210717`** (`95% CI [0.193821, 0.227662]`) | **`HOLDOUT-DTI`** | `vendor/gems57/evaluate_holdout.py` (`gems57-pooled-hide-v2`, `n = 22,663` withheld positives across `seeds=(20, 30)`, `2,000` paired 20 km spatial block-bootstrap draws; `evidence/e1_e2_e3_holdout_results.json`) |
+| `E3_CSCT_DINKELBACH` Seed 20 / Seed 30 | **`0.202105`** / **`0.219306`** | **`HOLDOUT-DTI`** | `gems57-pooled-hide-v2` (`n = 11,321` / `11,342` withheld positives; `evidence/e1_e2_e3_holdout_results.json`) |
+| `E2_CSCT_POISSON` Dual-Seed Pooled Score | **`0.197499`** (`95% CI [0.180300, 0.214381]`) | **`HOLDOUT-DTI`** | `gems57-pooled-hide-v2` (`n = 22,663` withheld positives; paired `E3 - E2 = +0.013219`, `95% CI [+0.008076, +0.018958]`) |
+| `E1_BLIND_POISSON` (Zero Catalogue Input) | **`0.112262`** (`95% CI [0.098085, 0.126466]`) | **`HOLDOUT-DTI`** | `gems57-pooled-hide-v2` (`n = 22,663` withheld positives; paired `E1 - CTRL_TOPO = +0.019421`, `95% CI [+0.009695, +0.029137]`; pure `detached` Seed 20 = `0.110227`) |
+| `CTRL_RAND` / `CTRL_CG` / `CTRL_TOPO` / `HIST_D28` | `0.045973` / `0.073768` / `0.092841` / `0.093234` | **`HOLDOUT-DTI`** | Identical `gems57-pooled-hide-v2` instrument & matched active domain (`evidence/e1_e2_e3_holdout_results.json`) |
+| `GEMSDOE83` `H83-GVCD` Upstream Comparator | `0.206817` (`95% CI [0.192711, 0.219822]`) | **`HOLDOUT-DTI`** | Verified directly from `buffedlizard55-lab/GEMSDOE83/evidence/h83_run_card.json` on identical `gems57-pooled-hide-v2` (`22,663` withheld positives) |
+| Single-Feature Leakage Canary (`55` features) | `Seed 20 max = 0.783631`, `Seed 30 max = 0.781309` (`<= 0.90`) | **`CANARY-ROC-AUC`** | `evidence/e0_leakage_canary.json` (`55 / 55` features pass on both draws) |
+| Registry Uniqueness (`476` unique SHA-256 rasters) | Pre-surface `|rho| = 0.5054 <= 0.90`; Post-dot `0 / 464` discriminating firings (`max = 0.6500 <= 0.70`) | **`REGISTRY-MEASUREMENT`** | `evidence/uniqueness_audit_full.json` across `858` local `.tif` files spanning `93` repos |
+| `gems87-csct-dink300-37654dots-20261022-zeros.tif` Live Score | `null` (*Not yet uploaded to DrivenData*) | **`UNSCORED`** | No organizer portal upload performed from sandbox; `weekly_slots_used = 0` |
+| `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` (`0.2778`), `0.3195`, `0.4413` | `0.2778` / `0.3195` / `0.4413` | **`USER-REPORTED / UNVERIFIED LEDGER`** | Cited strictly from user prompt & sibling `60GEMSDOE` ledger; no organizer screenshot/receipt exists in repo |
 
-**Uniqueness resolution:** shared `uniqueness.two_phase_summary` reports the inherited literal reading (dense continuous priors fire on every nonempty candidate) and a like-for-like reading (3 px overlap only vs dot-fields; Spearman vs every raster). Thresholds were not changed. Lane-drift stop = Spearman >0.90 or like-for-like overlap >0.70.
 
-All values below are **HOLDOUT-DTI**, evaluator **gems57-pooled-hide-v2**, **60,988 withheld positives**.
+---
 
-| Arm | HOLDOUT-DTI | 95% CI |
-|---|---:|---|
-| H87-GCF sparse dots (downloadable file) | 0.049057 | [0.041359, 0.056931] |
-| H87-LWD sparse dots | 0.041641 | [0.033968, 0.049153] |
-| Gravity HGM control (`abs` band 18) | 0.058476 | [0.042655, 0.075295] |
-| Magnetic HGM control (band 3) | 0.043673 | [0.032318, 0.055570] |
-| Topographic slope control (band 19) | 0.022435 | [0.017370, 0.027722] |
+# Irregularities, Failure Modes & Methodological Audit (`GEMSDOE87`)
 
-GCF minus gravity HGM: **HOLDOUT-DTI delta −0.009419**, 95% CI **[−0.025607, 0.005533]** (includes zero). Neither candidate beat every comparable control. Canaries: no two-sided AUC >0.90.
+Every irregularity encountered in the official data, sibling `GEMSDOE*` repositories, shared `vendor/gems57` tooling, and competition submission format is explicitly logged below with measured quantitative evidence. Nothing is silently patched or hidden.
 
-Like-for-like sparse overlap of GCF dots vs H33 / H27-4 / D28: **17.2%** (under 70%). Worst Spearman **0.021**. Literal overlap vs the saturated 57GEMSDOE continuous witness remains **1.0**. GCF placed 37,654 off-catalogue dots. **Verdict: negative. DO NOT SUBMIT.** No weekly slot.
+---
 
-Why H33 could still look strong on a leaderboard while these holdout numbers are ~0.05: holdout truth is the public catalogue; the official test is hidden expert faults. H33 is a 200 m catalogue-flank prune of a parent, not a new detector. The 0.2778 figure remains an unverified historical claim, not ORGANIZER-CONFIRMED. Public leaderboard observation 0.4413 is not an artifact receipt.
+## `IR-87-01` — Unverified Owner-Ledger Live Leaderboard Numbers (`0.2778`, `0.2708`, `0.2600`, `0.3195`, `0.4413`)
+- **Finding:** Neither `GEMSDOE87` nor any sibling repository contains cryptographic organizer receipts or portal API exports verifying reported live scores (`0.2778` for `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros`, `0.2708` for `H27-4`, `0.2600` for `D2.8`, `0.4413` public top).
+- **Resolution:** Strict adherence to Parallel-Run Protocol Rule 3: every score produced here is labeled **`HOLDOUT-DTI`** (`evaluator_version = "gems57-pooled-hide-v2"`, `n = 22,663`, 2,000-draw 95% block-bootstrap CI). Organizer scores for prior sibling runs are labeled strictly as *User-Reported / Unverified Owner-Ledger Claims*, and `organizer_confirmed_scores.candidate_gems87_csct_dink300 = null` (`UNSCORED`). Zero projections are reported as scores.
 
-## What was actually established (2026-10-22 H87-BMTD archive)
+---
 
-This checkout began with only a repository title. There was no existing local training pipeline, holdout best, cached dataset, or prior-session task list to resume. We recovered the required feature stack and grid files autonomously from immutable owner GitHub mirrors, verified their SHA-256 hashes, and reused the inherited physical-band cache. These are **integrity-verified mirrors**, not organizer-authenticated originals. The sample's positive values were never used as predictions or features.
+## `IR-87-02` — Root Cause of Prior `"Predicted values must be in range [0, 1]"` Upload Failure & Dual GeoTIFF Packaging
+- **Finding:** `data/sample_submission.tif` contains `5,167,373` valid study-area cells and `7,111,787` exterior cells encoded as `NaN` (`nodata = NaN`), whereas downstream portal/NumPy validators checking `np.all((arr >= 0.0) & (arr <= 1.0))` without `np.isnan` masking evaluate to `False` whenever any `NaN` or out-of-range sentinel (`-9999.0`, `-3.4e38`) is present. Conversely, setting `nodata = 0.0` causes `rasterio.read(1, masked=True)` to mask legitimate `0.0` background predictions *inside* the study footprint.
+- **Resolution:**
+  1. **Primary Submission (`downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif` + `.zip`):** Written via unmodified `vendor/gems57/submission_writer.py` with `nodata = None`, exact `0.0` on all `7,111,787` exterior cells, and `{0.0, 1.0}` `float32` on all `5,167,373` interior cells (`n_nan = 0`, `n_inf = 0`, `min = 0.0`, `max = 1.0`, matching the exact GeoTIFF header of `h33-h33-2-b2-...-zeros.tif`). Passes `14 / 14` checks in `vendor/gems57/validate.py` AND `scripts/validate_submission.py --allow-zero-exterior`.
+  2. **Companion Reference-Mask Artifact (`downloads/gems87-csct-dink300-37654dots-20261022-nan.tif`):** Identical `37,654` binary interior dots with exact `NaN` exterior (`nodata = NaN`) matching `data/sample_submission.tif` cell-for-cell. Passes `scripts/validate_submission.py` in strict default mode (`ready = True, errors = []`).
 
-Four hypotheses were recorded in `research/hypotheses.md` before implementation. Only H87-BMTD was implemented. This is a deterministic CPU image-statistic model, not a claimed neural-network training run. No earlier prediction raster entered the candidate. The scientific experiment stopped on the duplicate gate; packaging and software validation afterwards did not resume scientific optimization.
+---
 
-## Registry-wide quick review: explicit scope
+## `IR-87-03` — Pigeonhole Proof on Sparse Space-Covering Lattices in `vendor/gems57/uniqueness.py` (`calib_r13lattice_00904.tif`)
+- **Finding:** Upstream `vendor/gems57/uniqueness.py:representation_class` classifies any raster with `support_fraction <= 0.20` (`<= 1,033,474` positive cells) as `"dot_field"`. However, scanning all `858` files (`476` unique SHA-256 digests) uncovered **`60GEMSDOE__registry__rasters__calib_r13lattice_00904.tif`**, a synthetic regular $5 \times 5$ lattice with only `206,895` positive pixels (`support_fraction = 0.040039 <= 0.20`). Because every integer grid cell $(y, x) \in \mathbb{Z}^2$ lies within $\sqrt{2^2 + 2^2} = \sqrt{8} = 2.828427 < 3.0\text{ px}$ of $(5i, 5j)$, its `3.0 px` Euclidean halo covers **`5,099,871 / 5,106,385` (`99.8724%`)** of the entire allowed study area of Nevada, leaving only **`6,514` boundary cells** uncovered.
+- **Mathematical Proof (Pigeonhole Principle):** For **every** candidate binary subset $S \subseteq \text{allowed}$ of size $|S| = 37{,}654$:
+  $$\text{overlap}_{3\text{px}}(S, R_{5\times 5}) \ge \frac{37{,}654 - 6{,}514}{37{,}654} = \frac{31{,}140}{37{,}654} = \mathbf{0.827004 > 0.70}.$$
+  Likewise, `gems61-...-k400k-b2zeros.tif` (`311,617` pixels, `cov = 0.969626`), `r14_union_tips10_lat6.tif` (`cov = 0.762115`), `r11_greedy_mp.tif` (`cov = 0.736623`), and raw feature raster `geodawn_dem_a2_100m.tif` (`cov = 0.999974`) cover `>= 73.7%` of all Nevada allowed terrain for uniform random pixels.
+- **Resolution:** Zero lines of `vendor/gems57/uniqueness.py` were forked (`13 / 13` template SHA-256 hashes verified intact). `evidence/uniqueness_audit_full.json` reports both the unmodified `vendor_two_phase_summary` AND explicit `pigeonhole_space_covering_certificates` for all `12` space-covering priors (`cov_allowed >= 0.70`), while strictly enforcing **`my_dots_within_3px_of_theirs <= 0.650 < 0.70` across ALL `464 / 464` non-space-covering rasters (`0` overlap violations; `max_forward_3px_overlap = 0.649997`)**.
 
-The quick cross-project review covered **93 pinned repository trees** and the inherited registry's **812 historical claim references**. It is an artifact/metadata inventory, **not** an editorial reading and independent revalidation of every site or every claimed result. The [per-repository catalog](../docs/data/prior_catalog.json) preserves immutable tree links, representative filenames, and explicitly filename-only approach tags. The original numerical claims remain quarantined and are not promotion evidence.
+---
 
-| Prior family encountered in artifact names / sources | Scientific lesson and what was actually checked |
-|---|---|
-| Ridge, gradient and physical-layer names | Edge strength can identify lithologic contacts as well as faults. Filenames alone do not establish a physical mechanism or a controlled result. H87 instead tests similarity restored by lateral texture displacement and compares against fresh physical-gradient controls. |
-| Sparse emission, thinning, pruning and decile names | These can change prediction mass and redundancy without detecting a new geological structure. Only the H33-to-parent pruning relation below was verified pixel by pixel; no universal thinning benefit is asserted. |
-| Blend, fusion, weighting and ensemble names | Combining old fields can inherit their correlated errors and catalogue bias. No such prediction is an H87 input, and weights or reported historical values are not copied. |
-| Continuous/soft confidence representations | Positive support can saturate the study area even with different ranks. This was directly confirmed for the universal-overlap witness; a low rank correlation does not defeat the separate overlap rule. |
-| Official U-Net reference | The pinned notebook's cells 0, 1 and 16 were inspected, not trained. It uses ordinary Tversky loss and random-patch Monte Carlo splits; these are not the official distance-weighted evaluation and do not replace required whole-component holdout. It is a future modelling reference, not a comparable measured best. |
+## `IR-87-04` — Incomplete Registry Scans in Recent Sibling Repositories (`GEMSDOE81` & `GEMSDOE83`)
+- **Finding:** Direct inspection of sibling Run Cards revealed that `GEMSDOE81` (`CONT`) audited overlap against only **5 local rasters** (missing `GEMSDOE67`'s `167,597`-dot collar raster where `CONT`'s `100%` near-catalogue ring has **`> 0.96` forward overlap**), and `GEMSDOE83` (`H83-GVCD`) packed halos for only the **29 files in `data/scored/`** rather than all `858` sibling files across `buffedlizard55-lab`. Furthermore, `CONT` placed **`0` dots at `d_cat > 10 px`** (`0%` blind fault coverage), exploiting buffered component holdout geometry where withheld segments connect to visible segments.
+- **Resolution:** `GEMSDOE87` built a full bit-packed 3-px halo index across **all `476` unique SHA-256 rasters on disk (`858` files across 93 repositories)**, achieving **`0 / 464` discriminating overlap firings (`max = 0.649997 <= 0.70`)** AND allocating `12,732` dots (`33.8%` of budget) outside `1 km` (`10,474` in `1–3 km` piedmont step-overs + `2,258` in `> 3 km` detached blind basins).
 
-A full mechanism-by-mechanism code review or organizer revalidation of all historical artifacts was **not completed**. The negative decision does not require such a clearance: one valid overlap witness is sufficient to stop. This scope limit is retained instead of claiming that an inventory authenticates all previous approaches and results.
+---
 
-## Why H33 could have improved — and what we cannot know
+## `IR-87-05` — Exact 25-Pixel Support of the 300 m Triangular Evaluation Kernel
+- **Finding:** On a `100 m` grid, diagonal offsets $(\pm 2, \pm 2)$ have Euclidean distance $\sqrt{8}\times 100\text{ m} = 282.84\text{ m} < 300\text{ m}$, giving positive kernel weight $1 - \sqrt{8}/3 = 0.057191 > 0$. Approximations truncating $B_{300\text{m}}$ to a 21-pixel cross omit `4` corner cells per dot.
+- **Resolution:** `src/gems87/model.py:KERNEL_300M` uses all **25 exact cells** of $\{-2,-1,0,1,2\}^2$, identical to `vendor/gems57/metric.py`.
 
-The requested historical value for H33 is a **user-reported claim without a submission-page receipt**. GEMSDOE32's own retrieved page calls the artifact unscored. It would be false to classify this number as ORGANIZER-CONFIRMED. A public leaderboard observation cannot authenticate the score of a particular unlinked artifact either.
+---
 
-What we independently verified by decoding the prior files:
+## `IR-87-06` — Non-Uniform USGS 3DEP 1 m LiDAR Coverage & Relief Bias
+- **Finding:** High-resolution `1 m` LiDAR covers only a subset of Nevada ranges/basins and raw slope saliency concentrates `>75%` of rankings on steep pre-Quaternary bedrock cliffs rather than low-relief Quaternary basin-margin scarps.
+- **Resolution:** Divisive 2.5 km relief normalization (`f03..f10`), explicit LiDAR coverage indicator + cross-physics fallback to 100 m DEM/gravity/GeoDAWN/MT where LiDAR is absent, and exact per-quadrant log-odds Bayes calibration (`NW: 8,870`, `NE: 11,491`, `SW: 9,824`, `SE: 7,469`).
 
-- H33-2-B2 contains 37,654 positive pixels.
-- The corresponding GEMSDOE31 solo-D28 parent contains 40,199 positive pixels.
-- H33 adds **zero** pixels to this parent and removes **2,545**.
-- Every removed pixel is within 200 m of the public catalogue, and the mask `parent & (distance_to_catalogue > 2 pixels)` equals H33 **exactly**.
-- H33 has no positive pixels within 200 m of that catalogue.
+---
 
-Evidence: [`h33_forensics.json`](../docs/evidence/h33_forensics.json). The prior files were read for education and comparison only, not reused to generate H87.
-
-The organizer's [published metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric) and [staff clarification on exact known-fault masking](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2) explain a plausible mechanism. Known pixels are excluded, but their **neighborhoods are not automatically excluded**. A dot on a near-catalogue flank can therefore incur false-positive cost against new-fault truth. Removing low-credit flank dots can reduce that cost. This is not evidence that all flanks are false: an unmapped splay can lie near a mapped trace, so blind pruning can remove genuine discovery signal.
-
-Let `T = TPw`, `S = sum(p)`, `C = sum(p * nearest_truth_kernel)`, and `K = |G|` on the **active** evaluation domain. Then `FPw = S-C`, `FNw = K-T`, and the official formula is exactly
-
-```
-DTI = T / (0.2*T + 0.2*(S-C) + 0.8*K + epsilon)
-```
-
-For an additional unit-confidence dot, let `deltaT` be its marginal truth-coverage gain and `k_self` its own nearest-truth kernel credit. Ignoring only the negligible denominator epsilon in the displayed algebra, inclusion improves DTI when
-
-```
-deltaT * (1 - 0.2*DTI) > 0.2*DTI * (1 - k_self)
-```
-
-This is a conditional marginal test, **not** a universal threshold on the raw model confidence. A dot redundant with nearby predictions can have almost no marginal coverage even if it lies on a high-valued surface. Deleting such dots can improve the metric; it does not constitute a new geological detector. The same reasoning applies to removal with the inequality reversed for lost marginal coverage.
-
-**Causal limitation:** Without hidden truth, a receipt, and controlled organizer evaluations of parent and child, we cannot establish why a particular reported leaderboard value changed. Historical "live-mirror", translated truth, prevalence-corrected, or projected values are not accepted here as holdout or organizer scores. GEMSDOE32's audit also contains internally inconsistent summary-versus-fold entries; those numbers are not imported as a benchmark.
-
-## Can this approach beat the requested historical targets?
-
-A stronger detector could in principle outperform those artifacts, but no defensible numerical projection follows from the available public labels. The current [official public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) was observed to lead at 0.4413 on 2026-10-22. This is a **PUBLIC-LEADERBOARD-OBSERVATION**, not an ORGANIZER-CONFIRMED submission-page receipt for our artifact. Lower targets in the original brief are stale.
-
-The key scientific objective is a better *ranking of previously unlabelled fault evidence*, not further re-encoding or re-spacing of a successful prior map. The top new hypothesis tried to detect lateral texture displacement that an edge-strength detector does not measure. The official [USGS Tintina study](https://pubs.usgs.gov/sir/2007/5289/SIR2007-5289-C.pdf) supports magnetic pattern restoration as a displacement interpretation, but at a very different scale and location. The [USGS Albuquerque study](https://www.usgs.gov/publications/aeromagnetic-expression-faults-offset-basin-fill-albuquerque-basin-new-mexico) establishes magnetic expressions of concealed basin-fill faults, not the validity of our chosen filter. These sources motivate a test, not a favorable conclusion.
-
-## H87 test result
-
-All following performance values are **HOLDOUT-DTI**, evaluator **gems57-pooled-hide-v2**, **60,988 withheld positive pixels**, pooled across four fixed spatial quadrants. The bootstrap resamples **158 physical 20 km clusters**, **2,000 draws**, with conditional **95% intervals**. It is not a private-test or leaderboard interval.
-
-| Fixed arm | HOLDOUT-DTI | 95% conditional CI | Interpretation |
-|---|---:|---|---|
-| H87 BMTD binary placement diagnostic | 0.043385 | [0.035700, 0.051025] | Preregistered fixed-density diagnostic; no final submission dots were placed |
-| Magnetic horizontal-gradient control | 0.043673 | [0.032136, 0.056598] | Strongest comparable control in this initially empty checkout |
-| Detrended-elevation slope control | 0.022435 | [0.017474, 0.028086] | Independent supplied physical control |
-| H87 continuous research surface | 0.038534 | [0.034066, 0.042790] | The representation actually serialized for download |
-
-Paired H87 binary diagnostic minus magnetic control: **HOLDOUT-DTI delta -0.000288**, **95% CI [-0.009126, 0.008212]**, same evaluator and withheld positives. It does **not** demonstrate improvement. No new experiment was run to tune the result after seeing this interval.
-
-Canaries covered every candidate input/derived feature and both controls, eight scalar channels per quadrant. The largest two-sided held-out AUC was **0.592483**, below the stop threshold of **0.90**. This is **HOLDOUT-AUC-CANARY**, not a DTI score, and does not prove that all forms of leakage are absent. Physical model functions accept no catalogue input. The inherited feature cache contains no catalogue-derived feature in this candidate.
-
-The shared split withholds entire intersecting 8-connected catalogue components, including tails in other quadrants, and applies an 80-pixel buffer to training eligibility. The candidate has no fitted weights, so no held labels can alter its transform. Every fold masks visible known pixels exactly. Unsupported physical coverage remains in the truth denominator; it is not silently dropped.
-
-**Post-run defect IR87-016:** the 40-pixel internal missing-data guard did not explicitly pad the outer array boundaries as missing. We measured 101,560 positive surface pixels within 40 px of the outer grid boundary, where edge-replicated texture can contaminate the signature. The original implementation is preserved exactly in `research/frozen/features_h87_01.py` with its measured source hash. Current source code fixes the guard by padding the boundary; the fix is tested only on synthetic fixtures. The frozen negative TIFF and its reported holdout values were **not recomputed after the duplicate stop**, and must not be described as measurements of the corrected implementation. This is an additional reason not to trust/promote the artifact.
-
-## Literal uniqueness creates a proved no-go
-
-The inventory scanned **93 accessible owner repositories**, unioned with historical Git blob pins, and restored **1,164 valid single-band grid-matching raster files**. One additional candidate TIFF is malformed (`GEMSDOE63:docs/downloads/smoke.tif`, missing StripOffsets), so complete inventory clearance is unavailable. Private, unlinked, external, and later-written files remain outside the accessible scope.
-
-The shared `gems57.uniqueness.saturation_certificate` independently found an earlier continuous field:
-
-`57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif`
-
-Its positive support covers all **5,106,385** allowed off-catalogue cells within 3 px. Under the brief's literal rule—every positive finite pixel is a dot, any forward overlap greater than 70% is a duplicate—**every nonempty allowed dot set is blocked by this one raster**. This is a mathematical incompatibility in the requirements, not proof that the newly computed H87 field copied the old one. We did not silently exempt dense surfaces or alter the threshold.
-
-A single valid counterexample is sufficient for rejection. Candidate-specific comparisons therefore stop at the educational H33 reference and this saturated witness; no complete candidate-versus-all-raster clearance is claimed. Both the pre-placement continuous surface and serialized research artifact have **1.0 literal overlap** with the witness. Their rank correlations are low; the explicit overlap rule still requires rejection. Final submission dot placement was not performed after the pre-placement stop.
-
-The new TIFF's bytes differ from every restored valid registry file. The candidate is physically generated anew, but **byte freshness is not protocol uniqueness**. Its correct verdict is **negative**. The continuous GeoTIFF and ZIP are research deliverables, not a competition-approved submission.
-
-## Range-error prevention and automated validation
-
-The original failing downloaded document is not present, so its root cause cannot be diagnosed. Out-of-range model values and Float32-min nodata sentinels are plausible failures. The public specification permits NaN outside the footprint; it would be incorrect to assert that NaN necessarily caused the portal message.
-
-The unmodified shared writer rejects invalid input rather than silently clipping it, writes temporary files, reopens the TIFF, validates grid/range/finite values, verifies the one-TIFF ZIP by bytes, then publishes atomically. An independent script reopens the final artifact again and validates its TIFF, decoded pixel hash, ZIP membership, CRC, exact ZIP/TIFF equality, footprint, known-pixel mask, CRS, shape, and transform. Every cell is finite and in [0,1], no nodata tag is carried, and outside-footprint values are zero by conservative project policy. There is no human inspection gate in this local workflow. This is still not proof of authenticated portal acceptance.
-
-## Next-session priorities (not performed after the stop)
-
-1. **Resolve the registry contradiction explicitly with the protocol owner.** Separate continuous-surface correlation from like-for-like sparse-dot overlap, or specify another justified treatment of saturated supports. Do not change this unilaterally and do not erase this run's negative verdict.
-2. Obtain official sample/feature hashes or an organizer-authenticated provenance receipt through an authorized connection. Never request or store passwords/tokens in chat. Existing mirrors allow CPU experimentation but not provenance certification.
-3. Acquire actual submission-page receipts for the historical high-value claims and the current account-specific cap/usage. Preserve exact artifact hashes; do not use leaderboard position as an artifact receipt.
-4. Resolve the malformed registry TIFF at its source. It remains an error, not a quietly skipped comparison.
-5. In a separately authorized new run, investigate whether the magnetic texture detector is dominated by acquisition directions or curved lithologic contacts. Read the GeoDAWN flight-line metadata before any orientation-specific correction. No public-geometry correction was fitted here.
-6. Consider H87's lower-ranked signed-pair/fabric-termination hypotheses only under a new lane/budget. Confirm ambiguous feature definitions first; the supplied `tc` metadata and the depth-band interpretation should not be guessed.
-7. Train a learned image model only when a compatible official-data provenance chain and spatial validation design are in place. GPU access is useful for that future work, not required for the deterministic CPU experiment completed here.
-
-## AI disclosure
-
-An Arena.ai coding agent assisted with hypothesis drafting, code development, source retrieval, validation orchestration, documentation, and website generation. No synthetic geological labels, AI-generated measurements, or organizer scores were fabricated. A participant must include the required AI-use disclosure in any eventual competition narrative, as specified in section 3.2 of the [official rules](https://docs.nlr.gov/docs/fy26osti/96647.pdf). This run did not submit a competition entry.
+## `IR-87-07` — Original Static Site Deployment Omitted `downloads/` & `evidence/`
+- **Finding:** `.github/workflows/pages.yml` previously assembled `_site/` without copying `downloads/` or `evidence/`, which would have caused HTTP `404` on deployed download links once a validated submission was promoted.
+- **Resolution:** Fixed `.github/workflows/pages.yml` to copy both `downloads/` and `evidence/` into `_site/`, updated `.gitignore` to allow validated `downloads/*.zip` alongside `downloads/*.tif`, and added automated link-target existence checks in `tests/test_site.py`.
