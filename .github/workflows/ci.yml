@@ -2,9 +2,7 @@ name: Research artifact checks
 
 on:
   push:
-    branches:
-      - main
-      - "arena/**"
+    branches: [main, 'arena/**']
   pull_request:
     branches: [main]
   workflow_dispatch:
