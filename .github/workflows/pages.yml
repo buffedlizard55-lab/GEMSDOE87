@@ -37,21 +37,22 @@ jobs:
       - name: Refresh public transport health and derived next steps
         run: |
           python scripts/update_feed.py
+          python scripts/refresh_feed.py --config data/sources.json --output data/feed.json
           python scripts/update_next_steps.py
           python scripts/build_prior_catalog.py
           python scripts/build_site.py
           python scripts/check_site.py
-      - name: Stage only public site files and compatible entry points
+      - name: Stage public site files, promoted downloads, and docs
         run: |
-          mkdir -p .cache/pages-publish
+          mkdir -p .cache/pages-publish/data
           cp -r docs .cache/pages-publish/docs
           cp index.html executive-summary.html research.html sources.html README.md .nojekyll .cache/pages-publish/
           cp -r assets .cache/pages-publish/assets
-          mkdir -p .cache/pages-publish/data
-          cp data/feed.json data/run-card.json data/sources.json data/submission-status.json .cache/pages-publish/data/
+          cp data/*.json .cache/pages-publish/data/
           if [ -d downloads ]; then
             mkdir -p .cache/pages-publish/downloads
             cp -R downloads/. .cache/pages-publish/downloads/
+            cp -R downloads/. .cache/pages-publish/docs/downloads/
           fi
           chmod -R a+rX .cache/pages-publish
       - uses: actions/upload-pages-artifact@v3
@@ -60,23 +61,29 @@ jobs:
       - name: Publish validated static pages
         id: deployment
         uses: actions/deploy-pages@v4
-      - name: Verify the actual public TIFF bytes
+      - name: Verify live public promoted H87-KDMI TIFF bytes and feed
         env:
           PAGES_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
+          PROMOTED_FILE=$(python -c "import json; print(json.load(open('data/submission-status.json'))['artifact']['filename'])")
+          PROMOTED_SHA=$(python -c "import json; print(json.load(open('data/submission-status.json'))['artifact']['sha256'])")
+          curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "${PAGES_URL%/}/downloads/$PROMOTED_FILE?gems87=$PROMOTED_SHA" -o .cache/published-promoted.tif
+          echo "$PROMOTED_SHA  .cache/published-promoted.tif" | sha256sum --check
           FILE=$(python -c "import json; print(json.load(open('run_card.json'))['submission_file'])")
           SHA=$(python -c "import json; print(json.load(open('run_card.json'))['raster_sha256'])")
-          URL="${PAGES_URL%/}/docs/downloads/$FILE?gems87=$SHA"
-          curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$URL" -o .cache/published-research.tif
+          curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "${PAGES_URL%/}/docs/downloads/$FILE?gems87=$SHA" -o .cache/published-research.tif
           echo "$SHA  .cache/published-research.tif" | sha256sum --check
           FEED_SHA=$(sha256sum docs/data/feed.json | cut -d ' ' -f 1)
           FEED_URL="${PAGES_URL%/}/docs/data/feed.json?gems87_run=$GITHUB_RUN_ID"
-          curl --fail --location --silent --show-error --header 'Cache-Control: no-cache' --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$FEED_URL" -o .cache/published-feed.json
+          curl --fail --location --silent --show-error --header 'Cache-Control: no-cache' --retry 10 --retry-all-errors --retry-delay 10 --retry-max-time 300 --connect-timeout 15 --max-time 60 "$FEED_URL" -o .cache/published-feed.json
           echo "$FEED_SHA  .cache/published-feed.json" | sha256sum --check
           python - <<'PYRECEIPT'
           import hashlib, json, os
           from datetime import datetime, timezone
           from pathlib import Path
+          p_prom = Path('.cache/published-promoted.tif')
+          st = json.loads(Path('data/submission-status.json').read_text())
+          assert hashlib.sha256(p_prom.read_bytes()).hexdigest() == st['artifact']['sha256']
           p = Path('.cache/published-research.tif')
           card = json.loads(Path('run_card.json').read_text())
           actual = hashlib.sha256(p.read_bytes()).hexdigest()

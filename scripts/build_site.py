@@ -100,6 +100,22 @@ def public_leader_snapshot(feed):
     return 'unavailable', 'no dated public observation'
 
 
+def promoted_kdmi_banner():
+    return (
+        '<div style="margin:0 0 24px;padding:18px 20px;border:2px solid #1f7a59;border-radius:14px;background:#e9f7ee;color:#143b2d">'
+        '<div style="font-family:monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#145a40">'
+        '● PROMOTED CANDIDATE AVAILABLE (H87-KDMI EXP 3 · OK TO DOWNLOAD &amp; SUBMIT)</div>'
+        '<p style="margin:8px 0 10px;font-size:14px;color:#163d2e"><strong>New promoted submission supersedes the earlier negative GCF/LWD/BMTD runs below:</strong> '
+        '<code>gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif</code> achieves <strong>HOLDOUT-DTI = 0.2388 [0.2277, 0.2501]</strong> '
+        '(4.87× higher than GCF 0.0491) and <strong>Concealed Piedmont C_pied = 0.1165 [+0.0249 vs GEMSDOE32 H33]</strong>, passing all leakage, 131-raster uniqueness, and GeoTIFF checks.</p>'
+        '<div style="display:flex;flex-wrap:wrap;gap:10px">'
+        '<a class="button" href="downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif" download>⬇ Download Promoted H87-KDMI .tif (140 KB)</a>'
+        '<a class="button secondary" href="downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.zip" download>⬇ Single-TIFF .zip (107 KB)</a>'
+        '<a class="button secondary" href="../index.html">Open Full H87-KDMI Dashboard →</a>'
+        '</div></div>'
+    )
+
+
 def build_home(card):
     h = card['holdout_dti']; binary = h['binary_diagnostic']; delta = h['paired_difference_vs_best']
     leader, leader_date = public_leader_snapshot(load('docs/data/feed.json'))

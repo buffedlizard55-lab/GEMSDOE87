@@ -1,0 +1,53 @@
+{
+  "preregistration_id": "GEMSDOE87-H87-KDMI-v1",
+  "locked_utc": "2026-10-22T23:08:56Z",
+  "experiment_plan_path": "docs/experiment-plan.md",
+  "experiment_plan_sha256": "68839cc234324d2372ea8ae7a9791d992e9c04f8a6e2c4980190087f079db8c2",
+  "shared_evaluator_version": "gems57-pooled-hide-v2",
+  "shared_evaluator_sha256": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+  "hard_experiment_cap": 3,
+  "sgmc_in_input_matrix_X": false,
+  "dist_known_fault_px_dropped_at_ingest": true,
+  "hypotheses_ranked": [
+    {
+      "rank": 1,
+      "id": "H87-1",
+      "name": "Kirchhoff Listric Dip-Migration Interferometry (KDMI)",
+      "status": "selected_exp1_to_exp3"
+    },
+    {
+      "rank": 2,
+      "id": "H87-2",
+      "name": "Habitat-Deconfounded Two-Regime Bayesian Synthesis (M_Quat + M_Pied + M_Geo)",
+      "status": "selected_exp2_to_exp3"
+    },
+    {
+      "rank": 3,
+      "id": "H87-3",
+      "name": "Dual-Head (Head P + Head M) Exact Submodular CELF Dinkelbach Allocation",
+      "status": "selected_exp3"
+    },
+    {
+      "rank": 4,
+      "id": "H87-4",
+      "name": "3D Tensor Euler Deconvolution & Spectral Curie Depth Inversion",
+      "status": "deferred_reserve"
+    },
+    {
+      "rank": 5,
+      "id": "H87-5",
+      "name": "Full 3D Coupled Darcy-Advection Peclet PDE Finite-Volume Inversion",
+      "status": "deferred_exceeds_budget"
+    }
+  ],
+  "promotion_gates": {
+    "leakage_canary_max_single_feature_auc": 0.9,
+    "surface_abs_spearman_max": 0.9,
+    "dot_overlap_3px_max_vs_discriminating_registry": 0.7,
+    "must_beat_controls": [
+      "GEMSDOE32/h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+      "GEMSDOE70/p9-piedsubmod-scarp-20260731T023500Z-c695b378-zeros.tif",
+      "H87-Exp1-KDMI-PurePhys"
+    ]
+  }
+}

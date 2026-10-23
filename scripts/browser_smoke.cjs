@@ -41,13 +41,9 @@ let projectBase = process.env.GEMS_PROJECT_URL || null;
         const name = decodeURIComponent(new URL(req.url, 'http://local.test').pathname);
         let file;
         if (name.startsWith('/_project/')) {
-          const relative = name.slice('/_project/'.length);
-          const roots = new Set(['index.html', 'executive-summary.html', 'research.html', 'sources.html']);
-          if (roots.has(relative)) file = path.join(root, relative);
-          else if (relative.startsWith('docs/')) {
-            const candidate = path.resolve(root, relative);
-            if (candidate.startsWith(docs + path.sep)) file = candidate;
-          }
+          const relative = name.slice('/_project/'.length) || 'index.html';
+          const candidate = path.resolve(root, relative);
+          if (candidate.startsWith(root + path.sep) && !relative.startsWith('.')) file = candidate;
         } else {
           const candidate = path.resolve(docs, '.' + (name === '/' ? '/index.html' : name));
           if (candidate.startsWith(docs + path.sep)) file = candidate;
@@ -79,29 +75,35 @@ let projectBase = process.env.GEMS_PROJECT_URL || null;
     await page.goto(`${base}/index.html`, {waitUntil: 'networkidle'});
     await page.screenshot({path: path.join(output, 'desktop.png'), fullPage: true});
     const card = JSON.parse(fs.readFileSync(path.join(root, 'docs/evidence/run_card.json')));
+    const promotedStatus = JSON.parse(fs.readFileSync(path.join(root, 'data/submission-status.json')));
     const [download] = await Promise.all([
       page.waitForEvent('download'),
       page.locator('a[download]').first().click()
     ]);
-    assert.equal(download.suggestedFilename(), card.submission_file);
+    assert.equal(download.suggestedFilename(), promotedStatus.artifact.filename);
     const downloaded = path.join(output, download.suggestedFilename());
     await download.saveAs(downloaded);
     const hash = crypto.createHash('sha256').update(fs.readFileSync(downloaded)).digest('hex');
-    assert.equal(hash, card.raster_sha256, 'actual browser download SHA-256');
-    checks.push({actual_tiff_download_verified: true, raster_sha256: hash});
-    await page.goto(`${base}/registry.html`, {waitUntil: 'networkidle'});
+    assert.equal(hash, promotedStatus.artifact.sha256, 'actual browser promoted H87-KDMI TIFF SHA-256');
+    checks.push({actual_promoted_tiff_download_verified: true, raster_sha256: hash});
+
+    await page.goto(`${base}/ registry.html`.replace(' ', ''), {waitUntil: 'networkidle'});
     await page.getByLabel('Find a repository').fill('GEMSDOE32');
     assert.equal(await page.locator('[data-search-row]:visible').count(), 1);
     await page.getByLabel('Find a repository').fill('definitely-not-a-project');
     assert.equal(await page.locator('[data-search-row]:visible').count(), 0);
     checks.push({registry_search_verified: true});
     if (projectBase) {
-      for (const [alias, target] of [['index.html', 'index.html'], ['executive-summary.html', 'executive-summary.html'], ['research.html', 'science.html'], ['sources.html', 'sources.html']]) {
-        await page.goto(`${projectBase}/${alias}`, {waitUntil: 'networkidle'});
-        await page.waitForURL(`**/docs/${target}`, {waitUntil: 'networkidle'});
+      for (const rootPage of ['index.html', 'executive-summary.html', 'research.html', 'sources.html']) {
+        await page.goto(`${projectBase}/${rootPage}`, {waitUntil: 'networkidle'});
         assert.equal(await page.locator('main h1').count(), 1);
-        checks.push({compatibility_entrypoint: alias, redirects_to_current_page: `docs/${target}`});
+        const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1);
+        assert.equal(overflow, false, `root overflow: ${rootPage}`);
+        checks.push({promoted_root_page: rootPage, no_horizontal_overflow: true});
       }
+      await page.goto(`${projectBase}/index.html`, {waitUntil: 'networkidle'});
+      await page.waitForFunction(() => document.querySelector('[data-submission-status]')?.textContent?.includes('READY'));
+      await page.screenshot({path: path.join(output, 'desktop.png'), fullPage: true});
     }
     await page.goto(`${base}/executive-summary.html`, {waitUntil: 'networkidle'});
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
