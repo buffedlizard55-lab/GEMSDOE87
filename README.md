@@ -1,5 +1,15 @@
 # GEMSDOE87 — Auditable DOE GEMS Prize Research (Lane `H87-CMGEP`)
 
+## CURRENT STATE
+
+- Parent: R0 `h33-h33-2-b2` (GEMSDOE32), 37,654 dots per brief; exact rebuild **BLOCKED** (inputs absent).
+- Best receipt: none available in `ledger/`; R0 0.2778 is **CLAIM**, not RECEIPT. Historical claims below are not promoted by this session.
+- TOP_PUBLIC: unknown; human must provide value and date. No historical leaderboard number is the target.
+- Slots left (rolling week / total): unknown; human must supply entity-wide submission dates.
+- Axis: unassigned. Next 3 slots: conditional MASS −10%, MASS +10%, then CONCENTRATION transfer 10%; not authorized or built.
+- Stop receipt: `ledger/preflight-20261023.json`. Zero variants; no upload authorized. See `IRREGULARITIES.md` and `SLOT_PLAN.md`.
+
+
 > ### **SUBMISSION STATUS: READY — VALIDATED FILE AVAILABLE (`verdict: "promote"`)**
 >
 > - **Is it OK to download and submit?** **YES.** Both the primary NaN-outside GeoTIFF and the companion zeros-outside GeoTIFF have passed all 15 automated format, CRS (`EPSG:32611`), shape (`3730 x 3292`), affine transform, and `[0, 1]` finite range checks, cleared the 92-channel leakage canary (`max symmetric AUC = 0.7823 <= 0.90`), cleared the 202-raster registry uniqueness gate (`worst |rho_S| = 0.61814` surface / `0.03977` dots `<= 0.90`; `worst 3-px overlap = 0.62000 <= 0.70` across all 196 discriminating priors), and achieved **`HOLDOUT-DTI = 0.171555`** (`95% CI [0.154922, 0.187832]`, evaluator `gems57-pooled-hide-v2`, `22,663` withheld positive pixels), beating all 5 controlled ablation arms with strictly positive 95% paired bootstrap confidence intervals.
