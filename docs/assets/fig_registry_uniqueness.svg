@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1045 440" role="img" aria-label="Cross-repository uniqueness audit across all 34 registry rasters">
+<rect width="1045" height="440" fill="#ffffff" rx="10" stroke="#cbd5e1"/>
+<text x="24" y="34" font-family="system-ui,-apple-system,sans-serif" font-size="17" font-weight="700" fill="#0f172a">Cross-Repository Uniqueness Audit Across All 34 Accessible Rasters (GEMSDOE..GEMSDOE88)</text>
+<text x="24" y="55" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#475569">0 / 31 real fault candidates exceed either gate (max 3-px overlap = 0.6322 &lt;= 0.70, max |rho| = 0.0457 &lt;= 0.90); 3 dense witnesses in red</text>
+<rect x="84" y="108.5" width="397.1" height="274.5" fill="#ecfdf5" stroke="#10b981" stroke-dasharray="5,4"/>
+<rect x="481.1" y="78" width="192.9" height="305" fill="#fef2f2" fill-opacity="0.55"/>
+<line x1="481.1" y1="78" x2="481.1" y2="383" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4"/>
+<line x1="84" y1="108.5" x2="674" y2="108.5" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6,4"/>
+<text x="475.4" y="98" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" font-weight="700" fill="#047857">31 / 31 Real Fault Candidates CLEAR (&lt;= 0.70)</text>
+<text x="489.6" y="98" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" font-weight="700" fill="#b91c1c">Overlap &gt; 0.70 Zone</text>
+<rect x="84" y="78" width="590" height="305" fill="none" stroke="#475569"/>
+<line x1="84.0" y1="383" x2="84.0" y2="388" stroke="#475569"/>
+<text x="84.0" y="402" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#475569">0.00</text>
+<line x1="197.5" y1="383" x2="197.5" y2="388" stroke="#475569"/>
+<text x="197.5" y="402" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#475569">0.20</text>
+<line x1="310.9" y1="383" x2="310.9" y2="388" stroke="#475569"/>
+<text x="310.9" y="402" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#475569">0.40</text>
+<line x1="424.4" y1="383" x2="424.4" y2="388" stroke="#475569"/>
+<text x="424.4" y="402" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#475569">0.60</text>
+<line x1="481.1" y1="383" x2="481.1" y2="388" stroke="#475569"/>
+<text x="481.1" y="402" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#475569">0.70</text>
+<line x1="537.8" y1="383" x2="537.8" y2="388" stroke="#475569"/>
+<text x="537.8" y="402" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#475569">0.80</text>
+<line x1="651.3" y1="383" x2="651.3" y2="388" stroke="#475569"/>
+<text x="651.3" y="402" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#475569">1.00</text>
+<line x1="79" y1="383.0" x2="84" y2="383.0" stroke="#475569"/>
+<text x="75" y="387.0" text-anchor="end" font-family="ui-monospace,monospace" font-size="11" fill="#475569">0.00</text>
+<line x1="79" y1="322.0" x2="84" y2="322.0" stroke="#475569"/>
+<text x="75" y="326.0" text-anchor="end" font-family="ui-monospace,monospace" font-size="11" fill="#475569">0.20</text>
+<line x1="79" y1="261.0" x2="84" y2="261.0" stroke="#475569"/>
+<text x="75" y="265.0" text-anchor="end" font-family="ui-monospace,monospace" font-size="11" fill="#475569">0.40</text>
+<line x1="79" y1="200.0" x2="84" y2="200.0" stroke="#475569"/>
+<text x="75" y="204.0" text-anchor="end" font-family="ui-monospace,monospace" font-size="11" fill="#475569">0.60</text>
+<line x1="79" y1="108.5" x2="84" y2="108.5" stroke="#475569"/>
+<text x="75" y="112.5" text-anchor="end" font-family="ui-monospace,monospace" font-size="11" fill="#475569">0.90</text>
+<line x1="79" y1="78.0" x2="84" y2="78.0" stroke="#475569"/>
+<text x="75" y="82.0" text-anchor="end" font-family="ui-monospace,monospace" font-size="11" fill="#475569">1.00</text>
+<text x="379.0" y="426" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12.5" font-weight="600" fill="#1e293b">Forward 3-Pixel (300 m) Dot Overlap Against Registry Raster</text>
+<text transform="translate(22,230.5) rotate(-90)" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12.5" font-weight="600" fill="#1e293b">|Spearman Rank Correlation rho|</text>
+<circle cx="650.6" cy="382.8" r="6.0" fill="#dc2626" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="385.0" cy="377.8" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="441.1" cy="371.8" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="442.7" cy="376.1" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="321.3" cy="374.9" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="315.5" cy="374.8" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="309.7" cy="374.7" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="294.0" cy="377.3" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="285.7" cy="378.0" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="301.6" cy="377.3" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="385.0" cy="375.5" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="130.2" cy="381.3" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="651.3" cy="360.2" r="6.0" fill="#dc2626" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="144.6" cy="382.0" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="284.8" cy="377.2" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="287.4" cy="377.3" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="235.0" cy="381.1" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="263.9" cy="377.9" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="329.9" cy="376.3" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="381.5" cy="372.0" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="402.7" cy="369.1" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="308.9" cy="373.4" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="324.3" cy="377.0" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="370.8" cy="373.7" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="346.2" cy="372.4" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="164.6" cy="381.1" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="318.3" cy="375.7" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="395.6" cy="373.8" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="361.7" cy="374.6" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="360.5" cy="379.2" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="260.4" cy="380.8" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="315.6" cy="376.0" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="154.5" cy="381.5" r="4.5" fill="#1d4ed8" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<circle cx="595.5" cy="377.2" r="6.0" fill="#dc2626" fill-opacity="0.82" stroke="#ffffff" stroke-width="1"/>
+<rect x="698" y="78" width="320" height="305" fill="#f8fafc" rx="8" stroke="#cbd5e1"/>
+<text x="712" y="102" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="#0f172a">Two-Gate Audit Summary</text>
+<circle cx="718" cy="126" r="5" fill="#1d4ed8"/>
+<text x="730" y="130" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" font-weight="600" fill="#1e293b">Real Fault Candidates (31)</text>
+<text x="730" y="146" font-family="ui-monospace,monospace" font-size="10.8" fill="#047857">Duplicates: 0 / 31 (PASS)</text>
+<text x="730" y="161" font-family="ui-monospace,monospace" font-size="10.8" fill="#475569">Max 3px overlap: 0.6322</text>
+<text x="730" y="176" font-family="ui-monospace,monospace" font-size="10.8" fill="#475569">Max |Spearman|:  0.0457</text>
+<circle cx="718" cy="206" r="5.5" fill="#dc2626"/>
+<text x="730" y="210" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" font-weight="600" fill="#991b1b">Space-Filling Witnesses (3)</text>
+<text x="718" y="230" font-family="ui-monospace,monospace" font-size="10.3" fill="#7f1d1d">1. 57GEMSDOE surface: 1.0000</text>
+<text x="718" y="245" font-family="ui-monospace,monospace" font-size="10.3" fill="#7f1d1d">   (98.8% positive cells)</text>
+<text x="718" y="264" font-family="ui-monospace,monospace" font-size="10.3" fill="#7f1d1d">2. 13GEMSDOE 5x5 grid: 0.9987</text>
+<text x="718" y="279" font-family="ui-monospace,monospace" font-size="10.3" fill="#7f1d1d">   (99.87% halo cover)</text>
+<text x="718" y="298" font-family="ui-monospace,monospace" font-size="10.3" fill="#7f1d1d">3. H87-BMTD-01 surf.: 0.9017</text>
+<text x="718" y="313" font-family="ui-monospace,monospace" font-size="10.3" fill="#7f1d1d">   (87.7% positive cells)</text>
+<text x="712" y="344" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" fill="#0f172a">Pre-Placement Surface Gate:</text>
+<text x="712" y="361" font-family="ui-monospace,monospace" font-size="10.6" fill="#047857">Max |rho| = 0.4327 &lt;= 0.90 (34/34)</text>
+</svg>

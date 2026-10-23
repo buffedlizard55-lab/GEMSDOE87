@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 315" role="img" aria-label="First-principles geophysical band identity verification">
+<rect width="1060" height="315" fill="#ffffff" rx="10" stroke="#cbd5e1"/>
+<text x="24" y="34" font-family="system-ui,-apple-system,sans-serif" font-size="17.5" font-weight="700" fill="#0f172a">First-Principles Geophysical Channel Audit Across 5,167,373 Footprint Pixels (IR87-028..IR87-030)</text>
+<text x="24" y="55" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#475569">Empirical verification against primary USGS GeoDAWN (DOI 10.5066/P93LGLVQ) and DOE GDR #1391 releases</text>
+<text x="24" y="84" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="#0f172a">A. Band 06 ("tc") Pearson r With Official USGS Layers</text>
+<text x="223" y="112" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#1e293b">GeoDAWN Radiometric TC</text>
+<rect x="235" y="100" width="225" height="16" fill="#f1f5f9" rx="3"/>
+<rect x="235" y="100" width="224.4" height="16" fill="#0f766e" rx="3"/>
+<text x="468" y="112" font-family="ui-monospace,monospace" font-size="11.5" font-weight="700" fill="#0f766e">r = +0.9971</text>
+<text x="223" y="148" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#1e293b">GeoDAWN Thorium (Th)</text>
+<rect x="235" y="136" width="225" height="16" fill="#f1f5f9" rx="3"/>
+<rect x="235" y="136" width="205.9" height="16" fill="#0284c7" rx="3"/>
+<text x="468" y="148" font-family="ui-monospace,monospace" font-size="11.5" font-weight="700" fill="#0284c7">r = +0.9153</text>
+<text x="223" y="184" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#1e293b">GeoDAWN Potassium (K)</text>
+<rect x="235" y="172" width="225" height="16" fill="#f1f5f9" rx="3"/>
+<rect x="235" y="172" width="198.4" height="16" fill="#2563eb" rx="3"/>
+<text x="468" y="184" font-family="ui-monospace,monospace" font-size="11.5" font-weight="700" fill="#2563eb">r = +0.8817</text>
+<text x="223" y="220" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#1e293b">GeoDAWN Uranium (U)</text>
+<rect x="235" y="208" width="225" height="16" fill="#f1f5f9" rx="3"/>
+<rect x="235" y="208" width="160.9" height="16" fill="#4f46e5" rx="3"/>
+<text x="468" y="220" font-family="ui-monospace,monospace" font-size="11.5" font-weight="700" fill="#4f46e5">r = +0.7151</text>
+<text x="223" y="256" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#1e293b">True Magnetic Tilt Angle</text>
+<rect x="235" y="244" width="225" height="16" fill="#f1f5f9" rx="3"/>
+<rect x="235" y="244" width="4.0" height="16" fill="#dc2626" rx="3"/>
+<text x="468" y="256" font-family="ui-monospace,monospace" font-size="11.5" font-weight="700" fill="#dc2626">r = +0.0176</text>
+<rect x="568" y="72" width="468" height="220" fill="#f8fafc" rx="8" stroke="#cbd5e1"/>
+<text x="584" y="96" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="#0f172a">B. Four Newly Resolved Irregularities</text>
+<text x="584" y="120" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#1e293b"><tspan font-weight="700" fill="#0f766e">IR87-028:</tspan> Band 06 is GeoDAWN Total Count (min +2.95, 0% neg.,</text>
+<text x="584" y="136" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#475569">r=+0.9971 with TC), NOT magnetic tilt angle (r=+0.0176).</text>
+<text x="584" y="160" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#1e293b"><tspan font-weight="700" fill="#1d4ed8">Unit Fix:</tspan> B09 vs B03 has 100x scale gap; p95 |tilt| = 1.062 rad</text>
+<text x="584" y="176" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#475569">with 100x match vs 0.0179 rad collapsed unscaled.</text>
+<text x="584" y="200" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#1e293b"><tspan font-weight="700" fill="#7c3aed">IR87-029:</tspan> B10 &amp; B16 are Kreemer-Young swarm/background</text>
+<text x="584" y="216" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#475569">earthquake densities (max 4.96e6), NOT distance to EQ.</text>
+<text x="584" y="240" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#1e293b"><tspan font-weight="700" fill="#dc2626">IR87-030:</tspan> Session 1 passed B02 (gravity) as RTP &amp; B19 (TMI)</text>
+<text x="584" y="256" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#475569">as slope (0.0224 vs true B08 slope 0.0502 on 4Q split).</text>
+<text x="584" y="276" font-family="system-ui,-apple-system,sans-serif" font-size="11.5" fill="#1e293b"><tspan font-weight="700" fill="#b45309">IR87-031:</tspan> Static H33 file self-masks held-out truth (0.0040 vs 0.0975).</text>
+</svg>

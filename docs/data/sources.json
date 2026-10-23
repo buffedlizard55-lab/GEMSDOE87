@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "reviewed_utc_date": "2026-10-23",
+  "review_method": "Pages retrieved and read firsthand on 2026-10-23 UTC via research fetch tool; URL transport health is independently checked and recorded without fabricating authentication or receipts.",
+  "sources": [
+    {
+      "id": "problem",
+      "title": "DrivenData: problem, metric, submission format",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "authority": "competition organizer",
+      "retrieval": "retrieved 2026-10-23 UTC, both content chunks read",
+      "locator": "Performance metric / Mathematical representation / Submission format",
+      "verified_claim": "Predict fault presence as a single-band float32 GeoTIFF, values [0,1], UTM zone 11N / EPSG:32611, 100 m; use the sample grid. Distance-weighted Tversky has alpha=0.2, beta=0.8, triangular kernel support 300 m. External public data with compatible open licenses are permitted.",
+      "qualification": "The public wording allows null/NaN outside bounds. Our zero-filled all-finite export is a stricter local range policy, not proof of authenticated portal acceptance."
+    },
+    {
+      "id": "masking",
+      "title": "DrivenData staff clarification: exact known-fault masking",
+      "url": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2",
+      "authority": "DrivenData Staff (chrisk-dd)",
+      "retrieval": "retrieved thread 11516; staff reply read",
+      "locator": "Staff reply dated September 16",
+      "verified_claim": "Pixels corresponding to known USGS/INGENIOUS faults are excluded from evaluation, including re-evaluation.",
+      "qualification": "This is pixel-exact masking, not permission to remove a broad halo from the scored domain."
+    },
+    {
+      "id": "about",
+      "title": "DrivenData: about the task and data",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/",
+      "authority": "competition organizer",
+      "retrieval": "retrieved and read",
+      "locator": "About the task",
+      "verified_claim": "Faults involve measurable displacement and can be detected with surface observations, magnetic/gravity contrasts, and other methods across a $300K two-phase prize structure ($50K Initial + $250K Final).",
+      "qualification": "A structural prediction alone does not prove a geothermal vent or commercially viable reservoir."
+    },
+    {
+      "id": "leaderboard",
+      "title": "DrivenData public leaderboard",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "authority": "competition organizer",
+      "retrieval": "retrieved public table on 2026-10-23 UTC; ranks #1 through #50 read",
+      "locator": "Public leaderboard rows #1 to #50",
+      "verified_claim": "Public table observed on 2026-10-23 UTC: #1 xiaofanhu = 0.4413 (27 subs), #2 cfld__ = 0.3904, #3 Batik Shirt Brothers = 0.3904, #4 BrandenKMurray = 0.3713, #5 No Fault of Our Own = 0.3539, #50 arnofault = 0.2817.",
+      "qualification": "PUBLIC-LEADERBOARD-OBSERVATION, not a submission-page receipt and not ORGANIZER-CONFIRMED evidence for any GEMSDOE artifact. Prompt-cited 0.3195 and 0.2778 are stale/unverified claims outside current top 50."
+    },
+    {
+      "id": "rules",
+      "title": "GEMS Prize Official Rules, September 2026",
+      "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+      "authority": "U.S. DOE / NREL Official Prize Rules (OSTI 96647)",
+      "retrieval": "retrieved 2026-10-23 UTC; extracted PDF chunks read",
+      "locator": "Sections 3.2-3.5 and Appendix A",
+      "verified_claim": "Up to three scoring submissions per week, one final chosen submission, reproducible code requirement for prize eligibility, and mandatory disclosure of generative-AI assistance.",
+      "qualification": "The authenticated submission-page cap and remaining usage are unavailable without user login; zero weekly slots were used here."
+    },
+    {
+      "id": "data",
+      "title": "DrivenData competition data",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+      "authority": "competition organizer",
+      "retrieval": "redirected to login",
+      "locator": "Login redirect",
+      "verified_claim": "Official original downloads require portal authentication.",
+      "qualification": "Required files and external public USGS/DOE rasters were restored autonomously from pinned SHA-256 mirrors."
+    },
+    {
+      "id": "submission_page",
+      "title": "DrivenData submissions and account cap",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/",
+      "authority": "competition organizer",
+      "retrieval": "redirected to login",
+      "locator": "Login redirect",
+      "verified_claim": "No account-specific cap, usage, upload acceptance, or artifact score receipt was accessed.",
+      "qualification": "No competition slot was used; no selector upload was performed."
+    },
+    {
+      "id": "reference",
+      "title": "Official GEMS reference solution",
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+      "authority": "DrivenData official source repository",
+      "retrieval": "README and notebook inspected at commit aebe92f7c8a990f0e3443451b7a825d9afd6336b",
+      "locator": "README and unet-mc-cv-reference-solution.ipynb",
+      "verified_claim": "Provides baseline U-Net workflow using ordinary Tversky loss and random patch Monte Carlo validation.",
+      "qualification": "Random patch CV leaks connected fault traces across patches; GEMSDOE87 strictly uses whole-component buffered spatial splits and exact pooled 300 m DTI."
+    },
+    {
+      "id": "geodawn",
+      "title": "USGS GeoDAWN magnetic and radiometric survey release",
+      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+      "authority": "USGS data release; Glen & Earney (2024); DOI 10.5066/P93LGLVQ",
+      "retrieval": "retrieved 2026-10-23 UTC; full release metadata and survey specs read",
+      "locator": "Survey specifications, radiometric K/Th/U/TC channels, rights",
+      "verified_claim": "Public CC0 1.0 airborne magnetic and gamma-ray radiometric survey covering 51,857 km2 (149,030 line-km; 200-400 m E-W flight lines). Directly verifies Band 06 (tc) as Airborne Radiometric Total Count (Pearson r = +0.997140 across all 5,167,373 footprint pixels).",
+      "qualification": "Flight-line drape differences (100-200 m) and plutonic/tuff lithology require local normalization."
+    },
+    {
+      "id": "tintina",
+      "title": "USGS: Matching Magnetic Trends and Patterns Across the Tintina Fault",
+      "url": "https://pubs.usgs.gov/sir/2007/5289/SIR2007-5289-C.pdf",
+      "authority": "USGS Scientific Investigations Report 2007-5289-C, Richard W. Saltus",
+      "retrieval": "abstract, introduction, and methods retrieved and read",
+      "locator": "Introduction and Methods",
+      "verified_claim": "Sliding geophysical anomaly patterns across fault strike informs strike-slip offset interpretation.",
+      "qualification": "Regional crustal scale; Session 1 BMTD suffered from accidental Band 02 (iso_grav_anom) input swap (IR87-030)."
+    },
+    {
+      "id": "basin_faults",
+      "title": "USGS: Aeromagnetic expression of faults that offset basin fill",
+      "url": "https://www.usgs.gov/publications/aeromagnetic-expression-faults-offset-basin-fill-albuquerque-basin-new-mexico",
+      "authority": "USGS publication record; Grauch, Hudson, Minor; DOI 10.1190/1.1444961",
+      "retrieval": "publication abstract and citation read",
+      "locator": "Abstract",
+      "verified_claim": "High-resolution aeromagnetic surveys image intrabasin faults offsetting weakly magnetized Quaternary basin fill.",
+      "qualification": "Motivates unit-matched Miller-Singh/Salem magnetic tilt-depth derivatives in H87B-STFD."
+    },
+    {
+      "id": "ingenious",
+      "title": "GBCGE INGENIOUS project",
+      "url": "https://gbcge.org/current-projects/ingenious/",
+      "authority": "Great Basin Center for Geothermal Energy (DOE GTO DE-EE0009254)",
+      "retrieval": "retrieved 2026-10-23 UTC; project architecture and linked DOIs read",
+      "locator": "Project datasets and publications",
+      "verified_claim": "Documents Great Basin hidden geothermal play-fairway datasets including 2-m temperature probe surveys, MT conductance, crustal strain, and declustered vs dependent seismicity.",
+      "qualification": "Used strictly with explicit exclusion of fault-proximity label columns."
+    },
+    {
+      "id": "gdr1391",
+      "title": "GDR: INGENIOUS Great Basin Regional Dataset Compilation",
+      "url": "https://gdr.openei.org/submissions/1391",
+      "authority": "DOE Geothermal Data Repository; DOI 10.15121/1881483",
+      "retrieval": "retrieved 2026-10-23 UTC; full resource manifest and CC BY 4.0 license verified",
+      "locator": "Resources: 2m temperature probes, well/spring geothermometry, paleo-sinter, seismicity",
+      "verified_claim": "Public CC BY 4.0 release providing label-free 2-m probe F2mDAB anomalies (3,800 probes), aqueous geothermometers, paleo-geothermal sinter/travertine outcrops (709 sites), and Kreemer & Young (2022, DOI 10.1785/0220220153) dependent/independent seismicity densities.",
+      "qualification": "Columns naming known fault distance (dist_known_fault_px) and external fault traces (SGMC) are forbidden at training/inference and enforced by unit test."
+    },
+    {
+      "id": "h33",
+      "title": "GEMSDOE32 prior result (educational & forensic audit only)",
+      "url": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
+      "authority": "owner project, not an organizer receipt",
+      "retrieval": "index and decoded TIFF bytes audited directly via SHA-256",
+      "locator": "Decoded raster c55bafc47005... (37,654 positive pixels)",
+      "verified_claim": "H33-2-B2 equals GEMSDOE31 solo-D28 (40,199 px) intersected with (distance_to_catalogue > 2 px), pruning 2,545 zero-credit flank pixels. Fold-fair LOQO holdout DTI is 0.097493 vs H87B-STFD EXP2 0.169418 (+73.8%) and EXP3 0.138160 (+41.7%).",
+      "qualification": "Prompt-cited 0.2778 has no organizer receipt here and sits below current public #50 (0.2817) and #1 (0.4413)."
+    }
+  ]
+}

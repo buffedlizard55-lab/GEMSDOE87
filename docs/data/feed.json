@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "last_attempt_utc": "2026-10-23T03:58:17.328771+00:00",
+  "research_content_reviewed_utc_date": "2026-10-23",
+  "checks": [
+    {
+      "id": "problem",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/page/967/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "masking",
+      "url": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='community.drivendata.org', port=443): Max retries exceeded with url: /t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "about",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/page/968/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "leaderboard",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/leaderboard/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "rules",
+      "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='docs.nlr.gov', port=443): Max retries exceeded with url: /docs/fy26osti/96647.pdf (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "data",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/data/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "submission_page",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='www.drivendata.org', port=443): Max retries exceeded with url: /competitions/306/competition-doe-gems/submissions/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "reference",
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /drivendataorg/gems-prize-reference-solution (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:992)')))"
+    },
+    {
+      "id": "geodawn",
+      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='www.usgs.gov', port=443): Max retries exceeded with url: /data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "tintina",
+      "url": "https://pubs.usgs.gov/sir/2007/5289/SIR2007-5289-C.pdf",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='pubs.usgs.gov', port=443): Max retries exceeded with url: /sir/2007/5289/SIR2007-5289-C.pdf (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "basin_faults",
+      "url": "https://www.usgs.gov/publications/aeromagnetic-expression-faults-offset-basin-fill-albuquerque-basin-new-mexico",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='www.usgs.gov', port=443): Max retries exceeded with url: /publications/aeromagnetic-expression-faults-offset-basin-fill-albuquerque-basin-new-mexico (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "ingenious",
+      "url": "https://gbcge.org/current-projects/ingenious/",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='gbcge.org', port=443): Max retries exceeded with url: /current-projects/ingenious/ (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    },
+    {
+      "id": "gdr1391",
+      "url": "https://gdr.openei.org/submissions/1391",
+      "transport_ok": false,
+      "content_verified_by_health_check": false,
+      "status": "transport-unavailable",
+      "error": "HTTPSConnectionPool(host='gdr.openei.org', port=443): Max retries exceeded with url: /submissions/1391 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:992)')))"
+    }
+  ],
+  "public_leaderboard_observation": {
+    "value": 0.4413,
+    "leader_handle": "xiaofanhu",
+    "rank_50_cutoff": 0.2817,
+    "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "observed_utc": "2026-10-23T00:08:00+00:00",
+    "evidence_class": "PUBLIC-LEADERBOARD-OBSERVATION",
+    "artifact_submission_receipt": false
+  },
+  "observation_refreshed_this_attempt": false,
+  "current_account_cap": null,
+  "remaining_account_slots": null,
+  "organizer_submission_receipt": null,
+  "policy": "URL transport health only; does not certify content, authenticated cap, artifact score, or promotion.",
+  "scientific_experiments_run": 0,
+  "submission_slots_used": 0
+}

@@ -1,25 +1,29 @@
-# Python test/build artifacts
 .venv/
-__pycache__/
-*.py[cod]
-.pytest_cache/
 .cache/
+data/raw/
+data/derived/
 data/bridge/
-
-# Local work products: keep competition rasters and ZIPs out of Git.
+artifacts/
+__pycache__/
+.pytest_cache/
+*.pyc
+node_modules/
+playwright-report/
+.DS_Store
+*.partial
+*.assembling
+data/official/
+_site/
+evidence/tmp/
+# Keep arbitrary raster artifacts out; explicitly un-ignore published deliverables:
 *.tif
 *.tiff
 *.zip
-# A validated, named submission may be published here only after every readiness gate passes.
-!downloads/
+!docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif
+!docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.zip
+!docs/downloads/gems87-stfd-h87b-37654dots-20261023-1d3f50ffd13f-RESEARCH-DO-NOT-SUBMIT.tif
+!docs/downloads/gems87-stfd-h87b-37654dots-20261023-1d3f50ffd13f-RESEARCH-DO-NOT-SUBMIT.zip
 !downloads/*.tif
 !downloads/*.zip
-!releases/
 !releases/*.tif
 !releases/*.zip
-!releases/*.json
-# Keep transient evidence scratch out of Git; small final receipts may be tracked.
-evidence/tmp/
-
-# Site build output
-_site/

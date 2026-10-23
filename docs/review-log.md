@@ -59,3 +59,13 @@ During Pass 2, six non-trivial engineering and statistical issues were caught an
 - **GitHub Pages Site & Automated Tests:**
   - Updated `README.md`, `index.html`, `executive-summary.html`, `research.html`, `sources.html`, `data/run-card.json`, `data/submission-status.json`, `data/sources.json`, `data/feed.json`, and `tests/test_site.py`.
   - Verified all unit and integration tests via `pytest`, verified `git status` and `.gitignore` exclusions for `.cache/`, and merged pull request onto `main`.
+
+---
+
+## Unified Multi-Session Audit Summary (2026-10-23)
+
+ Scientific & Engineering Review (Passes 1–3)
+
+- **Pass 1 (Implement & Execute):** Restored SHA-256-verified competition + public USGS/DOE rasters and `34` cross-repo prediction rasters; discovered `IR87-028` (`Band 06 = GeoDAWN TC`, `r = +0.997140`), `IR87-029` (`Bands 10 & 16` swarm/background density), `IR87-030` (Session 1 `B02/B19/B08` swap), and `IR87-031` (`GEMSDOE32` reverse label self-masking); trained all `12/12` out-of-fold workers (`comp:0..7` + `quad:0..3`) and generated `gems87-stfd-h87b-37654dots-20261023-1d3f50ffd13f-RESEARCH-DO-NOT-SUBMIT.{tif,zip,json}`.
+- **Pass 2 (Edge Cases & Calibration Audit):** Replaced single-head `m3` placement with leak-free dual-head `0.55 * logit(m3) + 0.45 * logit(m1)` fusion (`3,058` frontier dots `> 2.5 km`, `LOQO-Comp = 0.138160` vs `H33_2_B2_fold_fair = 0.097493`, `Spatial-4Q = 0.133386` vs `EXP2 = 0.121746`), fixed un-zeroed `bmtd_dots` comparison, and fixed `IR87-033` hardcoded date in `scripts/update_feed.py`.
+- **Pass 3 (Full Prompt Reconciliation):** Confirmed both `H87B-STFD` (`1d3f50ffd13f`) and frozen `H87-BMTD-01` (`50041440adba`) are clearly presented at the top of `docs/index.html`, `docs/executive-summary.html`, and `README.md` with unmistakable `DO NOT SUBMIT` badges, complete `HOLDOUT-DTI` CIs, `31/31` real fault-candidate uniqueness + `3` dense witness disclosure, embedded figures, and full `pytest` + Chromium smoke coverage.
