@@ -38,8 +38,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: PYTHON="$(command -v python)" ./scripts/download_competition_data.sh --ids sample_submission,existing_faults
-      - name: Reopen the actual TIFF and ZIP
-        run: python scripts/check_submission.py --format-only
+      - name: Reopen the actual TIFF and ZIP (Session 1 BMTD + Session 2 H87B-STFD)
+        run: |
+          python scripts/check_submission.py --format-only
+          python scripts/check_submission.py --h87b --format-only
       - name: Require authorization refusal for this negative
         run: |
           python - <<'PY'
