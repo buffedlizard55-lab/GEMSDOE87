@@ -6,12 +6,12 @@
   "range_0_1": true,
   "crs_shape_transform_match": true,
   "zip_contains_exactly_one_matching_tiff": true,
-  "raster_sha256": "10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d",
-  "decoded_raster_sha256": "50041440adba2d09e24d2b77806372bb73701bf914287338f09d73ada0f8fee5",
+  "raster_sha256": "31aac679c1e5876144c55a97567b853694a6475cead81e0c122e19221a5c6152",
+  "decoded_raster_sha256": "69e34bfc18ba2deaf113248d776cad64a941cf55fe00b57752d86c30c7536bee",
   "validator": {
-    "file": "/home/user/GEMSDOE87/docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif",
-    "bytes": 16724696,
-    "sha256": "10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d",
+    "file": "/home/user/GEMSDOE87/docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.tif",
+    "bytes": 115648,
+    "sha256": "31aac679c1e5876144c55a97567b853694a6475cead81e0c122e19221a5c6152",
     "meta": {
       "crs": "EPSG:32611",
       "shape": [
@@ -39,8 +39,8 @@
     "n_infinite": 0,
     "min": 0.0,
     "max": 1.0,
-    "mean": 0.02126568928360939,
-    "emitted_positive_pixels": 4532408,
+    "mean": 0.0030664964579045773,
+    "emitted_positive_pixels": 37654,
     "checks": {
       "single_band": true,
       "dtype_float32": true,
@@ -61,13 +61,13 @@
     "all_checks_passed": true,
     "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
     "on_catalogue_positive_pixels": 0,
-    "in_footprint_positive_pixels": 4532408,
-    "footprint_fraction": 0.877120347224789
+    "in_footprint_positive_pixels": 37654,
+    "footprint_fraction": 0.007286874781441169
   },
   "template_report": {
-    "path": "/home/user/GEMSDOE87/docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif",
-    "bytes": 16724696,
-    "sha256": "10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d",
+    "path": "/home/user/GEMSDOE87/docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.tif",
+    "bytes": 115648,
+    "sha256": "31aac679c1e5876144c55a97567b853694a6475cead81e0c122e19221a5c6152",
     "bands": 1,
     "dtype": "float32",
     "crs": "EPSG:32611",
@@ -105,26 +105,24 @@
     "n_nan": 0,
     "min": 0.0,
     "max": 1.0,
-    "mean": 0.02126568928360939,
-    "n_nonzero": 4532408,
-    "mass": 261124.80159188504,
+    "mean": 0.0030664964579045773,
+    "n_nonzero": 37654,
+    "mass": 37654.0,
     "mass_outside_footprint": 0,
     "problems": [],
     "ok": true,
     "validation_class": "local on-disk template/range check; not organizer upload acceptance"
   },
-  "submission_name": "GEMSDOE87-BMTD-01-NEGATIVE",
-  "note": "H87 magnetic texture dislocation; NEGATIVE: no control gain; literal registry-overlap duplicate. Research only; DO NOT SUBMIT.",
-  "note_length": 126,
+  "submission_name": "GEMSDOE87-GCF-01-NEGATIVE",
+  "note": "H87 GCF gravity curvature flanks; NEGATIVE research. No weekly slot. DO NOT SUBMIT.",
+  "note_length": 83,
   "approved_for_weekly_slot": false,
   "decision": "DO NOT SUBMIT",
   "authorization_scope": "Frozen negative: no promotion path or JSON-flag override",
   "reasons": [
-    "No positive paired lower confidence bound versus the strongest comparable control.",
-    "Literal >70% overlap with a saturated registry raster: protocol duplicate stop.",
-    "Registry contains a malformed TIFF; global clearance cannot be asserted.",
-    "No organizer submission receipt or authenticated current cap/usage is available.",
-    "Post-run review found an outer-grid boundary guard defect in the original negative experiment; no corrected scientific result is claimed."
+    "No selector/cap authorization.",
+    "Literal dense-support overlap remains 1.0 under the inherited positive-pixel rule.",
+    "Paired HOLDOUT-DTI lower CI did not beat every comparable control."
   ],
   "submission_slots_used": 0
 }

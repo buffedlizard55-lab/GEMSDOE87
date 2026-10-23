@@ -16,6 +16,11 @@
 </thead>
 <tbody>
 <tr>
+<td>IR87-028</td>
+<td>2026-10-23 session: no method paragraph still; H87-LWD and H87-GCF were run as experiments 1–2. Gravity HGM control (0.058476) beat both candidates. Like-for-like uniqueness passed; literal dense overlap remains 1.0.</td>
+<td>New unique GCF GeoTIFF packaged as research-only / DO NOT SUBMIT. Frozen BMTD budget untouched. No weekly slot. Remaining hypotheses untested.</td>
+</tr>
+<tr>
 <td>IR87-001</td>
 <td>The brief references a single-method lane paragraph, but no distinct lane is supplied.</td>
 <td>Narrow H87-BMTD lane documented before construction; four hypotheses listed, only one implemented. No claim that an externally assigned lane was received.</td>
@@ -144,7 +149,13 @@
 <h3 id="permissions-and-publication">Permissions and publication</h3>
 <p>GitHub Pages was initially configured from <code>main</code> root and reported building. Root redirects and <code>.nojekyll</code> support that configuration. Deployment and Actions results are recorded in the final verification log, not assumed from the presence of a workflow file. The repository connection returned HTTP 403 for the Actions-permissions administration endpoint; ordinary repository, pull-request and Pages operations are verified separately.</p>
 <h2 id="three-pass-implementation-review">Three-pass implementation review</h2>
-<p>Scientific experimentation and software review are separate. H87-BMTD-01 stopped at the literal duplicate gate. Review did <strong>not</strong> run a corrected geophysical experiment, change the original measurements, authorize a selector or consume a competition slot.</p>
+<p>Scientific experimentation and software review are separate. Frozen H87-BMTD-01 remains stopped. Session 2026-10-23 ran H87-LWD-01 and H87-GCF-01; both are negative. The downloadable GCF GeoTIFF is research-only. Review did <strong>not</strong> authorize a selector or consume a competition slot.</p>
+<h3 id="session-2026-10-23-three-passes">Session 2026-10-23 — three passes</h3>
+<p><strong>Pass 1.</strong> Five hypotheses preregistered. Uniqueness resolved using shared <code>two_phase_summary</code> without changing thresholds. LWD then GCF implemented with the inherited evaluator, cache, and writer. Holdout: GCF 0.049057 vs gravity HGM 0.058476 (60,988 withheld positives, gems57-pooled-hide-v2). Like-for-like sparse overlap 17.2%. Format-valid unique TIF packaged. <strong>DO NOT SUBMIT.</strong></p>
+<p><strong>Pass 2.</strong> Synthetic LWD/GCF guard and contact tests. Independent TIFF/ZIP re-read. Frozen BMTD budget/tests preserved. Site, executive summary, and run card point at GCF with an explicit no-go. 108 pytest tests passed.</p>
+<p><strong>Pass 3.</strong> Rechecked: unique nonempty TIF; download vs submit is explicit; no weekly slot; HOLDOUT-DTI labeled with evaluator/CI/N; no organizer score claimed; original user brief retained in README.</p>
+<hr />
+<p>H87-BMTD-01 stopped at the literal duplicate gate. Review of that run did <strong>not</strong> run a corrected geophysical experiment, change the original measurements, authorize a selector or consume a competition slot.</p>
 <h3 id="pass-1-implement-and-measure-completed">Pass 1 — implement and measure (completed)</h3>
 <ul>
 <li>Initial checkout reviewed: only an 11-byte title README, not the assumed previous training pipeline. No prior-session queue or comparable local holdout best existed.</li>

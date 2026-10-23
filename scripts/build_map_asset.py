@@ -39,7 +39,7 @@ def main():
     except OSError:
         font = small = ImageFont.load_default()
     draw.rounded_rectangle((33, 29, 310, 85), radius=9, fill='#f9faf5', outline='#d6ded4')
-    draw.text((47, 43), 'H87 / MAGNETIC TEXTURE', fill='#1c3f39', font=font)
+    draw.text((47, 43), 'H87-GCF / GRAVITY FLANKS', fill='#1c3f39', font=font)
     draw.text((33, 110), 'NEGATIVE RESEARCH RESULT', fill='#7f4337', font=small)
     draw.line((1014, 90, 1014, 41), fill='#34594f', width=2)
     draw.polygon([(1014, 32), (1008, 46), (1020, 46)], fill='#34594f')

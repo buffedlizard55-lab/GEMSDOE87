@@ -53,25 +53,30 @@ def download(card, *, full=False):
     name, zip_name = card['submission_file'], card['submission_zip']
     size = (DOCS / 'downloads' / name).stat().st_size / 1e6
     filename = f'<div class="file-name">{esc(name)}</div>' if full else ''
+    display = card.get('display') or {}
+    blurb = display.get('blurb') or 'Newly generated research GeoTIFF. Format-valid. Competition submission: NO.'
+    dots = card.get('correlation_overlap_vs_registry', {}).get('final_dot_placement_performed')
+    dots_line = ('37,654 off-catalogue spaced dots were placed for this research file.'
+                 if dots else 'No final submission dots were placed after a uniqueness stop.')
     return f'''<div class="download-panel" id="download"><div class="download-top"><span>NEW GEOTIFF · RESEARCH DOWNLOAD</span>{pill('Do not submit')}</div>
-{filename}<p>Generated from RTP magnetic measurements. Not a copy of a prior submission. Format-valid; scientific and uniqueness gates failed. The frozen negative also retains a disclosed <a href="science.html#research-report">outer-grid guard defect</a>.</p>
+{filename}<p>{esc(blurb)} Archived H87-BMTD retains a disclosed <a href="science.html#research-report">outer-grid guard defect</a> and is not this file.</p>
 <div class="actions"><a class="button" href="downloads/{esc(name)}" download>↓ Download research .tif <span>· {size:.1f} MB</span></a><a class="button secondary" href="downloads/{esc(zip_name)}" download>Single-TIFF .zip</a></div>
-<p class="verdict-line"><strong>Download: yes, for research. Competition submission: NO.</strong><br>No final submission dots were placed after the duplicate stop.</p>
+<p class="verdict-line"><strong>Download: yes, for research. Competition submission: NO.</strong><br>{esc(dots_line)}</p>
 <a class="small-link" href="evidence/independent_validation.json">Independent file validation ↗</a> · <a class="small-link" href="evidence/run_card.json">Full run card ↗</a></div>'''
 
 
 def chart(card):
     scores = card['holdout_dti']
-    items = [('BMTD diagnostic', scores['binary_diagnostic'], '#006c66'),
-             ('Magnetic control', scores['best_comparable_control'], '#8d9e95')]
-    x = lambda v: 145 + v / 0.065 * 260
+    items = [('GCF diagnostic', scores['binary_diagnostic'], '#006c66'),
+             ('Best control', scores['best_comparable_control'], '#8d9e95')]
+    x = lambda v: 145 + v / 0.090 * 260
     marks = []
     for i, (label, data, color) in enumerate(items):
         yy = 35 + 49 * i
         low, high = data['ci95']
         marks.append(f'<text x="0" y="{yy+4}" fill="#596d73" font-size="11">{label}</text><line x1="{x(low):.2f}" x2="{x(high):.2f}" y1="{yy}" y2="{yy}" stroke="{color}" stroke-width="3"/><circle cx="{x(data["dti"]):.2f}" cy="{yy}" r="5" fill="{color}"/>')
-    return f'''<svg class="ci-chart" viewBox="0 0 440 130" role="img" aria-label="HOLDOUT-DTI intervals overlap: BMTD 0.043385, magnetic control 0.043673. No demonstrated improvement.">
-<line x1="145" x2="405" y1="110" y2="110" stroke="#dce3df"/>{''.join(marks)}<text x="145" y="127" fill="#596d73" font-size="9">0</text><text x="355" y="127" fill="#596d73" font-size="9">0.065 DTI</text></svg>'''
+    return f'''<svg class="ci-chart" viewBox="0 0 440 130" role="img" aria-label="HOLDOUT-DTI intervals overlap: GCF versus strongest control. No demonstrated improvement.">
+<line x1="145" x2="405" y1="110" y2="110" stroke="#dce3df"/>{''.join(marks)}<text x="145" y="127" fill="#596d73" font-size="9">0</text><text x="355" y="127" fill="#596d73" font-size="9">0.090 DTI</text></svg>'''
 
 
 def public_leader_snapshot(feed):
@@ -89,36 +94,41 @@ def public_leader_snapshot(feed):
 def build_home(card):
     h = card['holdout_dti']; binary = h['binary_diagnostic']; delta = h['paired_difference_vs_best']
     leader, leader_date = public_leader_snapshot(load('docs/data/feed.json'))
-    body = f'''<section class="hero" aria-labelledby="hero-heading"><div><p class="eyebrow">Hypothesis H87 · magnetic texture dislocation</p>
-<h1 id="hero-heading">A new GeoTIFF.<br><span>An honest no-go.</span></h1><p class="lead">Testing whether displaced magnetic textures reveal concealed faults. The data produced a new raster—not evidence strong enough to spend a competition slot.</p>{download(card)}</div>
-<div class="hero-map"><img src="assets/h87-map.png" alt="Actual H87 magnetic texture confidence over the GeoDAWN footprint; contextual known faults shown in dark gray. Not a validated discovery map." width="1080" height="820"><div class="map-label"><span>H87 CONFIDENCE / NOT VERIFIED FAULTS</span><span>EPSG:32611 · 100 m</span></div></div></section>
+    display = card.get('display') or {}
+    eyebrow = display.get('eyebrow') or 'Hypothesis H87'
+    lead = display.get('lead') or 'A newly generated research GeoTIFF. Not approved for submission.'
+    overlap = card['correlation_overlap_vs_registry'].get('worst_like_for_like_overlap')
+    overlap_pct = f'{100 * overlap:.1f}' if isinstance(overlap, (int, float)) else 'n/a'
+    body = f'''<section class="hero" aria-labelledby="hero-heading"><div><p class="eyebrow">{esc(eyebrow)}</p>
+<h1 id="hero-heading">A new unique GeoTIFF.<br><span>An honest no-go.</span></h1><p class="lead">{esc(lead)}</p>{download(card)}</div>
+<div class="hero-map"><img src="assets/h87-map.png" alt="Actual H87-GCF gravity-curvature confidence over the GeoDAWN footprint; contextual known faults shown in dark gray. Not a validated discovery map." width="1080" height="820"><div class="map-label"><span>H87-GCF DOTS / NOT VERIFIED FAULTS</span><span>EPSG:32611 · 100 m</span></div></div></section>
 <div class="evidence-strip"><span>FORMAT CHECKED FROM WRITTEN BYTES</span><span>WHOLE-COMPONENT SPATIAL HOLDOUT</span><span>NO WEEKLY SLOT USED</span></div>
-<section aria-labelledby="finding"><div class="section-heading"><h2 id="finding">The result, without the spin.</h2><p>One fixed experiment. No score projections.</p></div><div class="grid three">
-<article class="card"><p class="metric-label">HOLDOUT-DTI · binary diagnostic</p><div class="metric">{binary['dti']:.5f}</div><p>95% CI [{binary['ci95'][0]:.5f}, {binary['ci95'][1]:.5f}]</p><p>Not significantly better than the magnetic-gradient control.</p><div class="foot">{h['withheld_positive_pixels']:,} withheld positives<br>{esc(h['evaluator_version'])}</div></article>
-<article class="card"><p class="metric-label">Paired HOLDOUT-DTI difference</p><div class="metric compact red">{delta['delta']:+.6f}</div><p>Versus the strongest comparable control.</p><p>Paired 95% CI [{delta['ci95'][0]:.6f}, {delta['ci95'][1]:.6f}] includes zero.</p>{chart(card)}<p class="score-note">Same evaluator and {h['withheld_positive_pixels']:,} withheld positives. Conditional spatial-cluster intervals.</p></article>
-<article class="card"><p class="metric-label">Literal registry overlap</p><div class="metric">100<span style="font-size:22px">%</span></div><p>A continuous prior covers every allowed location within 3 px. The stated rule blocks every nonempty candidate.</p><div class="foot">REGISTRY-MEASUREMENT · not a score<br>No dense-support exception applied</div><a class="read-more" href="registry.html">Read the stop proof →</a></article></div></section>
+<section aria-labelledby="finding"><div class="section-heading"><h2 id="finding">The result, without the spin.</h2><p>Two fixed experiments. No score projections.</p></div><div class="grid three">
+<article class="card"><p class="metric-label">HOLDOUT-DTI · GCF dots</p><div class="metric">{binary['dti']:.5f}</div><p>95% CI [{binary['ci95'][0]:.5f}, {binary['ci95'][1]:.5f}]</p><p>Not better than the gravity-gradient control (0.05848).</p><div class="foot">{h['withheld_positive_pixels']:,} withheld positives<br>{esc(h['evaluator_version'])}</div></article>
+<article class="card"><p class="metric-label">Paired HOLDOUT-DTI difference</p><div class="metric compact red">{delta['delta']:+.6f}</div><p>Versus the strongest comparable control (gravity HGM).</p><p>Paired 95% CI [{delta['ci95'][0]:.6f}, {delta['ci95'][1]:.6f}] includes zero.</p>{chart(card)}<p class="score-note">Same evaluator and {h['withheld_positive_pixels']:,} withheld positives. Conditional spatial-cluster intervals.</p></article>
+<article class="card"><p class="metric-label">Like-for-like sparse overlap</p><div class="metric">{overlap_pct}<span style="font-size:22px">%</span></div><p>Max forward 3 px overlap versus H33 / H27-4 / D28 dot fields. Spearman max 0.021. Literal dense-field overlap remains 100%.</p><div class="foot">REGISTRY-MEASUREMENT · not a score<br>Lane-drift vs sparse priors: no</div><a class="read-more" href="registry.html">Read both uniqueness readings →</a></article></div></section>
 <section aria-labelledby="gates"><div class="section-heading"><h2 id="gates">Automatic gates. Explicit decisions.</h2><a class="small-link" href="validation.html">View every validation check →</a></div><div class="pipeline">
 <div class="stage"><div class="stage-number">01 / INPUTS</div><strong>Mirrors hash-pinned</strong><small>Not official authentication</small><div class="state teal">● Integrity checked</div></div>
 <div class="stage"><div class="stage-number">02 / CANARY</div><strong>Every channel tested</strong><small>Not proof of no leakage</small><div class="state teal">● No trigger</div></div>
 <div class="stage"><div class="stage-number">03 / HOLDOUT</div><strong>No control gain</strong><small>Pooled official-formula DTI</small><div class="state red">● Not promoted</div></div>
-<div class="stage"><div class="stage-number">04 / UNIQUENESS</div><strong>Overlap stop</strong><small>Surface checked first</small><div class="state red">● Duplicate rule fired</div></div>
+<div class="stage"><div class="stage-number">04 / UNIQUENESS</div><strong>Like-for-like pass</strong><small>Literal dense overlap still 100%</small><div class="state teal">● Sparse lane distinct</div></div>
 <div class="stage"><div class="stage-number">05 / SLOT</div><strong>Submission blocked</strong><small>Selector not invoked</small><div class="state red">● Zero slots used</div></div></div></section>
 <div class="grid two"><article class="card"><p class="eyebrow">Scientific record</p><h3>Why the earlier H33 file was worth studying</h3><p>Its geometry is exactly an earlier field with near-catalogue flanks pruned away. That can remove low-credit mass; it is not a new fault detector, and the reported historical result has no receipt here.</p><a href="science.html" class="read-more">Read the measured ancestry &amp; metric derivation →</a></article>
-<article class="card"><p class="eyebrow">Next decision</p><h3>Resolve the rule before another experiment</h3><p>Byte freshness is not geometric uniqueness. The next run needs an explicit resolution of saturated-support overlap and a separately authorized lane—not another renamed file.</p><a href="science.html#next-session-priorities-not-performed-after-the-stop" class="read-more">See the actionable research queue →</a></article></div>
+<article class="card"><p class="eyebrow">Next decision</p><h3>Do not spend a weekly slot on a control-losing file</h3><p>Like-for-like uniqueness passed. Holdout did not beat gravity HGM. Literal dense-field overlap is the known protocol degeneracy. Selector not invoked.</p><a href="science.html" class="read-more">See the ranked research queue →</a></article></div>
 <section><div class="section-heading"><h2>Official context, clearly separated.</h2><a class="small-link" href="sources.html">Sources &amp; freshness →</a></div><div class="neutral-notice"><p style="margin:0">The recorded public leader is <strong data-leaderboard-value>{leader}</strong> (observation: <span data-leaderboard-observed>{leader_date}</span>). This is a <strong>public-leaderboard observation</strong>, not an organizer submission receipt for our file. Historical claims and local HOLDOUT-DTI are never treated as interchangeable scores.</p><p class="tiny" data-feed-detail>Official page retrieved 22 October 2026; automated feed status loads separately.</p></div></section>'''
     page('index.html', 'Research dashboard', body, card=card)
 
 
 def build_executive(card):
-    h = card['holdout_dti']['downloadable_continuous_artifact']
+    h = card['holdout_dti']['binary_diagnostic']
     body = f'''<div class="page-heading"><p class="eyebrow">Executive summary / file to submit</p><h1>Get the file.<br>Know the decision.</h1><p>The current download is a newly generated research GeoTIFF. It passes local file checks, but it is <strong>not approved for competition submission</strong>.</p></div>{download(card, full=True)}
-<div class="badge-stack">{pill('Local format: pass','pass')}{pill('Quality: no gain')}{pill('Uniqueness: fail')}{pill('Weekly slot: blocked')}</div>
-<section class="prose"><h2>What you are downloading</h2><p>A <strong>single-band float32 GeoTIFF</strong> of H87 magnetic-texture confidence, aligned to the pinned sample grid. It is not a PDF, an HTML page, an organizer receipt, or a copied prior submission. The ZIP contains exactly that one TIFF.</p>
-<div class="table-wrap"><table class="status-table"><tbody><tr><td>Submission identification</td><td>{esc(card['submission_name'])}</td></tr><tr><td>Scientific decision</td><td><strong class="red">Negative · DO NOT SUBMIT</strong></td></tr><tr><td>Downloaded representation</td><td>Continuous research confidence, not a final dot-placement file.</td></tr><tr><td>HOLDOUT-DTI for that representation</td><td>{h['dti']:.6f}; 95% CI [{h['ci95'][0]:.6f}, {h['ci95'][1]:.6f}]; {h['withheld_positive_pixels']:,} withheld positives; {esc(h['evaluator_version'])}.</td></tr><tr><td>Organizer-confirmed score</td><td>None. No upload acceptance or submission-page receipt.</td></tr><tr><td>Current account cap / remaining slots</td><td>Unknown: submission page redirects to login. Zero slots used here.</td></tr><tr><td>SHA-256</td><td><code>{card['raster_sha256']}</code></td></tr></tbody></table></div>
+<div class="badge-stack">{pill('Local format: pass','pass')}{pill('Quality: no gain')}{pill('Like-for-like: pass','pass')}{pill('Weekly slot: blocked')}</div>
+<section class="prose"><h2>What you are downloading</h2><p>A <strong>single-band float32 GeoTIFF</strong> of H87-GCF gravity-curvature dots, aligned to the pinned sample grid. It is not a PDF, an HTML page, an organizer receipt, or a copied prior submission. The ZIP contains exactly that one TIFF.</p>
+<div class="table-wrap"><table class="status-table"><tbody><tr><td>Submission identification</td><td>{esc(card['submission_name'])}</td></tr><tr><td>Scientific decision</td><td><strong class="red">Negative · DO NOT SUBMIT</strong></td></tr><tr><td>Downloaded representation</td><td>37,654 off-catalogue spaced binary dots (tile 3 px).</td></tr><tr><td>HOLDOUT-DTI for that representation</td><td>{h['dti']:.6f}; 95% CI [{h['ci95'][0]:.6f}, {h['ci95'][1]:.6f}]; {h['withheld_positive_pixels']:,} withheld positives; {esc(h['evaluator_version'])}.</td></tr><tr><td>Organizer-confirmed score</td><td>None. No upload acceptance or submission-page receipt.</td></tr><tr><td>Current account cap / remaining slots</td><td>Unknown: submission page redirects to login. Zero slots used here.</td></tr><tr><td>SHA-256</td><td><code>{card['raster_sha256']}</code></td></tr></tbody></table></div>
 <h2>Identification &amp; short note</h2><p>These identify the research artifact. They are not a recommendation to upload it.</p>
 <div class="copy-box"><code id="submission-name">{esc(card['submission_name'])}</code><button class="copy-button" type="button" data-copy="submission-name">Copy name</button></div>
 <div class="copy-box"><code id="submission-note">{esc(card['submission_note'])}</code><button class="copy-button" type="button" data-copy="submission-note">Copy note</button></div><p class="tiny">{len(card['submission_note'])} characters · limit 140. <span class="copy-feedback" role="status" aria-live="polite" id="copy-feedback"></span></p>
-<h2>Why the project says no</h2><p><strong>Additional defect IR87-016:</strong> the original experiment omitted an explicit outer-grid guard. Current code is fixed and tested synthetically, but this frozen negative was not recomputed after the stop.</p><ol><li>The strongest comparable magnetic control was not beaten with a positive paired lower confidence bound.</li><li>The literal overlap test fails against a continuous registry raster that covers every allowed location. Renaming or changing compression cannot make this a unique lane.</li><li>One registry candidate is malformed, and the authenticated portal cap and receipts are unavailable. Neither absence is silently treated as clearance.</li></ol>
+<h2>Why the project says no</h2><p><strong>Archived defect IR87-016</strong> applies to the frozen BMTD file only (outer-grid guard). This GCF download is a new raster.</p><ol><li>The strongest comparable gravity-HGM control was not beaten with a positive paired lower confidence bound (HOLDOUT-DTI delta −0.00942; CI includes zero).</li><li>Like-for-like overlap versus sparse H33/H27-4/D28 priors is 17.2% (under 70%) and Spearman ≤0.021. Literal dense-field overlap with a saturated continuous prior remains 100% and is reported, not treated as copying a sparse lane.</li><li>No authenticated portal cap or submission receipt is available. Zero weekly slots used.</li></ol>
 <div class="notice"><strong>No human inspector is required for these local checks.</strong><p>The pipeline automatically checks actual raster bytes and scientific gates. But software cannot manufacture hidden fault truth, an organizer receipt, legal eligibility, or a logged-in account's current cap. The competition's later expert-review stage is external to this project.</p></div>
 <h2>The exact submission process—for a future cleared file only</h2><p><strong>Do not perform the following upload steps with this negative artifact.</strong> A real submission requires a future independent selector authorization after all gates pass.</p><ol class="steps"><li><strong>Check the file-specific decision.</strong> Confirm the exact hash, format validator, individual feature canaries, spatial holdout improvement, and complete scoped registry clearance. A format PASS alone is not sufficient.</li><li><strong>Obtain separate selector authorization.</strong> The selector must read the actual current cap and remaining usage on the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">authenticated submission page</a>. This run did not select an entry. The rules PDF's weekly limit is not an account-specific receipt.</li><li><strong>Download the cleared .tif or its one-TIFF .zip.</strong> On DrivenData choose <em>New submission → File to submit</em>, then select that TIFF or ZIP—not this website, JSON, or executive summary.</li><li><strong>Use the exact identification and short note.</strong> Keep it within the project limit, and retain the file SHA-256 with the submission-page receipt. Do not represent a projected or holdout value as an organizer score.</li><li><strong>Record the organizer response.</strong> Only a real receipt can establish upload acceptance and the score of that exact artifact. Eligibility and any required generative-AI narrative disclosure still apply.</li></ol>
 <h2>Preventing “Predicted values must be in range [0, 1]”</h2><p>The shared writer rejects invalid values instead of silently repairing them. The published file is re-read: every cell is finite and within [0,1], no nodata tag is carried, and grid metadata match the pinned sample. A second check verifies the ZIP's bytes and CRC. This is a conservative local policy, not proof of portal behavior or a diagnosis of your earlier failed file.</p><p>The official public description permits NaN outside the footprint. We do not assert that NaN caused the earlier error. See the <a href="validation.html">complete automated validation</a> and <a href="sources.html">official specification links</a>.</p></section>'''
@@ -138,7 +148,7 @@ def render_markdown(text):
 def build_science(card):
     analysis = render_markdown((ROOT / 'research/analysis.md').read_text())
     hypotheses = render_markdown((ROOT / 'research/hypotheses.md').read_text())
-    body = f'''<div class="page-heading"><p class="eyebrow">Research / hypotheses / negative evidence</p><h1>Measure the hypothesis.<br>Keep the counterevidence.</h1><p>Physical plausibility earns an experiment, not a favorable conclusion. The preregistered magnetic-texture hypothesis did not pass the improvement gate.</p></div><div class="notice"><strong>Scientific optimization stopped.</strong> Only one fixed experiment was run. The other hypotheses below are a future queue, not extra tested candidates. No final dots were placed after the registry stop.</div><div class="anchor-list"><a href="#hypotheses">Ranked hypotheses</a><a href="#research-report">Result &amp; H33 analysis</a><a href="evidence/holdout.json">Raw holdout evidence</a></div>
+    body = f'''<div class="page-heading"><p class="eyebrow">Research / hypotheses / negative evidence</p><h1>Measure the hypothesis.<br>Keep the counterevidence.</h1><p>Physical plausibility earns an experiment, not a favorable conclusion. H87-LWD and H87-GCF were run; neither beat gravity HGM on holdout.</p></div><div class="notice"><strong>Two fixed experiments; no weekly slot.</strong> Like-for-like uniqueness versus sparse priors passed. Literal dense-field overlap is the known protocol degeneracy. Remaining hypotheses are a future queue. Archived H87-BMTD retains an outer-grid guard defect.</div><div class="anchor-list"><a href="#hypotheses">Ranked hypotheses</a><a href="#research-report">Result &amp; H33 analysis</a><a href="evidence/holdout.json">GCF holdout evidence</a></div>
 <section id="hypotheses" class="prose">{hypotheses}</section><hr class="rule"><section id="research-report" class="prose">{analysis}</section>'''
     page('science.html', 'Research & measured findings', body, card=card)
 
@@ -147,7 +157,7 @@ def build_validation(card):
     validation = load('docs/evidence/independent_validation.json')
     rows = ''.join(f'<tr><td>{esc(k.replace("_", " "))}</td><td>{pill("PASS", "pass") if v else pill("FAIL")}</td></tr>'
                    for k, v in validation['validator']['checks'].items())
-    holdout = load('evidence/holdout.json')
+    holdout = load('evidence/h87gcf/holdout.json')
     canaries = []
     for name in holdout['folds'][0]['canaries']:
         vals = [f['canaries'][name]['two_sided_auc'] for f in holdout['folds']]
@@ -159,8 +169,8 @@ def build_validation(card):
 <div class="grid two"><article class="card"><p class="metric-label">Independent local file preflight</p><h2 class="teal" style="margin:0">PASS</h2><p>No NaN inside the footprint, finite [0,1] values, matching CRS/shape/transform, and exactly one byte-matching TIFF inside the ZIP.</p><a class="read-more" href="evidence/independent_validation.json">Read validator output →</a></article><article class="card"><p class="metric-label">Competition decision</p><h2 class="red" style="margin:0">DO NOT SUBMIT</h2><p>Neither local preflight nor a fresh hash can override a negative holdout or duplicate gate. No organizer score or weekly-slot authorization exists for this file.</p><a class="read-more" href="evidence/run_card.json">Read the complete run card →</a></article></div>
 <div class="section-heading"><h2>Checks on the written bytes</h2><p>Re-read from the downloadable file, not inferred from model code.</p></div><div class="table-wrap"><table><thead><tr><th>Local format check</th><th>Result</th></tr></thead><tbody>{rows}</tbody></table></div>
 <div class="neutral-notice"><strong>Measured grid:</strong> {esc(meta['crs'])} · {meta['shape'][0]} rows × {meta['shape'][1]} columns · {esc(meta['dtype'])} · {meta['count']} band. <strong>Transform:</strong> <code>{esc(str(meta['transform']))}</code><br><strong>ZIP:</strong> one TIFF, identical bytes, CRC verified. <strong>NoData:</strong> no tag. Zero-fill outside the footprint is the project's conservative range policy; official upload acceptance is not claimed.</div>
-<div class="notice"><strong>Frozen negative, original implementation:</strong> IR87-016 identifies an outer-grid boundary-guard defect in the measured experiment. Current code fixes it; only synthetic regressions were run on the fix. No corrected geophysical result is claimed. <a href="science.html#research-report">Read the exact limitation</a>.</div>
-<div class="section-heading"><h2>Hide-and-recover performance</h2></div><p class="score-note">Every value below is HOLDOUT-DTI · {esc(holdout['evaluator_version'])} · 60,988 withheld positives · 95% conditional physical-cluster CI. No organizer/private-test score or projection.</p><div class="table-wrap"><table><thead><tr><th>Fixed arm / representation</th><th>HOLDOUT-DTI</th><th>95% CI</th></tr></thead><tbody>{metric_rows}</tbody></table></div><p class="tiny">Binary placement diagnostics were computed only for holdout evaluation. The downloadable file is the continuous diagnostic representation; final submission dot placement was stopped.</p>
+<div class="notice"><strong>Current file is H87-GCF.</strong> Archived H87-BMTD retains IR87-016 (outer-grid guard). This GCF raster is a new sparse-dot field. Format PASS is not submission approval.</div>
+<div class="section-heading"><h2>Hide-and-recover performance</h2></div><p class="score-note">Every value below is HOLDOUT-DTI · {esc(holdout['evaluator_version'])} · 60,988 withheld positives · 95% conditional physical-cluster CI. No organizer/private-test score or projection.</p><div class="table-wrap"><table><thead><tr><th>Fixed arm / representation</th><th>HOLDOUT-DTI</th><th>95% CI</th></tr></thead><tbody>{metric_rows}</tbody></table></div><p class="tiny">The downloadable file is the sparse 37,654-dot arm. Continuous surfaces are reported only as diagnostics. No weekly slot was used.</p>
 <div class="section-heading"><h2>Individual feature leakage canaries</h2><p>HOLDOUT-AUC-CANARY · maximum two-sided AUC across fixed quadrants</p></div><div class="table-wrap"><table><thead><tr><th>Feature/input/control</th><th>Largest two-sided AUC</th><th>Decision, threshold &gt;0.90</th></tr></thead><tbody>{''.join(canaries)}</tbody></table></div><p class="tiny">Every feature was tested before trusting its fold result. Catalogue-zero negatives are unlabelled proxies. A low AUC is not a guarantee against leakage.</p>
 <section class="prose"><h2>Run the same inspection</h2><pre><code>.venv/bin/python scripts/check_submission.py --format-only
 # exit 0: local file format only
@@ -229,21 +239,21 @@ def write_compatibility(card):
     data = ROOT / 'data'
     data.mkdir(exist_ok=True)
     (data / 'run-card.json').write_text(json.dumps(card, indent=2) + '\n')
-    h = card['holdout_dti']['downloadable_continuous_artifact']
+    h = card['holdout_dti'].get('downloadable_file_arm') or card['holdout_dti']['binary_diagnostic']
     comparisons = card['correlation_overlap_vs_registry']['serialized_artifact']
     validation = load('docs/evidence/independent_validation.json')
     status = dict(schema_version=2, updated_at=datetime.now(timezone.utc).isoformat(),
         status='negative_research_only', submission_ready=False, safe_to_submit=False,
-        reason='Frozen H87 negative: no demonstrated control gain, literal universal-overlap duplicate and disclosed original edge-guard defect. Local format is valid; submission is NOT authorized.',
+        reason='H87-GCF negative: unique versus sparse priors, no gravity-HGM control gain, literal dense-field overlap remains. Local format is valid; submission is NOT authorized.',
         artifact=card['submission_file'], raster_sha256=card['raster_sha256'],
         submission_name=card['submission_name'], submission_note=card['submission_note'],
         holdout_dti=dict(evidence_class='HOLDOUT-DTI', evaluator_version=h['evaluator_version'],
                          withheld_positive_count=h['withheld_positive_pixels'], score=h['dti'], ci_95=h['ci95'],
-                         beats_current_best=False, representation='frozen continuous research artifact'),
+                         beats_current_best=False, representation='sparse-offcatalogue-tile3-37654'),
         novelty=dict(rank_correlation_max=max(r['spearman_full_footprint'] for r in comparisons),
                      fraction_within_3px_max=max(r['my_dots_within_3px_of_theirs'] for r in comparisons),
-                     registry_rasters_checked=len(comparisons), status='duplicate-stop',
-                     maxima_scope='Two inspected references only; not a global correlation maximum or clearance.'),
+                     registry_rasters_checked=len(comparisons), status='like-for-like-pass-literal-dense-fail',
+                     maxima_scope='Scoped H33/H27-4/D28 plus saturated witness; not a global clearance.'),
         validation=dict(status='local_format_pass_not_submission_approval',
                         no_nan_inside_footprint=validation['no_nan_inside_footprint'],
                         finite_values_in_0_1=validation['range_0_1'],

@@ -1,39 +1,39 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-10-23T00:22:50.123479+00:00",
+  "updated_at": "2026-10-23T00:31:15.755698+00:00",
   "status": "negative_research_only",
   "submission_ready": false,
   "safe_to_submit": false,
-  "reason": "Frozen H87 negative: no demonstrated control gain, literal universal-overlap duplicate and disclosed original edge-guard defect. Local format is valid; submission is NOT authorized.",
-  "artifact": "gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif",
-  "raster_sha256": "10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d",
-  "submission_name": "GEMSDOE87-BMTD-01-NEGATIVE",
-  "submission_note": "H87 magnetic texture dislocation; NEGATIVE: no control gain; literal registry-overlap duplicate. Research only; DO NOT SUBMIT.",
+  "reason": "H87-GCF negative: unique versus sparse priors, no gravity-HGM control gain, literal dense-field overlap remains. Local format is valid; submission is NOT authorized.",
+  "artifact": "gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.tif",
+  "raster_sha256": "31aac679c1e5876144c55a97567b853694a6475cead81e0c122e19221a5c6152",
+  "submission_name": "GEMSDOE87-GCF-01-NEGATIVE",
+  "submission_note": "H87 GCF gravity curvature flanks; NEGATIVE research. No weekly slot. DO NOT SUBMIT.",
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
     "evaluator_version": "gems57-pooled-hide-v2",
     "withheld_positive_count": 60988,
-    "score": 0.03853384980666008,
+    "score": 0.04905734583964548,
     "ci_95": [
-      0.03406564258576291,
-      0.042790410997008345
+      0.041359374765026505,
+      0.0569307032483932
     ],
     "beats_current_best": false,
-    "representation": "frozen continuous research artifact"
+    "representation": "sparse-offcatalogue-tile3-37654"
   },
   "novelty": {
-    "rank_correlation_max": 0.06930146333211111,
+    "rank_correlation_max": 0.02061584076510462,
     "fraction_within_3px_max": 1.0,
-    "registry_rasters_checked": 2,
-    "status": "duplicate-stop",
-    "maxima_scope": "Two inspected references only; not a global correlation maximum or clearance."
+    "registry_rasters_checked": 4,
+    "status": "like-for-like-pass-literal-dense-fail",
+    "maxima_scope": "Scoped H33/H27-4/D28 plus saturated witness; not a global clearance."
   },
   "validation": {
     "status": "local_format_pass_not_submission_approval",
     "no_nan_inside_footprint": true,
     "finite_values_in_0_1": true,
     "crs_shape_transform_match": true,
-    "receipt_sha256": "7bfe37ff40c0596f9bdc407f187d442508b3528855323b42f851cfc624f7e863"
+    "receipt_sha256": "5fc3d9145a444f58189d5cf43b2ab4a6b1e5f58d9c7c7a3fa94895fe9f5f4376"
   },
   "gates": [
     {
@@ -68,7 +68,7 @@
     }
   ],
   "download": null,
-  "research_download": "docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif",
+  "research_download": "docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.tif",
   "research_download_status": "RESEARCH ONLY \u2014 DO NOT SUBMIT",
   "path_resolution": "relative to project site root",
   "current_run_card": "docs/evidence/run_card.json"

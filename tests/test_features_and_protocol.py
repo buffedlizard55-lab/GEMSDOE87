@@ -150,14 +150,16 @@ def test_stopped_runner_does_not_touch_data_or_features(monkeypatch):
 
 def test_stop_state_and_no_final_dots_are_permanent():
     budget = json.loads((ROOT / 'evidence/budget.json').read_text())
+    frozen = json.loads((ROOT / 'evidence/h87_bmtd/run_card.json').read_text())
     card = json.loads((ROOT / 'run_card.json').read_text())
     assert budget['status'] == 'stopped-by-duplicate'
     assert budget['scientific_experiments_after_stop'] == 0
     assert budget['final_dot_placement_performed'] is False
     assert budget['experiments_used'] == 1
+    assert frozen['verdict'] == 'negative'
+    assert frozen['correlation_overlap_vs_registry']['final_dot_placement_performed'] is False
+    assert frozen['execution_defects'][0]['remeasured_after_duplicate_stop'] is False
     assert card['verdict'] == 'negative'
     assert card['safe_to_submit'] is False
-    assert card['correlation_overlap_vs_registry']['final_dot_placement_performed'] is False
     assert card['submission_slots_used'] == 0
-    assert card['execution_defects'][0]['remeasured_after_duplicate_stop'] is False
     assert len(card['submission_note']) <= 140

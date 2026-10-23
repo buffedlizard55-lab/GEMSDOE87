@@ -2,6 +2,7 @@
 
 | ID | Measured discrepancy / limitation | Automatic handling / outcome |
 |---|---|---|
+| IR87-028 | 2026-10-23 session: no method paragraph still; H87-LWD and H87-GCF were run as experiments 1–2. Gravity HGM control (0.058476) beat both candidates. Like-for-like uniqueness passed; literal dense overlap remains 1.0. | New unique GCF GeoTIFF packaged as research-only / DO NOT SUBMIT. Frozen BMTD budget untouched. No weekly slot. Remaining hypotheses untested. |
 | IR87-001 | The brief references a single-method lane paragraph, but no distinct lane is supplied. | Narrow H87-BMTD lane documented before construction; four hypotheses listed, only one implemented. No claim that an externally assigned lane was received. |
 | IR87-002 | Initial repository contained only the title, not the assumed previous-session pipeline, GPU training assets, cached data, or current holdout best. | Shared tool/data restoration completed autonomously. Comparators evaluated under the same new instrument; no inherited global-best claim or U-Net training claim. |
 | IR87-003 | DrivenData originals are login-protected. Mirror hashes are not organizer authenticity. The mirrored sample contains positives despite public text describing a total-absence sample. | Sample used ONLY for grid/finite footprint. Candidate input is cached RTP, not sample values or prior predictions. Original provenance remains unauthenticated. |

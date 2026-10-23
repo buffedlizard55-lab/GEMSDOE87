@@ -1,32 +1,32 @@
 # GEMSDOE87 — fault evidence, not score promises
 
-## Download first. Session-2 decision: **DO NOT SUBMIT** (format-valid candidate, promotion rule not met)
+## Download first. Submission decision: **DO NOT SUBMIT**
 
-**A new, unique GeoTIFF was generated in session 2 (2026-10-23)** from isostatic-gravity paired-curvature flanks (H87-PGF) — not copied from any previous submission (14.3% of its dots within 3 px of the H33 sparse reference; binary correlation 0.005).
+**A new GeoTIFF was generated from the isostatic gravity anomaly (H87-GCF), not copied from a previous submission.** It passes automated local format/range checks. Like-for-like uniqueness versus sparse H33/H27-4/D28 priors passed (17.2% overlap). It did **not** beat the gravity-HGM control on holdout, so it is a **negative research result** and is **not** competition-approved.
 
-- **[Download the session-2 GeoTIFF](docs/downloads/gems87-pgf1-37654dots-20261023.tif)** · [single-TIFF ZIP](docs/downloads/gems87-pgf1-37654dots-20261023.zip)
+- **[Download the new research GeoTIFF](docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.tif)** · [single-TIFF ZIP](docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.zip)
 - **[Website](https://buffedlizard55-lab.github.io/GEMSDOE87/)** · [Executive summary / submission guide](https://buffedlizard55-lab.github.io/GEMSDOE87/docs/executive-summary.html)
-- [Session-2 run card](run_card_session2.json) · [Holdout evidence](evidence/holdout_pgf.json) · [Registry check](evidence/registry_pgf.json)
-- SHA-256: `891aa33ed0523b32ce9d6ed46b2d050db060f96203ace1d49d635bdbd9682af4`
-- Submission identification: `gems87-pgf1-37654dots-20261023`
-- Note (119 characters): `H87-PGF paired gravity-curvature flanks, 37654 dots; holdout beats ctrl point est, paired CI incl 0; research candidate`
+- [Machine-readable run card](run_card.json) · [Independent on-disk validator](docs/evidence/independent_validation.json)
+- SHA-256: `31aac679c1e5876144c55a97567b853694a6475cead81e0c122e19221a5c6152`
+- Submission identification: `GEMSDOE87-GCF-01-NEGATIVE`
+- Note (83 characters): `H87 GCF gravity curvature flanks; NEGATIVE research. No weekly slot. DO NOT SUBMIT.`
+- Archived experiment 1: [H87-LWD GeoTIFF](docs/downloads/gems87-lwd-20261023T002405Z-78270acd3587-RESEARCH-DO-NOT-SUBMIT.tif) (also negative)
+- Frozen prior lane: [H87-BMTD GeoTIFF](docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif) (negative; outer-grid defect IR87-016)
 
-| Automated gate (session 2) | Result |
+| Automated gate | Result |
 |---|---|
-| Single-band float32; EPSG:32611; 3730×3292; exact sample transform; no nodata tag | PASS — on-disk re-read |
-| Values exactly {0,1}; finite; in [0,1]; no NaN inside footprint; 0 outside footprint & on catalogue; 37,654 dots | PASS — the "Predicted values must be in range [0, 1]" error class cannot occur |
-| ZIP contains exactly the same one TIFF (CRC ok) | PASS |
-| Leakage canaries (all features/folds, 3 experiments) | PASS — max two-sided AUC 0.589 ≤ 0.90 |
-| Beats holdout best (point) | PASS — HOLDOUT-DTI 0.052721 vs magnetic control 0.043673, session-1 BMTD 0.043385 (evaluator gems57-pooled-hide-v2, 60,988 withheld positives) |
-| Preregistered promotion rule (paired 95% CI lower bound > 0 vs best control) | **FAIL** — paired Δ +0.009048, 95% CI [−0.007699, +0.024758] includes zero |
-| Sparse registry uniqueness (vs H33 reference) | PASS — overlap 0.143 ≤ 0.70, correlation 0.005 ≤ 0.90; saturated continuous witness makes the literal any-raster rule unsatisfiable (flagged, session 1) |
-| Organizer receipt / weekly-cap authorization | Unavailable (login-protected); 0 slots used |
+| Single-band float32; EPSG:32611; shape 3730×3292; exact sample transform | PASS — on-disk re-read |
+| Finite values in [0,1]; no NaN inside footprint; no nodata tag; zero outside footprint | PASS — conservative local policy, not authenticated portal acceptance |
+| ZIP contains exactly the same one TIFF | PASS — filename, decoded bytes and CRC checked |
+| Every individual feature/input leakage canary | No trigger; largest two-sided HOLDOUT-AUC-CANARY 0.592 (LWD) / see GCF card; this does not prove no leakage |
+| Beats strongest comparable holdout control | **FAIL** — GCF HOLDOUT-DTI 0.049057 vs gravity HGM 0.058476; paired CI includes zero |
+| Like-for-like uniqueness vs sparse priors | PASS — 17.2% forward 3 px overlap vs H33/H27-4/D28; Spearman ≤0.021 |
+| Literal registry uniqueness | **FAIL** — a continuous prior covers all allowed cells within 3 px; reported via `two_phase_summary`, thresholds unchanged |
+| Current submission-page cap/usage and organizer receipt | Unavailable (login protected); no slot selected or used |
 
-**Verdict: negative / DO NOT SUBMIT.** Experiments 2–3 (depth-surface fusion 0.047547; magnetic fusion 0.046209) were worse; budget 3/3 exhausted. Session 1 (H87-BMTD, below) remains negative for its own reasons. No leaderboard score is claimed for any artifact here — holdout values are not organizer scores, and beating 0.2778/0.3195/0.4413 cannot be promised from catalogue holdout.
+**Why the negative matters:** H87-GCF is a *new* gravity-curvature couplet detector, geometrically unlike the sparse H33 family. It still lost to a simple gravity-HGM control on catalogue holdout. Byte freshness plus sparse uniqueness is not a reason to spend a weekly slot. The literal dense-field overlap degeneracy is reported, not silently exempted.
 
-## Latest review — 2026-10-23
-
-Software-only follow-up: **137 tests and 37 browser checks passed** after integrating current main's review and publication-hardening changes. Publication refuses stale validation receipts, changed TIFF/ZIP bytes, unsafe download paths and edited approval flags before writing pages. The existing research artifact and negative scientific verdict are unchanged; **no new candidate or competition submission was made**. See [the three-pass review and remaining blockers](research/verification.md#active-branch-follow-up--2026-10-23-software-only).
+A concurrent `main` commit also added `gems87-pgf1-37654dots-20261023.tif` (H87-PGF). That file remains in `docs/downloads/` for audit. Its reported holdout compared against magnetic HGM, not gravity HGM. This session's GCF comparison uses gravity HGM as the relevant control and still does not promote. Neither file is ORGANIZER-CONFIRMED.
 
 ## Read this at the start of every session
 
@@ -96,7 +96,7 @@ bash scripts/download_competition_data.sh
 
 The GitHub Pages site starts with the file download and an unambiguous **DO NOT SUBMIT** decision. The executive-summary subpage explains the upload format and future authorized submission steps. Sources are claim-linked and dated; machine-readable receipts are adjacent to the file. The source-health feed has a timestamp and stale/failure state, and never upgrades historical claims to organizer receipts. Scheduled feed deployment is separate from scientific experimentation; deployment success is verified rather than assumed.
 
-Software verification: **137 automated tests** (after the 2026-10-23 publication-gate review) plus real Chromium checks at 1440, 768, 390 and 320 px, actual TIFF-download SHA-256, search, clipboard success/failure, no-JavaScript download, and failed-feed fallback. See [the review log](research/verification.md). Optional browser tooling: `npm ci --ignore-scripts && npm run test:browser` (Linux x64, Node 22.17+).
+Software verification: **103 automated tests** plus real Chromium checks at 1440, 768, 390 and 320 px, actual TIFF-download SHA-256, search, clipboard success/failure, no-JavaScript download, and failed-feed fallback. See [the review log](research/verification.md). Optional browser tooling: `npm ci --ignore-scripts && npm run test:browser` (Linux x64, Node 22.17+).
 
 `.github/workflows/ci.yml` repeats format/authorization, synthetic regression and browser checks. `.github/workflows/pages.yml` attempts a daily 06:17 UTC public source-health refresh and read-only next-step generation, rebuilding the static site without touching the frozen raster or running a scientific experiment. Deployment needs Pages write permission; a checked-in workflow alone is not proof of a successful deployed run. Failed fetches stay explicit. This is not an autonomous geological-claim verifier or hosted live training service.
 
@@ -107,23 +107,6 @@ Local preview: `.venv/bin/python -m http.server 8000 --bind 0.0.0.0 --directory 
 While this branch was working from the initial title-only commit, `main` advanced through PRs #1/#3/#4 to a readiness-only site at `f4f5944`, followed by read-only H33/report-path hardening through `a7a7c77`. PR #5 integrates that work without importing or running another scientific lane. Earlier source audits, score-free feed helper, independent legacy preflight, assets and regression tests are retained; exact prior entrypoint/metadata snapshots are in [the archive](research/upstream_readiness/README.md). Historical documents are explicitly marked as snapshots. Root entry points and machine-readable compatibility status now lead to the current negative research result.
 
 The Pages-settings API refused this integration permission (HTTP 403); no credential workaround was attempted. The existing successful upload/deploy workflow pattern is reused, without trying to rewrite Pages settings. It runs after the built-in `pages-build-deployment` completes, preventing that legacy deployment from overwriting the refreshed feed; public TIFF and feed bytes are checked after publication. Local preflight and actual CI/deployment results remain separate evidence classes.
-
-## Review update — 2026-10-23
-
-Three-pass software review preserved the stopped scientific run and original prompt.
-Fixed CI push coverage for all Arena session branches, structured rejection of corrupt/encrypted
-ZIP inspection, refusal of edited approval flags, and a pre-publication integrity gate for the
-validated TIFF/ZIP bytes and fail-closed receipt. **137 tests passed, no skips** after restoring
-the two hash-pinned validation inputs; **37 Chromium checks passed**, including actual TIFF
-download/hash, mobile layouts and no-JavaScript status. Local format validation passed again;
-normal authorization still exits 2 / **DO NOT SUBMIT**. The offline site audit has 7 pages,
-121 local targets and 4 compatibility entry points. No new model, holdout estimate, registry
-clearance, competition upload or slot use is claimed. The local validation-input hashes are
-recorded separately in [this receipt](docs/evidence/validation-inputs-2026-10-23.json); the
-original three-input restore receipt remains historical. The latest checked-in source-health
-attempt is `2026-10-22T22:33:20.895788Z` (0/13 official-source transports reachable); no fresh
-non-GitHub source retrieval or account-cap/receipt check is claimed. See the [initial three-pass
-review](research/review-2026-10-23.md) and [final active-branch verification](research/verification.md).
 
 ## Next session / limitations
 
