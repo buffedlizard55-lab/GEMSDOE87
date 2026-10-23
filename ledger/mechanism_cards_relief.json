@@ -1,0 +1,35 @@
+{
+  "h33-h33-2-b2-RELIEFr2p12-20261023-0689ea4c": {
+    "id": "h33-h33-2-b2-RELIEFr2p12-20261023-0689ea4c",
+    "parent": "h33-h33-2-b2",
+    "axis": "RELIEF",
+    "value": "r2p12",
+    "hypothesis": "Active Quaternary normal faults and geothermal step-over / relay ramps in the Great Basin systematically step basinward from eroded mountain-interior facets (T2) onto alluvial-fan piedmont bajadas (T1), whereas dissected T2 H19-5 ridges disproportionately trace inactive pre-Quaternary bedrock contacts and erosional spur crests.",
+    "mechanism": "Drop the 4,518 (12.00%) lowest exact leave-one-out DTI marginal-loss R0 dots from T2 Range-Front (relief quantile > 66.7% from Band 12 det_elev + Band 19 det_elev_slope) and place 4,518 dots into T1 Piedmont (33.3%\u201366.7%) at inherited min spacing sqrt(8) px, ranked first by exact sequential DTI marginal gain dT on uncovered H19-5 ridges (3,959 dots) and completed on isotropic Band 02 RTP + Band 05 gravity 1-D Hessian crests (559 dots); T0 Basin (6,029 dots) and total count (37,654) remain 100% unchanged.",
+    "non_fault_mimic": "Incised alluvial-fan feeder channels, Lake Lahontan highstand wave-cut benches (~1,330 m), and piedmont pediment-alluvium contacts produce gentle detrended-elevation slopes and shallow magnetic/density contrasts inside T1 without Quaternary fault slip.",
+    "predicted_live_change": "+0.004 to +0.012 [MODEL] if undisclosed test labels reflect concealed Quaternary / 3DEP piedmont splays (supported by Quaternary hide-and-recover PROXY +0.0014 vs R0); treat |Delta live| < 0.01 on public chunks as no evidence.",
+    "falsifier": "Live RECEIPT Delta <= -0.01 vs R0 (or vs PRUNE3 once receipted) falsifies piedmont enrichment and indicates undisclosed test faults are predominantly unmapped range-interior bedrock structures (matching the SGMC control shift of -0.0065)."
+  },
+  "h33-h33-2-b2-RELIEFr2b10-20261023-ffcd12c0": {
+    "id": "h33-h33-2-b2-RELIEFr2b10-20261023-ffcd12c0",
+    "parent": "h33-h33-2-b2",
+    "axis": "RELIEF",
+    "value": "r2b10",
+    "hypothesis": "Parent R0 severely under-allocates low-relief playal and alluvial basins (T0 holds 30.5% of mapped Quaternary catalogue fault pixels on Band 12 det_elev yet only 16.0% of R0 dots on the composite relief index) because H19-5's DEM openness channel vanishes across flat Holocene playal/alluvial fill where blind intrabasin faults and geothermal reservoirs sit.",
+    "mechanism": "Drop the 3,765 (10.00%) lowest exact leave-one-out DTI marginal-loss R0 dots from T2 Range-Front and place 3,765 dots into T0 Basin (relief quantile <= 33.3%) at min spacing sqrt(8) px, filling all positive exact-DTI H19-5 basin ridge gaps first (1,191 dots) and placing the remaining 2,574 dots onto isotropic subsurface |grad_H(RTP)| (Band 02) + iso_grav_anom_slope (Band 05) 1-D Hessian crests; T1 Piedmont (17,303 dots) and total count (37,654) remain 100% unchanged.",
+    "non_fault_mimic": "Pleistocene pluvial Lake Lahontan desiccated shorelines, axial river terraces (Humboldt / Carson sinks), buried Cenozoic volcanic paleochannels, and N-S aeromagnetic flight-line leveling ripple across low-susceptibility playal sediments.",
+    "predicted_live_change": "+0.002 to +0.010 [MODEL] if hidden test faults include geophysical/sub-basin blind compilations (INGENIOUS / GeoDAWN); negative if test labels require surface scarp expression. Treat |Delta live| < 0.01 as no evidence.",
+    "falsifier": "Live RECEIPT Delta <= -0.01 vs R0 falsifies intrabasin blind-fault under-allocation and shows test annotations rarely extend onto zero-relief playal floors without surface scarps."
+  },
+  "h33-h33-2-b2-RELIEFb2r15-20261023-982da990": {
+    "id": "h33-h33-2-b2-RELIEFb2r15-20261023-982da990",
+    "parent": "h33-h33-2-b2",
+    "axis": "RELIEF",
+    "value": "b2r15",
+    "hypothesis": "Opposite-sign structural bracket: if the undisclosed test labels incorporate newly digitized 1:24k/NBMG bedrock and range-block fault maps omitted from the USGS Quaternary catalogue (analogous to off-catalogue USGS SGMC faults, 63.9% of which lie in T2 vs 11.2% in T0), reallocating low-confidence basin dots onto high-relief T2 structural blocks raises recall.",
+    "mechanism": "Drop 5,648 (15.00%) lowest exact leave-one-out DTI marginal-loss R0 dots from T0 Basin (leaving the 381 strongest basin H19-5 ridge dots) and place 5,648 dots into T2 Range-Front at min spacing sqrt(8) px via exact sequential DTI marginal gain dT on uncovered H19-5 ridges (2,892 dots) plus isotropic RTP + gravity 1-D crests (2,756 dots); T1 Piedmont (17,303 dots) and total count (37,654) remain 100% unchanged.",
+    "non_fault_mimic": "Erosional horst crestlines, columnar welded-tuff cliff edges, non-faulted granitic pluton aureoles, and Mesozoic thrust/metamorphic foliation ridges inside high-relief mountain blocks.",
+    "predicted_live_change": "-0.012 to +0.008 [MODEL]: opposite-sign diagnostic bracket (+0.0019 on SGMC bedrock PROXY vs -0.0118 on Quaternary hide-and-recover PROXY). Do not spend a weekly slot on b2r15 unless r2p12 scores Delta <= -0.01 live.",
+    "falsifier": "Live RECEIPT Delta >= +0.01 on r2p12 (or Delta <= -0.01 on b2r15 itself) falsifies the unmapped-bedrock-label hypothesis and confirms test labels are dominated by Quaternary piedmont/basin structures."
+  }
+}
