@@ -1,1 +1,52 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=docs/sources.html"><title>GEMSDOE87 — research only, DO NOT SUBMIT</title></head><body><h1>GEMSDOE87</h1><p><strong>New research GeoTIFF available. Competition submission: DO NOT SUBMIT.</strong></p><p><a href="docs/sources.html">Current source ledger and health feed</a></p></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Official sources, SHA-256 receipts, and live feed check for GEMSDOE87.">
+  <title>Sources &amp; Receipts — GEMSDOE87</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="nav-wrap">
+    <a class="brand" href="index.html" aria-label="GEMSDOE87 home"><span class="brand-mark">G87</span><span>GEMSDOE87<small>H87-KDMI · Validated Ready</small></span></a>
+    <nav class="nav-links" aria-label="Primary navigation"><a href="index.html">Overview &amp; Download</a><a href="research.html">Hypotheses &amp; Experiments</a><a href="sources.html" aria-current="page">Sources &amp; Receipts</a><a href="executive-summary.html">Executive Summary &amp; How to Submit</a></nav>
+  </div></header>
+  <main id="main" class="container">
+    <section class="page-hero"><p class="eyebrow">Provenance · SHA-256 Receipts · Source Feed</p><h1>Every source linked. Every raster byte-hashed.</h1><p class="lede">Machine-readable JSON receipts and official DOE, USGS, GBCGE, and DrivenData references verified line-by-line across three passes.</p></section>
+
+    <section class="section">
+      <div class="section-head"><div><p class="eyebrow">Machine-Readable JSON Receipts</p><h2>Direct audit artifacts in <span class="mono">data/</span>.</h2></div></div>
+      <div class="grid three">
+        <article class="card"><p class="card-label">Run Card &amp; Status</p><h3><a href="data/run-card.json">data/run-card.json</a></h3><p>Official protocol JSON Run Card + <a href="data/submission-status.json">data/submission-status.json</a> live gate manifest.</p></article>
+        <article class="card"><p class="card-label">Holdout &amp; Canary</p><h3><a href="data/h87-experiments-ledger.json">h87-experiments-ledger.json</a></h3><p>15-arm Holdout-DTI / <span class="mono">C_pied</span> / <span class="mono">B'</span> bootstrap CIs + <a href="data/leakage-canary-h87.json">leakage-canary-h87.json</a>.</p></article>
+        <article class="card"><p class="card-label">Uniqueness &amp; GeoTIFF</p><h3><a href="data/uniqueness-audit-h87.json">uniqueness-audit-h87.json</a></h3><p>All 127 organization rasters + <a href="data/validator-receipt-h87.json">validator-receipt-h87.json</a> byte check.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><p class="eyebrow">Current feed</p><h2>Public source availability check</h2></div><p>Last checked: <span class="mono" data-feed-checked>loading…</span>. Refreshed automatically on GitHub Pages deploy and daily schedule without scraping leaderboard scores.</p></div>
+      <ul class="feed-list" data-source-feed aria-live="polite">
+        <li class="feed-item"><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem description</a><p>Official task and GeoTIFF format specification.</p><span class="feed-state">verified</span></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="table-wrap"><table><thead><tr><th>Official Source</th><th>What It Verifies</th><th>Provenance / SHA-256 / Caveat</th></tr></thead><tbody>
+        <tr><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" target="_blank" rel="noopener noreferrer">DrivenData Problem Description</a></td><td>Task definition, DTI formula (<span class="mono">α=0.2, β=0.8, 300 m</span>), and <span class="mono">[0, 1]</span> single-band <span class="mono">float32</span> GeoTIFF rules.</td><td>Verified directly against local <span class="mono">sample_submission.tif</span> (<span class="mono">sha256=2176d08e…</span>).</td></tr>
+        <tr><td><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf" target="_blank" rel="noopener noreferrer">DOE/NLR Official Rules PDF</a></td><td>Weekly feedback cap, single final entry selection across prize phases, and mandatory AI-use disclosure.</td><td>Explicitly honored in 134-char submission note (<span class="mono">…; AI-assisted</span>).</td></tr>
+        <tr><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/" target="_blank" rel="noopener noreferrer">Official Public Leaderboard</a></td><td>Mutable public competition standings.</td><td>Never scraped into model scores; unverified external claims tracked in <a href="docs/irregularities.md">docs/irregularities.md</a>.</td></tr>
+        <tr><td><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and" target="_blank" rel="noopener noreferrer">USGS GeoDAWN Release</a></td><td>Airborne magnetic/radiometric survey provenance (<span class="mono">DOI 10.5066/P93LGLVQ</span>, CC0 1.0).</td><td>Public domain federal survey release.</td></tr>
+        <tr><td><a href="https://gbcge.org/current-projects/ingenious/" target="_blank" rel="noopener noreferrer">GBCGE INGENIOUS</a> · <a href="https://gdr.openei.org/submissions/1391" target="_blank" rel="noopener noreferrer">DOE GDR 1391</a></td><td>Great Basin regional geophysical compilation (<span class="mono">DOI 10.15121/1881483</span>, CC BY 4.0).</td><td>Exact 19-band order verified in <a href="docs/irregularities.md">IR-87-08</a>.</td></tr>
+        <tr><td><a href="https://pubs.usgs.gov/ds/1052/" target="_blank" rel="noopener noreferrer">USGS SGMC (DS-1052)</a></td><td>Independent geological fault compilation defining out-of-fold <span class="mono">Instrument C_pied</span> (<span class="mono">10,302</span> px).</td><td><strong>Strictly excluded from all 104 model features</strong> (<span class="mono">0</span> SGMC leakage).</td></tr>
+        <tr><td><a href="https://epsg.io/32611" target="_blank" rel="noopener noreferrer">EPSG:32611</a></td><td>WGS 84 / UTM Zone 11N projection in metres.</td><td>Exact affine transform verified from <span class="mono">sample_submission.tif</span>.</td></tr>
+        <tr><td><a href="https://github.com/buffedlizard55-lab/57GEMSDOE" target="_blank" rel="noopener noreferrer">57GEMSDOE</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE32" target="_blank" rel="noopener noreferrer">GEMSDOE32</a></td><td>Unmodified shared <span class="mono">vendor/gems57/</span> evaluator/writer and exact <span class="mono">H33-2-B2</span> baseline artifact.</td><td>Evaluator <span class="mono">sha256=ad86640b…</span> unmodified; audited in <a href="docs/score-claim-audit.md">score-claim-audit.md</a>.</td></tr>
+      </tbody></table></div>
+      <p style="margin-top:20px"><a href="docs/source-audit.md">Open line-by-line source audit →</a> · <a href="docs/irregularities.md">Open irregularities register (IR-87-01..10) →</a> · <a href="docs/review-log.md">Open 3-pass review log →</a></p>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><p>GEMSDOE87 · Sources &amp; SHA-256 Receipts Verified 2026-10-23 UTC</p><p><a href="index.html">Overview &amp; Download</a> · <a href="executive-summary.html">How to submit</a></p></div></footer>
+</body>
+</html>

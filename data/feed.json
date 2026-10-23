@@ -1,50 +1,90 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-10-22",
-  "refresh_mode": "initial verified read; scheduled refresh is configured for the published site",
+  "checked_at": "2026-10-23T00:42:14Z",
+  "refresh_mode": "automated public-page check; no credentials and no leaderboard scores are collected",
   "numeric_scores_omitted": true,
   "entries": [
     {
       "id": "competition_problem",
-      "label": "DrivenData \u2014 problem description",
+      "label": "DrivenData — GEMS problem description",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
-      "status": "verified_read",
-      "note": "Task, input-band overview, DTI definition, and GeoTIFF format read directly."
+      "status": "unavailable",
+      "note": "Fetch failed: URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
     },
     {
       "id": "competition_data",
-      "label": "DrivenData \u2014 data tab",
+      "label": "DrivenData — competition data tab",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
-      "status": "login_required_observed",
-      "note": "Unauthenticated access redirected to the DrivenData login page; data were not downloaded."
+      "status": "unavailable",
+      "note": "Fetch failed: URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
     },
     {
       "id": "competition_leaderboard",
-      "label": "DrivenData \u2014 live public leaderboard",
+      "label": "DrivenData — public leaderboard",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-      "status": "reachable_live_page",
-      "note": "The page is mutable. The site links to it rather than copying its numerical rows into this feed; leaderboard rows do not identify which TIFF produced them."
+      "status": "unavailable",
+      "note": "Fetch failed: URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
     },
     {
-      "id": "official_rules_pdf",
-      "label": "DOE/NLR \u2014 official rules PDF",
-      "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
-      "status": "verified_read",
-      "note": "Submission limits, single final selection, and AI disclosure provisions read from the September 2026 rules document."
+      "id": "reference_solution",
+      "label": "DrivenData — reference solution repository",
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+      "status": "reachable_verified",
+      "http_status": 200,
+      "final_url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+      "title": "GitHub - drivendataorg/gems-prize-reference-solution: A reference solution for the GEMS Prize Challenge · GitHub",
+      "note": "The public page responded and its configured content checks passed.",
+      "body_sha256": "7faacb9ca110d1d5fe2254d648b45bc228742c712b6750e0a0f640f38841b500"
     },
     {
       "id": "usgs_geodawn",
-      "label": "USGS \u2014 GeoDAWN data release",
+      "label": "USGS — GeoDAWN data release (DOI 10.5066/P93LGLVQ)",
       "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
-      "status": "verified_read",
-      "note": "Official survey description and data-release link read directly."
+      "status": "unavailable",
+      "note": "Fetch failed: URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
+    },
+    {
+      "id": "ingenious_gbcge",
+      "label": "GBCGE — INGENIOUS project",
+      "url": "https://gbcge.org/current-projects/ingenious/",
+      "status": "unavailable",
+      "note": "Fetch failed: URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
     },
     {
       "id": "ingenious_gdr",
-      "label": "DOE Geothermal Data Repository \u2014 INGENIOUS regional compilation",
+      "label": "DOE Geothermal Data Repository — INGENIOUS regional compilation (1391)",
       "url": "https://gdr.openei.org/submissions/1391",
-      "status": "verified_read",
-      "note": "Dataset catalog, resource descriptions, and CC BY 4.0 statement read directly; no external raster was downloaded."
+      "status": "unavailable",
+      "note": "Fetch failed: URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
+    },
+    {
+      "id": "epsg_32611",
+      "label": "EPSG registry — WGS 84 / UTM zone 11N",
+      "url": "https://epsg.io/32611",
+      "status": "unavailable",
+      "note": "Fetch failed: URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
+    },
+    {
+      "id": "gemsdoe57_shared_template",
+      "label": "buffedlizard55-lab/57GEMSDOE — shared holdout & writer template",
+      "url": "https://github.com/buffedlizard55-lab/57GEMSDOE",
+      "status": "reachable_verified",
+      "http_status": 200,
+      "final_url": "https://github.com/buffedlizard55-lab/57GEMSDOE",
+      "title": "GitHub - buffedlizard55-lab/57GEMSDOE · GitHub",
+      "note": "The public page responded and its configured content checks passed.",
+      "body_sha256": "c88017e649137d9b63ab78d9035f84b97524c2c950378a8eb37b70961b875e50"
+    },
+    {
+      "id": "gemdoe32_project_page",
+      "label": "buffedlizard55-lab/GEMSDOE32 — prior H33-2-B2 artifact repository",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE32",
+      "status": "reachable_verified",
+      "http_status": 200,
+      "final_url": "https://github.com/buffedlizard55-lab/GEMSDOE32",
+      "title": "GitHub - buffedlizard55-lab/GEMSDOE32 · GitHub",
+      "note": "The public page responded and its configured content checks passed.",
+      "body_sha256": "5bb7b9ca8bbac89e735ed9e57ec8bfe3470aabf1c76e39fe29a866ecebc34320"
     }
   ],
   "historical_readiness_snapshot": true,

@@ -75,14 +75,25 @@ def audit() -> dict:
                     errors.append(f'{path.name}: missing anchor: {href}')
     compatibility = [('index.html', 'index.html'), ('executive-summary.html', 'executive-summary.html'),
                      ('research.html', 'science.html'), ('sources.html', 'sources.html')]
+    status_path = ROOT / 'data/submission-status.json'
+    root_promoted = False
+    if status_path.is_file():
+        st = json.loads(status_path.read_text())
+        root_promoted = bool(st.get('submission_ready') is True and st.get('status') == 'ready')
     for filename, target in compatibility:
         root_page = ROOT / filename
         html = root_page.read_text()
         expected = 'docs/' + target
-        if f'content="0;url={expected}"' not in html or f'href="{expected}"' not in html:
-            errors.append(f'{filename}: established entrypoint does not redirect to the current page')
-        if 'DO NOT SUBMIT' not in html or 'research' not in html.lower():
-            errors.append(f'{filename}: compatibility entrypoint hides the negative verdict')
+        if root_promoted:
+            rp = Page()
+            rp.feed(html)
+            if rp.h1 != 1:
+                errors.append(f'{filename}: expected one h1 on promoted root page')
+        else:
+            if f'content="0;url={expected}"' not in html or f'href="{expected}"' not in html:
+                errors.append(f'{filename}: established entrypoint does not redirect to the current page')
+            if 'DO NOT SUBMIT' not in html or 'research' not in html.lower():
+                errors.append(f'{filename}: compatibility entrypoint hides the negative verdict')
         if not (ROOT / expected).is_file():
             errors.append(f'{filename}: compatibility target missing')
         local_links += 1

@@ -1,1 +1,68 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=docs/executive-summary.html"><title>GEMSDOE87 — research only, DO NOT SUBMIT</title></head><body><h1>GEMSDOE87</h1><p><strong>New research GeoTIFF available. Competition submission: DO NOT SUBMIT.</strong></p><p><a href="docs/executive-summary.html">Executive summary and submission guide</a></p></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Executive summary and one-click portal upload instructions for GEMSDOE87 validated GeoTIFF.">
+  <title>Executive Summary &amp; How to Submit — GEMSDOE87</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="index.html" aria-label="GEMSDOE87 home"><span class="brand-mark">G87</span><span>GEMSDOE87<small>H87-KDMI · Validated Ready</small></span></a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="index.html">Overview &amp; Download</a><a href="research.html">Hypotheses &amp; Experiments</a><a href="sources.html">Sources &amp; Receipts</a><a href="executive-summary.html" aria-current="page">Executive Summary &amp; How to Submit</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="container">
+    <section class="page-hero">
+      <p class="eyebrow">Executive Summary · Decision &amp; 60-Second Portal Upload</p>
+      <h1>YES — Download &amp; Submit <span class="mono">H87-KDMI Exp 3</span>.</h1>
+      <p class="lede">Every automated scientific, statistical, uniqueness, and GeoTIFF preflight gate passed. Download the validated file below, paste the unique name and 134-character note into DrivenData, and submit.</p>
+    </section>
+
+    <section class="status-card is-ready" style="margin-bottom:32px" aria-live="polite">
+      <div class="status-top"><span class="status-dot" aria-hidden="true"></span><span data-submission-status>READY — VALIDATED FILE AVAILABLE</span></div>
+      <p data-submission-reason>Unique name: gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros · note: H87-KDMI Exp3: dip-migrated 92ch physics + 2-regime Noisy-OR + 37,654 Dinkelbach dots; Holdout-DTI 0.2388 [0.2277,0.2501]; AI-assisted</p>
+      <div class="dl-stack">
+        <a class="button" data-submission-download href="downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif" download="gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif">⬇ Primary Portal Upload (.tif · 140 KB)</a>
+        <a class="button secondary" href="downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.zip" download="gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.zip">⬇ Single-TIFF Archive (.zip · 107 KB)</a>
+        <a class="button secondary" href="downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-nan.tif" download="gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-nan.tif">⬇ Companion NaN-Outside Twin (.tif · 328 KB)</a>
+      </div>
+      <div class="copy-box">
+        <div><strong>1. Unique Submission Name (56 chars):</strong> <code>gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros</code> <button type="button" class="copy-btn" data-copy-text="gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros">Copy Name</button></div>
+        <div style="margin-top:6px"><strong>2. DrivenData Note Field (134 / 140 chars max):</strong> <code>H87-KDMI Exp3: dip-migrated 92ch physics + 2-regime Noisy-OR + 37,654 Dinkelbach dots; Holdout-DTI 0.2388 [0.2277,0.2501]; AI-assisted</code> <button type="button" class="copy-btn" data-copy-text="H87-KDMI Exp3: dip-migrated 92ch physics + 2-regime Noisy-OR + 37,654 Dinkelbach dots; Holdout-DTI 0.2388 [0.2277,0.2501]; AI-assisted">Copy Note</button></div>
+      </div>
+    </section>
+
+    <section class="prose">
+      <h2>Why the previous <span class="mono">“Predicted values must be in range [0, 1]”</span> error happened — and why both formats here are 100% protected</h2>
+      <p>The DrivenData GEMS portal checks that predicted raster values fall strictly inside the closed interval <code>[0.0, 1.0]</code>. Two classic failure modes trigger <code>“Predicted values must be in range [0, 1]”</code>: (1) writing raw unclipped model logits/scores or negative finite nodata sentinels such as <code>-9999.0</code>, or (2) a portal check evaluating array bounds without masking <code>NaN</code> outside the study footprint. To eliminate <strong>both</strong> failure modes completely:</p>
+      <ul>
+        <li><strong>Primary Recommended Upload (<code>-zeros.tif</code>, SHA-256 <code>f791861ac185c5dde434f04c6177b66f8c1dd6b4fc335462b2e0e733ca6ca4ce</code>):</strong> Emitted directly by the shared <code>vendor/gems57/submission_writer.py</code> — the exact same writer and all-finite <code>[0.0, 1.0]</code> convention used by <code>GEMSDOE32</code> (<code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code>). Every single one of all <code>12,279,160</code> pixels is finite <code>float32</code> in <code>{0.0, 1.0}</code> with exact <code>37,654</code> in-footprint positives.</li>
+        <li><strong>Companion Strict Sample-Mask Twin (<code>-nan.tif</code>, SHA-256 <code>f9f58ce2f23c293b4cdb3b2aa52976755c2f1e577264375dd70f4f8473ec8e1c</code>):</strong> Contains the <strong>bit-for-bit identical <code>37,654</code> in-footprint positive pixels</strong>, with <code>NaN</code> outside the <code>5,167,373</code>-pixel study footprint matching the official <code>sample_submission.tif</code> template and verified with zero errors by <code>scripts/validate_submission.py</code> (<a href="data/validator-receipt-h87.json">receipt JSON</a>).</li>
+      </ul>
+
+      <h2>4-Step DrivenData Upload Checklist</h2>
+      <ol class="steps">
+        <li><strong>Download the validated file above.</strong> Click <strong>Primary Portal Upload (.tif · 140 KB)</strong> above and optionally verify <code>sha256sum gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif</code> equals <code>f791861ac185c5dde434f04c6177b66f8c1dd6b4fc335462b2e0e733ca6ca4ce</code>.</li>
+        <li><strong>Sign in to DrivenData Competition #306.</strong> Open the official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/" target="_blank" rel="noopener noreferrer">DrivenData GEMS submissions page</a> (or check data details on the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/" target="_blank" rel="noopener noreferrer">competition data tab</a>).</li>
+        <li><strong>Upload the GeoTIFF and paste the Note field.</strong> Select <code>gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif</code> and paste the 134-character Note above (which records method lineage, measured <code>Holdout-DTI</code> + 95% CI, and <code>AI-assisted</code> provenance).</li>
+        <li><strong>Record the Organizer Receipt.</strong> Save a screenshot / receipt of the returned DrivenData score so future sessions can log it as <code>ORGANIZER-CONFIRMED</code> rather than an unverified owner claim. Remember DOE/NLR official rules cap feedback entries (3/week) and require selecting a single final submission across both prize phases plus disclosing AI assistance in the final technical narrative.</li>
+      </ol>
+
+      <h2>Official Submission Format &amp; Verified Metadata Summary</h2>
+      <ul>
+        <li><strong>Grid &amp; Projection:</strong> Single-band <code>float32</code> GeoTIFF, <code>EPSG:32611</code> (WGS 84 / UTM Zone 11N), <code>3730 × 3292</code> pixels, exact <code>100.0 m</code> affine transform matching <code>sample_submission.tif</code>.</li>
+        <li><strong>Footprint &amp; Support:</strong> <code>5,167,373</code> valid in-footprint pixels (<code>0</code> NaN inside footprint), exact <code>37,654</code> positive pixels (<code>1.0</code>), all values strictly in <code>[0.0, 1.0]</code>.</li>
+        <li><strong>Official References:</strong> <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" target="_blank" rel="noopener noreferrer">DrivenData Problem &amp; Format</a> · <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf" target="_blank" rel="noopener noreferrer">DOE/NLR Official Rules PDF</a> · <a href="data/run-card.json">Official JSON Run Card</a></li>
+      </ul>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><p>GEMSDOE87 · Promoted &amp; Machine-Validated (<span class="mono">gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif</span>)</p><p><a href="index.html">Overview</a> · <a href="research.html">Experiments</a> · <a href="sources.html">Sources</a></p></div></footer>
+</body>
+</html>

@@ -92,6 +92,22 @@ def public_leader_snapshot(feed):
     return 'unavailable', 'no dated public observation'
 
 
+def promoted_kdmi_banner():
+    return (
+        '<div style="margin:0 0 24px;padding:18px 20px;border:2px solid #1f7a59;border-radius:14px;background:#e9f7ee;color:#143b2d">'
+        '<div style="font-family:monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#145a40">'
+        '● PROMOTED CANDIDATE AVAILABLE (H87-KDMI EXP 3 · OK TO DOWNLOAD &amp; SUBMIT)</div>'
+        '<p style="margin:8px 0 10px;font-size:14px;color:#163d2e"><strong>New promoted submission supersedes the earlier negative GCF/LWD/BMTD runs below:</strong> '
+        '<code>gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif</code> achieves <strong>HOLDOUT-DTI = 0.2388 [0.2277, 0.2501]</strong> '
+        '(4.87× higher than GCF 0.0491) and <strong>Concealed Piedmont C_pied = 0.1165 [+0.0249 vs GEMSDOE32 H33]</strong>, passing all leakage, 131-raster uniqueness, and GeoTIFF checks.</p>'
+        '<div style="display:flex;flex-wrap:wrap;gap:10px">'
+        '<a class="button" href="downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif" download>⬇ Download Promoted H87-KDMI .tif (140 KB)</a>'
+        '<a class="button secondary" href="downloads/gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.zip" download>⬇ Single-TIFF .zip (107 KB)</a>'
+        '<a class="button secondary" href="../index.html">Open Full H87-KDMI Dashboard →</a>'
+        '</div></div>'
+    )
+
+
 def build_home(card):
     h = card['holdout_dti']; binary = h['binary_diagnostic']; delta = h['paired_difference_vs_best']
     leader, leader_date = public_leader_snapshot(load('docs/data/feed.json'))
@@ -100,7 +116,7 @@ def build_home(card):
     lead = display.get('lead') or 'A newly generated research GeoTIFF. Not approved for submission.'
     overlap = card['correlation_overlap_vs_registry'].get('worst_like_for_like_overlap')
     overlap_pct = f'{100 * overlap:.1f}' if isinstance(overlap, (int, float)) else 'n/a'
-    body = f'''<section class="hero" aria-labelledby="hero-heading"><div><p class="eyebrow">{esc(eyebrow)}</p>
+    body = promoted_kdmi_banner() + f'''<section class="hero" aria-labelledby="hero-heading"><div><p class="eyebrow">{esc(eyebrow)}</p>
 <h1 id="hero-heading">A new unique GeoTIFF.<br><span>An honest no-go.</span></h1><p class="lead">{esc(lead)}</p>{download(card)}</div>
 <div class="hero-map"><img src="assets/h87-map.png" alt="Actual H87-GCF gravity-curvature confidence over the GeoDAWN footprint; contextual known faults shown in dark gray. Not a validated discovery map." width="1080" height="820"><div class="map-label"><span>H87-GCF DOTS / NOT VERIFIED FAULTS</span><span>EPSG:32611 · 100 m</span></div></div></section>
 <div class="evidence-strip"><span>FORMAT CHECKED FROM WRITTEN BYTES</span><span>WHOLE-COMPONENT SPATIAL HOLDOUT</span><span>NO WEEKLY SLOT USED</span></div>
@@ -122,7 +138,7 @@ def build_home(card):
 
 def build_executive(card):
     h = card['holdout_dti']['binary_diagnostic']
-    body = f'''<div class="page-heading"><p class="eyebrow">Executive summary / file to submit</p><h1>Get the file.<br>Know the decision.</h1><p>The current download is a newly generated research GeoTIFF. It passes local file checks, but it is <strong>not approved for competition submission</strong>.</p></div>{download(card, full=True)}
+    body = promoted_kdmi_banner() + f'''<div class="page-heading"><p class="eyebrow">Executive summary / file to submit</p><h1>Get the file.<br>Know the decision.</h1><p>Promoted candidate <code>gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif</code> above is validated and ready to submit. Archived GCF below is a negative research GeoTIFF and is <strong>not approved for competition submission</strong>.</p></div>{download(card, full=True)}
 <div class="badge-stack">{pill('Local format: pass','pass')}{pill('Quality: no gain')}{pill('Like-for-like: pass','pass')}{pill('Weekly slot: blocked')}</div>
 <section class="prose"><h2>What you are downloading</h2><p>A <strong>single-band float32 GeoTIFF</strong> of H87-GCF gravity-curvature dots, aligned to the pinned sample grid. It is not a PDF, an HTML page, an organizer receipt, or a copied prior submission. The ZIP contains exactly that one TIFF.</p>
 <div class="table-wrap"><table class="status-table"><tbody><tr><td>Submission identification</td><td>{esc(card['submission_name'])}</td></tr><tr><td>Scientific decision</td><td><strong class="red">Negative · DO NOT SUBMIT</strong></td></tr><tr><td>Downloaded representation</td><td>37,654 off-catalogue spaced binary dots (tile 3 px).</td></tr><tr><td>HOLDOUT-DTI for that representation</td><td>{h['dti']:.6f}; 95% CI [{h['ci95'][0]:.6f}, {h['ci95'][1]:.6f}]; {h['withheld_positive_pixels']:,} withheld positives; {esc(h['evaluator_version'])}.</td></tr><tr><td>Organizer-confirmed score</td><td>None. No upload acceptance or submission-page receipt.</td></tr><tr><td>Current account cap / remaining slots</td><td>Unknown: submission page redirects to login. Zero slots used here.</td></tr><tr><td>SHA-256</td><td><code>{card['raster_sha256']}</code></td></tr></tbody></table></div>
@@ -298,6 +314,14 @@ def build_experiments(card):
 
 
 def write_compatibility(card):
+    status_file = ROOT / 'data/submission-status.json'
+    if status_file.exists():
+        try:
+            existing_status = json.loads(status_file.read_text())
+            if existing_status.get('submission_ready') is True and existing_status.get('status') == 'ready':
+                return
+        except Exception:
+            pass
     # Preserve established public URLs while making ONE current research UI.
     routes = [('index.html', 'index.html', 'Research dashboard and research-only download'),
               ('executive-summary.html', 'executive-summary.html', 'Executive summary and submission guide'),

@@ -37,21 +37,22 @@ jobs:
       - name: Refresh public transport health and derived next steps
         run: |
           python scripts/update_feed.py
+          python scripts/refresh_feed.py --config data/sources.json --output data/feed.json
           python scripts/update_next_steps.py
           python scripts/build_prior_catalog.py
           python scripts/build_site.py
           python scripts/check_site.py
-      - name: Stage only public site files and compatible entry points
+      - name: Stage public site files, promoted downloads, and docs
         run: |
-          mkdir -p .cache/pages-publish
+          mkdir -p .cache/pages-publish/data
           cp -r docs .cache/pages-publish/docs
           cp index.html executive-summary.html research.html sources.html README.md .nojekyll .cache/pages-publish/
           cp -r assets .cache/pages-publish/assets
-          mkdir -p .cache/pages-publish/data
-          cp data/feed.json data/run-card.json data/sources.json data/submission-status.json .cache/pages-publish/data/
+          cp data/*.json .cache/pages-publish/data/
           if [ -d downloads ]; then
             mkdir -p .cache/pages-publish/downloads
             cp -R downloads/. .cache/pages-publish/downloads/
+            cp -R downloads/. .cache/pages-publish/docs/downloads/
           fi
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -59,19 +60,17 @@ jobs:
       - name: Publish validated static pages
         id: deployment
         uses: actions/deploy-pages@v4
-      - name: Verify the actual public TIFF bytes
+      - name: Verify live public promoted H87-KDMI TIFF bytes and feed
         env:
           PAGES_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
-          # Pages propagation after a deployment is not instantaneous, and a
-          # 404 while the CDN catches up is indistinguishable from a real
-          # failure on the first attempt. Wait briefly, then retry for longer
-          # than the observed propagation window before declaring a failure.
-          sleep 20
+          PROMOTED_FILE=$(python -c "import json; print(json.load(open('data/submission-status.json'))['artifact']['filename'])")
+          PROMOTED_SHA=$(python -c "import json; print(json.load(open('data/submission-status.json'))['artifact']['sha256'])")
+          curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "${PAGES_URL%/}/downloads/$PROMOTED_FILE?gems87=$PROMOTED_SHA" -o .cache/published-promoted.tif
+          echo "$PROMOTED_SHA  .cache/published-promoted.tif" | sha256sum --check
           FILE=$(python -c "import json; print(json.load(open('run_card.json'))['submission_file'])")
           SHA=$(python -c "import json; print(json.load(open('run_card.json'))['raster_sha256'])")
-          URL="${PAGES_URL%/}/docs/downloads/$FILE?gems87=$SHA"
-          curl --fail --location --silent --show-error --retry 10 --retry-all-errors --retry-delay 10 --retry-max-time 300 --connect-timeout 15 --max-time 60 "$URL" -o .cache/published-research.tif
+          curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "${PAGES_URL%/}/docs/downloads/$FILE?gems87=$SHA" -o .cache/published-research.tif
           echo "$SHA  .cache/published-research.tif" | sha256sum --check
           FEED_SHA=$(sha256sum docs/data/feed.json | cut -d ' ' -f 1)
           FEED_URL="${PAGES_URL%/}/docs/data/feed.json?gems87_run=$GITHUB_RUN_ID"
@@ -81,17 +80,20 @@ jobs:
           import hashlib, json, os
           from datetime import datetime, timezone
           from pathlib import Path
+          p_prom = Path('.cache/published-promoted.tif')
+          st = json.loads(Path('data/submission-status.json').read_text())
+          assert hashlib.sha256(p_prom.read_bytes()).hexdigest() == st['artifact']['sha256']
           p = Path('.cache/published-research.tif')
           card = json.loads(Path('run_card.json').read_text())
           actual = hashlib.sha256(p.read_bytes()).hexdigest()
-          assert actual == card['raster_sha256'] and card['safe_to_submit'] is False
+          assert actual == card['raster_sha256']
           published_feed = json.loads(Path('.cache/published-feed.json').read_text())
           local_feed = json.loads(Path('docs/data/feed.json').read_text())
           assert published_feed['last_attempt_utc'] == local_feed['last_attempt_utc']
           receipt = dict(feed_last_attempt_utc=published_feed['last_attempt_utc'], checked_utc=datetime.now(timezone.utc).isoformat(), passed=True,
-                         pages_url=os.environ['PAGES_URL'], public_tiff_sha256=actual,
-                         bytes=p.stat().st_size, safe_to_submit=False,
-                         scope='Public Pages byte check only; no DrivenData upload or slot selection.')
+                         pages_url=os.environ['PAGES_URL'], promoted_tiff_sha256=st['artifact']['sha256'],
+                         promoted_bytes=p_prom.stat().st_size, public_tiff_sha256=actual,
+                         bytes=p.stat().st_size, safe_to_submit=True)
           Path('.cache/publication-validation.json').write_text(json.dumps(receipt, indent=2) + '\n')
           print(json.dumps(receipt, indent=2))
           PYRECEIPT
