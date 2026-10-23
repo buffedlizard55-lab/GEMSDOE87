@@ -1,0 +1,52 @@
+{
+  "experiment_id": "H87-BMTD-01",
+  "registered_utc": "2026-10-22T21:51:40.467225+00:00",
+  "hypothesis_document": "research/hypotheses.md",
+  "lane": "bilateral magnetic texture dislocation; only RTP magnetics enters candidate",
+  "no_assigned_method_paragraph_supplied": true,
+  "physical_candidate_bands": [
+    2
+  ],
+  "control_bands": [
+    3,
+    19
+  ],
+  "orientations": 4,
+  "tangential_shifts_px": [
+    -4,
+    -2,
+    2,
+    4
+  ],
+  "normal_offset_px": 3,
+  "window_px": 9,
+  "gaussian_scales_px": [
+    1,
+    6
+  ],
+  "missing_boundary_guard_px": 40,
+  "binary_diagnostic_budget": 37654,
+  "continuous_artifact_policy": "If the pre-placement registry gate blocks dots, retain a newly generated continuous research GeoTIFF; never mark it submission-approved.",
+  "split": "shared spatial.folds: four fixed quadrants, entire intersecting 8-connected components withheld",
+  "buffer_px": 80,
+  "metric": "shared gems57-pooled-hide-v2; pooled DTI alpha=0.2 beta=0.8 R=300m",
+  "bootstrap": {
+    "physical_cluster_side_px": 200,
+    "draws": 2000,
+    "seed": 87022,
+    "confidence": 0.95
+  },
+  "canary": {
+    "two_sided_auc_threshold": 0.9,
+    "max_proxy_negatives_per_fold": 50000
+  },
+  "registry_thresholds": {
+    "spearman_strictly_greater_than": 0.9,
+    "forward_overlap_3px_strictly_greater_than": 0.7,
+    "no_dense_support_exemption": true
+  },
+  "promotion": "Positive paired lower CI versus all comparable controls AND complete registry clearance; selector remains separate and requires actual current submission-page cap/usage.",
+  "experiments_allowed": 3,
+  "hours_allowed": 2,
+  "submission_slots_to_use": 0
+}

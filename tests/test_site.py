@@ -73,7 +73,7 @@ class SiteTests(unittest.TestCase):
         html = (ROOT / "executive-summary.html").read_text(encoding="utf-8")
         for phrase in ("submission format", "sample_submission.tif", "[0.0, 1.0]", "Note", "AI-assisted"):
             self.assertIn(phrase.lower(), html.lower())
-        self.assertIn("drivendata.org/competitions/306/competition-doe-gems/data/", html)
+        self.assertIn("drivendata.org/competitions/306/competition-doe-gems/submissions/", html)
 
     def test_all_local_html_links_and_embedded_images_resolve(self) -> None:
         for page in ROOT.glob("*.html"):
@@ -88,8 +88,8 @@ class SiteTests(unittest.TestCase):
     def test_pages_workflow_packages_downloads_and_all_json_receipts(self) -> None:
         workflow = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
         self.assertIn("if [ -d downloads ]; then", workflow)
-        self.assertIn("cp -R downloads/. _site/downloads/", workflow)
-        self.assertIn("cp data/*.json _site/data/", workflow)
+        self.assertIn("cp -R downloads/. .cache/pages-publish/downloads/", workflow)
+        self.assertIn("cp data/*.json .cache/pages-publish/data/", workflow)
 
     def test_source_register_and_feed_are_parseable_and_score_free(self) -> None:
         sources = json.loads((ROOT / "data/sources.json").read_text(encoding="utf-8"))

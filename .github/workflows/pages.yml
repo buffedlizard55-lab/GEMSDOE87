@@ -1,23 +1,12 @@
-name: Refresh source feed and publish site
+name: Pages and read-only source feed
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "index.html"
-      - "executive-summary.html"
-      - "research.html"
-      - "sources.html"
-      - "README.md"
-      - "assets/**"
-      - "data/**"
-      - "docs/**"
-      - "downloads/**"
-      - "scripts/refresh_feed.py"
-      - ".github/workflows/pages.yml"
+  workflow_run:
+    workflows: [pages-build-deployment]
+    types: [completed]
+    branches: [main]
   schedule:
-    - cron: "17 9 * * *"
+    - cron: '17 6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -26,38 +15,93 @@ permissions:
   id-token: write
 
 concurrency:
-  group: github-pages
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
-      - name: Check out published source
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-      - name: Assemble static site
+          python-version: '3.11'
+          cache: pip
+      - name: Install only the static-site and public-health dependencies
+        run: python -m pip install 'Markdown==3.11.2' 'requests==2.34.2'
+      - name: Refresh public transport health and derived next steps
         run: |
-          mkdir -p _site/data _site/assets _site/docs
-          cp index.html executive-summary.html research.html sources.html README.md _site/
-          cp -R assets/. _site/assets/
-          cp data/*.json _site/data/
-          cp docs/*.md _site/docs/
+          python scripts/update_feed.py
+          python scripts/refresh_feed.py --config data/sources.json --output data/feed.json
+          python scripts/update_next_steps.py
+          python scripts/build_prior_catalog.py
+          python scripts/build_site.py
+          python scripts/check_site.py
+      - name: Stage public site files, promoted downloads, and docs
+        run: |
+          mkdir -p .cache/pages-publish/data
+          cp -r docs .cache/pages-publish/docs
+          cp index.html executive-summary.html research.html sources.html README.md .nojekyll .cache/pages-publish/
+          cp -r assets .cache/pages-publish/assets
+          cp data/*.json .cache/pages-publish/data/
           if [ -d downloads ]; then
-            mkdir -p _site/downloads
-            cp -R downloads/. _site/downloads/
+            mkdir -p .cache/pages-publish/downloads
+            cp -R downloads/. .cache/pages-publish/downloads/
+            cp -R downloads/. .cache/pages-publish/docs/downloads/
           fi
-          python scripts/refresh_feed.py --config data/sources.json --output _site/data/feed.json
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
-      - name: Deploy to GitHub Pages
+          path: .cache/pages-publish
+      - name: Publish validated static pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify live public promoted H87-KDMI TIFF bytes and feed
+        env:
+          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          PROMOTED_FILE=$(python -c "import json; print(json.load(open('data/submission-status.json'))['artifact']['filename'])")
+          PROMOTED_SHA=$(python -c "import json; print(json.load(open('data/submission-status.json'))['artifact']['sha256'])")
+          curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "${PAGES_URL%/}/downloads/$PROMOTED_FILE?gems87=$PROMOTED_SHA" -o .cache/published-promoted.tif
+          echo "$PROMOTED_SHA  .cache/published-promoted.tif" | sha256sum --check
+          FILE=$(python -c "import json; print(json.load(open('run_card.json'))['submission_file'])")
+          SHA=$(python -c "import json; print(json.load(open('run_card.json'))['raster_sha256'])")
+          curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "${PAGES_URL%/}/docs/downloads/$FILE?gems87=$SHA" -o .cache/published-research.tif
+          echo "$SHA  .cache/published-research.tif" | sha256sum --check
+          FEED_SHA=$(sha256sum docs/data/feed.json | cut -d ' ' -f 1)
+          FEED_URL="${PAGES_URL%/}/docs/data/feed.json?gems87_run=$GITHUB_RUN_ID"
+          curl --fail --location --silent --show-error --header 'Cache-Control: no-cache' --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$FEED_URL" -o .cache/published-feed.json
+          echo "$FEED_SHA  .cache/published-feed.json" | sha256sum --check
+          python - <<'PYRECEIPT'
+          import hashlib, json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          p_prom = Path('.cache/published-promoted.tif')
+          st = json.loads(Path('data/submission-status.json').read_text())
+          assert hashlib.sha256(p_prom.read_bytes()).hexdigest() == st['artifact']['sha256']
+          p = Path('.cache/published-research.tif')
+          card = json.loads(Path('run_card.json').read_text())
+          actual = hashlib.sha256(p.read_bytes()).hexdigest()
+          assert actual == card['raster_sha256']
+          published_feed = json.loads(Path('.cache/published-feed.json').read_text())
+          local_feed = json.loads(Path('docs/data/feed.json').read_text())
+          assert published_feed['last_attempt_utc'] == local_feed['last_attempt_utc']
+          receipt = dict(feed_last_attempt_utc=published_feed['last_attempt_utc'], checked_utc=datetime.now(timezone.utc).isoformat(), passed=True,
+                         pages_url=os.environ['PAGES_URL'], promoted_tiff_sha256=st['artifact']['sha256'],
+                         promoted_bytes=p_prom.stat().st_size, public_tiff_sha256=actual,
+                         bytes=p.stat().st_size, safe_to_submit=True)
+          Path('.cache/publication-validation.json').write_text(json.dumps(receipt, indent=2) + '\n')
+          print(json.dumps(receipt, indent=2))
+          PYRECEIPT
+      - name: Retain public-byte verification receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-publication-verification
+          path: .cache/publication-validation.json
+          if-no-files-found: warn
+          retention-days: 14

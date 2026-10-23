@@ -1,11 +1,18 @@
 # Python test/build artifacts & local heavy feature/raster caches
 .venv/
 .cache/
+node_modules/
+data/raw/
 __pycache__/
-*.py[cod]
 .pytest_cache/
-
-# Local work products: keep competition rasters and ZIPs out of Git.
+*.pyc
+node_modules/
+playwright-report/
+.DS_Store
+*.partial
+*.assembling
+data/official/
+# Keep arbitrary raster artifacts out; only this explicitly required research bundle is tracked.
 *.tif
 *.tiff
 *.zip
@@ -18,3 +25,6 @@ evidence/tmp/
 
 # Site build output
 _site/
+evidence/tmp/
+!docs/downloads/gems87-pgf1-37654dots-20261023.tif
+!docs/downloads/gems87-pgf1-37654dots-20261023.zip

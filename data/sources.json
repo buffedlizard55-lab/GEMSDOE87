@@ -3,31 +3,39 @@
   "sources": [
     {
       "id": "competition_problem",
-      "label": "DrivenData — GEMS problem description",
+      "label": "DrivenData \u2014 GEMS problem description",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
       "role": "Official task, data, metric, and submission-format reference",
       "feed_check": true,
-      "expected_terms": ["distance-weighted", "EPSG 32611", "float32"]
+      "expected_terms": [
+        "distance-weighted",
+        "EPSG 32611",
+        "float32"
+      ]
     },
     {
       "id": "competition_data",
-      "label": "DrivenData — competition data tab",
+      "label": "DrivenData \u2014 competition data tab",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
       "role": "Official data-download entry point; sign-in required for direct portal download",
       "feed_check": true,
-      "expected_terms": ["login"]
+      "expected_terms": [
+        "login"
+      ]
     },
     {
       "id": "competition_leaderboard",
-      "label": "DrivenData — public leaderboard",
+      "label": "DrivenData \u2014 public leaderboard",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
       "role": "Live public leaderboard; not a receipt tying a score to a specific TIFF",
       "feed_check": true,
-      "expected_terms": ["leaderboard"]
+      "expected_terms": [
+        "leaderboard"
+      ]
     },
     {
       "id": "official_rules_pdf",
-      "label": "DOE/NLR — GEMS Prize official rules PDF",
+      "label": "DOE/NLR \u2014 GEMS Prize official rules PDF",
       "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
       "role": "Official prize rules, submission process, weekly caps, and AI disclosure requirement",
       "feed_check": false,
@@ -35,11 +43,13 @@
     },
     {
       "id": "reference_solution",
-      "label": "DrivenData — reference solution repository",
+      "label": "DrivenData \u2014 reference solution repository",
       "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
       "role": "Official baseline implementation and setup instructions",
       "feed_check": true,
-      "expected_terms": ["reference solution"]
+      "expected_terms": [
+        "reference solution"
+      ]
     },
     {
       "id": "usgs_geodawn",
@@ -47,15 +57,20 @@
       "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
       "role": "Official GeoDAWN airborne magnetic/radiometric survey provenance (CC0 1.0)",
       "feed_check": true,
-      "expected_terms": ["10.5066/P93LGLVQ", "CC0"]
+      "expected_terms": [
+        "10.5066/P93LGLVQ",
+        "CC0"
+      ]
     },
     {
       "id": "ingenious_gbcge",
-      "label": "GBCGE — INGENIOUS project",
+      "label": "GBCGE \u2014 INGENIOUS project",
       "url": "https://gbcge.org/current-projects/ingenious/",
       "role": "Great Basin geothermal structural context and INGENIOUS compilation",
       "feed_check": true,
-      "expected_terms": ["INGENIOUS"]
+      "expected_terms": [
+        "INGENIOUS"
+      ]
     },
     {
       "id": "ingenious_gdr",
@@ -63,7 +78,9 @@
       "url": "https://gdr.openei.org/submissions/1391",
       "role": "Public regional geoscience dataset catalog and CC BY 4.0 license statement",
       "feed_check": true,
-      "expected_terms": ["10.15121/1881483"]
+      "expected_terms": [
+        "10.15121/1881483"
+      ]
     },
     {
       "id": "usgs_sgmc_ds1052",
@@ -75,11 +92,14 @@
     },
     {
       "id": "epsg_32611",
-      "label": "EPSG registry — WGS 84 / UTM zone 11N",
+      "label": "EPSG registry \u2014 WGS 84 / UTM zone 11N",
       "url": "https://epsg.io/32611",
       "role": "CRS identifier and metre units reference",
       "feed_check": true,
-      "expected_terms": ["WGS 84 / UTM zone 11N", "metre"]
+      "expected_terms": [
+        "WGS 84 / UTM zone 11N",
+        "metre"
+      ]
     },
     {
       "id": "gemsdoe57_shared_template",
@@ -97,5 +117,7 @@
       "feed_check": true,
       "expected_terms": ["GEMSDOE32"]
     }
-  ]
+  ],
+  "historical_readiness_snapshot": true,
+  "superseded_by": "../docs/data/sources.json"
 }

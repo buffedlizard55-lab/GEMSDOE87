@@ -1,0 +1,12 @@
+{
+  "name": "gemsdoe87-validation",
+  "private": true,
+  "description": "Optional real-browser checks of the static research site; no frontend runtime dependencies",
+  "scripts": {
+    "test:browser": "GEMS_START_SERVER=1 node scripts/browser_smoke.cjs"
+  },
+  "devDependencies": {
+    "@sparticuz/chromium": "153.0.0",
+    "playwright-core": "1.64.1"
+  }
+}

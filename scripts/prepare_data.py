@@ -117,6 +117,9 @@ def run_leakage_canary(mm: np.memmap, fp_idx: np.ndarray, core_dir: Path) -> dic
 
 
 def main() -> None:
+    import argparse
+    ap = argparse.ArgumentParser(description="Build 92-channel H87-KDMI physical feature stack and run leakage canary.")
+    ap.parse_args()
     t0 = time.time()
     cache_dir = ROOT / ".cache"
     bundle = build_or_load_kdmi_stack(cache_dir)

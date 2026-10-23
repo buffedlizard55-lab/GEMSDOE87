@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "session": 2,
+  "generated_utc": "2026-10-23",
+  "hypothesis": "H87-PGF: a buried fault flexure shows paired opposite-sign cross-normal gravity-curvature (D2) lobes at +-6 px, max over 4 orientations (band 13, iso_grav_anom). Experiments 2-3 (depth-surface geometric mean; magnetic-HGM fusion) were also run under the same rule and were worse.",
+  "mechanism": "Geometric mean of opposing D2 lobes (sign-invariant); bounded by label-free q99; dots emitted by shared gems57 emit_decimated (3 px tiles) at the fixed 37,654-dot budget, catalogue pixel-masked, footprint-only.",
+  "non_fault_mimic": "Sedimentary pinch-outs, buried intrusive margins, smooth basin edges, gravity interpolation boundaries.",
+  "experiments_used": "3 of 3 (budget exhausted; no further variants)",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "withheld_positive_pixels": 60988,
+    "candidate_pgf_dots": {"dti": 0.052721, "ci95": [0.042545, 0.062848]},
+    "best_comparable_control_magnetic_hgm": {"dti": 0.043673, "ci95": [0.032374, 0.055836]},
+    "paired_delta_vs_best_control": {"delta": 0.009048, "ci95": [-0.007699, 0.024758]},
+    "experiment2_pgf_gm_dots": {"dti": 0.047547, "ci95": [0.039573, 0.055884]},
+    "experiment3_fusion_dots": {"dti": 0.046209, "ci95": [0.036701, 0.055808]},
+    "session1_bmtd_dots": {"dti": 0.043385, "ci95": [0.035700, 0.051025]},
+    "interpretation": "Candidate beats every control and the session-1 candidate on point estimate, but the paired 95% CI vs the best control includes zero, so the preregistered promotion rule (paired lower CI > 0) is NOT met."
+  },
+  "leakage_canary": {"passed": true, "max_two_sided_auc": 0.589271, "threshold": 0.9, "note": "All features, all folds, experiments 1-3; max over session is experiment-3 value. No trigger; not proof of no leakage."},
+  "correlation_overlap_vs_registry": {
+    "reference": "GEMSDOE32 h33-2-b2-zeros sparse dot raster (registry sha256 c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9)",
+    "reference_dots": 37654, "my_dots": 37654,
+    "frac_my_dots_within_3px_of_theirs": 0.143066,
+    "frac_their_dots_within_3px_of_mine": 0.076698,
+    "jaccard_dot_sets": 0.004053, "binary_pearson_phi": 0.005022,
+    "duplicate_by_overlap_gt_0p70": false, "duplicate_by_corr_gt_0p90": false,
+    "irregularity": "A saturated 57GEMSDOE continuous raster covers all 5,106,385 allowed cells, so the literal any-raster 3-px overlap rule blocks every non-empty file; flagged session 1, not hidden. Sparse like-for-like check above passes."
+  },
+  "raster_sha256": "891aa33ed0523b32ce9d6ed46b2d050db060f96203ace1d49d635bdbd9682af4",
+  "validator_output": {
+    "single_band_float32": true, "crs": "EPSG:32611", "shape": [3730, 3292],
+    "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+    "unique_values": [0.0, 1.0], "all_finite": true, "values_in_0_1": true,
+    "no_nan_inside_footprint": true, "nodata_tag": null,
+    "positive_outside_footprint": 0, "positive_on_catalogue": 0, "dots": 37654,
+    "zip_contains_exactly_one_matching_tiff": true,
+    "portal_range_error_class": "cannot occur: writer rejects out-of-range input; on-disk re-read confirms min=0.0 max=1.0"
+  },
+  "submission_name": "gems87-pgf1-37654dots-20261023",
+  "submission_note_119_chars": "H87-PGF paired gravity-curvature flanks, 37654 dots; holdout beats ctrl point est, paired CI incl 0; research candidate",
+  "submission_file": "docs/downloads/gems87-pgf1-37654dots-20261023.tif",
+  "submission_slots_used": 0,
+  "verdict": "negative",
+  "verdict_reason": "Format-valid and registry-unique vs sparse references, and best point estimate so far in this repo, but the preregistered paired-CI promotion rule failed and no organizer receipt exists. DO NOT SPEND A WEEKLY SLOT on it without a separate selector decision accepting that risk explicitly."
+}

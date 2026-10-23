@@ -1,0 +1,12 @@
+{
+  "reference": "GEMSDOE32 h33-2-b2-zeros (registry sha256 c55bafc470054e82\u2026)",
+  "reference_dots": 37654,
+  "my_dots": 37654,
+  "frac_my_dots_within_3px_of_theirs": 0.14306580974132893,
+  "frac_their_dots_within_3px_of_mine": 0.07669835874010729,
+  "jaccard_dot_sets": 0.004053117167084422,
+  "binary_pearson_phi": 0.005022416262453372,
+  "duplicate_by_overlap_gt_0p70": false,
+  "duplicate_by_corr_gt_0p90": false,
+  "saturated_continuous_witness_note": "57GEMSDOE continuous raster covers all allowed cells; literal any-raster 3px rule is unsatisfiable for any non-empty file (flagged IR, session 1). Like-for-like sparse comparison above."
+}

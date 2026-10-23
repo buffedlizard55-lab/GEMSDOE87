@@ -86,5 +86,7 @@
       "note": "The public page responded and its configured content checks passed.",
       "body_sha256": "5bb7b9ca8bbac89e735ed9e57ec8bfe3470aabf1c76e39fe29a866ecebc34320"
     }
-  ]
+  ],
+  "historical_readiness_snapshot": true,
+  "superseded_by": "../docs/data/feed.json"
 }

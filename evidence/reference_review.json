@@ -1,0 +1,11 @@
+{
+  "source": "https://github.com/drivendataorg/gems-prize-reference-solution/blob/aebe92f7c8a990f0e3443451b7a825d9afd6336b/unet-mc-cv-reference-solution.ipynb",
+  "sha256": "1a7622732ba00f67237058bc0efe79b45ba4e87c449fc9c1e5d6ea659de92ca0",
+  "cells_inspected": [
+    0,
+    1,
+    16
+  ],
+  "trained": false,
+  "finding": "Ordinary Tversky training loss and random patch Monte Carlo cross-validation; not the official distance-weighted metric or required whole-component holdout."
+}

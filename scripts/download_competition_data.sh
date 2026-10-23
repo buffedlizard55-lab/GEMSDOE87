@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
+# Autonomous SHA-pinned owner mirrors, not an authenticated DrivenData download.
 set -euo pipefail
-
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-PYTHON_BIN="${ROOT_DIR}/.venv/bin/python"
-if [[ ! -x "${PYTHON_BIN}" ]]; then
-  PYTHON_BIN="python3"
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+PYTHON="${PYTHON:-$ROOT/.venv/bin/python}"
+if [[ ! -x "$PYTHON" ]]; then
+  echo 'Create .venv and install requirements-lock.txt first (see README).' >&2
+  exit 2
 fi
-
-echo "[GEMSDOE87] Restoring & verifying SHA-256 digests for DrivenData/NETL GEMS rasters + public external layers..."
-"${PYTHON_BIN}" "${ROOT_DIR}/scripts/restore_data.py"
+exec "$PYTHON" "$ROOT/scripts/restore_data.py" --target-dir "$ROOT/data/raw" "$@"

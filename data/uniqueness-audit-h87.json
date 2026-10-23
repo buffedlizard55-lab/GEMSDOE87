@@ -1,5 +1,5 @@
 {
-  "n_unique_rasters_audited": 127,
+  "n_unique_rasters_audited": 131,
   "pre_placement_surface_gate": {
     "limit_abs_spearman": 0.9,
     "max_abs_spearman": 0.408769,
@@ -2167,10 +2167,62 @@
       "spearman_pre_placement_surface": 0.039844,
       "spearman_full_footprint": 0.00814,
       "representation": "dot_field"
+    },
+    {
+      "submission": "GEMSDOE87/docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif",
+      "repo": "GEMSDOE87",
+      "their_dots": 4532408,
+      "my_dots": 37654,
+      "halo_coverage": 0.90404,
+      "forward_overlap": 0.890291,
+      "my_dots_within_3px_of_theirs": 0.890291,
+      "their_dots_within_3px_of_mine": 0.155659,
+      "jaccard_dot_sets": 0.007226,
+      "spearman_pre_placement_surface": 0.131342,
+      "representation": "continuous_surface"
+    },
+    {
+      "submission": "GEMSDOE87/docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.tif",
+      "repo": "GEMSDOE87",
+      "their_dots": 37654,
+      "my_dots": 37654,
+      "halo_coverage": 0.080044,
+      "forward_overlap": 0.104212,
+      "my_dots_within_3px_of_theirs": 0.104212,
+      "their_dots_within_3px_of_mine": 0.208451,
+      "jaccard_dot_sets": 0.005326,
+      "spearman_pre_placement_surface": 0.005027,
+      "representation": "dot_field"
+    },
+    {
+      "submission": "GEMSDOE87/docs/downloads/gems87-lwd-20261023T002405Z-78270acd3587-RESEARCH-DO-NOT-SUBMIT.tif",
+      "repo": "GEMSDOE87",
+      "their_dots": 37654,
+      "my_dots": 37654,
+      "halo_coverage": 0.089095,
+      "forward_overlap": 0.126998,
+      "my_dots_within_3px_of_theirs": 0.126998,
+      "their_dots_within_3px_of_mine": 0.223854,
+      "jaccard_dot_sets": 0.006321,
+      "spearman_pre_placement_surface": 0.024693,
+      "representation": "dot_field"
+    },
+    {
+      "submission": "GEMSDOE87/docs/downloads/gems87-pgf1-37654dots-20261023.tif",
+      "repo": "GEMSDOE87",
+      "their_dots": 37654,
+      "my_dots": 37654,
+      "halo_coverage": 0.074865,
+      "forward_overlap": 0.101583,
+      "my_dots_within_3px_of_theirs": 0.101583,
+      "their_dots_within_3px_of_mine": 0.213762,
+      "jaccard_dot_sets": 0.005072,
+      "spearman_pre_placement_surface": 0.01011,
+      "representation": "dot_field"
     }
   ],
   "discriminating_dot_fields_gate": {
-    "n_discriminating_dot_fields": 123,
+    "n_discriminating_dot_fields": 126,
     "n_space_filling_rasters_halo_ge_070": 3,
     "n_continuous_surface_rasters": 3,
     "worst_forward_overlap": 0.676449,
