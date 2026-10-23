@@ -85,3 +85,10 @@ def test_refreshed_pages_deploys_after_legacy_build_and_checks_public_feed():
     assert '  workflow_run:' in workflow and 'workflows: [pages-build-deployment]' in workflow
     assert 'types: [completed]' in workflow and '\n  push:' not in workflow
     assert '.cache/published-feed.json' in workflow and 'feed_last_attempt_utc' in workflow
+
+
+def test_software_ci_runs_on_all_arena_session_branches():
+    for path in ('.github/workflows/ci.yml', '.github/workflows/tests.yml'):
+        workflow = (ROOT / path).read_text()
+        assert '      - "arena/**"' in workflow
+        assert 'arena/e6d76d5c-gemsdoe87' not in workflow

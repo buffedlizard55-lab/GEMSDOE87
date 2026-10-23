@@ -74,3 +74,26 @@ CI is defined in `.github/workflows/ci.yml`. Pages/read-only source refresh is d
 Concurrent main readiness work at `f4f5944` and hardening through `a7a7c77` was integrated on this same fixed branch, with exact-byte snapshots and its code/tests preserved. Compatibility root status now distinguishes a research download from competition approval; historical documents are labeled as snapshots. No second scientific lane was executed. Pages settings write was denied to the integration; the already successful upload/deploy pattern is reused without changing those settings.
 
 The original request is **not fully satisfied as a winning or protocol-cleared submission**. Literal universal overlap, lack of control improvement, the frozen experiment's edge defect, unauthenticated originals/cap/receipts, one malformed prior, and incomplete historical mechanism review remain explicit. A separately authorized next run must resolve the protocol contradiction before any new experiment; see the research queue. No user action or human inspector is required to repeat local software/file validation, but software cannot create hidden truth or organizer authorization.
+
+## Repository review — 2026-10-23 UTC (software-only)
+
+### Pass 1 — inspect the actual checkout
+
+- Re-read the full README, including the archived user brief, `AGENTS.md`, preregistration, run card, hypothesis/analysis/irregularity records, validator, experiment stop guard, site status, and both software workflows.
+- Confirmed the current download is the already-built H87 **research-only** TIFF, not a submission-approved file. This review did not generate, alter, place, or upload a prediction; the stopped scientific lane and zero-slot policy remain intact.
+- Confirmed the H33 audit distinguishes the user-reported `0.2778` from a score receipt: the sibling audit labels its artifact unscored and the exact decimal was not found in its audited source history. No claim that GEMSDOE87 beats that value is made.
+
+### Pass 2 — find and correct a workflow coverage bug
+
+- Both `.github/workflows/ci.yml` and `.github/workflows/tests.yml` had a push filter for one old Arena branch (`arena/e6d76d5c-gemsdoe87`). The active branch is `arena/cf6afc25-gemsdoe87`; pull-request events targeted at `main` would still run checks, but direct pushes to this active branch would not.
+- Replaced the stale one-branch filter with `arena/**` in both workflows and added `test_software_ci_runs_on_all_arena_session_branches` to prevent recurrence. This is a CI-routing correction only; no evaluator, scientific threshold, run budget, or feature code changed.
+
+### Pass 3 — execute and reconcile
+
+- Restored only the two small grid/catalogue mirrors into ignored `data/raw/` from their manifest-pinned public GitHub blobs; SHA-256 values matched `registry/data_manifest.json`. The original tracked restore receipt was restored after this temporary validation, so no raw inputs or machine-local receipt were added to Git. This verifies mirror integrity, not organizer authenticity.
+- `.venv/bin/python -m pytest -q`: **104 passed, 0 failed, 0 skipped**.
+- `scripts/check_submission.py --format-only`: exit **0**, all local TIFF/ZIP checks pass. The normal authorization check: expected exit **2**, `safe_to_submit=false`, `DO NOT SUBMIT`.
+- `scripts/check_site.py`: pass; 7 pages and 120 local targets/anchors checked. Python compilation and downloader shell syntax also pass.
+- No source-health refresh was attempted because the competition, USGS, OpenEI, and NLR hosts are outside the sandbox's permitted outbound hosts. The checked-in feed's last attempt is 2026-10-22; it is not represented as a live 2026-10-23 leaderboard read.
+
+The current request remains **scientifically negative**. The audit does not convert local format validity into organizer acceptance, resolve the literal universal-overlap contradiction, correct/re-measure the frozen experiment, establish global registry uniqueness, or show an improvement over any public leaderboard score. No competition slot was selected or used.
