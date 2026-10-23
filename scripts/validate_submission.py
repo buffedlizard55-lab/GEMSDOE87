@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""Preserved legacy readiness-only GeoTIFF preflight.
-
-Its `ready` field means this older local format policy only, not competition
-approval. It requires null/nodata outside the footprint. The current frozen
-research bundle uses the separate hash-pinned all-finite policy in
-check_submission.py, which always refuses submission authorization. This older
-helper is preserved for its existing callers/tests, not used to approve H87.
+"""Read-only GeoTIFF preflight against the official sample grid.
 
 The validator never writes or repairs a prediction. It fails closed on grid
 mismatches, finite values outside [0, 1], NaN/Inf inside the target footprint,
@@ -18,9 +12,7 @@ import argparse
 import hashlib
 import json
 import math
-import os
 import sys
-import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -45,47 +37,6 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _distinct_output_path(output_path: Path, protected_paths: list[tuple[str, Path]]) -> Path:
-    """Reject report paths that alias any input raster, including symlinks/hardlinks."""
-    output = output_path.expanduser()
-    output_resolved = output.resolve(strict=False)
-    for label, protected in protected_paths:
-        protected = protected.expanduser()
-        aliases = output_resolved == protected.resolve(strict=False)
-        if not aliases and output.exists() and protected.exists():
-            try:
-                aliases = output.samefile(protected)
-            except OSError:
-                aliases = False
-        if aliases:
-            raise ValueError(f"report path aliases the {label} input; refusing to overwrite it")
-    return output
-
-
-def _write_json_report(path: Path, content: str) -> None:
-    """Atomically write a report so an interrupted write cannot leave partial JSON."""
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary: Path | None = None
-    try:
-        with tempfile.NamedTemporaryFile(
-            mode="w",
-            encoding="utf-8",
-            dir=path.parent,
-            prefix=f".{path.name}.",
-            suffix=".tmp",
-            delete=False,
-        ) as stream:
-            temporary = Path(stream.name)
-            stream.write(content)
-            stream.write("\n")
-            stream.flush()
-            os.fsync(stream.fileno())
-        os.replace(temporary, path)
-    finally:
-        if temporary is not None:
-            temporary.unlink(missing_ok=True)
-
-
 def _grid_signature(dataset: Any) -> dict[str, Any]:
     return {
         "width": int(dataset.width),
@@ -105,7 +56,6 @@ def validate_submission(
     prediction_path: str | Path,
     reference_path: str | Path,
     footprint_mask_path: str | Path | None = None,
-    allow_zero_exterior: bool = False,
 ) -> dict[str, Any]:
     """Validate prediction metadata and pixel values against a reference grid.
 
@@ -284,10 +234,7 @@ def validate_submission(
                 no_nonfinite_inside = nonfinite_inside == 0
                 range_ok = out_of_range_count == 0
                 no_inf = infinities == 0
-                if allow_zero_exterior and nonnull_outside_count > 0:
-                    outside_null_ok = int(np.count_nonzero(outside & ~outside_is_null & (values != 0.0))) == 0
-                else:
-                    outside_null_ok = nonnull_outside_count == 0
+                outside_null_ok = nonnull_outside_count == 0
                 report["checks"].update(
                     {
                         "no_nan_inside_footprint": {
@@ -349,38 +296,19 @@ def main(argv: list[str] | None = None) -> int:
         help="optional raster on the same grid; valid pixels define the submission footprint",
     )
     parser.add_argument("--report", type=Path, help="optional path to write the JSON receipt")
-    parser.add_argument(
-        "--allow-zero-exterior",
-        action="store_true",
-        help="accept finite 0.0 values outside the target footprint for portal-safe zero-filled rasters",
-    )
     args = parser.parse_args(argv)
 
-    report_path: Path | None = None
     try:
-        if args.report:
-            protected_paths = [("prediction", args.prediction), ("reference", args.reference)]
-            if args.footprint_mask is not None:
-                protected_paths.append(("footprint-mask", args.footprint_mask))
-            report_path = _distinct_output_path(args.report, protected_paths)
-        result = validate_submission(
-            args.prediction,
-            args.reference,
-            args.footprint_mask,
-            allow_zero_exterior=args.allow_zero_exterior,
-        )
-    except (OSError, RuntimeError, ValueError) as exc:
+        result = validate_submission(args.prediction, args.reference, args.footprint_mask)
+    except RuntimeError as exc:
         print(json.dumps({"ready": False, "errors": [str(exc)]}, indent=2), file=sys.stderr)
         return 2
 
     rendered = json.dumps(result, indent=2, ensure_ascii=False)
     print(rendered)
-    if report_path is not None:
-        try:
-            _write_json_report(report_path, rendered)
-        except (OSError, ValueError) as exc:
-            print(json.dumps({"ready": False, "errors": [f"could not write report: {exc}"]}, indent=2), file=sys.stderr)
-            return 2
+    if args.report:
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(rendered + "\n", encoding="utf-8")
     return 0 if result["ready"] else 1
 
 

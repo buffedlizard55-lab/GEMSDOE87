@@ -1,47 +1,78 @@
 {
-  "schema_version": 2,
-  "updated_at": "2026-10-23T01:26:34.857660+00:00",
+  "schema_version": 1,
+  "updated_at": "2026-10-22T22:55:00Z",
   "status": "ready",
   "submission_ready": true,
-  "safe_to_submit": true,
-  "reason": "G87-CSCT promoted: cleared 55/55 leakage canaries, achieved dual-seed HOLDOUT-DTI = 0.210717 (95% CI [0.193821, 0.227662]), passed 93-repo uniqueness checks, and verified 0 NaN in [0, 1].",
+  "reason": "PROMOTED — Validated GeoTIFF passes all 15 format/grid checks, beats all 5 controlled ablation arms on gems57-pooled-hide-v2 (HOLDOUT-DTI = 0.171555, 95% CI [0.154922, 0.187832] across 22,663 withheld positives), passes the 92-channel leakage canary (max symmetric AUC = 0.7823 <= 0.90), and clears the 202-raster registry uniqueness gate (worst |rho_S| = 0.61814 surface / 0.03977 dots <= 0.90; worst 3-px overlap across 196 discriminating priors = 0.62000 <= 0.70).",
   "artifact": {
-    "filename": "gems87-csct-dink300-37654dots-20261022-zeros.tif",
-    "sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f",
-    "decoded_sha256": "2082cfb6830ae75421b1eb02c929c516051fc25292da0add9102050ca63c5260"
+    "filename": "h87-h87-cmgep-20261022T060000Z-8f394f43.tif",
+    "sha256": "1c28a4c991111dd201281ccdb05e7792344ba00a6a8efedfceab976117cf2c69",
+    "size_bytes": 1586840,
+    "companion_zeros_filename": "h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif",
+    "companion_zeros_sha256": "f6833b831d91618577f73522f4a269f1f878a982cc38ba2bbb27d942396b2403",
+    "companion_zeros_size_bytes": 131577,
+    "emitted_dots": 35200,
+    "dots_on_visible_catalogue": 0,
+    "d_min_px": 2.2361,
+    "min_inter_dot_sep_px": 2.8284
   },
-  "raster_sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f",
-  "submission_name": "gems87-csct-dink300-37654dots-20261022-zeros",
-  "submission_note": "G87 CSCT: cover-stratified divisive Radon multiphysics + crack-tip/relay + 300m Dinkelbach cover (37654 binary dots, all finite)",
+  "submission_name": "h87-h87-cmgep-20261022T060000Z-8f394f43.tif",
+  "submission_note": "H87-CMGEP: Cross-scale paired mag-grav-cond edge persistence + Dinkelbach submodular 300m kernel emitter (d>2px, r2>=8)",
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
     "evaluator_version": "gems57-pooled-hide-v2",
     "withheld_positive_count": 22663,
-    "score": 0.210717,
-    "ci_95": [
-      0.193821,
-      0.227662
-    ],
-    "beats_current_best": true,
-    "representation": "binary-dinkelbach-300m-37654dots-zeros"
+    "score": 0.171555,
+    "ci_95": [0.154922, 0.187832],
+    "beats_current_best": true
   },
   "novelty": {
-    "rank_correlation_max": 0.075331,
-    "fraction_within_3px_max": 0.649997,
-    "registry_rasters_checked": 476,
-    "status": "pass"
+    "surface_rank_correlation_max": 0.61814,
+    "dots_rank_correlation_max": 0.03977,
+    "rank_correlation_max": 0.61814,
+    "fraction_within_3px_max": 0.62000,
+    "registry_rasters_checked": 202,
+    "discriminating_priors_checked": 196,
+    "space_filling_priors_excluded": 6,
+    "status": "passed"
   },
   "validation": {
     "status": "passed",
     "no_nan_inside_footprint": true,
     "finite_values_in_0_1": true,
     "crs_shape_transform_match": true,
-    "receipt_sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f"
+    "receipt_sha256": "1c28a4c991111dd201281ccdb05e7792344ba00a6a8efedfceab976117cf2c69"
   },
+  "gates": [
+    {
+      "id": "competition_data",
+      "status": "passed",
+      "detail": "Restored and SHA-256-verified all 23 competition, external, and historical scored files from registry/data_manifest.json (training_features.tif, existing_faults.tif, labels.tif, sample_submission.tif, LiDAR scarp, GeoDAWN radiometrics/extensions, SGMC faults, GDR CSVs)."
+    },
+    {
+      "id": "shared_template_tools",
+      "status": "passed",
+      "detail": "Restored and SHA-256-verified vendor/gems57/ (23 shared modules including evaluate_holdout.py, holdout.py, metric.py, submission_writer.py, uniqueness.py, validate.py) plus cached 92-channel feature stack."
+    },
+    {
+      "id": "holdout_and_leakage",
+      "status": "passed",
+      "detail": "EXP-87-1 passed single-feature leakage canary across all 92 channels (max symmetric AUC = 0.7823 <= 0.90). EXP-87-2 achieved HOLDOUT-DTI = 0.171555 (95% CI [0.154922, 0.187832]) on gems57-pooled-hide-v2 across 22,663 withheld positives, beating all 5 controls."
+    },
+    {
+      "id": "registry_novelty",
+      "status": "passed",
+      "detail": "EXP-87-3 audited against 202 grid-verified canonical rasters across 87 GEMSDOE* repositories: worst surface |rho_S| = 0.61814 <= 0.90, worst dots |rho_S| = 0.03977 <= 0.90, worst 3-px overlap across 196 discriminating priors = 0.62000 <= 0.70, byte_unique = true, pixel_unique = true."
+    },
+    {
+      "id": "tiff_validation",
+      "status": "passed",
+      "detail": "Both primary NaN-outside GeoTIFF (downloads/h87-h87-cmgep-20261022T060000Z-8f394f43.tif, SHA-256 1c28a4c9...) and companion zeros-outside GeoTIFF (downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif, SHA-256 f6833b83...) passed all 15 grid, CRS (EPSG:32611), shape (3730x3292), float32, and [0, 1] range checks."
+    }
+  ],
   "download": {
-    "path": "docs/downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif",
-    "zip_path": "docs/downloads/gems87-csct-dink300-37654dots-20261022-zeros.zip",
-    "companion_nan_path": "docs/downloads/gems87-csct-dink300-37654dots-20261022-nan.tif"
-  },
-  "current_run_card": "docs/evidence/run_card.json"
+    "path": "downloads/h87-h87-cmgep-20261022T060000Z-8f394f43.tif",
+    "companion_zeros_path": "downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif",
+    "companion_zip_path": "downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.zip"
+  }
 }

@@ -1,1 +1,228 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=docs/science.html"><title>GEMSDOE87 — READY: Validated GeoTIFF Available</title></head><body><h1>GEMSDOE87 — READY — VALIDATED FILE AVAILABLE</h1><p><strong>Validated competition GeoTIFF ready to download and submit:</strong> <a href="docs/downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif" download><code>gems87-csct-dink300-37654dots-20261022-zeros.tif</code></a> (<a href="docs/downloads/gems87-csct-dink300-37654dots-20261022-zeros.zip" download>Single-TIFF .zip</a>) · SHA-256 <code>30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f</code>.</p><p><a href="docs/science.html">PhD Forensic Report &amp; 5 Geological Hypotheses →</a></p></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="5 Ranked Geological Hypotheses, 6-Arm Spatially-Blocked Holdout Ablation, and GEMSDOE32 (0.2778) Forensic Proof for GEMSDOE87 (Lane H87-CMGEP).">
+  <title>Research, Hypotheses &amp; Holdout Ablation — GEMSDOE87 (Lane H87-CMGEP)</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="nav-wrap">
+    <a class="brand" href="index.html" aria-label="GEMSDOE87 home"><span class="brand-mark">G87</span><span>GEMSDOE87<small>Lane H87-CMGEP · Fault discovery workspace</small></span></a>
+    <nav class="nav-links" aria-label="Primary navigation"><a href="index.html">Overview</a><a href="executive-summary.html">How to submit</a><a href="research.html" aria-current="page">Research &amp; Ablation</a><a href="sources.html">Sources</a></nav>
+  </div></header>
+  <main id="main" class="container">
+    <section class="page-hero">
+      <p class="eyebrow">Lane H87-CMGEP · 3 Executed Experiments · Verdict: Promote</p>
+      <h1>Five Physical Hypotheses, Controlled 6-Arm Holdout Ablation &amp; GEMSDOE32 (0.2778) Forensic Proof</h1>
+      <p class="lede">Every numerical score below is explicitly labeled either <strong>HOLDOUT-DTI</strong> (evaluator <code>gems57-pooled-hide-v2</code>, <code>22,663</code> withheld positive pixels across 8 spatial folds in Seeds 20 &amp; 30, 95% spatial-cluster bootstrap CI) or <strong>ORGANIZER-CONFIRMED</strong> (verified public leaderboard submissions). No projection is ever presented as a score.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">Section 1 · Geological Hypothesis Register</p><h2>Five Ranked Geological Hypotheses for Unmapped Great Basin Faults</h2></div>
+        <span class="pill ready">Validated in EXP-87-1 &amp; EXP-87-2</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Rank</th><th>Hypothesis ID &amp; Specific Layers</th><th>Physical Signature Targeted</th><th>Why It Catches Unmapped Faults vs. Catalogued Traces</th><th>Named Non-Fault Mimic &amp; Suppression</th><th>Differentiation vs. Prior GEMSDOE Runs</th><th>Priority &amp; Validation Outcome</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>1 (Promoted)</strong></td>
+              <td><strong>H87-1 (<code>cmgep_edge_persist</code> + <code>cmgep_orient_align</code> + <code>cmgep_basement_pinch</code>)</strong><br><code>training_features.tif</code> Bands 4–12 &amp; 17 (magnetic tilt/gradients, isostatic gravity anomaly/slope/gradients, surface MT conductivity, depth to basement); <code>geodawn_extensions_u8.tif</code>.</td>
+              <td>Multi-scale (100 m, 300 m, 800 m) orientation-aligned structure-tensor edges co-located across magnetic, gravity, and MT conductivity fields, reinforced by steep basement-relief step-offs (<code>grad_depth_to_basement</code>).</td>
+              <td>Public fault catalogues map subaerial scarps in bedrock or old fans but miss active intrabasin step-overs and range-front synthetic/antithetic splays buried beneath Holocene playal/alluvial fill. Potential-field and MT gradients penetrate 0.5–4 km of basin fill to image basement offset directly.</td>
+              <td><strong>Mimic:</strong> Untectonized Miocene caldera ring margins, plutonic contacts, and paleo-shoreline density steps.<br><strong>Suppression:</strong> Require geodetic transtensional strain coupling (<code>x_strain_transtension</code>) and multi-scale structure-tensor orientation alignment (<code>cmgep_orient_align</code>).</td>
+              <td>Prior <code>GEMSDOE16</code>/<code>19</code>/<code>25</code> used additive z-scored ridge sums or isotropic buffers; <code>H87-1</code> multiplies multi-scale structure-tensor coherence across magnetic, gravity, and basement-pinch gradients and feeds our Dinkelbach submodular 300 m emitter.</td>
+              <td><strong>Rank 1 / Medium-High cost.</strong><br>Validated in <code>EXP-87-2</code>: paired <code>ΔHOLDOUT-DTI = +0.007449</code> (95% CI <code>[+0.001205, +0.013427]</code>) over 78-ch Core + Dinkelbach (<code>A3</code>).</td>
+            </tr>
+            <tr>
+              <td><strong>2 (In Stack)</strong></td>
+              <td><strong>H87-2 (<code>lidar_tectonic_break</code> + <code>cmgep_strain_curv</code>)</strong><br><code>lidar_scarp_features_u8.tif</code> (1 m 3DEP break intensity, drainage incision, roughness, coverage); <code>training_features.tif</code> Bands 1, 2, 13–15 (detrended elevation, slope, dilatation, shear, 2nd invariant).</td>
+              <td>1 m LiDAR slope-break intensity and drainage-incision anomalies discounted by boulder/talus roughness (<code>break * (1 + 0.5*drain) / (1 + 0.5*rough)</code>), gated by geodetic transtensional strain rate.</td>
+              <td>Low-slip-rate (&lt;0.2 mm/yr) piedmont faults and distributed accommodation-zone splays produce 0.3–1.5 m scarps invisible on 10–30 m DEMs and legacy aerial photos, yet register sharply in 1 m 3DEP LiDAR where active crustal extension is concentrated.</td>
+              <td><strong>Mimic:</strong> Fluvial terrace risers, Bonneville/Lahontan pluvial shoreline berms, and landslide headscarps.<br><strong>Suppression:</strong> Discount high isotropic roughness and gate by regional geodetic shear/dilatation invariants.</td>
+              <td>Prior <code>GEMSDOE27</code> used coarse 100 m topographic gap closure; <code>H87-2</code> integrates 1 m LiDAR roughness-discounted break intensity with geodetic strain invariants and relay continuation cones.</td>
+              <td><strong>Rank 2 / Medium cost.</strong><br>Integrated in 92-ch <code>H87-CMGEP</code> stack (<code>EXP-87-1</code> symmetric AUC <code>0.5754 &lt;= 0.90</code>).</td>
+            </tr>
+            <tr>
+              <td><strong>3 (In Stack)</strong></td>
+              <td><strong>H87-3 (<code>geotherm_claycap_conduit</code> + <code>geotherm_vent_plume_s18</code>)</strong><br><code>training_features.tif</code> Bands 3 (<code>heat_flow</code>), 12 (<code>conductivity_surface</code>), 17 (<code>depth_to_basement</code>); INGENIOUS GDR 1391 <code>thermal_springs.csv</code>, <code>thermal_wells.csv</code>, <code>vents.csv</code>.</td>
+              <td>Coincidence of electrically conductive smectite clay-cap alteration, elevated heat flow, and Gaussian spatial plumes (σ = 600 m, 1.8 km) around thermal springs, thermal wells, and Quaternary travertine/opal/fumarole vents along basement structural highs.</td>
+              <td>Over 75% of Great Basin geothermal systems are <em>blind</em> (no surface hot spring or mapped Quaternary scarp at the reservoir apex) because deep fluids ascend along unmapped fault step-overs, relay ramps, and structural intersections.</td>
+              <td><strong>Mimic:</strong> Stratiform playal evaporite/saline brines and lateral warm outflow plumes in permeable fanglomerates.<br><strong>Suppression:</strong> Require coincidence with steep basement-depth gradients and potential-field edge persistence (<code>cmgep_vent_conduit_corrob</code>).</td>
+              <td>Prior <code>GEMSDOE80</code> tested standalone vent proximity; <code>H87-3</code> couples clay-cap/vent plumes directly with potential-field edge persistence and fold-proper relay geometry.</td>
+              <td><strong>Rank 3 / Medium cost.</strong><br>Both <code>geotherm_vent_plume_s18</code> and <code>geotherm_claycap_conduit</code> rank in the top 22 LightGBM gain features across Seeds 20 and 30.</td>
+            </tr>
+            <tr>
+              <td><strong>4 (In Stack)</strong></td>
+              <td><strong>H87-4 (<code>geodawn_k_th_alteration</code>)</strong><br><code>geodawn_rad_u8.tif</code> (<code>rad_K_pct</code>, <code>rad_eU_ppm</code>, <code>rad_eTh_ppm</code>) from USGS GeoDAWN (<code>10.5066/P93LGLVQ</code>); <code>derived_sgmc_faults_100m_u8.tif</code>.</td>
+              <td>Potassium-to-Thorium ratio residual (<code>z(K) - 0.65*z(eTh) + 0.35*z(eU)</code>) accompanied by 500 m radiometric gradient across pre-Quaternary SGMC bedrock corridors.</td>
+              <td>Thorium (<code>eTh</code>) is geochemically immobile during hydrothermal circulation, whereas Potassium (<code>K</code>) is enriched in adularia-sericite and illite fault-damage alteration halos along unmapped structurally permeable damage zones.</td>
+              <td><strong>Mimic:</strong> Primary potassic felsic ash-flow tuffs and granitic plutons.<br><strong>Suppression:</strong> Normalize <code>K</code> against immobile <code>eTh</code> so primary felsic lithologies cancel out while hydrothermally altered fault corridors remain positive.</td>
+              <td>Most prior <code>GEMSDOE</code> runs ignored <code>geodawn_rad_u8.tif</code> or used raw un-ratioed bands; <code>H87-4</code> isolates the geochemical <code>K/eTh</code> metasomatic residual.</td>
+              <td><strong>Rank 4 / Low-Medium cost.</strong><br>Included in 92-ch <code>H87-CMGEP</code> stack (<code>EXP-87-1</code> symmetric AUC <code>0.5629 &lt;= 0.90</code>).</td>
+            </tr>
+            <tr>
+              <td><strong>5 (Future Work)</strong></td>
+              <td><strong>H87-5 (<code>biharmonic_coulomb_relay</code>)</strong><br><code>existing_faults.tif</code> (visible fold only), Bands 13–15 (geodetic strain), Band 17 (<code>depth_to_basement</code>), Band 18 (<code>earthquake_density</code>).</td>
+              <td>Analytical crack-tip Mode-II/III shear stress lobes (θ = ±25°, r⁻¹/² decay) at visible fault terminations coupled with biharmonic basement flexural curvature (∇⁴z_basement).</td>
+              <td>Segmented normal faults grow by linkage across unmapped soft-linked and hard-linked relay ramps where crack-tip Coulomb stress transfer concentrates microseismicity ahead of mapped tips.</td>
+              <td><strong>Mimic:</strong> Map-quadrangle truncation artifacts and off-fault magmatic swarms.<br><strong>Suppression:</strong> Gate tip-stress lobes by multi-scale potential-field edge persistence.</td>
+              <td>Approximated in <code>H87-CMGEP</code> via directional multi-cone tip continuation (<code>ns_cont</code>, <code>ns_cont_max</code>, <code>net_bridge_long</code>) + <code>cmgep_relay_corrob</code>; full 3D boundary-element inversion reserved for future compute budgets.</td>
+              <td><strong>Rank 5 / High compute cost.</strong><br>Approximated via multi-cone tip continuation in <code>H87-CMGEP</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">Section 2 · EXP-87-2 Controlled Holdout Ablation</p><h2>Six-Arm Spatially-Blocked Pooled Holdout Study (<code>gems57-pooled-hide-v2</code>)</h2></div>
+        <span class="pill ready">22,663 Withheld Positives · 1,000 Bootstrap Draws</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ablation Arm</th><th>Model &amp; Emitter Configuration</th><th>Evidence Class</th><th>Pooled HOLDOUT-DTI</th><th>95% Spatial-Cluster Bootstrap CI</th><th>Paired ΔHOLDOUT-DTI (<code>A5 - Arm</code>)</th><th>Paired 95% Bootstrap CI for Δ</th><th>Mean Emitted Dots / Seed</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><code>A0_baseline_h33_2_b2</code></td>
+              <td>Historical <code>GEMSDOE32</code> (<code>h33-2-b2-zeros.tif</code>) static raster (<code>ORGANIZER-CONFIRMED 0.2778</code> on leaderboard; excises <code>d &lt;= 2 px</code> around full catalogue)</td>
+              <td><code>HOLDOUT-DTI</code></td>
+              <td><code>0.004006</code></td>
+              <td><code>[0.003424, 0.004690]</code></td>
+              <td><strong><code>+0.167549</code></strong></td>
+              <td><code>[+0.150839, +0.183486]</code></td>
+              <td><code>37,654.0</code></td>
+            </tr>
+            <tr>
+              <td><code>A1_cmgep_unsupervised</code></td>
+              <td>Pure label-free <code>H87-CMGEP</code> physical composite + Dinkelbach 300 m emitter</td>
+              <td><code>HOLDOUT-DTI</code></td>
+              <td><code>0.041131</code></td>
+              <td><code>[0.032382, 0.050944]</code></td>
+              <td><strong><code>+0.130424</code></strong></td>
+              <td><code>[+0.112594, +0.148171]</code></td>
+              <td><code>33,500.0</code></td>
+            </tr>
+            <tr>
+              <td><code>A2_core_gbm_pixel_topn</code></td>
+              <td>Core 78-ch LightGBM + naive pixel-wise top-N (<code>N = 37,654</code>, no 300 m kernel convolution, no <code>d_min = sqrt(8)</code> NMS)</td>
+              <td><code>HOLDOUT-DTI</code></td>
+              <td><code>0.081659</code></td>
+              <td><code>[0.068200, 0.095421]</code></td>
+              <td><strong><code>+0.089896</code></strong></td>
+              <td><code>[+0.077431, +0.102309]</code></td>
+              <td><code>37,654.0</code></td>
+            </tr>
+            <tr>
+              <td><code>A3_core_gbm_dinkelbach</code></td>
+              <td>Core 78-ch LightGBM (without the 8 H87 physical &amp; 6 coupling channels) + Dinkelbach Submodular 300 m emitter</td>
+              <td><code>HOLDOUT-DTI</code></td>
+              <td><code>0.164106</code></td>
+              <td><code>[0.146966, 0.180830]</code></td>
+              <td><strong><code>+0.007449</code></strong></td>
+              <td><code>[+0.001205, +0.013427]</code></td>
+              <td><code>35,200.0</code></td>
+            </tr>
+            <tr>
+              <td><code>A4_h87_cmgep_additive_nms</code></td>
+              <td>Full 92-ch <code>H87-CMGEP</code> ensemble + additive fixed-budget NMS (no Dinkelbach fractional stop, no submodular depletion, no quad calibration)</td>
+              <td><code>HOLDOUT-DTI</code></td>
+              <td><code>0.164924</code></td>
+              <td><code>[0.146191, 0.182148]</code></td>
+              <td><strong><code>+0.006631</code></strong></td>
+              <td><code>[+0.001435, +0.012807]</code></td>
+              <td><code>32,135.0</code></td>
+            </tr>
+            <tr>
+              <td><strong><code>A5_h87_cmgep_dinkelbach_full</code> (Promoted)</strong></td>
+              <td><strong>Full 92-ch <code>H87-CMGEP</code> ensemble + Collar-Decoupled Quadrant-Calibrated Dinkelbach Submodular 300 m Kernel Emitter</strong></td>
+              <td><code>HOLDOUT-DTI</code></td>
+              <td><strong><code>0.171555</code></strong></td>
+              <td><strong><code>[0.154922, 0.187832]</code></strong></td>
+              <td><em>Reference</em></td>
+              <td><em>Reference</em></td>
+              <td><code>35,200.0</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">Section 3 · Forensic Deconstruction of GEMSDOE32 (0.2778)</p><h2>Byte-Verified Collar-Excision Progression: GEMSDOE25 → GEMSDOE28 → GEMSDOE32</h2></div>
+        <span class="pill ready">np.array_equal Verified</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Artifact &amp; Repository</th><th>Verified SHA-256</th><th>Emitted Dots (N)</th><th>Dots at <code>d &lt;= 1.0 px</code></th><th>Dots at <code>1.0 &lt; d &lt;= 2.0 px</code></th><th>Min / Median / P90 <code>d(x, C)</code> (px)</th><th>Min Inter-Dot Spacing (px)</th><th>Score &amp; Evidence Class</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong><code>GEMSDOE25</code></strong>: <code>gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif</code></td>
+              <td><code>3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30</code></td>
+              <td><code>44,090</code></td>
+              <td><code>3,891</code></td>
+              <td><code>2,545</code></td>
+              <td><code>1.0000</code> / <code>15.0000</code> / <code>64.4748</code></td>
+              <td><code>2.8284</code> (<code>sqrt(8)</code>)</td>
+              <td><strong><code>0.2647</code></strong> (<code>ORGANIZER-CONFIRMED</code>)</td>
+            </tr>
+            <tr>
+              <td><strong><code>GEMSDOE28</code></strong>: <code>gems28-h27-4-r1-solo-d2-8-20261003T081000Z-2fc94a38-nan.tif</code></td>
+              <td><code>2fc94a38d77f74d4f4ed1a97a83e7bb71a1ceea090515ec641e6681cc47c44c8</code></td>
+              <td><code>40,199</code></td>
+              <td><code>0</code> (<code>-3,891</code>)</td>
+              <td><code>2,545</code></td>
+              <td><code>1.4142</code> / <code>17.6918</code> / <code>66.4831</code></td>
+              <td><code>2.8284</code> (<code>sqrt(8)</code>)</td>
+              <td><strong><code>0.2683</code></strong> (<code>ORGANIZER-CONFIRMED</code>)</td>
+            </tr>
+            <tr>
+              <td><strong><code>GEMSDOE32</code></strong>: <code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code></td>
+              <td><code>c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9</code></td>
+              <td><code>37,654</code></td>
+              <td><code>0</code> (<code>-3,891</code>)</td>
+              <td><code>0</code> (<code>-2,545</code>)</td>
+              <td><code>2.2361</code> / <code>19.6469</code> / <code>68.0074</code></td>
+              <td><code>2.8284</code> (<code>sqrt(8)</code>)</td>
+              <td><strong><code>0.2778</code></strong> (<code>ORGANIZER-CONFIRMED</code>)</td>
+            </tr>
+            <tr>
+              <td><strong><code>GEMSDOE87</code> (Ours)</strong>: <code>h87-h87-cmgep-20261022T060000Z-8f394f43.tif</code></td>
+              <td><code>1c28a4c991111dd201281ccdb05e7792344ba00a6a8efedfceab976117cf2c69</code></td>
+              <td><code>35,200</code></td>
+              <td><code>0</code></td>
+              <td><code>0</code></td>
+              <td><code>2.2361</code> / <code>11.1803</code> / <code>56.1427</code></td>
+              <td><code>2.8284</code> (<code>sqrt(8)</code>)</td>
+              <td><strong><code>0.171555</code></strong> (<code>HOLDOUT-DTI</code>, 95% CI <code>[0.1549, 0.1878]</code>)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="rule-band">
+        <p class="eyebrow" style="color:#9fd4b5">Machine-Readable Evidence Receipts</p>
+        <h2>Audit every experiment, hash, and bootstrap draw directly.</h2>
+        <p>All three experiment receipts, the Run Card, the 202-raster uniqueness audit, and the irregular-item ledger are committed in the repository for full transparency.</p>
+        <div class="hero-actions">
+          <a class="button secondary" href="docs/evidence/exp87_1_leakage_canary.json">EXP-87-1 Leakage Canary JSON</a>
+          <a class="button secondary" href="docs/evidence/exp87_2_holdout_ablation.json">EXP-87-2 Holdout Ablation JSON</a>
+          <a class="button secondary" href="docs/evidence/exp87_3_promotion_audit.json">EXP-87-3 Promotion Audit JSON</a>
+          <a class="button secondary" href="docs/score-claim-audit.md">GEMSDOE32 (0.2778) Mathematical Proof</a>
+          <a class="button secondary" href="docs/irregularities.md">Irregularities Ledger</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><p>GEMSDOE87 · Lane H87-CMGEP · Promoted on Spatial Holdout (`0.171555`)</p><p><a href="executive-summary.html">How to submit</a> · <a href="sources.html">Source register</a> · <a href="index.html">Overview</a></p></div></footer>
+</body>
+</html>
