@@ -10,6 +10,15 @@
 >
 > **Start here:** [Project overview & download](index.html) · [Executive summary: how to submit](executive-summary.html) · [Research & ablation results](research.html) · [Verified-source register](sources.html)
 
+## CURRENT STATE (agent brief v2 — 2026-10-23)
+
+- **Parent R0:** `h33-h33-2-b2` (GEMSDOE32) — 37,654 unit-mass dots, 0 within 2 px of the catalogue, sha256 `c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9`. Score **0.2778 CLAIM** (no receipt in `ledger/`). Pixel-rebuild from GEMSDOE25 ∩ {d>2} matches R0 exactly; re-encoded GeoTIFF SHA does not (use original bytes).
+- **Best RECEIPT:** none. H87-CMGEP `HOLDOUT-DTI = 0.171555` is PROXY, not a live score.
+- **TOP_PUBLIC:** ____ (human fills from the leaderboard with date; not fetched). No other target is valid.
+- **Slots left this week:** __ / 3 (unknown; 0 scored uploads recorded in this ledger) / total to deadline 2026-12-03: __ (confirm on the competition page).
+- **This session AXIS:** CONCENTRATION (MASS already built in GEMSDOE88; not rebuilt). Three count-fixed relocations of R0, 1 km (10 px) blocks, H19-5 block-sum prior, sqrt(8) spacing, 2 px collar inherited: `CONCc10` 10.00% (`a9e67bab`, CV_occ 0.619→0.748, MODEL +0.004), `CONCc15` 15.00% (`25e403d0`, 0.619→0.786, MODEL +0.002), `CONCc20` 20.00% (`03244051`, 0.619→0.795, MODEL −0.006). Files in `releases/`. **Do not submit until the human picks a slot.**
+- **Next 3 slots:** 1) `h33-h33-2-b2-CONCc10-20261023-a9e67bab` 2) SNAP ≤2 px if CONCc10 |Δ|<0.01 else CONCc15 3) PRUNE 3 px. See `SLOT_PLAN.md`.
+
 ---
 
 ## Mission and Arena Core Values
