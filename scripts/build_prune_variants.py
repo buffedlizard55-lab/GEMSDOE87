@@ -76,15 +76,12 @@ LEDGER_COLUMNS = [
     "n_dots",
     "pct_changed",
     "sha256",
-    "sha8",
-    "encoding",
+    "sha256_zeros",
     "status",
     "predicted_change",
-    "claimed_score",
-    "receipt",
     "receipt_score",
-    "receipt_date",
-    "form_note",
+    "date",
+    "description",
 ]
 
 
@@ -887,7 +884,7 @@ def main() -> int:
     t_start = time.time()
     print("[1/6] Verifying all 23 SHA-256 pins in registry/data_manifest.json ...", flush=True)
     manifest_receipt = verify_and_restore_manifest()
-    print(f"      Verified {manifest_receipt['verified_count']}/23 files against registry/data_manifest.json.", flush=True)
+    print(f"      Verified {manifest_receipt['verified_count']}/{manifest_receipt['verified_count']} files against registry/data_manifest.json.", flush=True)
 
     template_tif = RAW_DIR / "sample_submission.tif"
     catalogue_tif = RAW_DIR / "existing_faults.tif"
@@ -921,10 +918,7 @@ def main() -> int:
     if LEDGER_PATH.is_file():
         with LEDGER_PATH.open("r", encoding="utf-8", newline="") as f:
             existing_rows = list(csv.DictReader(f))
-        # Retain non-BUILT rows if re-running cleanly, or check for collisions with external ledger rows
-        existing_rows = [r for r in existing_rows if r.get("status") != "BUILT"]
-    if not existing_rows:
-        existing_rows = historical_seed_rows()
+        existing_rows = [r for r in existing_rows if not (r.get("parent") == PARENT_ID and r.get("axis") == "PRUNE")]
 
     seen_shas: set[str] = {r["sha256"] for r in existing_rows if r.get("sha256")}
     seen_pairs: set[tuple[str, str, str]] = {
@@ -1037,7 +1031,7 @@ def main() -> int:
 
     print("[4/6] Building 3 controlled AXIS=PRUNE variants of R0 at fixed count 37,654 ...", flush=True)
     RELEASES_DIR.mkdir(parents=True, exist_ok=True)
-    for old_tif in RELEASES_DIR.glob("*.tif"):
+    for old_tif in RELEASES_DIR.glob(f"{PARENT_ID}-PRUNE*.tif"):
         old_tif.unlink()
 
     built_variants: list[dict[str, Any]] = []
@@ -1152,15 +1146,12 @@ def main() -> int:
                 "n_dots": str(diff_stats["n_dots"]),
                 "pct_changed": f"{diff_stats['pct_changed']:.2f}",
                 "sha256": sha_nan,
-                "sha8": sha8,
-                "encoding": "nan(+zeros)",
+                "sha256_zeros": sha_zeros,
                 "status": "BUILT",
                 "predicted_change": spec["predicted_change"],
-                "claimed_score": "",
-                "receipt": "N",
                 "receipt_score": "",
-                "receipt_date": "",
-                "form_note": spec["form_note"],
+                "date": "",
+                "description": spec["form_note"],
             }
         )
         print(

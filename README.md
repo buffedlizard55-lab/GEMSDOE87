@@ -1,18 +1,5 @@
 # GEMSDOE87 — Auditable DOE GEMS Prize Research (Lane `H87-CMGEP`)
 
-<!-- CURRENT STATE START -->
-## CURRENT STATE (Agent Brief v2 — 2026-10-23 UTC)
-
-- **Parent (`R0`):** `h33-h33-2-b2` (`GEMSDOE32`, `37,654` unit-mass dots, `d_cat > 2 px`; rebuilt exact SHA-256 `baeae321...` NaN / `c55bafc4...` zeros)
-- **Best Receipt:** `NONE` in [`ledger/submissions.csv`](ledger/submissions.csv) (`R0 = 0.2778` is **`CLAIM`** until human records a DrivenData receipt)
-- **TOP_PUBLIC:** `____` *(human fills from [public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), with date)*
-- **Slots Left:** this rolling week `__ / 3` · total to `2026-12-03` deadline `__` *(human fills; 1 entity, 1 blind final file per [rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf))*
-- **Next 3 Slots ([`SLOT_PLAN.md`](SLOT_PLAN.md) · [`docs/SUBMIT.md`](docs/SUBMIT.md)):**
-  1. `h33-h33-2-b2-PRUNE3-20261023-bc00a06c` (`releases/h33-h33-2-b2-PRUNE3-20261023-bc00a06c.tif`, `5.77%` changed, pred `+0.005` to `+0.012` [`MODEL`])
-  2. Conditional: `h33-h33-2-b2-PRUNE4-20261023-f5c53782` (`10.16%` changed, if Slot 1 `Δ >= +0.01`), `h33-h33-2-b2-PRUNE1-20261023-4679d91c` (`6.76%` changed, if Slot 1 `Δ <= -0.01`), else `SNAP` on `PRUNE3`
-  3. `SNAP` (`<= 2 px` TMI/gravity edge-crest alignment on `>= 3 px` parent) or `CONCENTRATION`
-<!-- CURRENT STATE END -->
-
 > ### **SUBMISSION STATUS: READY — VALIDATED FILE AVAILABLE (`verdict: "promote"`)**
 >
 > - **Is it OK to download and submit?** **YES.** Both the primary NaN-outside GeoTIFF and the companion zeros-outside GeoTIFF have passed all 15 automated format, CRS (`EPSG:32611`), shape (`3730 x 3292`), affine transform, and `[0, 1]` finite range checks, cleared the 92-channel leakage canary (`max symmetric AUC = 0.7823 <= 0.90`), cleared the 202-raster registry uniqueness gate (`worst |rho_S| = 0.61814` surface / `0.03977` dots `<= 0.90`; `worst 3-px overlap = 0.62000 <= 0.70` across all 196 discriminating priors), and achieved **`HOLDOUT-DTI = 0.171555`** (`95% CI [0.154922, 0.187832]`, evaluator `gems57-pooled-hide-v2`, `22,663` withheld positive pixels), beating all 5 controlled ablation arms with strictly positive 95% paired bootstrap confidence intervals.
@@ -22,6 +9,15 @@
 > - **Submission Note (`119 / 140` chars):** `H87-CMGEP: Cross-scale paired mag-grav-cond edge persistence + Dinkelbach submodular 300m kernel emitter (d>2px, r2>=8)`
 >
 > **Start here:** [Project overview & download](index.html) · [Executive summary: how to submit](executive-summary.html) · [Research & ablation results](research.html) · [Verified-source register](sources.html)
+
+## CURRENT STATE (agent brief v2 — 2026-10-23)
+
+- **Parent R0:** `h33-h33-2-b2` (`GEMSDOE32`) — `37,654` unit-mass dots, `0` within `2 px` of the catalogue, exact byte-verified SHA-256 `c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9` (zeros) / `baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd` (NaN) rebuilt from `H19-5` via `dot_thin(2.8) ∩ {d>2}`. Live `0.2778` is **CLAIM** until a receipt is recorded in [`ledger/submissions.csv`](ledger/submissions.csv).
+- **Best RECEIPT:** none (`H87-CMGEP` `0.171555` and local holdout metrics are **PROXY**, never live scores).
+- **TOP_PUBLIC:** `____` *(human fills from the [public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) with date; never fetched automatically)*.
+- **Slots left:** this rolling week `__ / 3` · total to deadline `2026-12-03` `__` *(human confirms on [problem page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/); 1 entity, 1 blind final file per [rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf))*.
+- **Built axes in `ledger/submissions.csv` (`releases/`):** `MASS` (`GEMSDOE88`: `m10minus`, `m10plus`, `m20minus`), `CONCENTRATION` (`CONCc10` `a9e67bab`, `CONCc15` `25e403d0`, `CONCc20` `03244051`), and **`PRUNE` (this session, fixed `37,654` dots on `H19-5` via exact DTI marginal gain `dT`)**: `PRUNE3` (`bc00a06c`, `5.77%` changed, `+0.005` to `+0.012` `MODEL`), `PRUNE1` (`4679d91c`, `6.76%` changed, `-0.012` to `-0.005` `MODEL`), `PRUNE4` (`f5c53782`, `10.16%` changed, `-0.004` to `+0.006` `MODEL`).
+- **Next 3 slots ([`SLOT_PLAN.md`](SLOT_PLAN.md) · [`docs/SUBMIT.md`](docs/SUBMIT.md)):** 1) `h33-h33-2-b2-PRUNE3-20261023-bc00a06c` (tests `>=3 px` Hard Constraint 4 collar vs `2 px` at fixed mass) 2) `h33-h33-2-b2-CONCc10-20261023-a9e67bab` (or `PRUNE4`/`PRUNE1` if Slot 1 `|Δ| >= 0.01`) 3) `SNAP <= 2 px` on TMI/gravity gradients.
 
 ---
 

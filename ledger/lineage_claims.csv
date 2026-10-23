@@ -1,0 +1,6 @@
+site,name,claimed_score,encoding,n_dots,sha8,sha256,parent,receipt,evidence_label,notes
+19GEMSDOE,gems19-h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan,0.1922,nan,121131,ec1f9b56,ec1f9b56b83ce33cad781ceb9f104b18fb4f2ff785263a4e89616af4aabdee8d,root,N,CLAIM,Binary 121131-px H19-5 ridge field (twins collapsed)
+GEMSDOE24,gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan,0.2477,nan,60069,68d0e2e4,68d0e2e4fcc594f9a23f56c44b885fee733d026d39be55e18ad2a07289525310,h19-5,N,CLAIM,Geodesic dot_thin d=1.5 px on H19-5
+GEMSDOE25,gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-nan,0.2600,nan,44090,91eae1ca,91eae1ca42ec845eaa8c2ba32da49806e24751743459b8a10017c479bbe639b8,h19-5,N,CLAIM,Geodesic dot_thin d=2.8 px on H19-5 (twins collapsed)
+GEMSDOE28,gems28-h27-4-r1-solo-d2-8-20261003T081000Z-2fc94a38-nan,0.2708,nan,40199,2fc94a38,2fc94a38d77f74d4f4ed1a97a83e7bb71a1ceea090515ec641e6681cc47c44c8,d28,N,CLAIM,Delete d_cat<=1 px without refill (mass+collar confounded)
+GEMSDOE32,h33-h33-2-b2,0.2778,zeros+nan,37654,c55bafc4,c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9,solo-d28,N,CLAIM,Parent R0: delete d_cat<=2 px (nan twin sha256=baeae321...; exact byte rebuild verified)

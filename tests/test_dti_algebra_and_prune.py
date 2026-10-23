@@ -188,8 +188,8 @@ class PruneReleaseAndLedgerTests(unittest.TestCase):
 
         with ledger_path.open("r", encoding="utf-8", newline="") as f:
             rows = list(csv.DictReader(f))
-        built_rows = [r for r in rows if r["status"] == "BUILT"]
-        self.assertEqual(len(built_rows), 3, "Expected exactly 3 BUILT variants for this session")
+        prune_rows = [r for r in rows if r["axis"] == "PRUNE" and r["status"] == "BUILT"]
+        self.assertEqual(len(prune_rows), 3, "Expected exactly 3 BUILT PRUNE variants for this session")
 
         # Deduplication on sha256 and (parent, axis, value)
         shas = [r["sha256"] for r in rows]
