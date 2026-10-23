@@ -94,5 +94,5 @@ def test_main_checks_before_writing_any_page(publication, monkeypatch):
 
 
 def test_suggestions_refuse_edited_approval_flags():
-    with pytest.raises(ValueError, match='frozen negative'):
+    with pytest.raises(ValueError, match='Frozen negative'):
         update_next_steps.derive({'safe_to_submit': True, 'verdict': 'promote'}, {})

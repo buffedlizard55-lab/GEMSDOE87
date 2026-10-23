@@ -136,3 +136,12 @@ queued hypotheses, restore the shared cache, and establish matched controls.
 Reevaluate the corrected edge guard only in that future run. Keep any slot
 selector separate and require authenticated current cap/usage. PR merge and CI
 outcomes must be checked on GitHub, not inferred from these local results.
+
+### Concurrent-main integration before merge
+
+PR #12 merged while this review PR #13 was awaiting CI, causing conflicts in
+the browser-receipt timestamp and the equivalent approval-flag guard. Integrated
+`origin/main` on the fixed active branch, retained its corrupt-ZIP CLI refusal
+and additional tests, and kept the same negative-only guard. Re-ran the combined
+suite: **137 tests passed**, plus all **37 Chromium checks** and the static-site
+audit. This synchronization changed no raster, holdout, budget or shared tool.

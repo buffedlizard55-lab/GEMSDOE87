@@ -336,6 +336,13 @@ silently exempting them in this stopped run), confirm layer definitions for the
 queued hypotheses, restore the shared cache, and establish matched controls.
 Reevaluate the corrected edge guard only in that future run. Keep any slot
 selector separate and require authenticated current cap/usage. PR merge and CI
-outcomes must be checked on GitHub, not inferred from these local results.</p></div></main>
+outcomes must be checked on GitHub, not inferred from these local results.</p>
+<h4 id="concurrent-main-integration-before-merge">Concurrent-main integration before merge</h4>
+<p>PR #12 merged while this review PR #13 was awaiting CI, causing conflicts in
+the browser-receipt timestamp and the equivalent approval-flag guard. Integrated
+<code>origin/main</code> on the fixed active branch, retained its corrupt-ZIP CLI refusal
+and additional tests, and kept the same negative-only guard. Re-ran the combined
+suite: <strong>137 tests passed</strong>, plus all <strong>37 Chromium checks</strong> and the static-site
+audit. This synchronization changed no raster, holdout, budget or shared tool.</p></div></main>
 <footer class="footer"><div class="shell footer-inner"><div class="values"><p><strong>Maximize P(Win).</strong> Preserve slots for evidence, not optimism. <strong>Own the Outcome.</strong> Publish the negative.</p><p>Fault evidence is not proof of a geothermal vent. Local validation is not organizer acceptance.</p></div><div><p><a href="https://github.com/buffedlizard55-lab/GEMSDOE87">Code &amp; original brief ↗</a> · <a href="evidence/run_card.json">JSON run card</a></p><p>Research snapshot: 22 OCT 2026 · <span data-feed-state>Dated source-health snapshot · see Sources</span></p></div></div></footer>
 </body></html>
