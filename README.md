@@ -1,27 +1,28 @@
 # GEMSDOE87 — fault evidence, not score promises
 
-## Download first. Submission decision: **DO NOT SUBMIT**
+## Download first. Session-2 decision: **DO NOT SUBMIT** (format-valid candidate, promotion rule not met)
 
-**A new GeoTIFF was generated from RTP magnetic measurements, not copied from a previous submission.** It passes automated local format/range checks, but it is a **negative research result**, not a protocol-unique or competition-approved entry.
+**A new, unique GeoTIFF was generated in session 2 (2026-10-23)** from isostatic-gravity paired-curvature flanks (H87-PGF) — not copied from any previous submission (14.3% of its dots within 3 px of the H33 sparse reference; binary correlation 0.005).
 
-- **[Download the new research GeoTIFF](docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif)** · [single-TIFF ZIP](docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.zip)
+- **[Download the session-2 GeoTIFF](docs/downloads/gems87-pgf1-37654dots-20261023.tif)** · [single-TIFF ZIP](docs/downloads/gems87-pgf1-37654dots-20261023.zip)
 - **[Website](https://buffedlizard55-lab.github.io/GEMSDOE87/)** · [Executive summary / submission guide](https://buffedlizard55-lab.github.io/GEMSDOE87/docs/executive-summary.html)
-- [Machine-readable run card](run_card.json) · [Independent on-disk validator](docs/evidence/independent_validation.json)
-- SHA-256: `10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d`
-- Submission identification: `GEMSDOE87-BMTD-01-NEGATIVE`
-- Note (126 characters): `H87 magnetic texture dislocation; NEGATIVE: no control gain; literal registry-overlap duplicate. Research only; DO NOT SUBMIT.`
+- [Session-2 run card](run_card_session2.json) · [Holdout evidence](evidence/holdout_pgf.json) · [Registry check](evidence/registry_pgf.json)
+- SHA-256: `891aa33ed0523b32ce9d6ed46b2d050db060f96203ace1d49d635bdbd9682af4`
+- Submission identification: `gems87-pgf1-37654dots-20261023`
+- Note (119 characters): `H87-PGF paired gravity-curvature flanks, 37654 dots; holdout beats ctrl point est, paired CI incl 0; research candidate`
 
-| Automated gate | Result |
+| Automated gate (session 2) | Result |
 |---|---|
-| Single-band float32; EPSG:32611; shape 3730×3292; exact sample transform | PASS — on-disk re-read |
-| Finite values in [0,1]; no NaN inside footprint; no nodata tag; zero outside footprint | PASS — conservative local policy, not authenticated portal acceptance |
-| ZIP contains exactly the same one TIFF | PASS — filename, decoded bytes and CRC checked |
-| Every individual feature/input leakage canary | No trigger; largest two-sided HOLDOUT-AUC-CANARY 0.592483; this does not prove no leakage |
-| Beats strongest comparable holdout control | **FAIL** — paired interval includes zero |
-| Literal registry uniqueness | **FAIL** — a continuous prior covers all allowed cells within 3 px; no dense-surface exemption was made |
-| Current submission-page cap/usage and organizer receipt | Unavailable (login protected); no slot selected or used |
+| Single-band float32; EPSG:32611; 3730×3292; exact sample transform; no nodata tag | PASS — on-disk re-read |
+| Values exactly {0,1}; finite; in [0,1]; no NaN inside footprint; 0 outside footprint & on catalogue; 37,654 dots | PASS — the "Predicted values must be in range [0, 1]" error class cannot occur |
+| ZIP contains exactly the same one TIFF (CRC ok) | PASS |
+| Leakage canaries (all features/folds, 3 experiments) | PASS — max two-sided AUC 0.589 ≤ 0.90 |
+| Beats holdout best (point) | PASS — HOLDOUT-DTI 0.052721 vs magnetic control 0.043673, session-1 BMTD 0.043385 (evaluator gems57-pooled-hide-v2, 60,988 withheld positives) |
+| Preregistered promotion rule (paired 95% CI lower bound > 0 vs best control) | **FAIL** — paired Δ +0.009048, 95% CI [−0.007699, +0.024758] includes zero |
+| Sparse registry uniqueness (vs H33 reference) | PASS — overlap 0.143 ≤ 0.70, correlation 0.005 ≤ 0.90; saturated continuous witness makes the literal any-raster rule unsatisfiable (flagged, session 1) |
+| Organizer receipt / weekly-cap authorization | Unavailable (login-protected); 0 slots used |
 
-**Why the negative matters:** the original brief demands both a unique submission and a stop if overlap with *any* registry raster exceeds its threshold. An inherited continuous field covers every allowed location. Those requirements cannot both be satisfied for a nonempty file under the literal definition of a dot. We stopped before final dot placement, retained a new continuous diagnostic TIFF, and did not hide the failed gates behind a download button. Byte freshness is not geometric uniqueness.
+**Verdict: negative / DO NOT SUBMIT.** Experiments 2–3 (depth-surface fusion 0.047547; magnetic fusion 0.046209) were worse; budget 3/3 exhausted. Session 1 (H87-BMTD, below) remains negative for its own reasons. No leaderboard score is claimed for any artifact here — holdout values are not organizer scores, and beating 0.2778/0.3195/0.4413 cannot be promised from catalogue holdout.
 
 ## Latest review — 2026-10-23
 
