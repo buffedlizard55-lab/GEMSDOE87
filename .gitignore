@@ -30,3 +30,6 @@ evidence/tmp/
 # Site build output
 _site/
 evidence/tmp/
+node_modules/
+.cache/
+.pytest_cache/
