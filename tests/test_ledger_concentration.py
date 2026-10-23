@@ -37,11 +37,26 @@ class LedgerConcentrationTests(unittest.TestCase):
 
     def test_mechanism_cards_and_r0_pin(self) -> None:
         cards = json.loads((ROOT / "ledger/mechanism_cards.json").read_text(encoding="utf-8"))
-        self.assertEqual(len(cards), 3)
+        self.assertGreaterEqual(len(cards), 3)
         for card in cards.values():
-            for key in ("hypothesis", "mechanism", "non_fault_mimic", "predicted_sign_size", "falsifier"):
+            for key in ("hypothesis", "mechanism", "non_fault_mimic", "falsifier"):
                 self.assertIn(key, card)
+            # Prediction key is named per axis session; at least one must be present.
+            self.assertTrue("predicted_sign_size" in card or "predicted_live_change" in card)
+        conc_cards = {k: v for k, v in cards.items() if "-CONCc" in k}
+        self.assertEqual(len(conc_cards), 3)
+        for card in conc_cards.values():
+            self.assertIn("predicted_sign_size", card)
             self.assertEqual(card["block_px"], 10)
+        snap_cards = {k: v for k, v in cards.items() if "-SNAP" in k}
+        if snap_cards:  # SNAP session cards: fixed-count edge-crest re-centering metadata
+            self.assertEqual(len(snap_cards), 3)
+            for card in snap_cards.values():
+                self.assertEqual(card["axis"], "SNAP")
+                self.assertEqual(card["n_dots"], 37654)
+                self.assertIn("predicted_live_change", card)
+                self.assertIn("window", card)
+                self.assertIn("exclusions", card)
         pin = json.loads((ROOT / "registry/r0_parent.json").read_text(encoding="utf-8"))
         self.assertEqual(
             pin["sha256_zeros"],

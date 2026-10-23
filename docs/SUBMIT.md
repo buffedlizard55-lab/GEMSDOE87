@@ -58,6 +58,49 @@
 
 ---
 
+## Part S — `AXIS = SNAP` Variants (Built `2026-10-23`, Human-Assigned Axis; Reproducible via `python3 scripts/build_snap_variants.py`)
+
+**Parent `R0` Exact Byte-Level Rebuild Receipt (this session):** Identical procedure to Part A — rebuilt from SHA-256-verified `registry/data_manifest.json` inputs via `dot_thin_geodesic_bfs(..., 2.8) & (d_cat > 2.0)` (`37,654` dots), matching both R0 twins **byte-for-byte** (`zeros` `c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9`, `nan` `baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd`).
+
+**SNAP operator (identical for all three; only the edge field changes):** each R0 dot may move `<= 2 px` (Euclidean; `13`-pixel window `dy² + dx² <= 4`) to the argmax of a `3x3` footprint-normalised-smoothed edge field; destination must satisfy R0's own exclusions (`footprint & d_cat > 2 px`); count fixed at `37,654`; deterministic row-major processing, own-pixel-wins ties, collisions resolved to the next-best free candidate, `0` overflow moves. Edge fields come only from pinned `training_features.tif` bands (`tmi_hg` band `3`; `iso_grav_anom_hg` band `18`); no lidar-derived rasters were used. Invalid band pixels (`3,061` in footprint, `0.06%`) are filled with the footprint minimum so they never attract a snap.
+
+### S1. `SNAPcomb2` — Recommended Slot 3 (rank-composite TMI ⊕ gravity crest)
+
+- **File (NaN outside, per spec):** `releases/h33-h33-2-b2-SNAPcomb2-20261023-bf0a7e2b.tif` (`355,332 B`, sha256 `bf0a7e2b906a19526a78cc67e175e36e4716975017bbff5a2e1f9a100820deff`)
+- **Fallback (zeros outside):** `releases/h33-h33-2-b2-SNAPcomb2-20261023-bf0a7e2b-zeros.tif` (`219,310 B`, sha256 `007f83e0042258362a0f88f688cd55c9b3a0358cb3e46446d3cba43f4a88b38d`)
+- **Name:** `h33-h33-2-b2-SNAPcomb2-20261023-bf0a7e2b`
+- **Note (124/140):** `h33-h33-2-b2; SNAP<=2px on comb2 edge crest (n=37654, d_cat>2 kept, 98.9% moved, mean 1.80px); pred +0.002 to +0.008 [MODEL]`
+- **Parent-diff & format receipt:** `37,654` dots, **`98.90%` moved** (mean displacement `1.80 px` = `180 m`; hist `0 px: 414`, `1 px: 1,825`, `√2 px: 8,075`, `2 px: 27,340`; `87.04%` of moves land off `H19-5` ridges), `min d_cat = 2.2361 px` (exclusion kept), `min NN sep = 1.0 px`, `10 km CV` `0.6381 -> 0.6382`, `0` on catalogue. Re-read verified: `scripts/validate_submission.py` `ready=true`, `errors=[]`; `gems57.validate` `all_checks_passed=true` on zeros.
+- **Mechanism (condensed; full card in `ledger/mechanism_cards.json`):** basin-margin normal faults usually step BOTH the magnetic basement and the Bouguer surface; the equal-weight rank composite requires partial two-sensor agreement, filtering single-sensor crest noise (flight-line corrugation for TMI, compilation smoothing for gravity). *Mimic:* caldera resurgent-dome margins and density-contrast lithologic contacts. *Predicted live change:* `+0.002` to `+0.008` [`MODEL`]. *Falsifier:* comb2 lands `>= 0.01` below BOTH `SNAPtmi2` and `R0` live.
+
+### S2. `SNAPtmi2` — Single-Sensor Magnetic Control
+
+- **File:** `releases/h33-h33-2-b2-SNAPtmi2-20261023-b87ddfc5.tif` (`355,066 B`, sha256 `b87ddfc5ae71e761af01c13bc9f6c2ba2f3dee431e43b9537a884fee2eb36ae8`)
+- **Fallback:** `releases/h33-h33-2-b2-SNAPtmi2-20261023-b87ddfc5-zeros.tif` (`218,999 B`, sha256 `b7c96cbbef9750e114578e337bb6515024d19f394a9694bb30ba83283c9af12f`)
+- **Name:** `h33-h33-2-b2-SNAPtmi2-20261023-b87ddfc5`
+- **Note (123/140):** `h33-h33-2-b2; SNAP<=2px on tmi2 edge crest (n=37654, d_cat>2 kept, 98.7% moved, mean 1.78px); pred +0.002 to +0.010 [MODEL]`
+- **Parent-diff & format receipt:** `37,654` dots, **`98.75%` moved** (mean `1.78 px`; `86.48%` off-ridge), `min d_cat = 2.2361 px`, `min NN sep = 1.0 px`, `10 km CV` `0.6381 -> 0.6372`, `0` on catalogue. Re-read verified: `ready=true`, `all_checks_passed=true`.
+- **Mechanism (condensed):** GeoDAWN Area 2's `400 m` line spacing ([USGS](https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7)) makes ridge-seed positions uncertain by ~the `300 m` kernel radius; re-centering on the `tmi_hg` crest converts partial kernel credit into full credit. *Mimic:* flight-line corrugation, cultural magnetics, dike swarms, caldera ring fractures. *Predicted live change:* `+0.002` to `+0.010` [`MODEL`]. *Falsifier:* live drop `>= 0.01` vs `R0` receipt.
+
+### S3. `SNAPgrav2` — Single-Sensor Gravity Control
+
+- **File:** `releases/h33-h33-2-b2-SNAPgrav2-20261023-ac2bdb06.tif` (`355,504 B`, sha256 `ac2bdb061774b38d0bdfa9e4fb77fb7ad3ae66d671eebe7406e42333c662c348`)
+- **Fallback:** `releases/h33-h33-2-b2-SNAPgrav2-20261023-ac2bdb06-zeros.tif` (`219,336 B`, sha256 `31dbcaac0d7f2107cc6ca491ceaba388e948e75411d3d4217de072458e5dbadf`)
+- **Name:** `h33-h33-2-b2-SNAPgrav2-20261023-ac2bdb06`
+- **Note (124/140):** `h33-h33-2-b2; SNAP<=2px on grav2 edge crest (n=37654, d_cat>2 kept, 99.8% moved, mean 1.95px); pred -0.002 to +0.006 [MODEL]`
+- **Parent-diff & format receipt:** `37,654` dots, **`99.78%` moved** (mean `1.95 px`; `88.20%` off-ridge), `min d_cat = 2.2361 px`, `min NN sep = 1.0 px`, `10 km CV` `0.6381 -> 0.6387`, `0` on catalogue. Re-read verified: `ready=true`, `all_checks_passed=true`.
+- **Mechanism (condensed):** the Bouguer step tracks basin-fill/range-front density contrast independently of magnetics. *Mimic:* km-smooth compilation crests at paleo-basin edges or buried pluton margins. *Predicted live change:* `-0.002` to `+0.006` [`MODEL`]. *Falsifier:* grav2 beats tmi2 by `>= +0.01`, or falls `>= 0.01` below `R0`.
+
+### S4. Report-Only `PROXY` Diagnostics (`SNAP` Session — Never Used as Gates)
+
+- **Fold-proper hide-and-recover `PROXY`** (`gems57-pooled-hide-v2`, `n = 22,663` withheld positives, Seeds 20 & 30, `1,000` draws): `R0_fp` `0.097493 [0.0854, 0.1096]` (exactly reproduces the prior session's fold-fair `H33_2_B2` value), `SNAPcomb2_fp` `0.090396` (paired `Δ -0.0003 [−0.0027, +0.0023]`), `SNAPgrav2_fp` `0.092401` (`Δ -0.0023 [−0.0073, +0.0035]`), `SNAPtmi2_fp` `0.090115` (`Δ -0.0074 [−0.0116, −0.0029]`) [`PROXY`].
+- **Static-raster hide-and-recover `PROXY`** (full-catalogue self-masking caveat): `R0` `0.004006`, `SNAPtmi2` `0.004360`, `SNAPgrav2` `0.004221`, `SNAPcomb2` `0.004138` [`PROXY`].
+- **Off-catalogue USGS SGMC control `PROXY`** (`62,122` bedrock fault px at `d_cat > 3 px`): `R0` `0.095386`, `SNAPgrav2` `0.089565`, `SNAPcomb2` `0.086703`, `SNAPtmi2` `0.085701` [`PROXY`].
+- **Leakage canary `PROXY`:** `22` channels audited (19 training bands + 3 smoothed SNAP edge fields); max symmetric AUC = **`0.56883 <= 0.90`** (`0` flagged) [`PROXY`].
+- **Honest reading:** the local `PROXY` does not support SNAP (catalogue hide-and-recover has correlated `-0.87…+0.54` with live scores and is never a gate); it is the reason `SNAPcomb2` (the `PROXY`-neutral arm) is ranked first for Slot 3 and `SNAPtmi2` is kept as the single-sensor falsifier rather than the recommendation.
+
+---
+
 ## Part B — `AXIS = CONCENTRATION` Variants (Prior Session in `ledger/submissions.csv`)
 
 ### B1. `CONCc10` (`10.00%` relocated across 1 km blocks, `2 px` collar inherited)
