@@ -91,7 +91,7 @@ bash scripts/download_competition_data.sh
 
 The GitHub Pages site starts with the file download and an unambiguous **DO NOT SUBMIT** decision. The executive-summary subpage explains the upload format and future authorized submission steps. Sources are claim-linked and dated; machine-readable receipts are adjacent to the file. The source-health feed has a timestamp and stale/failure state, and never upgrades historical claims to organizer receipts. Scheduled feed deployment is separate from scientific experimentation; deployment success is verified rather than assumed.
 
-Software verification: **103 automated tests** plus real Chromium checks at 1440, 768, 390 and 320 px, actual TIFF-download SHA-256, search, clipboard success/failure, no-JavaScript download, and failed-feed fallback. See [the review log](research/verification.md). Optional browser tooling: `npm ci --ignore-scripts && npm run test:browser` (Linux x64, Node 22.17+).
+Software verification: **107 automated tests** (2026-10-23 review) plus real Chromium checks at 1440, 768, 390 and 320 px, actual TIFF-download SHA-256, search, clipboard success/failure, no-JavaScript download, and failed-feed fallback. See [the review log](research/verification.md). Optional browser tooling: `npm ci --ignore-scripts && npm run test:browser` (Linux x64, Node 22.17+).
 
 `.github/workflows/ci.yml` repeats format/authorization, synthetic regression and browser checks. `.github/workflows/pages.yml` attempts a daily 06:17 UTC public source-health refresh and read-only next-step generation, rebuilding the static site without touching the frozen raster or running a scientific experiment. Deployment needs Pages write permission; a checked-in workflow alone is not proof of a successful deployed run. Failed fetches stay explicit. This is not an autonomous geological-claim verifier or hosted live training service.
 
@@ -102,6 +102,18 @@ Local preview: `.venv/bin/python -m http.server 8000 --bind 0.0.0.0 --directory 
 While this branch was working from the initial title-only commit, `main` advanced through PRs #1/#3/#4 to a readiness-only site at `f4f5944`, followed by read-only H33/report-path hardening through `a7a7c77`. PR #5 integrates that work without importing or running another scientific lane. Earlier source audits, score-free feed helper, independent legacy preflight, assets and regression tests are retained; exact prior entrypoint/metadata snapshots are in [the archive](research/upstream_readiness/README.md). Historical documents are explicitly marked as snapshots. Root entry points and machine-readable compatibility status now lead to the current negative research result.
 
 The Pages-settings API refused this integration permission (HTTP 403); no credential workaround was attempted. The existing successful upload/deploy workflow pattern is reused, without trying to rewrite Pages settings. It runs after the built-in `pages-build-deployment` completes, preventing that legacy deployment from overwriting the refreshed feed; public TIFF and feed bytes are checked after publication. Local preflight and actual CI/deployment results remain separate evidence classes.
+
+## Review update — 2026-10-23
+
+Three-pass software review preserved the stopped scientific run and original prompt.
+Fixed CI push coverage for all Arena session branches, structured rejection of corrupt/encrypted
+ZIP inspection, and refusal of edited approval flags by the read-only next-step updater.
+**107 tests passed, no skips** after restoring only the two hash-pinned validation inputs;
+**37 Chromium checks passed**, including actual TIFF download/hash, mobile layouts and no-JavaScript status.
+Local format validation passed again; normal authorization still exits 2 / **DO NOT SUBMIT**.
+No new model, holdout estimate, registry clearance, competition upload or slot use is claimed.
+See [the dated three-pass review](research/review-2026-10-23.md). Official non-GitHub sources
+cannot be freshly retrieved through this sandbox's network allowlist; existing observations remain dated.
 
 ## Next session / limitations
 

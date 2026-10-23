@@ -85,3 +85,23 @@ def test_refreshed_pages_deploys_after_legacy_build_and_checks_public_feed():
     assert '  workflow_run:' in workflow and 'workflows: [pages-build-deployment]' in workflow
     assert 'types: [completed]' in workflow and '\n  push:' not in workflow
     assert '.cache/published-feed.json' in workflow and 'feed_last_attempt_utc' in workflow
+
+
+def test_next_steps_refuses_edited_approval_flags():
+    import pytest
+    original = json.loads((ROOT / 'run_card.json').read_text())
+    for patch in ({'safe_to_submit': True}, {'verdict': 'promote'},
+                  {'safe_to_submit': None}, {'verdict': None}):
+        card = copy.deepcopy(original)
+        card.update(patch)
+        before = copy.deepcopy(card)
+        with pytest.raises(ValueError, match='refuses approval flags'):
+            update_next_steps.derive(card, {})
+        assert card == before
+
+
+def test_ci_push_checks_include_all_fixed_session_branches():
+    for name in ('ci.yml', 'tests.yml'):
+        workflow = (ROOT / '.github/workflows' / name).read_text()
+        assert "'arena/**'" in workflow
+        assert 'arena/e6d76d5c-gemsdoe87' not in workflow
