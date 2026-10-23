@@ -4,11 +4,13 @@ Prepared per Section 3 of the [DOE/NLR GEMS Prize Official Rules PDF](https://do
 
 ## 1. What Generative AI Wrote (2026-10-23 UTC)
 
-- **Session `arena/c677fe69-gemsdoe87` (`AXIS = SNAP`):**
-  - `src/gems87/snap.py` & `scripts/build_snap_variants.py`: verifies all 25 SHA-256 pins in `registry/data_manifest.json`, rebuilds Parent `R0` (`h33-h33-2-b2`, `37,654` dots) with exact byte-level SHA-256 identity (`c55bafc4…` zeros / `baeae321…` NaN), audits `Band 05` (`iso_grav_anom_slope`, isotropic $|\nabla_H g|$ `r = +0.9619`) vs. `Band 18` (`iso_grav_anom_hg`, directional $\partial g/\partial x$ `r = +0.9482`), builds three fixed-count (`37,654` dots), fixed-exclusion (`d_cat > 2 px`, `0` on catalogue), spacing-preserving (`min_sep >= sqrt(8)`) cross-strike `<= 2.0 px` `AXIS = SNAP` variants (`SNAPrtp2`, `SNAPtg2`, `SNAPscarp2`) strictly from organizer-provided `training_features.tif` bands (`FIXED_SEED = 0`, zero external lidar rasters used), re-reads every written GeoTIFF from disk through both format validators, and computes report-only `PROXY` diagnostics (`releases/snap_manifest.json`, `ledger/snap_mechanism_cards.json`).
-  - `tests/test_snap_axis.py`: unit-tests midrank quantile equivalence, planar-ramp Hessian nullity and 1-D ridge centering, `<= 2.0 px` bijective displacement/exclusion/spacing invariants, and re-read GeoTIFF + ledger receipts.
 - **Session `arena/82031087-gemsdoe87` (`AXIS = PRUNE`):**
-  - `scripts/build_prune_variants.py`, `tests/test_dti_algebra_and_prune.py`, `tests/test_refresh_feed.py`, `releases/manifest.json`.
+  - `scripts/build_prune_variants.py`: verifies all SHA-256 pins in `registry/data_manifest.json`, rebuilds Parent `R0` (`h33-h33-2-b2`, `37,654` dots) with exact byte-level SHA-256 identity (`c55bafc4…` zeros / `baeae321…` NaN), builds three fixed-count (`37,654` dots) `AXIS = PRUNE` variants (`PRUNE3`, `PRUNE1`, `PRUNE4`) on `R0`'s own `H19-5` parent ridges ranked by exact sequential DTI marginal gain (`vendor/gems57/metric.py`, `R = 300 m` kernel, `FIXED_SEED = 0`, deterministic row-major tie-break), runs re-read GeoTIFF format/catalogue/hash gates, and computes report-only `PROXY` diagnostics (`releases/manifest.json`).
+  - `tests/test_dti_algebra_and_prune.py` & `tests/test_refresh_feed.py`: unit-tests derived DTI algebra (`DTI = T / (0.2T + 0.2(S-M) + 0.8|G|)`), isolated vs. line-like truth marginal-gain behavior, `drivendata.org`/`dropbox.com` fetch blocking in `scripts/refresh_feed.py`, and re-read GeoTIFF receipts.
+- **Session `arena/d76a6a5f-gemsdoe87` (`AXIS = SNAP`, this session):**
+  - `scripts/build_snap_variants.py`: re-verifies all `25` SHA-256 pins in `registry/data_manifest.json`, rebuilds Parent `R0` with exact byte identity, constructs 2 km high-passed robust-z residual edge fields from the provided `tmi_hg` (band 03), `iso_grav_anom_hg` (band 18) and `det_elev_slope` (band 19) bands, and builds three fixed-count `SNAP` arms (`tmi-hg`, `scarp`, `grav-argmax`) with a deterministic, zero-randomness window operator (unique destinations, no mover/stayer collision, `<= 2 px` Chebyshev cap), the re-read format/catalogue/hash gates, and report-only `PROXY` diagnostics (`releases/manifest_SNAP.json`).
+  - `tests/test_snap_axis.py`: synthetic operator tests (count preservation, displacement cap, destination uniqueness, catalogue exclusion, reproducibility, gain margin, crest definition, trend removal) plus release invariants (hashes re-read from disk, `EPSG:32611`/`float32`/`1` band/`37,654` dots, zero catalogue mass, ledger and card completeness).
+  - `ledger/mechanism_cards_snap.json`, `SLOT_PLAN.md`, `docs/SUBMIT.md` Part D, `IRREGULARITIES.md` `IR-87-V2-07/08`, `ledger/README.md`, the `CURRENT STATE` block of `README.md`.
 - **Session `arena/6743515f-gemsdoe87` (`AXIS = CONCENTRATION`):**
   - `src/gems87/concentration.py`, `scripts/generate_concentration_variants.py`, `scripts/restore_r0_inputs.py`, `ledger/mechanism_cards.json`, `tests/test_concentration_axis.py`, `tests/test_ledger_concentration.py`.
 - **Shared Ledger & Documentation:** `ledger/submissions.csv`, `ledger/lineage_claims.csv`, `SLOT_PLAN.md`, `docs/SUBMIT.md`, `IRREGULARITIES.md`, `AI_USE.md`, and the `CURRENT STATE` block in `README.md`.
@@ -16,8 +18,8 @@ Prepared per Section 3 of the [DOE/NLR GEMS Prize Official Rules PDF](https://do
 ## 2. What AI Did NOT Do
 
 - Did **not** access `drivendata.org` or `dropbox.com`, log in, scrape leaderboard numbers, read/store credentials, or upload/submit any file.
-- Did **not** use external lidar-derived rasters in `AXIS = SNAP` (strictly used organizer-provided `training_features.tif` channels per Brief §5).
-- Did **not** invent `TOP_PUBLIC`, remaining submission slots, or organizer `RECEIPT` scores (all projections are labeled `MODEL`, all local holdouts and SGMC controls `PROXY`).
+- Did **not** invent `TOP_PUBLIC`, remaining submission slots, or organizer `RECEIPT` scores (all projections are labeled `MODEL`, all local holdouts `PROXY`).
+- Did **not** promote any file on `PROXY` evidence: the SNAP arms' two report-only proxies disagree in sign, so all three are handed to the human as `BUILT` only.
 
 ## 3. What the Human Competitor (`buffedlizard55-lab`) Decides & Supplies
 

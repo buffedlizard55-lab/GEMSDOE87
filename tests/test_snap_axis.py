@@ -1,217 +1,214 @@
+"""SNAP-axis unit tests and release invariants (Agent Brief v2, session `AXIS = SNAP`).
+
+Two blocks:
+  * synthetic operator tests - the snap must preserve the dot count, cap displacement at the
+    Chebyshev radius, never share a destination, never gain catalogue mass, be exactly
+    reproducible, and never move a dot that already sits on an edge crest;
+  * release invariants - the three BUILT SNAP rows, their files, hashes and mechanism cards.
+"""
+
 from __future__ import annotations
 
 import csv
 import hashlib
 import json
-import sys
 import unittest
 from pathlib import Path
 
-try:
-    import numpy as np
+import numpy as np
+
+try:  # CI installs requirements-lock.txt, which pins rasterio
     import rasterio
-    from scipy.stats import rankdata
-except ImportError:
-    np = None
+except Exception:  # pragma: no cover
     rasterio = None
-    rankdata = None
 
 ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT / "src") not in sys.path:
-    sys.path.insert(0, str(ROOT / "src"))
 
-from gems87.snap import (  # noqa: E402
-    DEFAULT_MIN_SEP_SQ,
-    compute_cross_strike_frame,
-    empirical_quantile_map,
-    hessian_crest_quantile,
-    isotropic_horizontal_gradient,
+import sys
+
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.build_snap_variants import (  # noqa: E402
+    ARGMAX_GAIN_MARGIN_Z,
+    SNAP_RADIUS_PX,
+    crest_mask,
+    nearest_neighbour_stats,
+    residual_edge_field,
     snap_dots,
-    snap_window_offsets,
 )
 
 
-@unittest.skipIf(np is None, "numpy required")
-class SnapOperatorUnitTests(unittest.TestCase):
-    def test_empirical_quantile_matches_scipy_midrank_with_ties(self) -> None:
-        arr = np.array([[10.0, 20.0, 20.0], [5.0, -999.0, 30.0]], dtype=np.float32)
-        valid = arr > -100.0
-        q_map = empirical_quantile_map(arr, valid)
-        self.assertTrue(np.isneginf(q_map[1, 1]))
-        expected = rankdata(arr[valid], method="average") / float(valid.sum())
-        np.testing.assert_allclose(q_map[valid], expected, rtol=1e-6, atol=1e-6)
-
-    def test_hessian_crest_vanishes_on_planar_ramp_and_peaks_on_1d_ridge(self) -> None:
-        yy, xx = np.mgrid[0:32, 0:48].astype(np.float32)
-        valid = np.ones((32, 48), dtype=bool)
-        # Left half (cols 0..20): convex regional ramp -> -lambda_min == 0.0 identically
-        # Right half (cols 22..47): periodic background ripples + sharp fault ridge at x = 36
-        ramp_part = np.where(xx <= 20.0, np.exp(0.12 * xx + 0.04 * yy), 0.0)
-        bg_ripples = np.where(xx >= 22.0, 2.0 * (1.0 + np.cos(0.9 * xx)), 0.0)
-        ridge_part = 30.0 * np.exp(-0.5 * ((xx - 36.0) / 1.0) ** 2)
-        combined_grad = (ramp_part + bg_ripples + ridge_part).astype(np.float32)
-
-        q_map, v_int = hessian_crest_quantile(combined_grad, valid)
-        self.assertTrue(bool(v_int[16, 10]))
-        self.assertTrue(bool(v_int[16, 36]))
-        # Planar ramp interior sits strictly below the 0.75 SNAP prominence floor (zero uphill drift)
-        self.assertLess(float(q_map[4:-4, 4:18].max()), 0.75)
-        # 1-D ridge centerline at x = 36 must peak sharply above 0.90 and exceed flanking cols 34 & 38
-        self.assertGreater(float(q_map[16, 36]), 0.90)
-        self.assertGreater(float(q_map[16, 36]), float(q_map[16, 34]))
-        self.assertGreater(float(q_map[16, 36]), float(q_map[16, 38]))
-
-    def test_nodata_boundary_erosion_blocks_border_step_artifacts(self) -> None:
-        field = np.ones((20, 20), dtype=np.float32) * 50.0
-        valid = np.ones((20, 20), dtype=bool)
-        valid[:, :4] = False
-        field[~valid] = -3.4e38
-        grad, v_int = isotropic_horizontal_gradient(field, valid)
-        # Column 4 touches nodata column 3, so v_int must mask column 4 out
-        self.assertFalse(bool(v_int[10, 4]))
-        self.assertTrue(bool(v_int[10, 5]))
-        self.assertEqual(float(grad[10, 5]), 0.0)
-
-    def test_snap_dots_preserves_count_exclusions_spacing_and_cross_strike_direction(self) -> None:
-        h, w = 40, 40
-        # Parent N-S ribbon on cols 14..15; true geophysical crest sits 2 px east on col 16
-        ridge = np.zeros((h, w), dtype=bool)
-        ridge[5:35, 14:16] = True
-        nx_n, ny_n, coh = compute_cross_strike_frame(ridge)
-
-        parent = np.zeros((h, w), dtype=bool)
-        for r in range(6, 34, 4):  # 7 dots spaced 4 px apart along col 14
-            parent[r, 14] = True
-
-        yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
-        crest = np.exp(-0.5 * ((xx - 16.0) / 0.8) ** 2).astype(np.float32)
-        valid = np.ones((h, w), dtype=bool)
-        q_crest = empirical_quantile_map(crest, valid)
-
-        allowed = np.ones((h, w), dtype=bool)
-        allowed[6, 16] = False  # Block east crest for first dot to verify exclusion enforcement
-
-        res = snap_dots(
-            parent,
-            q_crest,
-            allowed,
-            valid,
-            nx_n,
-            ny_n,
-            coh,
-            max_radius_px=2.0,
-            min_sep_sq=DEFAULT_MIN_SEP_SQ,
-            min_peak_q=0.75,
-            min_gain_q=0.05,
-        )
-        out = res["dots"]
-        self.assertEqual(int(out.sum()), int(parent.sum()))
-        self.assertEqual(int((out & ~allowed).sum()), 0)
-        self.assertLessEqual(res["max_displacement_px"], 2.0)
-        # Unblocked dots at r = 10..30 should snap 2 px east onto col 16 without N-S drift
-        for r in range(10, 34, 4):
-            self.assertTrue(bool(out[r, 16]), f"Expected dot at ({r}, 16)")
-
-        # Pairwise spacing >= sqrt(8)
-        pts = np.argwhere(out).astype(np.float64)
-        for i in range(len(pts)):
-            for j in range(i + 1, len(pts)):
-                d2 = float(np.sum((pts[i] - pts[j]) ** 2))
-                self.assertGreaterEqual(d2, float(DEFAULT_MIN_SEP_SQ) - 1e-9)
-
-    def test_snap_rejects_radius_above_2px_and_disallowed_parent(self) -> None:
-        with self.assertRaises(ValueError):
-            snap_window_offsets(2.5)
-        parent = np.zeros((10, 10), dtype=bool)
-        parent[5, 5] = True
-        allowed = np.zeros((10, 10), dtype=bool)
-        valid = np.ones((10, 10), dtype=bool)
-        z = np.zeros((10, 10), dtype=np.float32)
-        with self.assertRaises(ValueError):
-            snap_dots(parent, z, allowed, valid, z, z, z)
+def synthetic_field() -> tuple[np.ndarray, np.ndarray]:
+    """A 40x40 field with one smooth crest ridge at column 20 (no zero-valued plateau)."""
+    cols = np.arange(40, dtype=np.float64)
+    score = np.tile(np.maximum(0.0, 3.0 - 0.6 * np.abs(cols - 20.0)), (40, 1))
+    allowed = np.ones((40, 40), bool)
+    return score, allowed
 
 
-@unittest.skipIf(rasterio is None or np is None, "install requirements-validation.txt")
-class SnapReleaseAndLedgerTests(unittest.TestCase):
-    def test_snap_releases_manifest_cards_and_ledger_pass_all_gates(self) -> None:
-        ledger_path = ROOT / "ledger" / "submissions.csv"
-        snap_manifest_path = ROOT / "releases" / "snap_manifest.json"
-        snap_cards_path = ROOT / "ledger" / "snap_mechanism_cards.json"
-        self.assertTrue(ledger_path.is_file())
-        self.assertTrue(snap_manifest_path.is_file())
-        self.assertTrue(snap_cards_path.is_file())
+def synthetic_dots() -> np.ndarray:
+    dots = np.zeros((40, 40), bool)
+    for y in range(4, 36, 4):
+        dots[y, 18] = True  # exactly two pixels left of the crest (inside the snap window)
+        dots[y, 30] = True  # far from the crest, no admissible move
+    return dots
 
-        with ledger_path.open("r", encoding="utf-8", newline="") as f:
-            rows = list(csv.DictReader(f))
-        snap_rows = [r for r in rows if r["axis"] == "SNAP" and r["status"] == "BUILT"]
-        self.assertEqual(len(snap_rows), 3)
-        self.assertEqual({r["value"] for r in snap_rows}, {"rtp2", "tg2", "scarp2"})
 
-        shas = [r["sha256"] for r in rows]
-        self.assertEqual(len(shas), len(set(shas)), "Duplicate sha256 in ledger/submissions.csv")
-        pairs = [(r["parent"], r["axis"], r["value"]) for r in rows]
-        self.assertEqual(len(pairs), len(set(pairs)), "Duplicate (parent, axis, value) in ledger/submissions.csv")
+class SnapOperatorTests(unittest.TestCase):
+    def test_count_preserved_and_displacement_capped(self) -> None:
+        score, allowed = synthetic_field()
+        dots = synthetic_dots()
+        out, info = snap_dots(dots, score, allowed, rule="crest")
+        self.assertEqual(int(out.sum()), int(dots.sum()))
+        self.assertTrue(info["count_preserved"])
+        self.assertGreater(info["n_moved"], 0)
+        self.assertLessEqual(info["max_displacement_px"], float(np.sqrt(2 * SNAP_RADIUS_PX ** 2)))
 
-        manifest = json.loads(snap_manifest_path.read_text(encoding="utf-8"))
-        self.assertFalse(manifest["external_lidar_used"])
-        self.assertEqual(manifest["manifest_verification"]["verified_files_count"], 25)
-        self.assertTrue(manifest["parent_r0_rebuild_receipt"]["zeros_sha256_exact_match"])
-        self.assertTrue(manifest["parent_r0_rebuild_receipt"]["nan_sha256_exact_match"])
+    def test_destinations_are_unique_and_no_catalogue_mass(self) -> None:
+        score, allowed = synthetic_field()
+        dots = synthetic_dots()
+        catalogue = np.zeros_like(dots)
+        catalogue[:, 19:22] = True  # the crest itself is a "catalogue" pixel: must stay empty
+        allowed = allowed & ~catalogue
+        out, _ = snap_dots(dots, score, allowed, rule="crest")
+        self.assertEqual(int((out & catalogue).sum()), 0, "SNAP put mass on catalogue pixels")
+        pts = np.column_stack(np.nonzero(out))
+        self.assertEqual(len(pts), len({tuple(p) for p in pts}), "two dots share a destination")
 
-        cards = json.loads(snap_cards_path.read_text(encoding="utf-8"))
+    def test_dot_already_on_crest_never_moves(self) -> None:
+        score, allowed = synthetic_field()
+        dots = np.zeros((40, 40), bool)
+        dots[10, 20] = True  # exactly on the crest
+        out, info = snap_dots(dots, score, allowed, rule="crest")
+        self.assertEqual(int(info["n_dots_on_crest_at_parent"]), 1)
+        self.assertEqual(int(info["n_moved"]), 0)
+        self.assertTrue(bool(out[10, 20]))
+
+    def test_operator_is_exactly_reproducible(self) -> None:
+        score, allowed = synthetic_field()
+        dots = synthetic_dots()
+        a, _ = snap_dots(dots, score, allowed, rule="crest")
+        b, _ = snap_dots(dots, score, allowed, rule="crest")
+        self.assertTrue(np.array_equal(a, b))
+
+    def test_argmax_rule_respects_gain_margin(self) -> None:
+        score = np.zeros((20, 20), np.float64)
+        score[5, 5] = 1.0
+        score[5, 6] = 0.9  # below the margin from 1.0 back to a weak dot
+        dots = np.zeros((20, 20), bool)
+        dots[5, 3] = True  # 2 px away, own score 0 -> gain 1.0 >= margin
+        allowed = np.ones((20, 20), bool)
+        out, info = snap_dots(dots, score, allowed, rule="argmax_gain")
+        self.assertEqual(int(info["n_moved"]), 1)
+        self.assertTrue(bool(out[5, 5]))
+        self.assertEqual(info["gain_margin_z"], ARGMAX_GAIN_MARGIN_Z)
+
+    def test_crest_mask_requires_local_maximum_above_zero(self) -> None:
+        score = np.zeros((10, 10), np.float64)
+        score[4, 4] = 2.0
+        score[7, 7] = -1.0
+        allowed = np.ones((10, 10), bool)
+        crest = crest_mask(score, allowed)
+        self.assertTrue(bool(crest[4, 4]))
+        self.assertFalse(bool(crest[7, 7]), "a trough must not count as an edge crest")
+
+    def test_residual_field_removes_regional_trend(self) -> None:
+        # A pure ramp has no local crest: after the 2 km high-pass the interior residual is ~flat
+        # (the array border carries reflect-padding edge effects and is excluded here).
+        ramp = np.tile(np.arange(600, dtype=np.float64), (120, 1))
+        fp = np.ones_like(ramp, bool)
+        resid, info = residual_edge_field(ramp, fp, sigma_px=20.0)
+        # Residual that survives the 2 km high-pass is < 1% of the input spread: the ramp trend is gone.
+        self.assertLess(info["raw_residual_over_z_std"], 0.01)
+        self.assertGreater(info["trend_fraction_of_variance"], 0.99)
+
+    def test_nearest_neighbour_census_detects_new_pairs(self) -> None:
+        dots = np.zeros((20, 20), bool)
+        dots[5, 5] = True
+        dots[5, 7] = True
+        self.assertEqual(nearest_neighbour_stats(dots)["n_with_nn_lt_2px"], 0)
+        dots[5, 6] = True
+        self.assertGreaterEqual(nearest_neighbour_stats(dots)["n_with_nn_lt_2px"], 2)
+
+
+class SnapReleaseTests(unittest.TestCase):
+    """Invariants of the written artifacts, independent of the raster library."""
+
+    def _rows(self) -> list[dict[str, str]]:
+        with (ROOT / "ledger" / "submissions.csv").open(encoding="utf-8", newline="") as f:
+            return list(csv.DictReader(f))
+
+    def test_three_snap_rows_are_unique_and_complete(self) -> None:
+        rows = self._rows()
+        snap = [r for r in rows if r["axis"] == "SNAP"]
+        self.assertEqual(len(snap), 3, "expected exactly 3 BUILT SNAP variants for this session")
+        self.assertEqual({r["value"] for r in snap}, {"tmi-hg", "scarp", "grav-argmax"})
+        self.assertEqual(len({r["sha256"] for r in rows}), len(rows), "duplicate sha256 in the ledger")
+        pairs = {(r["parent"], r["axis"], r["value"]) for r in rows}
+        self.assertEqual(len(pairs), len(rows), "duplicate (parent, axis, value) in the ledger")
+        for r in snap:
+            self.assertEqual(r["parent"], "h33-h33-2-b2")
+            self.assertEqual(r["n_dots"], "37654")
+            self.assertEqual(r["status"], "BUILT")
+            self.assertEqual(r["receipt_score"], "", "the human fills receipt_score, never the builder")
+            self.assertEqual(len(r["sha256"]), 64)
+            self.assertEqual(len(r["sha256_zeros"]), 64)
+            self.assertTrue(0.0 < float(r["pct_changed"]) <= 100.0)
+            self.assertLessEqual(len(r["description"]), 140)
+            for suffix in (".tif", "-zeros.tif"):
+                self.assertTrue((ROOT / "releases" / f"{r['id']}{suffix}").is_file(), r["id"] + suffix)
+
+    def test_release_manifest_and_cards(self) -> None:
+        man = json.loads((ROOT / "releases" / "manifest_SNAP.json").read_text(encoding="utf-8"))
+        self.assertEqual(man["axis"], "SNAP")
+        self.assertTrue(man["parent_r0_rebuild_receipt"]["nan_sha256_exact_match"])
+        self.assertTrue(man["parent_r0_rebuild_receipt"]["zeros_sha256_exact_match"])
+        self.assertEqual(len(man["variants"]), 3)
+        cards = json.loads((ROOT / "ledger" / "mechanism_cards_snap.json").read_text(encoding="utf-8"))
         self.assertEqual(len(cards), 3)
+        for rec in man["variants"]:
+            self.assertLessEqual(rec["form_note_length"], 140)
+            self.assertEqual(rec["n_dots"], 37654)
+            self.assertLessEqual(rec["snap_operator"]["mean_displacement_px"], 2.8285)
+            self.assertEqual(rec["parent_diff"]["d_catalogue_px"]["min"], 2.2361)
+            self.assertEqual(rec["parent_diff"]["nearest_neighbour_parent"]["n_with_nn_lt_2px"], 0)
+            self.assertIn("leakage_canary", man["report_only_diagnostics"])
         for card in cards.values():
             for key in ("hypothesis", "mechanism", "non_fault_mimic", "predicted_live_change", "falsifier"):
                 self.assertIn(key, card)
 
-        cat_mask = None
-        for cand_cat in (ROOT / "data" / "raw" / "existing_faults.tif", ROOT / ".cache" / "raw" / "existing_faults.tif"):
-            if cand_cat.is_file():
-                with rasterio.open(cand_cat) as ds_c:
-                    cat_mask = ds_c.read(1) > 0
-                break
+    @unittest.skipIf(rasterio is None, "install requirements-lock.txt")
+    def test_files_re_read_from_disk_match_the_ledger_and_stay_off_the_catalogue(self) -> None:
+        raw = ROOT / ".cache" / "raw"
+        template = raw / "sample_submission.tif"
+        catalogue_tif = raw / "existing_faults.tif"
+        if not (template.is_file() and catalogue_tif.is_file()):
+            self.skipTest("pinned competition inputs not restored in this checkout")
+        with rasterio.open(template) as ds:
+            footprint = np.isfinite(ds.read(1))
+            ref_profile = ds.profile
+        with rasterio.open(catalogue_tif) as ds:
+            catalogue = (ds.read(1) > 0) & footprint
 
-        for rec in manifest["variants"]:
-            self.assertEqual(rec["n_dots"], 37654)
-            self.assertLessEqual(len(rec["form_note"]), 140)
-            disp = rec["displacement_stats"]
-            self.assertLessEqual(disp["max_displacement_px"], 2.0)
-            self.assertGreater(disp["mean_displacement_all_px"], 0.0)
-            self.assertLessEqual(disp["mean_displacement_all_px"], 2.0)
-
-            p_nan = ROOT / rec["primary_file"]
-            p_zer = ROOT / rec["zeros_fallback_file"]
-            self.assertTrue(p_nan.is_file(), f"Missing {p_nan}")
-            self.assertTrue(p_zer.is_file(), f"Missing {p_zer}")
-
-            actual_nan_sha = hashlib.sha256(p_nan.read_bytes()).hexdigest()
-            actual_zer_sha = hashlib.sha256(p_zer.read_bytes()).hexdigest()
-            self.assertEqual(actual_nan_sha, rec["sha256"])
-            self.assertEqual(actual_zer_sha, rec["zeros_sha256"])
-            self.assertTrue(rec["id"].endswith(actual_nan_sha[:8]))
-
-            with rasterio.open(p_nan) as ds_n, rasterio.open(p_zer) as ds_z:
-                self.assertEqual(ds_n.count, 1)
-                self.assertEqual(ds_z.count, 1)
-                self.assertEqual(ds_n.dtypes[0], "float32")
-                self.assertEqual(ds_z.dtypes[0], "float32")
-                self.assertEqual(ds_n.crs.to_epsg(), 32611)
-                self.assertEqual((ds_n.height, ds_n.width), (3730, 3292))
-                self.assertEqual(tuple(ds_n.transform)[:6], (100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0))
-
-                arr_n = ds_n.read(1)
-                arr_z = ds_z.read(1)
-                fp = np.isfinite(arr_n)
-                self.assertEqual(int(fp.sum()), 5_167_373)
-                self.assertTrue(np.all((arr_n[fp] >= 0.0) & (arr_n[fp] <= 1.0)))
-                self.assertTrue(np.all(np.isnan(arr_n[~fp])))
-                self.assertTrue(np.all(np.isfinite(arr_z)))
-                self.assertTrue(np.all(arr_z[~fp] == 0.0))
-                self.assertTrue(np.array_equal(arr_n[fp], arr_z[fp]))
-                self.assertEqual(int((arr_n[fp] > 0.5).sum()), 37_654)
-                if cat_mask is not None:
-                    self.assertEqual(int((arr_n[cat_mask & fp] > 0).sum()), 0)
-                    self.assertEqual(int((arr_z[cat_mask & fp] > 0).sum()), 0)
+        for r in [x for x in self._rows() if x["axis"] == "SNAP"]:
+            for suffix, key in ((".tif", "sha256"), ("-zeros.tif", "sha256_zeros")):
+                path = ROOT / "releases" / f"{r['id']}{suffix}"
+                digest = hashlib.sha256(path.read_bytes()).hexdigest()
+                self.assertEqual(digest, r[key], f"ledger hash mismatch for {path.name}")
+                with rasterio.open(path) as ds:
+                    self.assertEqual(ds.crs.to_string(), "EPSG:32611")
+                    self.assertEqual((ds.height, ds.width), (ref_profile["height"], ref_profile["width"]))
+                    self.assertEqual(ds.dtypes[0], "float32")
+                    self.assertEqual(ds.count, 1)
+                    arr = ds.read(1)
+                self.assertEqual(int((arr[catalogue] > 0).sum()), 0)
+                self.assertEqual(int(np.isnan(arr[footprint]).sum()) if "zeros" not in suffix else 0, 0)
+                inner = arr[footprint]
+                self.assertTrue(np.isfinite(inner).all() or "nan" in suffix)
+                self.assertGreaterEqual(float(np.nanmin(inner)), 0.0)
+                self.assertLessEqual(float(np.nanmax(inner)), 1.0)
+                self.assertEqual(int((inner > 0.5).sum()), 37654)
 
 
 if __name__ == "__main__":

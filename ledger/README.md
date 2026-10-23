@@ -1,3 +1,7 @@
 # Ledger
 
-`submissions.csv` lists `MASS` rows copied from `GEMSDOE88` (not rebuilt) alongside `CONCENTRATION`, `PRUNE`, and `SNAP` rows built and verified against Parent `R0` (`h33-h33-2-b2`, exact byte-level SHA-256 rebuild verified) in `GEMSDOE87` on `2026-10-23`. `receipt_score` and `date` stay empty until the human competitor pastes an actual submission-page receipt. Historical lineage claims (`CLAIM`, `receipt=N`) are in `lineage_claims.csv`; mechanism cards are in `mechanism_cards.json` (`CONCENTRATION`), `snap_mechanism_cards.json` (`SNAP`), and `releases/manifest.json` / `releases/snap_manifest.json`.
+`submissions.csv` is the single record of built variants. Rows: `MASS` (`GEMSDOE88`, not rebuilt here), `CONCENTRATION` (built 2026-10-23, PR #25), `PRUNE` (built 2026-10-23, `scripts/build_prune_variants.py`) and `SNAP` (built 2026-10-23, `scripts/build_snap_variants.py`). `receipt_score` / `date` stay empty until the human pastes a submission-page receipt; a fill is `RECEIPT`, everything else is `MODEL`/`CLAIM`/`PROXY`.
+
+Mechanism cards: `mechanism_cards.json` (`CONCENTRATION`), `mechanism_cards_snap.json` (`SNAP`, keyed by variant id). `lineage_claims.csv` holds the collapsed pre-existing lineage (`CLAIM`, `receipt = N`).
+
+Do not delete rows: dedupe is exact-hash plus repeated `(parent, axis, value)`, and both builders refuse to write a duplicate.

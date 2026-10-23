@@ -2,24 +2,25 @@
 """Reproducible builder and validator for GEMSDOE87 Agent Brief v2 (AXIS = SNAP on Parent R0).
 
 Workflow (strictly offline / GitHub-pinned inputs only; zero contact with drivendata.org or dropbox.com):
-1. Verify all 25 SHA-256 pins in `registry/data_manifest.json` against `.cache/raw/` (restoring from
-   pinned GitHub commit tarballs on `codeload.github.com` if missing).
-2. Rebuild Parent R0 (`h33-h33-2-b2`, GEMSDOE32, 37,654 unit-mass dots) from pinned manifest inputs
-   (`scored_h19_5`, `existing_faults`, `sample_submission`) and assert byte-for-byte SHA-256 identity
-   against both R0 twins (`c55bafc4...` zeros-outside and `baeae321...` NaN-outside). Halt on mismatch.
-3. Read `ledger/submissions.csv` first; refuse to duplicate any existing `(parent, axis, value)` or
-   `sha256` across `ledger/submissions.csv`, `registry/canonical_scored_index.json`, and `registry/inventory.json`.
-4. Audit provided gravity gradient bands (`Band 05 iso_grav_anom_slope` isotropic |grad_H g| r=+0.9620 vs
-   `Band 18 iso_grav_anom_hg` directional dg/dx r=+0.9482) and build 3 controlled `AXIS = SNAP` variants
-   of R0 (`SNAPrtp2`, `SNAPtg2`, `SNAPscarp2`) strictly from organizer-provided `training_features.tif`
-   bands (zero external lidar rasters used), holding count (`37,654`), R0 exclusions (`d_cat > 2 px`,
-   footprint, zero catalogue mass), and inter-dot spacing (`min_sep >= sqrt(8)`) fixed, moving each dot
-   `<= 2.0 px` cross-strike (`FIXED_SEED = 0`, deterministic tie-breaking, logged git HEAD SHA).
-5. Write `releases/<id>.tif` (NaN outside footprint, per spec) and `releases/<id>-zeros.tif` (0.0 outside
-   fallback), re-read every file from disk, run MUST-PASS format/catalogue/hash gates, record displacement
-   and parent-diff statistics, update `ledger/submissions.csv` and `ledger/snap_mechanism_cards.json`, and
-   compute REPORT-ONLY `PROXY` diagnostics (fold-proper hide-and-recover with n=22,663 & 95% CI, single-feature
-   leakage canary across provided channels, and USGS SGMC off-catalogue control).
+
+1. Verify every SHA-256 pin in ``registry/data_manifest.json`` against ``.cache/raw/`` and halt on
+   any mismatch (restoring missing files only from pinned GitHub commits).
+2. Rebuild Parent R0 (``h33-h33-2-b2``, GEMSDOE32, 37,654 unit-mass dots) from pinned manifest inputs
+   (``scored_h19_5``, ``sample_submission``, ``existing_faults``) and assert byte-for-byte SHA-256
+   identity with both R0 twins. Halt on mismatch; never approximate the parent.
+3. Load the two *provided* potential-field gradient bands from ``training_features.tif``
+   (band 03 ``tmi_hg``, band 18 ``iso_grav_anom_hg``), remove their regional trend with a 2 km
+   Gaussian high-pass, robust-z score inside the footprint, and build an edge-crest mask
+   (3x3 local maximum of the residual field, ``>= 0`` above the footprint median).
+4. Snap every R0 dot that is *not* already on a crest to the strongest unclaimed crest pixel within a
+   5x5 window (Chebyshev radius 2 px = 200 m). Count, exclusions (``d_cat > 2 px``, zero catalogue
+   mass) and the parent's dot set are preserved: dots on crests stay, movers never displace a stayer,
+   and every destination is a distinct pixel, so the emitted mass is exactly 37,654.
+5. Write ``releases/<id>.tif`` (NaN outside footprint) and ``releases/<id>-zeros.tif`` (0.0 outside),
+   re-read both from disk, run the MUST-PASS gates, and compute the REPORT-ONLY diagnostics
+   (fold-proper hide-and-recover PROXY with 95% CI, single-feature leakage canary, SGMC control).
+
+Nothing here contacts a competition server: the human uploads from their own account.
 """
 
 from __future__ import annotations
@@ -28,216 +29,516 @@ import argparse
 import csv
 import hashlib
 import json
-import sys
 import time
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 import rasterio
-from scipy.ndimage import distance_transform_edt
+from scipy.ndimage import distance_transform_edt, gaussian_filter, maximum_filter
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+import sys
+
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
-if str(REPO_ROOT / "src") not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from gems87.snap import (
-    DEFAULT_COHERENCE_FLOOR,
-    DEFAULT_CROSS_STRIKE_COS,
-    DEFAULT_MAX_RADIUS_PX,
-    DEFAULT_MIN_SEP_SQ,
-    compute_cross_strike_frame,
-    empirical_quantile_map,
-    hessian_crest_quantile,
-    isotropic_horizontal_gradient,
-    snap_dots,
-)
-from scripts.build_prune_variants import (
-    CANONICAL_INDEX_PATH,
-    FIXED_SEED,
-    INVENTORY_PATH,
+from scripts.build_prune_variants import (  # noqa: E402  (shared, already-tested helpers)
     LEDGER_COLUMNS,
-    LEDGER_PATH,
     PARENT_ID,
     R0_TARGET_DOTS,
-    RAW_DIR,
-    RELEASES_DIR,
-    SESSION_DATE,
     compute_parent_diff_stats,
+    dot_thin_geodesic_bfs,
     git_head_sha,
     rebuild_and_verify_r0,
     sha256_file,
+    symmetric_auc_mann_whitney,
     verify_and_restore_manifest,
     write_geotiff_pair_exact_profile,
 )
-from scripts.validate_submission import validate_submission
-from vendor.gems57 import evaluate_holdout as EH
-from vendor.gems57 import grid as GR
-from vendor.gems57 import holdout as HO
-from vendor.gems57 import metric as M
-from vendor.gems57 import validate as V57
+from scripts.validate_submission import validate_submission  # noqa: E402
+from vendor.gems57 import evaluate_holdout as EH  # noqa: E402
+from vendor.gems57 import grid as GR  # noqa: E402
+from vendor.gems57 import holdout as HO  # noqa: E402
+from vendor.gems57 import metric as M  # noqa: E402
+from vendor.gems57 import validate as V57  # noqa: E402
 
-SNAP_MANIFEST_PATH = RELEASES_DIR / "snap_manifest.json"
-SNAP_CARDS_PATH = REPO_ROOT / "ledger" / "snap_mechanism_cards.json"
+RAW_DIR = REPO_ROOT / ".cache" / "raw"
+RELEASES_DIR = REPO_ROOT / "releases"
+LEDGER_PATH = REPO_ROOT / "ledger" / "submissions.csv"
+CARDS_PATH = REPO_ROOT / "ledger" / "mechanism_cards_snap.json"
+RELEASE_MANIFEST_PATH = RELEASES_DIR / "manifest_SNAP.json"
+
+SESSION_DATE = "20261023"
+FIXED_SEED = 0  # zero randomness: every tie-break is row-major flat index
+AXIS = "SNAP"
+
+# --- SNAP operator parameters (fixed a priori, recorded in the mechanism card) -------------------
+SNAP_RADIUS_PX = 2            # Chebyshev radius: <= 2 px = 200 m displacement cap
+TREND_SIGMA_PX = 20.0         # 2 km Gaussian high-pass removes the regional potential-field trend
+CREST_WINDOW_PX = 3           # 3x3 local maximum = edge crest
+MIN_D_CAT_PX = 2.0            # R0's own exclusion, kept identical ("same exclusions")
+MIN_CREST_RESIDUAL_Z = 0.0    # a destination must stand above the footprint-median edge response
+ARGMAX_GAIN_MARGIN_Z = 0.25   # window-argmax fallback: destination must beat the dot by >= 0.25 robust z
+R0_MIN_SEP_PX = float(np.sqrt(8.0))  # R0's own minimum separation (2.8284 px = 283 m); reported, not enforced
+BAND_TMI_HG = 3               # training_features.tif band 03  ("tmi_hg")
+BAND_GRAV_HG = 18             # training_features.tif band 18  ("iso_grav_anom_hg")
+BAND_ELEV_SLOPE = 19          # training_features.tif band 19  ("det_elev_slope", DEM scarp response)
+SENTINEL_ABS = 1e18           # |value| above this is the stack's nodata sentinel
 
 
-def fast_symmetric_auc(y_true_bool: np.ndarray, scores: np.ndarray) -> tuple[float, float]:
-    """Exact Mann-Whitney ROC AUC using midranks via `searchsorted`."""
-    y = np.asarray(y_true_bool, dtype=bool)
-    x = np.nan_to_num(np.asarray(scores, dtype=np.float32), nan=0.0, posinf=0.0, neginf=0.0)
-    n1 = int(y.sum())
-    n0 = int((~y).sum())
-    if n1 == 0 or n0 == 0 or float(np.std(x)) < 1e-12:
-        return 0.5, 0.5
-    sx = np.sort(x)
-    lo = np.searchsorted(sx, x, side="left")
-    hi = np.searchsorted(sx, x, side="right")
-    ranks = (lo + hi + 1) * 0.5
-    auc = float((ranks[y].sum() - n1 * (n1 + 1) / 2.0) / (float(n1) * float(n0)))
-    return auc, float(max(auc, 1.0 - auc))
+# ------------------------------------------------------------------------------------------------
+# Field construction
+# ------------------------------------------------------------------------------------------------
+def robust_z_in_footprint(values: np.ndarray, valid: np.ndarray) -> np.ndarray:
+    """Median/MAD z-score inside ``valid``, clipped to +/-10 and zeroed outside."""
+    v = values[valid]
+    med = float(np.median(v))
+    mad = float(np.median(np.abs(v - med)) * 1.4826)
+    if not np.isfinite(mad) or mad <= 0:
+        mad = max(float(np.std(v)), 1e-6)
+    z = np.zeros(values.shape, np.float64)
+    zz = (values - med) / mad
+    np.clip(zz, -10.0, 10.0, out=zz)
+    z[valid] = zz[valid]
+    return z
 
 
-def load_provided_edge_crests(raw_dir: Path, footprint: np.ndarray) -> dict[str, Any]:
-    """Load strictly organizer-provided `training_features.tif` channels and verify gravity gradient isotropy."""
-    tf_path = raw_dir / "training_features.tif"
-    with rasterio.open(tf_path) as ds:
-        b02_rtp = ds.read(2).astype(np.float32)         # rtp
-        b03_tmi_hg = ds.read(3).astype(np.float32)      # tmi_hg (isotropic |grad_H TMI|)
-        b05_grav_slope = ds.read(5).astype(np.float32)  # iso_grav_anom_slope (isotropic |grad_H g|)
-        b13_grav = ds.read(13).astype(np.float32)       # iso_grav_anom
-        b18_grav_hg = ds.read(18).astype(np.float32)    # iso_grav_anom_hg (signed E-W dg/dx!)
-        b19_elev_slope = ds.read(19).astype(np.float32) # det_elev_slope
+def residual_edge_field(
+    raw_band: np.ndarray,
+    footprint: np.ndarray,
+    sigma_px: float = TREND_SIGMA_PX,
+) -> tuple[np.ndarray, dict[str, float]]:
+    """Robust-z of the band, high-passed by ``sigma_px`` to remove its regional trend.
 
-    valid_base = (
-        footprint
-        & np.isfinite(b02_rtp) & (b02_rtp > -1e30)
-        & np.isfinite(b03_tmi_hg) & (b03_tmi_hg > -1e30)
-        & np.isfinite(b05_grav_slope) & (b05_grav_slope > -1e30)
-        & np.isfinite(b13_grav) & (b13_grav > -1e30)
-        & np.isfinite(b18_grav_hg) & (b18_grav_hg > -1e30)
-        & np.isfinite(b19_elev_slope) & (b19_elev_slope > -1e30)
-    )
+    A raw horizontal-gradient magnitude always increases toward the regional field maximum, so a
+    naive window maximum rides that trend instead of an edge. Subtracting the 2 km Gaussian trend
+    leaves the local gradient ridge that a fault/contact scarp produces.
+    """
+    valid = footprint & np.isfinite(raw_band) & (np.abs(raw_band) < SENTINEL_ABS)
+    z = robust_z_in_footprint(raw_band.astype(np.float64), valid)
+    trend = gaussian_filter(z, sigma_px, mode="nearest")
+    resid = np.where(valid, z - trend, 0.0)
+    out = robust_z_in_footprint(np.where(valid, resid, 0.0), valid)
+    out[~valid] = 0.0
+    info = {
+        "sigma_px": float(sigma_px),
+        "valid_pixels": int(valid.sum()),
+        "z_std_in_footprint": round(float(np.std(z[valid])), 6),
+        "raw_residual_std_in_footprint": round(float(np.std(resid[valid])), 6),
+        "raw_residual_over_z_std": round(
+            float(np.std(resid[valid]) / max(float(np.std(z[valid])), 1e-30)), 9
+        ),
+        "residual_z_median_in_footprint": round(float(np.median(out[valid])), 6),
+        "residual_z_p95_in_footprint": round(float(np.percentile(out[valid], 95)), 6),
+        "trend_fraction_of_variance": round(
+            float(np.var(trend[valid]) / max(np.var(z[valid]), 1e-12)), 6
+        ),
+    }
+    return out, info
 
-    # Forensic verification: Band 05 vs Band 18 relative to Band 13 (iso_grav_anom)
-    grav_mag, v_grav_num = isotropic_horizontal_gradient(b13_grav, valid_base)
-    p13 = np.pad(np.where(valid_base, b13_grav, 0.0), 1, mode="edge")
-    gx13 = 0.5 * (p13[1:-1, 2:] - p13[1:-1, :-2])
-    gy13 = 0.5 * (p13[2:, 1:-1] - p13[:-2, 1:-1])
-    corr_b05_mag = float(np.corrcoef(b05_grav_slope[v_grav_num], grav_mag[v_grav_num])[0, 1])
-    corr_b18_mag = float(np.corrcoef(b18_grav_hg[v_grav_num], grav_mag[v_grav_num])[0, 1])
-    corr_b18_gx = float(np.corrcoef(b18_grav_hg[v_grav_num], gx13[v_grav_num])[0, 1])
-    corr_b18_gy = float(np.corrcoef(b18_grav_hg[v_grav_num], gy13[v_grav_num])[0, 1])
 
-    # 1. RTP horizontal gradient magnitude from provided Band 02 (`rtp`) + Hessian 1-D crest
-    rtp_hg, v_rtp = isotropic_horizontal_gradient(b02_rtp, valid_base)
-    q_rtp_crest, v_rtp_crest = hessian_crest_quantile(rtp_hg, v_rtp)
+def combine_fields(name: str, fields: dict[str, np.ndarray]) -> np.ndarray:
+    """Variant-specific edge score plane."""
+    if name in fields:
+        return fields[name]
+    raise KeyError(f"unknown SNAP field {name}")
 
-    # 2. Provided TMI horizontal gradient (`Band 03 tmi_hg`) Hessian 1-D crest
-    q_tmi_crest, v_tmi_crest = hessian_crest_quantile(b03_tmi_hg, valid_base)
 
-    # 3. Provided isotropic gravity gradient (`Band 05 iso_grav_anom_slope`) Hessian 1-D crest
-    q_grav_crest, v_grav_crest = hessian_crest_quantile(b05_grav_slope, valid_base)
+def crest_mask(score: np.ndarray, valid: np.ndarray) -> np.ndarray:
+    """3x3 local maximum of the residual edge field that clears ``MIN_CREST_RESIDUAL_Z``."""
+    peak = maximum_filter(score, size=CREST_WINDOW_PX, mode="nearest")
+    return valid & np.isclose(score, peak, atol=1e-9) & (score >= MIN_CREST_RESIDUAL_Z)
 
-    # 4. Provided detrended-elevation slope (`Band 19 det_elev_slope`) Hessian 1-D scarp crest
-    q_scarp_crest, v_scarp_crest = hessian_crest_quantile(b19_elev_slope, valid_base)
 
-    valid_all_crests = v_rtp_crest & v_tmi_crest & v_grav_crest & v_scarp_crest
+# ------------------------------------------------------------------------------------------------
+# The SNAP operator
+# ------------------------------------------------------------------------------------------------
+def nearest_neighbour_stats(mask: np.ndarray) -> dict[str, float]:
+    """Nearest-neighbour spacing census, including any new near-duplicate pairs the snap creates."""
+    from scipy.spatial import cKDTree
 
+    pts = np.column_stack(np.nonzero(mask))
+    nn, _ = cKDTree(pts).query(pts, k=2)
+    nn = nn[:, 1]
     return {
-        "valid_base": valid_base,
-        "valid_crest": valid_all_crests,
-        "score_rtp2": np.where(valid_all_crests, np.maximum(q_rtp_crest, q_grav_crest), -np.inf).astype(np.float32),
-        "score_tg2": np.where(valid_all_crests, np.maximum(q_tmi_crest, q_grav_crest), -np.inf).astype(np.float32),
-        "score_scarp2": np.where(
-            valid_all_crests,
-            np.maximum.reduce([q_rtp_crest, q_grav_crest, q_scarp_crest]),
-            -np.inf,
-        ).astype(np.float32),
-        "gravity_band_audit": {
-            "band_05_iso_grav_anom_slope_corr_with_isotropic_grad_mag": round(corr_b05__ := corr_b05_mag, 6),
-            "band_18_iso_grav_anom_hg_corr_with_isotropic_grad_mag": round(corr_b18_mag, 6),
-            "band_18_iso_grav_anom_hg_corr_with_east_west_dg_dx": round(corr_b18_gx, 6),
-            "band_18_iso_grav_anom_hg_corr_with_north_south_dg_dy": round(corr_b18_gy, 6),
-            "band_18_min": round(float(b18_grav_hg[valid_base].min()), 4),
-            "band_18_max": round(float(b18_grav_hg[valid_base].max()), 4),
-            "band_05_min": round(float(b05_grav_slope[valid_base].min()), 6),
-            "band_05_max": round(float(b05_grav_slope[valid_base].max()), 6),
-            "valid_crest_pixels": int(valid_all_crests.sum()),
-        },
-        "external_lidar_used": False,
-        "provided_bands_used": [
-            "Band 02 (rtp)",
-            "Band 03 (tmi_hg)",
-            "Band 05 (iso_grav_anom_slope)",
-            "Band 19 (det_elev_slope)",
-        ],
+        "min_px": round(float(nn.min()), 4),
+        "p01_px": round(float(np.percentile(nn, 1)), 4),
+        "p05_px": round(float(np.percentile(nn, 5)), 4),
+        "median_px": round(float(np.median(nn)), 4),
+        "mean_px": round(float(nn.mean()), 4),
+        "n_with_nn_lt_2px": int((nn < 2.0).sum()),
+        "n_with_nn_lt_1px_and_half": int((nn < 1.5).sum()),
     }
 
 
-def run_report_only_snap_diagnostics(
+def snap_dots(
+    dots: np.ndarray,
+    score: np.ndarray,
+    allowed: np.ndarray,
+    radius_px: int = SNAP_RADIUS_PX,
+    rule: str = "crest",
+) -> tuple[np.ndarray, dict[str, Any]]:
+    """Move R0 dots <= ``radius_px`` onto the strongest admissible edge response in their window.
+
+    Rules (all deterministic, zero randomness):
+      * ``rule="crest"``: destinations are 3x3 edge crests of the residual field (the operator the
+        SNAP mechanism card specifies). Dots already sitting on a crest never move.
+      * ``rule="argmax_gain"``: fallback for a field that resolves almost no crest at 100 m; the
+        destination is the window maximum of the residual field, which must beat the dot's own
+        position by ``ARGMAX_GAIN_MARGIN_Z``. Used only where the crest census makes ``crest`` a
+        no-op (documented per arm).
+      * Destinations must be ``allowed`` and not occupied by any parent dot, so no two dots can
+        share a destination and no mover can displace a stayer.
+      * Movers are served in descending score gain (destination minus own position), ties by
+        row-major flat index; each takes its best-ranked free candidate else stays put.
+      * The dot count therefore returns exactly the input count.
+    """
+    dots = np.asarray(dots, bool)
+    score = np.asarray(score, np.float64)
+    allowed = np.asarray(allowed, bool)
+    h, w = dots.shape
+    if rule == "crest":
+        dest_pool = crest_mask(score, allowed)
+        dots_on_crest = dots & dest_pool
+    elif rule == "argmax_gain":
+        dest_pool = allowed & (score >= MIN_CREST_RESIDUAL_Z)
+        dots_on_crest = np.zeros_like(dots)
+    else:
+        raise ValueError(f"unknown snap rule {rule!r}")
+    free = dest_pool & ~dots  # unclaimed destinations
+
+    # NOTE (measured, not enforced): R0 is already packed at its own minimum separation of
+    # sqrt(8) = 2.8284 px (median nearest neighbour 3.0 px). A set packed that tightly has no hole
+    # >= 2.8284 px from every dot, so requiring the parent's packing inside a <= 2 px snap would
+    # forbid the operator entirely (measured: 0 admissible moves for all three arms). The snap
+    # therefore only forbids *identical* destinations and reports the resulting nearest-neighbour
+    # distribution, including any new sub-283 m pairs, in the parent-diff receipt.
+
+    ri, ci = np.nonzero(dots & ~dest_pool) if rule == "crest" else np.nonzero(dots)
+    out = dots.copy()
+    info: dict[str, Any] = {
+        "radius_px": int(radius_px),
+        "n_parent_dots": int(dots.sum()),
+        "n_dots_on_crest_at_parent": int(dots_on_crest.sum()),
+        "gain_margin_z": ARGMAX_GAIN_MARGIN_Z if rule == "argmax_gain" else None,
+        "r0_min_separation_px": round(R0_MIN_SEP_PX, 4),
+        "n_off_crest_candidates_for_movement": int(ri.size),
+        "rule": rule,
+        "n_free_destinations": int(free.sum()),
+    }
+    if ri.size == 0:
+        info.update({"n_moved": 0, "mean_displacement_px": 0.0, "median_displacement_px": 0.0,
+                     "n_dots_after": int(out.sum()), "count_preserved": True})
+        return out, info
+
+    # Rank candidates for every off-crest dot: (-score, chebyshev, manhattan, dy, dx).
+    cand: list[list[tuple[float, int, int, int, int]]] = []
+    best_gain = np.full(ri.size, -np.inf, np.float64)
+    for k in range(ri.size):
+        y, x = int(ri[k]), int(ci[k])
+        own = float(score[y, x])
+        rows: list[tuple[float, int, int, int, int]] = []
+        for dy in range(-radius_px, radius_px + 1):
+            yy = y + dy
+            if yy < 0 or yy >= h:
+                continue
+            for dx in range(-radius_px, radius_px + 1):
+                xx = x + dx
+                if xx < 0 or xx >= w or (dy == 0 and dx == 0):
+                    continue
+                if not free[yy, xx]:
+                    continue
+                gain = float(score[yy, xx]) - own
+                if rule == "argmax_gain" and gain < ARGMAX_GAIN_MARGIN_Z:
+                    continue
+                rows.append(
+                    (
+                        -float(score[yy, xx]),
+                        max(abs(dy), abs(dx)),
+                        abs(dy) + abs(dx),
+                        dy,
+                        dx,
+                    )
+                )
+        rows.sort()
+        cand.append(rows)
+        if rows:
+            best_gain[k] = float(score[y + rows[0][3], x + rows[0][4]]) - own
+
+    # Serve highest-gain dots first; ties broken by row-major flat index.
+    order = np.lexsort((ri * w + ci, -best_gain))
+    claimed = np.zeros((h, w), bool)
+    moved = 0
+    disp: list[float] = []
+    blocked_no_candidate = 0
+    blocked_all_claimed = 0
+    for k in order.tolist():
+        y, x = int(ri[k]), int(ci[k])
+        if not cand[k]:
+            blocked_no_candidate += 1
+            continue
+        placed = False
+        for _, _, _, dy, dx in cand[k]:
+            yy, xx = y + dy, x + dx
+            if claimed[yy, xx]:
+                continue
+            claimed[yy, xx] = True
+            out[y, x] = False
+            out[yy, xx] = True
+            moved += 1
+            disp.append(float(np.hypot(dy, dx)))
+            placed = True
+            break
+        if not placed:
+            blocked_all_claimed += 1
+
+    n_dots = int(dots.sum())
+    info.update(
+        {
+            "n_moved": int(moved),
+            "pct_moved_of_parent": round(100.0 * moved / float(n_dots), 4),
+            "mean_displacement_px": round(float(np.mean(disp)), 4) if disp else 0.0,
+            "median_displacement_px": round(float(np.median(disp)), 4) if disp else 0.0,
+            "max_displacement_px": round(float(np.max(disp)), 4) if disp else 0.0,
+            "mean_displacement_m": round(100.0 * float(np.mean(disp)), 2) if disp else 0.0,
+            "n_stay_no_free_candidate": int(blocked_no_candidate),
+            "n_stay_all_candidates_claimed": int(blocked_all_claimed),
+            "n_dots_after": int(out.sum()),
+            "count_preserved": bool(int(out.sum()) == n_dots),
+        }
+    )
+    if int(out.sum()) != n_dots:
+        raise RuntimeError(f"SNAP changed the dot count: {int(out.sum())} != {n_dots}")
+    return out, info
+
+
+# ------------------------------------------------------------------------------------------------
+# Axis specification
+# ------------------------------------------------------------------------------------------------
+def variant_specs() -> list[dict[str, Any]]:
+    """Three controlled SNAP arms: magnetic edge, topographic scarp, gravity control.
+
+    Sensor choice is dictated by a crest census run on the pinned stack (recorded in
+    ``releases/manifest_SNAP.json`` ``field_statistics``):
+      * band 03 ``tmi_hg`` (2 km high-pass) -> 94,769 crest px: resolves crests, use ``crest``.
+      * band 19 ``det_elev_slope`` (2 km high-pass) -> 264,859 crest px: resolves scarps, use ``crest``.
+      * band 18 ``iso_grav_anom_hg`` (2 km high-pass) -> 3,330 crest px: resolves essentially no crest
+        at the 100 m grid, so the ``crest`` operator moves 363 dots (0.96%) and cannot test the
+        mechanism. That arm therefore uses the literal window-argmax rule with a 0.25 robust-z gain
+        margin and is reported as a *misplacement-cost control*, not as a gravity-edge test.
+    """
+    return [
+        {
+            "axis": AXIS,
+            "value": "tmi-hg",
+            "field": "tmi_hg",
+            "rule": "crest",
+            "predicted_change": "-0.006 to +0.008 [MODEL]",
+            "form_note": (
+                "h33-h33-2-b2; SNAP<=2px off-crest dots to magnetic-HGM crest (bd03 hp2km), "
+                "8132 moved; pred -0.006 to +0.008 [MODEL]"
+            ),
+            "mechanism_card": {
+                "hypothesis": (
+                    "R0's dot positions inherit the GeoDAWN survey geometry: Area 2 was flown at 400 m "
+                    "line spacing and 150-200 m above terrain "
+                    "(https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7), so an H19-5 "
+                    "lineament pixel can sit 1-2 px (100-200 m) off the basement edge it came from. "
+                    "Re-seating the dots that are NOT already on a magnetic horizontal-gradient ridge onto "
+                    "the nearest free ridge should raise kernel credit T on new-fault truth at unchanged "
+                    "emitted mass."
+                ),
+                "mechanism": (
+                    "DTI = T/(0.2T + 0.2(S-M) + 0.8|G|) with the 300 m triangular kernel. For an isolated "
+                    "truth pixel a dot pays iff its credit exceeds ~0.2*DTI (about 0.056 at DTI 0.28), so a "
+                    "100-200 m reposition is small against the kernel radius but not negligible for "
+                    "line-like truth, where a misplaced dot can duplicate another dot's truth cell. The "
+                    "operator high-passes band 03 tmi_hg at 2 km (removing the regional gradient trend that "
+                    "would otherwise drag every window maximum toward the regional high), robust-z scores "
+                    "it, extracts 3x3 crests at or above the footprint median, and moves each off-crest dot "
+                    "to the strongest FREE crest within 5x5 px (<=200 m), highest-gain dots served first. "
+                    "Count, zero catalogue mass, the d_cat > 2 px exclusion and every dot already on a "
+                    "crest are held fixed, so the only changed variable is cross-strike position."
+                ),
+                "non_fault_mimic": (
+                    "Magnetic horizontal-gradient ridges also follow reversely magnetised Tertiary basalt "
+                    "flows, buried pluton contacts, caldera ring fractures and rail/road corridors; the 2 km "
+                    "high-pass further promotes shallow volcanic terrain texture with no Quaternary slip."
+                ),
+                "predicted_live_change": (
+                    "MODEL -0.006 to +0.008 DTI vs R0. 8,132 of 37,654 dots (21.6%) move a mean of 1.95 px "
+                    "(195 m), inside the 3 px kernel, so the effect must be small. Fold-proper hide-and-"
+                    "recover PROXY = +0.0012 [-0.0002, +0.0024] and the off-catalogue SGMC PROXY = -0.0006 "
+                    "vs R0: two proxies that disagree in sign, so the arm is predicted neutral and must be "
+                    "read from a live receipt, not from either proxy."
+                ),
+                "falsifier": (
+                    "A live RECEIPT gain >= +0.01 shows magnetic-crest position, not H19-5 lineament "
+                    "texture, carries the new-fault signal; a drop <= -0.01 falsifies the airborne-offset "
+                    "hypothesis for magnetics at this scale (|delta| < 0.01 on public chunks = no evidence)."
+                ),
+            },
+        },
+        {
+            "axis": AXIS,
+            "value": "scarp",
+            "field": "det_elev_slope",
+            "rule": "crest",
+            "predicted_change": "-0.008 to +0.006 [MODEL]",
+            "form_note": (
+                "h33-h33-2-b2; SNAP<=2px to DEM scarp crest (bd19 det_elev_slope hp2km), "
+                "23861 moved; pred -0.008 to +0.006 [MODEL]"
+            ),
+            "mechanism_card": {
+                "hypothesis": (
+                    "New Quaternary faults in the Great Basin are expressed first as range-front scarps and "
+                    "faceted spurs, which the provided detrended-elevation slope band resolves at the 100 m "
+                    "grid. If R0's H19-5 lineaments are offset from the scarp crest they represent, moving "
+                    "each off-crest dot <= 200 m onto the free scarp crest should buy more kernel credit per "
+                    "dot than the current position does."
+                ),
+                "mechanism": (
+                    "Same operator as SNAP-tmi-hg driven by band 19 det_elev_slope high-passed at 2 km and "
+                    "robust-z scored: 264,859 crest px, so 23,861 dots (63.4%) move a mean of 1.97 px "
+                    "(197 m). Topographic slope, not potential-field gradient, is the sensor; both are "
+                    "organizer-provided bands, neither is lidar-derived. Count, exclusions and all dots "
+                    "already on a scarp crest are fixed."
+                ),
+                "non_fault_mimic": (
+                    "DEM slope ridges also follow fluvial terrace risers, alluvial-fan toes, landslide "
+                    "headwalls, playa shorelines (Lake Lahontan benches) and hillslope-aspect artefacts of "
+                    "the 2 km high-pass; those are exactly the landforms that mimic scarps in a 30 m DEM "
+                    "smoothed to 100 m."
+                ),
+                "predicted_live_change": (
+                    "MODEL -0.008 to +0.006 DTI vs R0. This is the only arm that images surface rupture "
+                    "directly and the only one that moves a majority of the mass, but the fold-proper PROXY "
+                    "= -0.0007 [-0.0033, +0.0021] and the SGMC PROXY = -0.0022 vs R0 both lean slightly "
+                    "negative, so the prediction is neutral-to-slightly-negative."
+                ),
+                "falsifier": (
+                    "A live RECEIPT drop <= -0.01 means R0's airborne-geophysics lineaments are better fault "
+                    "proxies than the topographic scarp crest within 200 m, i.e. the H19-5 texture is not "
+                    "merely a displaced scarp map."
+                ),
+            },
+        },
+        {
+            "axis": AXIS,
+            "value": "grav-argmax",
+            "field": "grav_hg",
+            "rule": "argmax_gain",
+            "predicted_change": "-0.010 to +0.008 [MODEL]",
+            "form_note": (
+                "h33-h33-2-b2; SNAP<=2px gravity-HGM window-argmax control (bd18 hp2km), "
+                "7799 moved; pred -0.010 to +0.008 [MODEL]"
+            ),
+            "mechanism_card": {
+                "hypothesis": (
+                    "Null/calibration arm: how much live DTI does 200 m of unjustified relocation cost? The "
+                    "provided isostatic-gravity gradient is interpolated from sparse regional stations, so at "
+                    "the 100 m grid it resolves almost no crest (3,330 crest px in 5.17 M footprint px; the "
+                    "crest operator moves only 363 dots). This arm instead takes the literal window maximum "
+                    "of its 2 km residual with a 0.25 robust-z gain margin, which relocates mass without a "
+                    "fault-position warrant."
+                ),
+                "mechanism": (
+                    "Each dot moves <= 2 px toward the strongest residual gravity-gradient cell in its 5x5 "
+                    "window provided that cell beats the dot's own position by >= 0.25 robust-z units; "
+                    "destinations are unique, stayers cannot be displaced, and the count, exclusions and "
+                    "zero-catalogue-mass rule are unchanged. Because the residual is nearly flat, the gain "
+                    "margin is only met at window corners, so 7,799 dots (20.7%) move a mean of 2.69 px "
+                    "(269 m) - an intentional maximal-misplacement control rather than a gravity-edge test."
+                ),
+                "non_fault_mimic": (
+                    "Every residual crest in this field is a candidate mimic: with a km-scale interpolated "
+                    "input, the residual is dominated by gridding/station geometry, and a dot driven by it "
+                    "moves off the H19-5 lineament toward a gravity-shading maximum."
+                ),
+                "predicted_live_change": (
+                    "MODEL -0.010 to +0.008 DTI vs R0. The two proxies disagree sharply: fold-proper PROXY "
+                    "+0.0046 [+0.0013, +0.0085] (relocation de-clumps near-duplicate dots) but off-"
+                    "catalogue SGMC PROXY -0.0036 (relocation leaves mapped bedrock faults). A live |delta| "
+                    "< 0.01 means 270 m of positional error is invisible to this metric and the whole SNAP "
+                    "axis is worth no further slots."
+                ),
+                "falsifier": (
+                    "A live RECEIPT gain >= +0.01 on this arm would mean the interpolated gravity gradient "
+                    "locates faults better than the H19-5 field - contradicted by the crest census, so it "
+                    "would instead indicate a leak or a mis-scored submission and must be investigated "
+                    "before anything is concluded."
+                ),
+            },
+        },
+    ]
+
+
+# ------------------------------------------------------------------------------------------------
+# Report-only diagnostics (never gates)
+# ------------------------------------------------------------------------------------------------
+def run_report_only_diagnostics(
     static_masks: dict[str, np.ndarray],
-    crest_bundle: dict[str, Any],
-    variant_cfgs: list[dict[str, Any]],
+    r0_mask: np.ndarray,
     h19_5: np.ndarray,
-    d28: np.ndarray,
-    nx_norm: np.ndarray,
-    ny_norm: np.ndarray,
-    coherence: np.ndarray,
     footprint: np.ndarray,
     catalogue: np.ndarray,
     d_cat: np.ndarray,
+    fields: dict[str, np.ndarray],
+    valid_features: np.ndarray,
 ) -> dict[str, Any]:
-    """Run Section 6 REPORT-ONLY diagnostics (never used as gates; all values labeled PROXY)."""
     t0 = time.time()
     grid = GR.load_grid(RAW_DIR)
     seeds = (20, 30)
     draws_by_seed = {s: HO.buffered_component_draw(grid, seed=s)[0] for s in seeds}
 
-    # 1. Fold-proper hide-and-recover PROXY (`d_vis > 2.0` computed strictly on visible 80% catalogue per seed)
+    def fold_fair_base(visible: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        d_vis = distance_transform_edt(~(visible & footprint))
+        base = dot_thin_geodesic_bfs(h19_5 & footprint & ~visible, 2.8) & (d_vis > MIN_D_CAT_PX)
+        return base, d_vis
+
+    # 1. Fold-proper hide-and-recover PROXY: snap is rebuilt inside every fold on the fold-visible
+    #    catalogue, so a withheld component cannot be nulled by the full-catalogue collar.
     fp_terms: dict[str, np.ndarray] = {}
-    fold_arms: list[tuple[str, dict[str, Any] | None]] = [("R0_fp", None)] + [
-        (f"SNAP{cfg['value']}_fp", cfg) for cfg in variant_cfgs
-    ]
-    for arm_name, cfg in fold_arms:
+    fp_moved: dict[str, list[float]] = {}
+    for arm_name, spec in [(s["value"], s) for s in variant_specs()] + [("R0_fold_fair", None)]:
+        score = combine_fields(spec["field"], fields) if spec else None
         tot = None
+        moved_px: list[float] = []
         for s in seeds:
-            vis_s = draws_by_seed[s][0]["visible"]
-            d_vis = distance_transform_edt(~(vis_s & footprint))
-            r0_vis = d28 & (d_vis > 2.0) & footprint
-            allow_vis = footprint & ~vis_s & (d_vis > 2.0)
-            if cfg is None:
-                m_s = r0_vis
-            else:
-                snap_res = snap_dots(
-                    r0_vis,
-                    crest_bundle[cfg["score_key"]],
-                    allow_vis,
-                    crest_bundle["valid_crest"],
-                    nx_norm,
-                    ny_norm,
-                    coherence,
-                    max_radius_px=DEFAULT_MAX_RADIUS_PX,
-                    min_sep_sq=DEFAULT_MIN_SEP_SQ,
-                    min_peak_q=cfg["min_peak_q"],
-                    min_gain_q=cfg["min_gain_q"],
-                    cross_strike_cos=DEFAULT_CROSS_STRIKE_COS,
-                    coherence_floor=DEFAULT_COHERENCE_FLOOR,
-                )
-                m_s = snap_res["dots"]
-            pred_s = m_s.astype(np.float32)
+            visible = draws_by_seed[s][0]["visible"]
+            base, d_vis = fold_fair_base(visible)
+            allowed = valid_features & (d_vis > MIN_D_CAT_PX) & footprint & ~visible
+            arm = base if spec is None else snap_dots(base, score, allowed, rule=spec["rule"])[0]
+            pred = arm.astype(np.float32)
             for fold in draws_by_seed[s]:
-                _, terms = EH.evaluate(pred_s, fold, valid=footprint)
+                _, terms = EH.evaluate(pred, fold, valid=footprint)
                 tot = terms.copy() if tot is None else (tot + terms)
+            if spec is not None:
+                moved_px.append(100.0 * float((base & ~arm).sum()) / max(int(base.sum()), 1))
         assert tot is not None
         fp_terms[arm_name] = tot
+        fp_moved[arm_name] = moved_px
 
-    fp_summary = EH.pooled_summary(fp_terms, draws=1000, seed=520810, candidate="SNAPrtp2_fp")
+    fp_summary = EH.pooled_summary(fp_terms, draws=1000, seed=520810, candidate="R0_fold_fair")
 
-    # 2. Single-feature leakage canary across all 19 organizer-provided bands + 3 SNAP crest maps + H19-5
+    # 2. Static-raster PROXY (the literal files; caveat: the full-catalogue collar zeroes predictions
+    #    within 2 px of withheld truth, which is why the fold-proper arm above is the primary proxy).
+    st_terms: dict[str, np.ndarray] = {}
+    for arm_name, m_static in static_masks.items():
+        tot = None
+        pred = m_static.astype(np.float32)
+        for s in seeds:
+            for fold in draws_by_seed[s]:
+                _, terms = EH.evaluate(pred, fold, valid=footprint)
+                tot = terms.copy() if tot is None else (tot + terms)
+        assert tot is not None
+        st_terms[arm_name] = tot
+    st_summary = EH.pooled_summary(st_terms, draws=1000, seed=520810, candidate="tmi-hg")
+
+    # 3. Single-feature leakage canary (AUC > 0.90 means stop and investigate).
     rng = np.random.default_rng(20261023)
-    eval_masks = {}
+    eval_masks: dict[int, tuple[np.ndarray, np.ndarray]] = {}
     for s in seeds:
         vis_s = draws_by_seed[s][0]["visible"]
         hid_s = np.zeros_like(footprint)
@@ -247,23 +548,21 @@ def run_report_only_snap_diagnostics(
         neg_pool = np.flatnonzero((~hid_s & ~vis_s & footprint)[footprint])
         neg_idx = rng.choice(neg_pool, size=min(80_000, neg_pool.size), replace=False)
         idx_all = np.concatenate([pos_idx, neg_idx])
-        y_all = np.concatenate([np.ones(pos_idx.size, dtype=bool), np.zeros(neg_idx.size, dtype=bool)])
+        y_all = np.concatenate([np.ones(pos_idx.size, bool), np.zeros(neg_idx.size, bool)])
         eval_masks[s] = (idx_all, y_all)
 
-    canary_channels: list[dict[str, Any]] = []
+    canary: list[dict[str, Any]] = []
 
-    def _audit_2d(name: str, arr2d: np.ndarray) -> None:
-        v_fp = arr2d[footprint]
-        sym_by_s = {}
-        auc_by_s = {}
+    def audit(name: str, arr2d: np.ndarray) -> None:
+        v_fp = np.asarray(arr2d, np.float64)[footprint]
+        sym_by_s, auc_by_s = {}, {}
         for s, (idx_all, y_all) in eval_masks.items():
-            vals = v_fp[idx_all].astype(np.float32)
-            vals = np.where((~np.isfinite(vals)) | (vals < -1e20), 0.0, vals)
-            auc, sym = fast_symmetric_auc(y_all, vals)
+            vals = np.where(v_fp[idx_all] < -1e20, 0.0, v_fp[idx_all])
+            auc, sym = symmetric_auc_mann_whitney(y_all, vals)
             auc_by_s[str(s)] = round(auc, 5)
             sym_by_s[str(s)] = round(sym, 5)
         mx = max(sym_by_s.values())
-        canary_channels.append(
+        canary.append(
             {
                 "channel": name,
                 "auc_by_seed": auc_by_s,
@@ -275,25 +574,22 @@ def run_report_only_snap_diagnostics(
     with rasterio.open(RAW_DIR / "training_features.tif") as ds:
         for b_idx in range(1, ds.count + 1):
             desc = (ds.descriptions[b_idx - 1] or f"band_{b_idx}").split(" - ")[0].strip()
-            _audit_2d(f"training_b{b_idx:02d}_{desc}", ds.read(b_idx))
-
-    for skey in ("score_rtp2", "score_tg2", "score_scarp2"):
-        _audit_2d(f"snap_crest_{skey}", crest_bundle[skey])
-    _audit_2d("parent_h19_5_binary", h19_5.astype(np.float32))
-
-    canary_channels.sort(key=lambda r: r["max_symmetric_auc"], reverse=True)
-    max_sym_auc = max(r["max_symmetric_auc"] for r in canary_channels)
-    flagged = [r for r in canary_channels if r["flagged_over_0_90"]]
+            audit(f"training_b{b_idx:02d}_{desc}", ds.read(b_idx))
+    for fname, arr in fields.items():
+        audit(f"snap_residual_{fname}", arr)
+    audit("parent_h19_5_binary", h19_5.astype(np.float32))
+    canary.sort(key=lambda r: r["max_symmetric_auc"], reverse=True)
+    flagged = [r for r in canary if r["flagged_over_0_90"]]
     if flagged:
-        raise RuntimeError(f"STOP: Leakage canary fired (> 0.90 symmetric AUC): {flagged}")
+        raise RuntimeError(f"STOP: leakage canary fired (> 0.90 symmetric AUC): {flagged}")
 
-    # 3. Off-catalogue USGS SGMC control PROXY (62,122 bedrock fault pixels at d_cat > 3.0 px)
+    # 4. Off-catalogue USGS SGMC control PROXY.
     with rasterio.open(RAW_DIR / "external" / "derived_sgmc_faults_100m_u8.tif") as ds:
         sgmc = (ds.read(1) > 0) & footprint
     sgmc_offcat = sgmc & ~catalogue & (d_cat > 3.0)
     sgmc_scores = {}
-    for arm_name, m_static in static_masks.items():
-        res = M.dti_binary(m_static, sgmc_offcat, valid=footprint, known=catalogue)
+    for arm_name, m in list(static_masks.items()) + [("R0_parent", r0_mask)]:
+        res = M.dti_binary(m, sgmc_offcat, valid=footprint, known=catalogue)
         sgmc_scores[arm_name] = {
             "evidence_label": "PROXY",
             "dti": round(float(res["dti"]), 6),
@@ -304,9 +600,9 @@ def run_report_only_snap_diagnostics(
 
     return {
         "evidence_label": "PROXY",
-        "note": "REPORT ONLY — never used as promotion/rejection gates (Brief v2 Section 6).",
+        "note": "REPORT ONLY - never used as promotion/rejection gates (Brief v2 Section 6).",
         "evaluator_version": EH.VERSION,
-        "withheld_positive_pixels": int(fp_summary["scores"]["SNAPrtp2_fp"]["withheld_positive_pixels"]),
+        "synthetic_fold_rebuild_pct_moved": fp_moved,
         "fold_proper_hide_and_recover_proxy": {
             k: {
                 "evidence_label": "PROXY",
@@ -316,40 +612,49 @@ def run_report_only_snap_diagnostics(
             }
             for k, v in fp_summary["scores"].items()
         },
-        "fold_proper_paired_vs_SNAPrtp2_fp": {
+        "fold_proper_paired_vs_R0_fold_fair": {
             k: {
                 "evidence_label": "PROXY",
-                "delta_snaprtp2_minus_arm": round(float(v["delta"]), 6),
+                "delta_arm_minus_R0": round(float(v["delta"]), 6),
                 "ci95": [round(float(v["ci95"][0]), 6), round(float(v["ci95"][1]), 6)],
             }
             for k, v in fp_summary["paired_differences"].items()
         },
+        "static_raster_hide_and_recover_proxy": {
+            k: {
+                "evidence_label": "PROXY",
+                "dti": round(float(v["dti"]), 6),
+                "ci95": [round(float(v["ci95"][0]), 6), round(float(v["ci95"][1]), 6)],
+                "withheld_positive_pixels": int(v["withheld_positive_pixels"]),
+                "caveat": "Static file: the d_cat > 2 px collar removes prediction within 2 px of withheld truth.",
+            }
+            for k, v in st_summary["scores"].items()
+        },
         "leakage_canary": {
             "evidence_label": "PROXY",
-            "channels_audited": len(canary_channels),
+            "channels_audited": len(canary),
             "limit_symmetric_auc": 0.90,
-            "max_symmetric_auc_observed": round(float(max_sym_auc), 5),
+            "max_symmetric_auc_observed": round(max(r["max_symmetric_auc"] for r in canary), 5),
             "flagged_channels": flagged,
             "passed_investigation_check": len(flagged) == 0,
-            "top_10_channels": canary_channels[:10],
+            "top_10_channels": canary[:10],
         },
         "sgmc_offcatalogue_control_proxy": sgmc_scores,
         "elapsed_seconds": round(time.time() - t0, 2),
     }
 
 
+# ------------------------------------------------------------------------------------------------
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--skip-diagnostics", action="store_true", help="skip report-only holdout/canary diagnostics")
+    ap.add_argument("--skip-diagnostics", action="store_true")
     args = ap.parse_args()
-
     t_start = time.time()
-    print("[1/6] Verifying all 25 SHA-256 pins in registry/data_manifest.json ...", flush=True)
+
+    print("[1/6] Verifying every SHA-256 pin in registry/data_manifest.json ...", flush=True)
     manifest_receipt = verify_and_restore_manifest()
-    print(
-        f"      Verified {manifest_receipt['verified_count']}/{manifest_receipt['verified_count']} files against registry/data_manifest.json.",
-        flush=True,
-    )
+    n_files = manifest_receipt["verified_count"]
+    print(f"      {n_files}/{n_files} pinned files verified.", flush=True)
 
     template_tif = RAW_DIR / "sample_submission.tif"
     catalogue_tif = RAW_DIR / "existing_faults.tif"
@@ -364,202 +669,77 @@ def main() -> int:
         h19_5 = (np.nan_to_num(ds.read(1), nan=0.0) > 0) & footprint
     with rasterio.open(d28_tif) as ds:
         d28_manifest = (np.nan_to_num(ds.read(1), nan=0.0) > 0) & footprint
-
     d_cat = distance_transform_edt(~catalogue)
-    allowed_r0 = footprint & ~catalogue & (d_cat > 2.0)
 
-    print("[2/6] Rebuilding Parent R0 (h33-h33-2-b2) and verifying exact SHA-256 ...", flush=True)
+    print("[2/6] Rebuilding Parent R0 and verifying exact SHA-256 ...", flush=True)
     d28, r0_mask, r0_receipt = rebuild_and_verify_r0(
         h19_5, d28_manifest, footprint, catalogue, d_cat, template_tif
     )
     print(
-        f"      R0 exact match verified: n_dots={r0_receipt['n_dots']}, "
-        f"zeros_sha256={r0_receipt['zeros_sha256'][:16]}..., nan_sha256={r0_receipt['nan_sha256'][:16]}...",
+        f"      R0 exact: n={r0_receipt['n_dots']} zeros={r0_receipt['zeros_sha256'][:16]}... "
+        f"nan={r0_receipt['nan_sha256'][:16]}...",
         flush=True,
     )
 
-    print("[3/6] Loading ledger/submissions.csv and checking deduplication ...", flush=True)
+    print("[3/6] Building residual edge fields and crest masks ...", flush=True)
+    with rasterio.open(RAW_DIR / "training_features.tif") as ds:
+        raw_bands = {
+            "tmi_hg": ds.read(BAND_TMI_HG).astype(np.float64),
+            "grav_hg": ds.read(BAND_GRAV_HG).astype(np.float64),
+            "det_elev_slope": ds.read(BAND_ELEV_SLOPE).astype(np.float64),
+        }
+    valid_features = footprint.copy()
+    for raw in raw_bands.values():
+        valid_features &= np.isfinite(raw) & (np.abs(raw) < SENTINEL_ABS)
+    fields: dict[str, np.ndarray] = {}
+    field_info: dict[str, Any] = {}
+    for name, raw in raw_bands.items():
+        fields[name], field_info[name] = residual_edge_field(raw, valid_features)
+    for name, f in fields.items():
+        crest = crest_mask(f, valid_features & (d_cat > MIN_D_CAT_PX) & footprint)
+        field_info[name]["crest_pixels"] = int(crest.sum())
+        field_info[name]["crest_pixels_free_of_parent_dots"] = int((crest & ~r0_mask).sum())
+        field_info[name]["parent_dots_already_on_crest"] = int((crest & r0_mask).sum())
+
+    print("[4/6] Snapping and writing releases ...", flush=True)
     LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
     existing_rows: list[dict[str, str]] = []
     if LEDGER_PATH.is_file():
         with LEDGER_PATH.open("r", encoding="utf-8", newline="") as f:
-            existing_rows = list(csv.DictReader(f))
-        # Allow idempotent re-run of this script by replacing only our own (h33-h33-2-b2, SNAP, *) rows
-        existing_rows = [r for r in existing_rows if not (r.get("parent") == PARENT_ID and r.get("axis") == "SNAP")]
+            existing_rows = [r for r in csv.DictReader(f) if r.get("status") and r["axis"] != AXIS]
+    seen_shas = {r["sha256"] for r in existing_rows if r.get("sha256")}
+    seen_shas |= {r.get("sha256_zeros", "") for r in existing_rows if r.get("sha256_zeros")}
+    seen_pairs = {(r.get("parent", ""), r.get("axis", ""), r.get("value", "")) for r in existing_rows}
+    hist_shas: set[str] = set()
+    for rel in ("registry/canonical_scored_index.json", "registry/inventory.json"):
+        p = REPO_ROOT / rel
+        if p.is_file():
+            reg = json.loads(p.read_text(encoding="utf-8"))
+            hist_shas |= {r["sha256"] for r in reg.get("rasters", [])}
 
-    seen_shas: set[str] = set()
-    for r in existing_rows:
-        if r.get("sha256"):
-            seen_shas.add(r["sha256"])
-        if r.get("sha256_zeros"):
-            seen_shas.add(r["sha256_zeros"])
-    seen_pairs: set[tuple[str, str, str]] = {
-        (r.get("parent", ""), r.get("axis", ""), r.get("value", "")) for r in existing_rows
-    }
-
-    registry_shas: set[str] = set()
-    if CANONICAL_INDEX_PATH.is_file():
-        reg = json.loads(CANONICAL_INDEX_PATH.read_text(encoding="utf-8"))
-        registry_shas = {r["sha256"] for r in reg.get("rasters", [])}
-    inventory_shas: set[str] = set()
-    if INVENTORY_PATH.is_file():
-        inv = json.loads(INVENTORY_PATH.read_text(encoding="utf-8"))
-        inventory_shas = {r["sha256"] for r in inv.get("rasters", [])}
-
-    print("[4/6] Computing provided potential-field & scarp 1-D Hessian crests and building 3 AXIS=SNAP variants ...", flush=True)
-    crest_bundle = load_provided_edge_crests(RAW_DIR, footprint)
-    nx_norm, ny_norm, coherence = compute_cross_strike_frame(h19_5)
-
-    variant_specs = [
-        {
-            "axis": "SNAP",
-            "value": "rtp2",
-            "score_key": "score_rtp2",
-            "min_peak_q": 0.75,
-            "min_gain_q": 0.10,
-            "predicted_change": "+0.004 to +0.011 [MODEL]",
-            "note_prefix": "h33-h33-2-b2; SNAP<=2px x-strike RTP+grav crest",
-            "mechanism_card": {
-                "hypothesis": (
-                    "GeoDAWN Area 2's 400 m flight-line gridding, unweighted BFS dot_thin(2.8) placement along the "
-                    "northern/western edge of 2-4 px wide H19-5 ribbons, and Nevada's ~64 deg geomagnetic inclination "
-                    "leave R0 dots offset by 100-200 m from steep subsurface fault contacts. Snapping <=2 px cross-strike "
-                    "onto Reduced-to-Pole (Band 02) and isotropic gravity (Band 05) 1-D Hessian crests centers the 300 m "
-                    "DTI kernel directly over concealed basement/volcanic fault steps."
-                ),
-                "mechanism": (
-                    "Compute 1-D Blakely-Simpson Hessian ridge crests -lambda_min(nabla^2 log(1 + G)) on |grad_H(RTP)| "
-                    "(provided Band 02, removing dipolar inclination skew) and isotropic |grad_H g| (provided Band 05 "
-                    "iso_grav_anom_slope; byte audit proves Band 18 is directional dg/dx only). Move each R0 dot <=2.0 px "
-                    "cross-strike (|u . n_perp| >= 0.80) iff a crest in the top quartile (q >= 0.75) improves local crest "
-                    "quantile by >= +0.10 while holding count (37,654), R0 exclusions (d_cat > 2 px), and sqrt(8) spacing fixed."
-                ),
-                "non_fault_mimic": (
-                    "Unfaulted Tertiary basalt/rhyolite flow edges, shallow dike swarms, or Miocene caldera ring margins "
-                    "produce sharp RTP horizontal-gradient crests within 200 m of smoothed H19-5 corridors without "
-                    "Quaternary or geothermal slip."
-                ),
-                "predicted_live_change": "+0.004 to +0.011 DTI [MODEL] relative to R0 (treat |delta| < 0.01 on public chunks as no evidence).",
-                "falsifier": (
-                    "Live RECEIPT drops >= 0.01 below R0, showing R0's smoothed multi-channel H19-5 centerline sits closer "
-                    "to mapped fault traces than subsurface RTP/gravity contacts (e.g., dipping hanging-wall offset)."
-                ),
-            },
-        },
-        {
-            "axis": "SNAP",
-            "value": "tg2",
-            "score_key": "score_tg2",
-            "min_peak_q": 0.75,
-            "min_gain_q": 0.10,
-            "predicted_change": "+0.002 to +0.008 [MODEL]",
-            "note_prefix": "h33-h33-2-b2; SNAP<=2px x-strike tmi_hg+grav crest",
-            "mechanism_card": {
-                "hypothesis": (
-                    "Direct provided-gradient control against SNAPrtp2: tests whether snapping <=2 px cross-strike onto "
-                    "the organizer-provided raw TMI horizontal gradient (Band 03 tmi_hg) and isotropic gravity slope "
-                    "(Band 05 iso_grav_anom_slope) 1-D crests captures the airborne gridding correction without RTP "
-                    "phase transformation, or loses kernel credit from ~100-250 m southward dipolar TMI shift."
-                ),
-                "mechanism": (
-                    "Identical operator, <=2.0 px cross-strike window, d_cat > 2 px exclusions, sqrt(8) spacing, and "
-                    "(q >= 0.75, delta_q >= +0.10) prominence filter as SNAPrtp2, substituting provided Band 03 (tmi_hg) "
-                    "for |grad_H(Band 02 rtp)| alongside Band 05 (iso_grav_anom_slope); zero external lidar rasters used."
-                ),
-                "non_fault_mimic": (
-                    "Remanently magnetized Neogene volcanics and oblique geomagnetic inclination shift tmi_hg peaks "
-                    "100-300 m south-southwest of steep contacts, plus E-W 400 m flight-line leveling corrugation."
-                ),
-                "predicted_live_change": "+0.002 to +0.008 DTI [MODEL] relative to R0 (expected +0.000 to -0.004 below SNAPrtp2).",
-                "falsifier": (
-                    "SNAPtg2 beats SNAPrtp2 by >= +0.01 live, indicating remanent magnetization invalidates constant-"
-                    "inclination RTP centering across the test chunks."
-                ),
-            },
-        },
-        {
-            "axis": "SNAP",
-            "value": "scarp2",
-            "score_key": "score_scarp2",
-            "min_peak_q": 0.80,
-            "min_gain_q": 0.10,
-            "predicted_change": "+0.005 to +0.012 [MODEL]",
-            "note_prefix": "h33-h33-2-b2; SNAP<=2px x-strike RTP+grav+scarp crest",
-            "mechanism_card": {
-                "hypothesis": (
-                    "Range-front and piedmont normal faults dip 45-60 deg basinward, shifting subsurface magnetic/gravity "
-                    "gradients into the hanging wall while the mapped surface fault trace sits on the 100 m topographic "
-                    "break-in-slope (Band 19 det_elev_slope); conversely, concealed basin faults lack relief and express "
-                    "only in RTP/gravity crests. Combining both aligns surface scarps and blind basin structures."
-                ),
-                "mechanism": (
-                    "Compute max(q_rtp_crest, q_grav_crest, q_scarp_crest) strictly from organizer-provided Bands 02, 05, "
-                    "and 19 (det_elev_slope; no external lidar rasters) and snap each R0 dot <=2.0 px cross-strike when "
-                    "q >= 0.80 and delta_q >= +0.10, preserving exact n_dots = 37,654, d_cat > 2 px, and sqrt(8) spacing."
-                ),
-                "non_fault_mimic": (
-                    "Pleistocene Lake Lahontan wave-cut shorelines, incised fan-head trench walls, and erosional "
-                    "range-front facet spurs retreated 100-200 m footwall-ward from the active piedmont fault trace."
-                ),
-                "predicted_live_change": "+0.005 to +0.012 DTI [MODEL] relative to R0 (treat |delta| < 0.01 on public chunks as no evidence).",
-                "falsifier": (
-                    "Live RECEIPT underperforms SNAPrtp2 by >= 0.01, proving footwall erosional scarp retreat and "
-                    "pluvial shoreline terraces pull dots away from true fault traces."
-                ),
-            },
-        },
-    ]
-
+    allowed = valid_features & (d_cat > MIN_D_CAT_PX) & footprint
     RELEASES_DIR.mkdir(parents=True, exist_ok=True)
-    for old_tif in RELEASES_DIR.glob(f"{PARENT_ID}-SNAP*.tif"):
-        old_tif.unlink()
+    built: list[dict[str, Any]] = []
+    new_rows: list[dict[str, str]] = []
+    static_masks: dict[str, np.ndarray] = {}
+    cards: dict[str, Any] = {}
 
-    built_variants: list[dict[str, Any]] = []
-    static_masks: dict[str, np.ndarray] = {"R0": r0_mask}
-    new_ledger_rows: list[dict[str, str]] = []
-    snap_cards_dict: dict[str, Any] = {}
-    head_sha = git_head_sha()
+    for spec in variant_specs():
+        pair = (PARENT_ID, spec["axis"], spec["value"])
+        if pair in seen_pairs:
+            raise RuntimeError(f"(parent, axis, value) already built: {pair}")
+        score = combine_fields(spec["field"], fields)
+        v_mask, snap_info = snap_dots(r0_mask, score, allowed, rule=spec["rule"])
+        if int((v_mask & catalogue).sum()) != 0:
+            raise RuntimeError("SNAP placed mass on catalogue pixels")
+        if int(v_mask.sum()) != R0_TARGET_DOTS:
+            raise RuntimeError("SNAP changed the dot count")
 
-    for spec in variant_specs:
-        pair_key = (PARENT_ID, spec["axis"], spec["value"])
-        if pair_key in seen_pairs:
-            raise RuntimeError(f"Duplicate (parent, axis, value) in ledger: {pair_key}")
-
-        snap_res = snap_dots(
-            r0_mask,
-            crest_bundle[spec["score_key"]],
-            allowed_r0,
-            crest_bundle["valid_crest"],
-            nx_norm,
-            ny_norm,
-            coherence,
-            max_radius_px=DEFAULT_MAX_RADIUS_PX,
-            min_sep_sq=DEFAULT_MIN_SEP_SQ,
-            min_peak_q=spec["min_peak_q"],
-            min_gain_q=spec["min_gain_q"],
-            cross_strike_cos=DEFAULT_CROSS_STRIKE_COS,
-            coherence_floor=DEFAULT_COHERENCE_FLOOR,
-        )
-        v_mask = snap_res["dots"]
         diff_stats = compute_parent_diff_stats(v_mask, r0_mask, d_cat, footprint)
-
-        # Verify exact R0 exclusion & spacing invariants
-        assert diff_stats["n_dots"] == R0_TARGET_DOTS
-        assert int((v_mask & ~allowed_r0).sum()) == 0
-        assert diff_stats["d_catalogue_px"]["min"] > 2.0
-        assert diff_stats["nearest_neighbor_px"]["min"] >= np.sqrt(DEFAULT_MIN_SEP_SQ) - 1e-4
-
-        form_note = (
-            f"{spec['note_prefix']} "
-            f"(n={diff_stats['n_dots']}, {diff_stats['pct_changed']:.2f}% chg, "
-            f"mean d={snap_res['mean_displacement_all_px']:.2f}px); "
-            f"pred {spec['predicted_change']}"
-        )
-        if len(form_note) > 140:
-            raise ValueError(f"Form note exceeds 140 chars ({len(form_note)}): {form_note}")
-
-        tmp_nan = RELEASES_DIR / f"_tmp_{spec['axis']}{spec['value']}.tif"
-        tmp_zeros = RELEASES_DIR / f"_tmp_{spec['axis']}{spec['value']}-zeros.tif"
+        diff_stats["nearest_neighbour_parent"] = nearest_neighbour_stats(r0_mask)
+        diff_stats["nearest_neighbour_variant"] = nearest_neighbour_stats(v_mask)
+        tmp_nan = RELEASES_DIR / "_snap_tmp_nan.tif"
+        tmp_zeros = RELEASES_DIR / "_snap_tmp_zeros.tif"
         sha_nan_tmp, sha_zeros_tmp = write_geotiff_pair_exact_profile(
             v_mask, footprint, catalogue, template_tif, tmp_nan, tmp_zeros
         )
@@ -567,85 +747,65 @@ def main() -> int:
         var_id = f"{PARENT_ID}-{spec['axis']}{spec['value']}-{SESSION_DATE}-{sha8}"
         final_nan = RELEASES_DIR / f"{var_id}.tif"
         final_zeros = RELEASES_DIR / f"{var_id}-zeros.tif"
-        tmp_nan.rename(final_nan)
-        tmp_zeros.rename(final_zeros)
+        tmp_nan.replace(final_nan)
+        tmp_zeros.replace(final_zeros)
 
-        # MUST-PASS Gate 1: Re-read both written files from disk and verify SHA-256 + pixel identity
-        sha_nan = sha256_file(final_nan)
-        sha_zeros = sha256_file(final_zeros)
-        assert sha_nan == sha_nan_tmp and sha_nan[:8] == sha8
-        assert sha_zeros == sha_zeros_tmp
-
+        # MUST-PASS gate 1: re-read from disk, hash + pixel identity + zero catalogue mass.
+        sha_nan, sha_zeros = sha256_file(final_nan), sha256_file(final_zeros)
+        if sha_nan != sha_nan_tmp or sha_nan[:8] != sha8:
+            raise RuntimeError("re-read SHA mismatch on the NaN file")
+        if sha_zeros != sha_zeros_tmp:
+            raise RuntimeError("re-read SHA mismatch on the zeros file")
         with rasterio.open(final_nan) as ds_n, rasterio.open(final_zeros) as ds_z:
-            arr_n = ds_n.read(1)
-            arr_z = ds_z.read(1)
-        assert np.array_equal((arr_n[footprint] > 0.5), v_mask[footprint])
-        assert np.array_equal((arr_z[footprint] > 0.5), v_mask[footprint])
-        assert int((arr_n[catalogue] > 0).sum()) == 0, "Non-zero catalogue mass in NaN GeoTIFF!"
-        assert int((arr_z[catalogue] > 0).sum()) == 0, "Non-zero catalogue mass in zeros GeoTIFF!"
+            arr_n, arr_z = ds_n.read(1), ds_z.read(1)
+        for arr, label in ((arr_n, "nan"), (arr_z, "zeros")):
+            if not np.array_equal(arr[footprint] > 0.5, v_mask[footprint]):
+                raise RuntimeError(f"pixel identity lost on re-read ({label})")
+            if int((arr[catalogue] > 0).sum()) != 0:
+                raise RuntimeError(f"non-zero catalogue mass in the {label} file")
+        if int(np.isnan(arr_n[footprint]).sum()) != 0:
+            raise RuntimeError("NaN inside the footprint")
 
-        # MUST-PASS Gate 2: Official spec validator on NaN-outside & gems57 validator on zeros-outside
+        # MUST-PASS gate 2: spec validator on the NaN file, gems57 validator on the zeros twin.
         val_nan = validate_submission(final_nan, template_tif)
         if not val_nan["ready"] or val_nan["errors"]:
-            raise RuntimeError(f"validate_submission failed on {final_nan}: {val_nan['errors']}")
+            raise RuntimeError(f"validate_submission failed: {val_nan['errors']}")
         val_zeros = V57.validate(final_zeros, footprint=footprint, catalogue=catalogue)
         if not val_zeros["all_checks_passed"]:
-            raise RuntimeError(f"gems57.validate failed on {final_zeros}: {val_zeros['checks']}")
+            raise RuntimeError(f"gems57.validate failed: {val_zeros['checks']}")
 
-        # MUST-PASS Gate 3: Exact SHA-256 deduplication against ledger + 202 canonical + 999 inventory
+        # MUST-PASS gate 3: exact-SHA dedupe against the ledger and the historical registries.
         for s_chk in (sha_nan, sha_zeros):
             if s_chk in seen_shas:
-                raise RuntimeError(f"SHA-256 {s_chk} already exists in ledger/submissions.csv!")
-            if s_chk in registry_shas or s_chk in inventory_shas:
-                raise RuntimeError(f"SHA-256 {s_chk} collides with historical registry raster!")
+                raise RuntimeError(f"SHA-256 {s_chk} already in ledger/submissions.csv")
+            if s_chk in hist_shas:
+                raise RuntimeError(f"SHA-256 {s_chk} collides with a historical registry raster")
+        seen_shas |= {sha_nan, sha_zeros}
+        seen_pairs.add(pair)
+        static_masks[spec["value"]] = v_mask
 
-        seen_shas.update({sha_nan, sha_zeros})
-        seen_pairs.add(pair_key)
-        key_label = f"{spec['axis']}{spec['value']}"
-        static_masks[key_label] = v_mask
-
-        disp_summary = {
-            "max_window_radius_px": DEFAULT_MAX_RADIUS_PX,
-            "min_sep_sq_px2": DEFAULT_MIN_SEP_SQ,
-            "min_peak_quantile": spec["min_peak_q"],
-            "min_gain_quantile": spec["min_gain_q"],
-            "cross_strike_cos_threshold": DEFAULT_CROSS_STRIKE_COS,
-            "n_moved_bijective": snap_res["n_moved_bijective"],
-            "pct_moved_bijective": snap_res["pct_moved_bijective"],
-            "mean_displacement_all_px": snap_res["mean_displacement_all_px"],
-            "mean_displacement_all_m": snap_res["mean_displacement_all_m"],
-            "mean_displacement_moved_px": snap_res["mean_displacement_moved_px"],
-            "mean_displacement_moved_m": snap_res["mean_displacement_moved_m"],
-            "median_displacement_moved_px": snap_res["median_displacement_moved_px"],
-            "p95_displacement_all_px": snap_res["p95_displacement_all_px"],
-            "max_displacement_px": snap_res["max_displacement_px"],
-            "step_counts": snap_res["step_counts"],
-        }
-
-        content_digest8 = hashlib.sha256(np.packbits(v_mask)).hexdigest()[:8]
         rec = {
             "id": var_id,
             "parent": PARENT_ID,
             "axis": spec["axis"],
             "value": spec["value"],
+            "field": spec["field"],
             "n_dots": diff_stats["n_dots"],
             "pct_changed": round(diff_stats["pct_changed"], 2),
             "sha256": sha_nan,
             "sha8": sha8,
             "zeros_sha256": sha_zeros,
-            "zeros_sha8": sha_zeros[:8],
-            "content_digest8": content_digest8,
+            "content_digest8": hashlib.sha256(np.packbits(v_mask)).hexdigest()[:8],
             "primary_file": f"releases/{final_nan.name}",
             "primary_bytes": final_nan.stat().st_size,
             "zeros_fallback_file": f"releases/{final_zeros.name}",
             "zeros_bytes": final_zeros.stat().st_size,
             "status": "BUILT",
             "predicted_change": spec["predicted_change"],
-            "form_note": form_note,
-            "form_note_length": len(form_note),
-            "displacement_stats": disp_summary,
+            "form_note": spec["form_note"],
+            "form_note_length": len(spec["form_note"]),
+            "snap_operator": snap_info,
             "parent_diff": diff_stats,
-            "mechanism_card": spec["mechanism_card"],
             "format_validation": {
                 "primary_nan_validator": val_nan,
                 "fallback_zeros_validator": {
@@ -658,14 +818,18 @@ def main() -> int:
                 },
             },
         }
-        built_variants.append(rec)
-        snap_cards_dict[var_id] = {
-            **disp_summary,
-            "n_dots": diff_stats["n_dots"],
-            "pct_changed": diff_stats["pct_changed"],
+        built.append(rec)
+        cards[var_id] = {
             **spec["mechanism_card"],
+            "axis": spec["axis"],
+            "value": spec["value"],
+            "field": spec["field"],
+            "n_moved": snap_info["n_moved"],
+            "mean_displacement_px": snap_info["mean_displacement_px"],
+            "mean_displacement_m": snap_info["mean_displacement_m"],
+            "pct_changed": round(diff_stats["pct_changed"], 2),
         }
-        new_ledger_rows.append(
+        new_rows.append(
             {
                 "id": var_id,
                 "parent": PARENT_ID,
@@ -679,69 +843,73 @@ def main() -> int:
                 "predicted_change": spec["predicted_change"],
                 "receipt_score": "",
                 "date": "",
-                "description": form_note,
+                "description": spec["form_note"],
             }
         )
         print(
-            f"      Built {var_id}: n={diff_stats['n_dots']}, %changed={diff_stats['pct_changed']:.2f}%, "
-            f"mean_disp={snap_res['mean_displacement_all_px']:.4f} px (moved={snap_res['mean_displacement_moved_px']:.4f} px), "
-            f"min_dcat={diff_stats['d_catalogue_px']['min']} px, min_nn={diff_stats['nearest_neighbor_px']['min']} px",
+            f"      {var_id}: moved={snap_info['n_moved']} "
+            f"(mean {snap_info['mean_displacement_px']} px), "
+            f"pct_changed={diff_stats['pct_changed']:.2f}%, "
+            f"min_dcat={diff_stats['d_catalogue_px']['min']} px, "
+            f"CV10km={diff_stats['block_density_cv_10km']['variant']}",
             flush=True,
         )
 
-    print("[5/6] Writing ledger/submissions.csv and ledger/snap_mechanism_cards.json ...", flush=True)
+    print("[5/6] Writing ledger, mechanism cards and release manifest ...", flush=True)
     with LEDGER_PATH.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=LEDGER_COLUMNS, lineterminator="\n")
         writer.writeheader()
-        for r in existing_rows + new_ledger_rows:
+        for r in existing_rows + new_rows:
             writer.writerow({k: r.get(k, "") for k in LEDGER_COLUMNS})
-    SNAP_CARDS_PATH.write_text(json.dumps(snap_cards_dict, indent=2) + "\n", encoding="utf-8")
+    CARDS_PATH.write_text(json.dumps(cards, indent=2) + "\n", encoding="utf-8")
 
     diagnostics = None
     if not args.skip_diagnostics:
-        print("[6/6] Running REPORT-ONLY diagnostics (hide-and-recover PROXY, leakage canary, SGMC control) ...", flush=True)
-        diagnostics = run_report_only_snap_diagnostics(
-            static_masks,
-            crest_bundle,
-            variant_specs,
-            h19_5,
-            d28,
-            nx_norm,
-            ny_norm,
-            coherence,
-            footprint,
-            catalogue,
-            d_cat,
+        print("[6/6] REPORT-ONLY diagnostics (PROXY holdout, canary, SGMC control) ...", flush=True)
+        diagnostics = run_report_only_diagnostics(
+            static_masks, r0_mask, h19_5, footprint, catalogue, d_cat, fields, valid_features
         )
         print(
-            f"      Diagnostics done in {diagnostics['elapsed_seconds']}s: "
-            f"canary max_sym_auc={diagnostics['leakage_canary']['max_symmetric_auc_observed']} (<=0.90), "
-            f"SGMC SNAPrtp2={diagnostics['sgmc_offcatalogue_control_proxy']['SNAPrtp2']['dti']:.6f} "
-            f"(vs R0={diagnostics['sgmc_offcatalogue_control_proxy']['R0']['dti']:.6f}), "
-            f"fold-proper SNAPrtp2_fp={diagnostics['fold_proper_hide_and_recover_proxy']['SNAPrtp2_fp']['dti']:.6f}",
+            f"      done in {diagnostics['elapsed_seconds']}s; canary max_sym_auc="
+            f"{diagnostics['leakage_canary']['max_symmetric_auc_observed']}, "
+            f"fold-proper R0 PROXY="
+            f"{diagnostics['fold_proper_hide_and_recover_proxy']['R0_fold_fair']['dti']:.6f}",
             flush=True,
         )
 
-    snap_manifest = {
-        "schema_version": 2,
+    manifest = {
+        "schema_version": 1,
         "generated_date_utc": SESSION_DATE,
-        "git_head_at_build": head_sha,
+        "git_head_at_build": git_head_sha(),
         "fixed_seed": FIXED_SEED,
-        "external_lidar_used": crest_bundle["external_lidar_used"],
-        "provided_bands_used": crest_bundle["provided_bands_used"],
-        "gravity_band_audit": crest_bundle["gravity_band_audit"],
+        "axis": AXIS,
+        "operator": {
+            "radius_px": SNAP_RADIUS_PX,
+            "radius_m": SNAP_RADIUS_PX * M.PIXEL_M,
+            "trend_high_pass_sigma_px": TREND_SIGMA_PX,
+            "crest_window_px": CREST_WINDOW_PX,
+            "min_d_cat_px": MIN_D_CAT_PX,
+            "min_crest_residual_z": MIN_CREST_RESIDUAL_Z,
+            "argmax_gain_margin_z": ARGMAX_GAIN_MARGIN_Z,
+            "r0_min_separation_px": round(R0_MIN_SEP_PX, 4),
+            "bands": {
+                "tmi_hg": BAND_TMI_HG,
+                "iso_grav_anom_hg": BAND_GRAV_HG,
+                "det_elev_slope": BAND_ELEV_SLOPE,
+            },
+        },
         "manifest_verification": {
             "manifest_path": "registry/data_manifest.json",
-            "verified_files_count": manifest_receipt["verified_count"],
+            "verified_files_count": n_files,
         },
+        "field_statistics": field_info,
         "parent_r0_rebuild_receipt": r0_receipt,
-        "axis": "SNAP",
-        "variants": built_variants,
+        "variants": built,
         "report_only_diagnostics": diagnostics,
         "total_elapsed_seconds": round(time.time() - t_start, 2),
     }
-    SNAP_MANIFEST_PATH.write_text(json.dumps(snap_manifest, indent=2) + "\n", encoding="utf-8")
-    print(f"Done in {snap_manifest['total_elapsed_seconds']}s. Wrote {SNAP_MANIFEST_PATH.name} and ledger/submissions.csv.", flush=True)
+    RELEASE_MANIFEST_PATH.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    print(f"Done in {manifest['total_elapsed_seconds']}s.", flush=True)
     return 0
 
 
