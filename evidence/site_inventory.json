@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-22T21:51:09.218503+00:00",
+  "generated_utc": "2026-10-23T00:25:53.431019+00:00",
   "repos": [
     {
       "repo": "11GEMSDOE",
@@ -817,7 +817,7 @@
     },
     {
       "repo": "GEMSDOE84",
-      "commit": "ae0196ee46f388c0e755d7b48c1ac1a76cacd5ca",
+      "commit": "c5e3f20ed4f5779a8f549aba3802d76155f089d6",
       "website": "https://buffedlizard55-lab.github.io/GEMSDOE84/",
       "index_files": [
         "docs/index.html",
@@ -827,14 +827,17 @@
     },
     {
       "repo": "GEMSDOE85",
-      "commit": "4ca13338599434619b6da46fdd18621fc311330f",
+      "commit": "ea6cf2f0395ef52beef56d43dfcf1bf27c1e27be",
       "website": "https://buffedlizard55-lab.github.io/GEMSDOE85/",
-      "index_files": [],
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
       "readme_available": true
     },
     {
       "repo": "GEMSDOE86",
-      "commit": "04f77ecce2d09b8ce89e0d7f4d5255d70a930787",
+      "commit": "467b29d61cd4e192c9e0dc62e3ac40455f0f276e",
       "website": "https://buffedlizard55-lab.github.io/GEMSDOE86/",
       "index_files": [
         "docs/index.html",
@@ -844,16 +847,20 @@
     },
     {
       "repo": "GEMSDOE87",
-      "commit": "7da68b032251de3eb93c8fa063f8ecc5d12a37f8",
+      "commit": "e9477dbfd4240c703f86851507f14088e4e0f1b7",
       "website": "https://buffedlizard55-lab.github.io/GEMSDOE87/",
-      "index_files": [],
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
       "readme_available": true
     },
     {
       "repo": "GEMSDOE88",
-      "commit": "3e3402552d5ce311ef0bdc98306d7ea46aab4e9f",
+      "commit": "21f85dc374f07759717da1f8598c6c4d8e5259a3",
       "website": "https://buffedlizard55-lab.github.io/GEMSDOE88/",
       "index_files": [
+        "docs/index.html",
         "index.html"
       ],
       "readme_available": true

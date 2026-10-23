@@ -13,17 +13,21 @@ playwright-report/
 *.partial
 *.assembling
 data/official/
-# Keep arbitrary raster artifacts out; only this explicitly required research bundle is tracked.
+# Keep arbitrary raster artifacts out; only explicitly required research bundles are tracked.
 *.tif
 *.tiff
 *.zip
 !docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif
 !docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.zip
+!docs/downloads/gems87-crossgrad-continuous-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif
+!docs/downloads/gems87-crossgrad-continuous-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.zip
+!docs/downloads/gems87-crossgrad-dots-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif
+!docs/downloads/gems87-crossgrad-dots-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.zip
 !docs/downloads/gems87-lwd-20261023T002405Z-78270acd3587-RESEARCH-DO-NOT-SUBMIT.tif
 !docs/downloads/gems87-lwd-20261023T002405Z-78270acd3587-RESEARCH-DO-NOT-SUBMIT.zip
 !docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.tif
 !docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.zip
-_site/
-evidence/tmp/
 !docs/downloads/gems87-pgf1-37654dots-20261023.tif
 !docs/downloads/gems87-pgf1-37654dots-20261023.zip
+_site/
+evidence/tmp/

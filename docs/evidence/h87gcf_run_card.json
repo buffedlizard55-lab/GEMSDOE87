@@ -1,0 +1,370 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-23T00:26:07.472618+00:00",
+  "hypothesis": "H87-GCF: opposite-sign gravity-curvature flanks mark a basement step.",
+  "mechanism": "Laplacian couplet of smoothed isostatic gravity; score between opposite-sign flanks.",
+  "non_fault_mimic": "Sedimentary pinch-outs, buried intrusive margins, smooth basin edges.",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "withheld_positive_pixels": 60988,
+    "binary_diagnostic": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.04905734583964548,
+      "ci95": [
+        0.041359374765026505,
+        0.0569307032483932
+      ],
+      "withheld_positive_pixels": 60988,
+      "tpw": 2771.104056837273,
+      "fpw": 35712.0755689851,
+      "fnw": 58216.895943162745
+    },
+    "downloadable_continuous_artifact": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.007972079248185259,
+      "ci95": [
+        0.007094311753433103,
+        0.008937499687218306
+      ],
+      "withheld_positive_pixels": 60988,
+      "tpw": 426.1973054309493,
+      "fpw": 22928.042486382292,
+      "fnw": 60561.802694569036
+    },
+    "best_comparable_control": {
+      "name": "gravity_hgm_control",
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.058476439958507674,
+      "ci95": [
+        0.04316374976160551,
+        0.07448869506941436
+      ],
+      "withheld_positive_pixels": 60988,
+      "tpw": 3308.0685070218724,
+      "fpw": 35594.74527517266,
+      "fnw": 57679.9314929781
+    },
+    "paired_difference_vs_best": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": -0.009419094118862194,
+      "ci95": [
+        -0.025607127225110292,
+        0.005533228687219208
+      ],
+      "withheld_positive_pixels": 60988
+    },
+    "gravity_hgm_control": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.058476439958507674,
+      "ci95": [
+        0.04316374976160551,
+        0.07448869506941436
+      ],
+      "withheld_positive_pixels": 60988,
+      "tpw": 3308.0685070218724,
+      "fpw": 35594.74527517266,
+      "fnw": 57679.9314929781
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 160,
+      "draws": 2000,
+      "seed": 87222,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "paired_lower_ci_beats_all_comparable_controls": false
+  },
+  "leakage_canary": {
+    "passed": true,
+    "maximum_two_sided_auc": 0.5905825641296316,
+    "features_tested": 8,
+    "folds": 4,
+    "threshold": 0.9,
+    "qualification": "No canary trigger; not proof of leakage absence."
+  },
+  "correlation_overlap_vs_registry": {
+    "candidate_rasters_compared": 4,
+    "surface_before_placement": [
+      {
+        "repo": "GEMSDOE68",
+        "submission": "GEMSDOE68:registry/rasters/rasters/GEMSDOE32__h33-2-b2-zeros.tif",
+        "file": "/home/user/GEMSDOE87/.cache/registry/17a76895f68174cc93f3cb1597d25686f6d6bc67.tif",
+        "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+        "decoded_sha256": "aec92fc3ff1e95f0b7a84d48294683199f2a3b25d9cdce2a95329aeccbfd839e",
+        "their_dots": 37654,
+        "my_dots_within_3px_of_theirs": 0.15519415489646496,
+        "their_dots_within_3px_of_mine": 0.6195888882987199,
+        "spearman_full_footprint": 0.002215038504098317,
+        "jaccard_dot_sets": 0.007427997418535739,
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_jaccard": false,
+        "representation": "dot_field"
+      },
+      {
+        "repo": "GEMSDOE68",
+        "submission": "GEMSDOE68:registry/rasters/rasters/GEMSDOE28__h27-4-r1-solo-d2-8.tif",
+        "file": "/home/user/GEMSDOE87/.cache/registry/7e422e07d5d3aac9ceb187a154bacc0f72a79f5c.tif",
+        "sha256": "2fc94a38d77f74d4f4ed1a97a83e7bb71a1ceea090515ec641e6681cc47c44c8",
+        "decoded_sha256": "43fc377484b716aad131f9898127592c767dd0f5b748c3079d97daad5da013b0",
+        "their_dots": 40199,
+        "my_dots_within_3px_of_theirs": 0.16277736050300948,
+        "their_dots_within_3px_of_mine": 0.6196174034179954,
+        "spearman_full_footprint": 0.0022873735492086383,
+        "jaccard_dot_sets": 0.007916239650459067,
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_jaccard": false,
+        "representation": "dot_field"
+      },
+      {
+        "repo": "GEMSDOE68",
+        "submission": "GEMSDOE68:registry/rasters/rasters/GEMSDOE30__d28-poisson300m-offcat-44090.tif",
+        "file": "/home/user/GEMSDOE87/.cache/registry/a59665a7fad659dcc6a45e5e7e71059586c3247a.tif",
+        "sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+        "decoded_sha256": "c1390c6717526ab454bb67cee9fe47f29854a6d98fb3b261ec10c521ed93096e",
+        "their_dots": 44090,
+        "my_dots_within_3px_of_theirs": 0.1727247838822023,
+        "their_dots_within_3px_of_mine": 0.61943751417555,
+        "spearman_full_footprint": 0.002334923969468328,
+        "jaccard_dot_sets": 0.008654190321905357,
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_jaccard": false,
+        "representation": "dot_field"
+      },
+      {
+        "repo": "57GEMSDOE",
+        "submission": "57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif",
+        "file": "/home/user/GEMSDOE87/.cache/registry/94106cce41eb878e3744818a71d99affde67028d.tif",
+        "sha256": "66e8ea67c86374ed67075812e6ab7c7b17d5eaa714b521dcd35c57f58454a46e",
+        "decoded_sha256": "f44b207a70f0a41affaba259f0bdbe6e81c701f54d8884792410f366fbc06fb4",
+        "their_dots": 5106385,
+        "my_dots_within_3px_of_theirs": 1.0,
+        "their_dots_within_3px_of_mine": 0.6118565286401241,
+        "spearman_full_footprint": 0.05824000143763088,
+        "jaccard_dot_sets": 0.3848381976682134,
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": true,
+        "duplicate_by_jaccard": false,
+        "representation": "continuous_surface"
+      }
+    ],
+    "serialized_artifact": [
+      {
+        "repo": "GEMSDOE68",
+        "submission": "GEMSDOE68:registry/rasters/rasters/GEMSDOE32__h33-2-b2-zeros.tif",
+        "file": "/home/user/GEMSDOE87/.cache/registry/17a76895f68174cc93f3cb1597d25686f6d6bc67.tif",
+        "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+        "decoded_sha256": "aec92fc3ff1e95f0b7a84d48294683199f2a3b25d9cdce2a95329aeccbfd839e",
+        "their_dots": 37654,
+        "my_dots_within_3px_of_theirs": 0.15379508153184257,
+        "their_dots_within_3px_of_mine": 0.08331120199713178,
+        "spearman_full_footprint": 0.0001503497621715087,
+        "jaccard_dot_sets": 0.0037319400757050702,
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_jaccard": false,
+        "representation": "dot_field"
+      },
+      {
+        "repo": "GEMSDOE68",
+        "submission": "GEMSDOE68:registry/rasters/rasters/GEMSDOE28__h27-4-r1-solo-d2-8.tif",
+        "file": "/home/user/GEMSDOE87/.cache/registry/7e422e07d5d3aac9ceb187a154bacc0f72a79f5c.tif",
+        "sha256": "2fc94a38d77f74d4f4ed1a97a83e7bb71a1ceea090515ec641e6681cc47c44c8",
+        "decoded_sha256": "43fc377484b716aad131f9898127592c767dd0f5b748c3079d97daad5da013b0",
+        "their_dots": 40199,
+        "my_dots_within_3px_of_theirs": 0.16141711371965795,
+        "their_dots_within_3px_of_mine": 0.08318614890917685,
+        "spearman_full_footprint": 0.00015732995633984935,
+        "jaccard_dot_sets": 0.003855378188101194,
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_jaccard": false,
+        "representation": "dot_field"
+      },
+      {
+        "repo": "GEMSDOE68",
+        "submission": "GEMSDOE68:registry/rasters/rasters/GEMSDOE30__d28-poisson300m-offcat-44090.tif",
+        "file": "/home/user/GEMSDOE87/.cache/registry/a59665a7fad659dcc6a45e5e7e71059586c3247a.tif",
+        "sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+        "decoded_sha256": "c1390c6717526ab454bb67cee9fe47f29854a6d98fb3b261ec10c521ed93096e",
+        "their_dots": 44090,
+        "my_dots_within_3px_of_theirs": 0.17246507675147393,
+        "their_dots_within_3px_of_mine": 0.08339759582671807,
+        "spearman_full_footprint": -6.88494809620533e-06,
+        "jaccard_dot_sets": 0.003942375004605579,
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_jaccard": false,
+        "representation": "dot_field"
+      },
+      {
+        "repo": "57GEMSDOE",
+        "submission": "57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif",
+        "file": "/home/user/GEMSDOE87/.cache/registry/94106cce41eb878e3744818a71d99affde67028d.tif",
+        "sha256": "66e8ea67c86374ed67075812e6ab7c7b17d5eaa714b521dcd35c57f58454a46e",
+        "decoded_sha256": "f44b207a70f0a41affaba259f0bdbe6e81c701f54d8884792410f366fbc06fb4",
+        "their_dots": 5106385,
+        "my_dots_within_3px_of_theirs": 1.0,
+        "their_dots_within_3px_of_mine": 0.08004370998269814,
+        "spearman_full_footprint": 0.02061584076510462,
+        "jaccard_dot_sets": 0.007373905414495774,
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": true,
+        "duplicate_by_jaccard": false,
+        "representation": "continuous_surface"
+      }
+    ],
+    "two_phase_surface": {
+      "evidence_class": "REGISTRY-MEASUREMENT",
+      "rasters_checked": 4,
+      "rasters_expected": 4,
+      "scope_note": "Checked against every registry raster whose bytes are present locally (plus any explicitly fetched witnesses). Un-fetched registry entries are a stated scope limitation, never a claim of absence.",
+      "footprint_cells": 5167373,
+      "dense_support_fraction": 0.2,
+      "thresholds": {
+        "rho": 0.9,
+        "forward_overlap": 0.7,
+        "jaccard": 0.5
+      },
+      "literal_reading": {
+        "worst_spearman_full_footprint": 0.05824000143763088,
+        "worst_spearman_submission": "57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif",
+        "worst_forward_overlap": 1.0,
+        "worst_overlap_submission": "57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif",
+        "forward_overlap_firings": 1,
+        "rho_firings": 0,
+        "duplicate": true,
+        "note": "Keeps the inherited literal support definition. A continuous-surface prior fires on every nonempty candidate, so a firing here is not evidence of duplication; it is reported for completeness."
+      },
+      "like_for_like_reading": {
+        "dot_field_rasters": 3,
+        "continuous_surface_rasters": 1,
+        "worst_forward_overlap_dot_fields": 0.1727247838822023,
+        "worst_forward_overlap_dot_field_submission": "GEMSDOE68:registry/rasters/rasters/GEMSDOE30__d28-poisson300m-offcat-44090.tif",
+        "worst_reverse_overlap": 0.6196174034179954,
+        "worst_reverse_overlap_submission": "GEMSDOE68:registry/rasters/rasters/GEMSDOE28__h27-4-r1-solo-d2-8.tif",
+        "worst_jaccard": 0.3848381976682134,
+        "worst_jaccard_submission": "57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif",
+        "forward_overlap_firings": 0,
+        "duplicate": false,
+        "note": "Inherited thresholds, applied to dot fields only; rank correlation still applies to every raster including the continuous surfaces."
+      },
+      "literal_firings": [
+        {
+          "submission": "57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif",
+          "repo": "57GEMSDOE",
+          "representation": "continuous_surface",
+          "forward_overlap": 1.0,
+          "their_dots": 5106385
+        }
+      ]
+    },
+    "two_phase_dots": {
+      "evidence_class": "REGISTRY-MEASUREMENT",
+      "rasters_checked": 4,
+      "rasters_expected": 4,
+      "scope_note": "Checked against every registry raster whose bytes are present locally (plus any explicitly fetched witnesses). Un-fetched registry entries are a stated scope limitation, never a claim of absence.",
+      "footprint_cells": 5167373,
+      "dense_support_fraction": 0.2,
+      "thresholds": {
+        "rho": 0.9,
+        "forward_overlap": 0.7,
+        "jaccard": 0.5
+      },
+      "literal_reading": {
+        "worst_spearman_full_footprint": 0.02061584076510462,
+        "worst_spearman_submission": "57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif",
+        "worst_forward_overlap": 1.0,
+        "worst_overlap_submission": "57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif",
+        "forward_overlap_firings": 1,
+        "rho_firings": 0,
+        "duplicate": true,
+        "note": "Keeps the inherited literal support definition. A continuous-surface prior fires on every nonempty candidate, so a firing here is not evidence of duplication; it is reported for completeness."
+      },
+      "like_for_like_reading": {
+        "dot_field_rasters": 3,
+        "continuous_surface_rasters": 1,
+        "worst_forward_overlap_dot_fields": 0.17246507675147393,
+        "worst_forward_overlap_dot_field_submission": "GEMSDOE68:registry/rasters/rasters/GEMSDOE30__d28-poisson300m-offcat-44090.tif",
+        "worst_reverse_overlap": 0.08339759582671807,
+        "worst_reverse_overlap_submission": "GEMSDOE68:registry/rasters/rasters/GEMSDOE30__d28-poisson300m-offcat-44090.tif",
+        "worst_jaccard": 0.007373905414495774,
+        "worst_jaccard_submission": "57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif",
+        "forward_overlap_firings": 0,
+        "duplicate": false,
+        "note": "Inherited thresholds, applied to dot fields only; rank correlation still applies to every raster including the continuous surfaces."
+      },
+      "literal_firings": [
+        {
+          "submission": "57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif",
+          "repo": "57GEMSDOE",
+          "representation": "continuous_surface",
+          "forward_overlap": 1.0,
+          "their_dots": 5106385
+        }
+      ]
+    },
+    "protocol_uniqueness_pass": false,
+    "like_for_like_uniqueness_pass": true,
+    "full_registry_clearance_claimed": false,
+    "final_dot_placement_performed": true
+  },
+  "raster_sha256": "31aac679c1e5876144c55a97567b853694a6475cead81e0c122e19221a5c6152",
+  "decoded_raster_sha256": "69e34bfc18ba2deaf113248d776cad64a941cf55fe00b57752d86c30c7536bee",
+  "submission_name": "GEMSDOE87-GCF-01-NEGATIVE",
+  "submission_note": "H87 GCF gravity curvature flanks; NEGATIVE research. No weekly slot. DO NOT SUBMIT.",
+  "submission_file": "gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.tif",
+  "submission_zip": "gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.zip",
+  "approved_for_weekly_slot": false,
+  "safe_to_submit": false,
+  "organizer_confirmed_score": null,
+  "submission_slots_used": 0,
+  "verdict": "negative",
+  "reasons": [
+    "No selector/cap authorization.",
+    "Literal dense-support overlap remains 1.0 under the inherited positive-pixel rule.",
+    "Paired HOLDOUT-DTI lower CI did not beat every comparable control."
+  ],
+  "budget": {
+    "experiment_id": "H87-GCF-01",
+    "experiments_used": 2,
+    "experiments_allowed": 3,
+    "started_utc": "2026-10-23T00:23:39.713388+00:00",
+    "maximum_hours": 2,
+    "preregistration_sha256": "976a6073e60fa133ea325a0935ef7561e27126589cee07bcb89a7b0b8d44588e",
+    "status": "complete-negative",
+    "session_started_utc": "2026-10-23T00:23:39.713388+00:00",
+    "elapsed_seconds": 147.758966,
+    "submission_slots_used": 0,
+    "selector_invoked": false,
+    "final_dot_placement_performed": true,
+    "stopped_utc": "2026-10-23T00:26:07.472364+00:00"
+  },
+  "artifact_policy": "Research GeoTIFF only; DO NOT SUBMIT.",
+  "n_emitted_positive_pixels": 37654
+}

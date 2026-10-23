@@ -12,6 +12,8 @@
 - Note (83 characters): `H87 GCF gravity curvature flanks; NEGATIVE research. No weekly slot. DO NOT SUBMIT.`
 - Archived experiment 1: [H87-LWD GeoTIFF](docs/downloads/gems87-lwd-20261023T002405Z-78270acd3587-RESEARCH-DO-NOT-SUBMIT.tif) (also negative)
 - Frozen prior lane: [H87-BMTD GeoTIFF](docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif) (negative; outer-grid defect IR87-016)
+- Experiment 3 (**H87-CROSSGRAD**, this branch): [binary dots .tif](docs/downloads/gems87-crossgrad-dots-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif) · [continuous .tif](docs/downloads/gems87-crossgrad-continuous-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif) (negative; [run card](evidence/h87crossgrad/run_card.json), [published copy](docs/evidence/h87crossgrad_run_card.json))
+- [Experiment index for every recorded run](docs/experiments.html)
 
 | Automated gate | Result |
 |---|---|
@@ -53,7 +55,59 @@ Paired diagnostic minus magnetic control: **HOLDOUT-DTI delta −0.000288**, 95%
 
 **Post-run defect (IR87-016):** the original texture guard omitted an explicit outer-grid pad. Current source fixes that edge case and is tested only on synthetic fixtures. The published negative TIFF and holdout remain unchanged, with exact old source archived in `research/frozen/features_h87_01.py`. No corrected scientific measurement is claimed after the duplicate stop.
 
-The registry inventory covers **93 accessible repositories** and **1,164 valid unique grid-matching TIFFs**, with one malformed candidate TIFF recorded as an error. A valid saturated witness proves rejection without requiring exhaustive candidate comparisons. The [per-repository metadata catalog](docs/data/prior_catalog.json) groups literal filename hints, not verified mechanisms; 812 historical claim references are quarantined. Only the H33 educational reference and that witness were compared to the new surface/artifact; this is **not** a complete candidate clearance.
+### H87-CROSSGRAD (gravity–magnetic cross-gradient, experiment 3)
+
+A genuinely different physical transform from BMTD, LWD, GCF and PGF: the detector computes the cross-gradient magnitude `|∂x g · ∂y m − ∂y g · ∂x m|` between the isostatic gravity anomaly (band 13) and RTP magnetics (band 2), then gates it by joint structure-tensor coherence of both fields and by their gradient-magnitude product. The rationale is that an orthogonal gravity–magnetic gradient couplet marks a density *and* susceptibility boundary — a concealed fault — whereas a single-field edge detector confuses it with a lithologic contact that perturbs only one property.
+
+Inputs: bands 13 and 2 only. No catalogue, label, or earlier prediction raster is used. Controls under the identical folds/budget: gravity HGM (18), magnetic HGM (3), topographic slope (19).
+
+**HOLDOUT-DTI**, evaluator `gems57-pooled-hide-v2`, **60,988 withheld positives**, conditional **95% CI**:
+
+| Arm | HOLDOUT-DTI | 95% CI |
+|---|---:|---|
+| H87-CROSSGRAD binary dots (37,654) | 0.047177 | [0.039149, 0.055703] |
+| Gravity horizontal-gradient control | 0.044601 | [0.032968, 0.057477] |
+| Magnetic horizontal-gradient control | 0.043673 | [0.032267, 0.055086] |
+| Topographic-slope control | 0.022435 | [0.017414, 0.027893] |
+| H87-CROSSGRAD continuous surface | 0.028278 | [0.024336, 0.032508] |
+
+Paired (same evaluator, same withheld positives, 162 physical clusters, 2,000 draws):
+
+- minus gravity HGM: delta **+0.002576**, 95% CI **[−0.011157, +0.015771]** — includes zero, **not promoted**
+- minus magnetic HGM: delta **+0.003504**, 95% CI **[−0.007015, +0.013884]** — includes zero, **not promoted**
+- minus topographic slope: delta **+0.024742**, 95% CI **[+0.014798, +0.035110]** — significant, but slope is not the binding control
+
+Leakage canaries: all four derived channels plus all three controls passed on every fold; largest two-sided HOLDOUT-AUC-CANARY **0.588749** (threshold 0.90). A pass is not proof that leakage is absent.
+
+The cross-gradient detector therefore ranks *slightly above* both single-field gradient controls in point estimate but is statistically indistinguishable from them. Its extra machinery buys nothing measurable on catalogue positives. Verdict: **negative**.
+
+### Registry count re-measured this session
+
+The registry scan was re-run on 2026-10-23 and found **1,193** valid unique grid-matching TIFFs across **93** accessible repositories (previous count in this file: 1,164), with the same single malformed candidate (`GEMSDOE63:docs/downloads/smoke.tif`, missing StripOffsets) still recorded as an error rather than silently skipped. The saturated witness still blocks every continuous surface under the literal rule:
+
+`evidence/registry_refreshed.json` → `complete_accessible_scan: false`, `n_unique_grid_rasters: 1193`.
+
+The universal overlap certificate is unchanged: witness `57GEMSDOE:docs/downloads/h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif` (sha256 `66e8ea67…`) is positive on all **5,106,385** allowed cells, so `covered_allowed_fraction = 1.0` and `uncovered_allowed_pixels = 0`. Any nonempty candidate has forward 3 px overlap 1.0 > 0.70. This is a requirements incompatibility, not evidence that the new rasters copy the old ones.
+
+### Lane-drift check actually measured for H87-CROSSGRAD
+
+`scripts/compare_crossgrad_registry.py` compared the crossgrad dots against **40** restored registry rasters: every prior whose recorded path names this transform family (`crossgrad`, `xgrad`, `gravmag`, `crosslayer`, `crossdrain`, `crosscut`, …) plus the continuity priors used in earlier sessions. 40/40 compared, 0 errors. Receipt: `evidence/h87crossgrad/registry_check.json`.
+
+| Reading | Worst value | Prior | Verdict |
+|---|---:|---|---|
+| Rank correlation, full footprint | **0.1030** | GEMSDOE49 `xgrad-coupled` (zeros) | pass (< 0.90) |
+| Forward 3 px dot overlap | **0.4620** | GEMSDOE78 `crosslayer-step` | pass (< 0.70) |
+| Closest same-family prior | rho 0.0418, overlap 0.1984 | GEMSDOE88 `mgc-crossgradient` | pass |
+| Literal dense-field overlap | **1.0000** | `h57-continuous-anatomy` (5,106,385 positive px) | **fails** — known degeneracy |
+
+**No lane drift** under the protocol thresholds against any sparse prior. The literal dense rule still fires on the one saturated continuous witness, exactly as documented above.
+
+### Prior-art disclosure (not a novel family)
+
+The cross-gradient transform has *already* been attempted in accessible prior work: `GEMSDOE54` `gems54-h1-crossgradient-q095`, `GEMSDOE77` `gems77-h79-crossgrad-ridge`, `GEMSDOE88` `gems88-mgc-crossgradient`. This branch's lane is a **different formulation** — gravity×RTP cross-gradient magnitude gated by joint structure-tensor coherence and by the gradient-magnitude product, using bands 13 and 2 only — but it is **not a new family**, and this run claims no novelty for it. The measured similarity above (rho ≤ 0.103, overlap ≤ 0.462) shows the artifacts are numerically distinct; it does not make the idea new. See IR87-031.
+
+
+The registry inventory covers **93 accessible repositories**; the count of valid unique grid-matching TIFFs was **1,164 at the 2026-10-22 scan** and **1,193 at the 2026-10-23 re-scan** reported above, with one malformed candidate TIFF recorded as an error in both. A valid saturated witness proves rejection without requiring exhaustive candidate comparisons. The [per-repository metadata catalog](docs/data/prior_catalog.json) groups literal filename hints, not verified mechanisms; 812 historical claim references are quarantined. Only the H33 educational reference and that witness were compared to the new surface/artifact; this is **not** a complete candidate clearance.
 
 The public leaderboard was observed on 2026-10-22 at **0.4413** on the [official page](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/). This is a **PUBLIC-LEADERBOARD-OBSERVATION**, not an ORGANIZER-CONFIRMED submission-page receipt for this or any historical GEMSDOE artifact. The supplied historical claims remain unverified and are not used as scores or promotion evidence.
 
