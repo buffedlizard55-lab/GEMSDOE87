@@ -187,7 +187,7 @@ pre { overflow-x: auto; padding: 16px; border: 1px solid var(--line); border-rad
 @media (max-width: 850px) {
   .hero-grid { grid-template-columns: 1fr; }
   .grid.four { grid-template-columns: repeat(2, minmax(0,1fr)); }
-  .grid.three, .grid.two { grid-template-columns: 1fr; }
+  .grid.three { grid-template-columns: 1fr 1fr; }
   .feed-item { grid-template-columns: 1fr auto; }
   .feed-item p { grid-column: 1 / -1; grid-row: 2; }
   .section-head { align-items: start; flex-direction: column; }

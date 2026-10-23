@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "generated_utc": "2026-10-23T01:17:05.935Z",
+  "generated_utc": "2026-10-23T01:26:57.360Z",
   "browser_version": "153.0.8010.0",
   "checks": [
     {
@@ -53,20 +53,20 @@
       "registry_search_verified": true
     },
     {
-      "promoted_root_page": "index.html",
-      "no_horizontal_overflow": true
+      "compatibility_entrypoint": "index.html",
+      "redirects_to_current_page": "docs/index.html"
     },
     {
-      "promoted_root_page": "executive-summary.html",
-      "no_horizontal_overflow": true
+      "compatibility_entrypoint": "executive-summary.html",
+      "redirects_to_current_page": "docs/executive-summary.html"
     },
     {
-      "promoted_root_page": "research.html",
-      "no_horizontal_overflow": true
+      "compatibility_entrypoint": "research.html",
+      "redirects_to_current_page": "docs/science.html"
     },
     {
-      "promoted_root_page": "sources.html",
-      "no_horizontal_overflow": true
+      "compatibility_entrypoint": "sources.html",
+      "redirects_to_current_page": "docs/sources.html"
     },
     {
       "clipboard_copy_and_unavailable_fallback_verified": true

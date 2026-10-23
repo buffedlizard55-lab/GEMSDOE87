@@ -75,11 +75,6 @@ def audit() -> dict:
                     errors.append(f'{path.name}: missing anchor: {href}')
     compatibility = [('index.html', 'index.html'), ('executive-summary.html', 'executive-summary.html'),
                      ('research.html', 'science.html'), ('sources.html', 'sources.html')]
-    status_path = ROOT / 'data/submission-status.json'
-    root_promoted = False
-    if status_path.is_file():
-        st = json.loads(status_path.read_text())
-        root_promoted = bool(st.get('submission_ready') is True and st.get('status') == 'ready')
     for filename, target in compatibility:
         root_page = ROOT / filename
         html = root_page.read_text()
