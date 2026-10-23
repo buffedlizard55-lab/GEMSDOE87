@@ -1,0 +1,926 @@
+{
+  "generated_utc": "2026-10-23T00:25:53.431019+00:00",
+  "repos": [
+    {
+      "repo": "11GEMSDOE",
+      "commit": "7d8133c69cb39363f394fc2d4a6d4919112c4270",
+      "website": "https://buffedlizard55-lab.github.io/11GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "12GEMSDOE",
+      "commit": "df9046f146336d6a751fb0184abf6370cfb981a9",
+      "website": "https://buffedlizard55-lab.github.io/12GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "13GEMSDOE",
+      "commit": "92ee6f074323f161eed837b80ec3ee5b662e26f5",
+      "website": "https://buffedlizard55-lab.github.io/13GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "14GEMSDOE",
+      "commit": "88dd365dc7469c316f0f7c3bdd18fd90c5825a07",
+      "website": "https://buffedlizard55-lab.github.io/14GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "15GEMSDOE",
+      "commit": "8c94b0f83f22999032ba8a29c523af7ae6cf5e76",
+      "website": "https://buffedlizard55-lab.github.io/15GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "16GEMSDOE",
+      "commit": "206e92a619e504a2ae4378904fdbc840ad8429b8",
+      "website": "https://buffedlizard55-lab.github.io/16GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "17GEMSDOE",
+      "commit": "6fc71d19d49dca4960d5434bd81b6dd06fcc030a",
+      "website": "https://buffedlizard55-lab.github.io/17GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "18GEMSDOE",
+      "commit": "809482f4634e49eb552547554f0682cdcbb4d467",
+      "website": "https://buffedlizard55-lab.github.io/18GEMSDOE/",
+      "index_files": [
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "19GEMSDOE",
+      "commit": "a3aca62fdb2be428f4245e22570cbc54082b2c15",
+      "website": "https://buffedlizard55-lab.github.io/19GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "20GEMSDOE",
+      "commit": "50edbbad9bb05541f8a8ca8e62b75210fb5b2954",
+      "website": "https://buffedlizard55-lab.github.io/20GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "55GEMSDOE",
+      "commit": "d145969f74f272199b983521a8519e09b25eefd5",
+      "website": "https://buffedlizard55-lab.github.io/55GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "56GEMSDOE",
+      "commit": "1da1ba0ef210a17f6dae1fd24747e0c4f1c91eae",
+      "website": "https://buffedlizard55-lab.github.io/56GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "57GEMSDOE",
+      "commit": "822a0ce5546c7b6749cdd82eb145b6b3e616603d",
+      "website": "https://buffedlizard55-lab.github.io/57GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "58GEMSDOE",
+      "commit": "4e5f9783286c6177c509bb477a228ee6db4b0aa5",
+      "website": "https://buffedlizard55-lab.github.io/58GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "59GEMSDOE",
+      "commit": "37dc3d41c34c28e1c13d7afbcbe1318873da17fa",
+      "website": "https://buffedlizard55-lab.github.io/59GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "5GEMSDOE",
+      "commit": "61068cbdf9e89bdc7e76a7c2f8040d6fbdbdbc24",
+      "website": "https://buffedlizard55-lab.github.io/5GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "60GEMSDOE",
+      "commit": "02563d07fb85d2f4d35887503d380d34d4017197",
+      "website": "https://buffedlizard55-lab.github.io/60GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "61GEMSDOE",
+      "commit": "225b53adeae655c9b97a36a45dc49561ef078a86",
+      "website": "https://buffedlizard55-lab.github.io/61GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "62GEMSDOE",
+      "commit": "38c521be981681832607c6b4152165e88a54ec11",
+      "website": "https://buffedlizard55-lab.github.io/62GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "6GEMSDOE",
+      "commit": "e2fe3f41c6f5dd2dcb2fc91958ee67698f114ada",
+      "website": "https://buffedlizard55-lab.github.io/6GEMSDOE/",
+      "index_files": [
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "7GEMSDOE",
+      "commit": "9d8b5d55b674629f7b0e0e486269917c0fa2dade",
+      "website": "https://buffedlizard55-lab.github.io/7GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "8GEMSDOE",
+      "commit": "e24abefab237115d67e0afb2acfde01c6304783f",
+      "website": "https://buffedlizard55-lab.github.io/8GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE",
+      "commit": "bb2e070a3659f4f5c16ac927e62606f1f7f495a6",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE10",
+      "commit": "4d08f51aa59bf57b4041474ff1463c9e737c8090",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE10/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE2",
+      "commit": "138a15c98213e70669fb2651f6680e6f66503a15",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE2/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE21",
+      "commit": "43e8510cfb37b85460a986d4d1b7796625de0d31",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE21/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE22",
+      "commit": "96481093a7f73e5c13669e45574213d70c204ba0",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE22/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE23",
+      "commit": "1fedf5c0261d58517db5bf87309a0dbdb7257712",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE23/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE24",
+      "commit": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE24/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE25",
+      "commit": "58607034371c9a8054db29bef2c9c81584eb4c65",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE25/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE26",
+      "commit": "ba071a372c970531fca4d024b7fc06631d9ce604",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE26/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE27",
+      "commit": "8831d2fb63192f6e34defaafb8c364c84c8c2900",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE27/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE28",
+      "commit": "94b027bed628422b7b39b485cb918a3fc15e5364",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE28/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE29",
+      "commit": "bbf6d0e1ab64d322b7f0fa2051d323ed8a6acd3d",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE29/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE3",
+      "commit": "512371de5d30162813803cdccbd4931ceeb065c7",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE3/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE30",
+      "commit": "3d5bec2af5f29291617f97c9e2dfe443be6f55c3",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE30/",
+      "index_files": [
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE31",
+      "commit": "cf13282fcd86290f1539f0a86446c8ba7205a79b",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE31/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE32",
+      "commit": "780a5a534269c79adfe6d1d7d5aadead161332aa",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE32/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE33",
+      "commit": "f52533110fe62cd03e77f1228e9e5ecac412c463",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE33/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE34",
+      "commit": "cfa8f6b626401a38259a4b809d1bfe7d65d682e6",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE34/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE35",
+      "commit": "cd4f9f62c46597dd1e45e6289b1b4c6774c86f82",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE35/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE36",
+      "commit": "c9ad59ec6f969ed931d089a03044c1567a633e84",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE36/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE37",
+      "commit": "8d07e2a111b68c49b3588c5f4409be11ae7ba9b5",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE37/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE38",
+      "commit": "526d65add01b32bc7354264703501692aec0ef95",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE38/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE39",
+      "commit": "381c6a923ffea8fbcd87eb2d5825449f09f29f0e",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE39/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE4",
+      "commit": "88e69d4c738d5fbcc33f5282bb28fb5fd39c32c1",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE4/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE40",
+      "commit": "0d2ab31e0b75e29c627ee93614940904b457f8c6",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE40/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE41",
+      "commit": "aee9fc5ee0d11ed7532cf5d8042f376ca68b1357",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE41/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE42",
+      "commit": "13de50d79a668530c52d17c0aacba62c840fc903",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE42/",
+      "index_files": [
+        "docs/index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE43",
+      "commit": "e641e0c1dd7cf4cb7a4013440e39fa8541250139",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE43/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE44",
+      "commit": "c1019c4b534e327952f638a8bdce2ecc74923f50",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE44/",
+      "index_files": [
+        "docs/index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE45",
+      "commit": "f90a332ab577877eaa4f533748cc1a24dc58741d",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE45/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE46",
+      "commit": "537700976521311457fc74679095a17837429e4b",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE46/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE47",
+      "commit": "5558d6d3daef3fe0a7b26b6928d7335645c5ae99",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE47/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE48",
+      "commit": "268ec599f51c517cc3485da077c24d83af5be81d",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE48/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE49",
+      "commit": "8ab48f22d02d8be3b8e01d843ed7dc7967b87c44",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE49/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE50",
+      "commit": "74668975f7a83d90094184b0905f94d9698c8a3a",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE50/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE51",
+      "commit": "51028ff37fc28fc9b3c83dfc1f426195195f3878",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE51/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE52",
+      "commit": "cec0f20affaf58bf8af04f2e7ea2d2741d5af29b",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE52/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE53",
+      "commit": "609cb0081db6ff9ca8ac3843c84ec3657a970c02",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE53/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE54",
+      "commit": "ba2a5ba59d3f3e0edf456dfc09874b5d38ca443a",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE54/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE63",
+      "commit": "4195d91809a0c33871fe7013c90dde74d6571294",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE63/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE64",
+      "commit": "4791ebcc7ce3a3be152d44c7212788d18c15d169",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE64/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE65",
+      "commit": "5caea450b1281766b99bb4ef1546e7dd8c6b3ae4",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE65/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE66",
+      "commit": "2734d5d46a240245e610d4e39ebc98e6fc557722",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE66/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE67",
+      "commit": "22d9034b680824d534619f284f76ada757dd6995",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE67/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE68",
+      "commit": "5d45975eeffdb1802fbc9063931516d587747130",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE68/",
+      "index_files": [
+        "docs/index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE69",
+      "commit": "87630daa5a6d79d601875cceaa3ad8ccc05d219e",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE69/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE70",
+      "commit": "158aec19800d4c7b8ca9fb94b06567e2b7d61e8d",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE70/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE71",
+      "commit": "a723acb450e12d95f5622c7084691c6d322b339c",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE71/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE72",
+      "commit": "9ff9448591910bcd8cce94f6304712137c942cf6",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE72/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE73",
+      "commit": "eadf59cebba634cc68271408685bcd1346e422df",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE73/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE74",
+      "commit": "7dc05407134e32c719323e600d933679afe29c54",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE74/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE75",
+      "commit": "c1b2d329e1926aac016d6286256878f5497f53fc",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE75/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE76",
+      "commit": "97f3dd5a818d909bb2d2e362bdd2282bfbf2cae1",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE76/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE77",
+      "commit": "6c363745d864f01d47b9d2cba5da8857953e93d0",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE77/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE78",
+      "commit": "30f1ab9400f92036b0bc613425f1b5b6046f3897",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE78/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE79",
+      "commit": "0352e5ef356c1a26578df71dde3801a34f386922",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE79/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE80",
+      "commit": "02f8fd64be24de6b90d03c56b675d8a3ac2bbc3c",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE80/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE81",
+      "commit": "15bf850cfd68dc54f14b96a558f750798a0c4ac8",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE81/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE82",
+      "commit": "4fb7df6f650f98690c547b4e23bf17deeaa9b141",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE82/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE83",
+      "commit": "da9ec5a3b474e32fe8b124ac079e665315474bbf",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE83/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE84",
+      "commit": "c5e3f20ed4f5779a8f549aba3802d76155f089d6",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE84/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE85",
+      "commit": "ea6cf2f0395ef52beef56d43dfcf1bf27c1e27be",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE85/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE86",
+      "commit": "467b29d61cd4e192c9e0dc62e3ac40455f0f276e",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE86/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE87",
+      "commit": "e9477dbfd4240c703f86851507f14088e4e0f1b7",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE87/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE88",
+      "commit": "21f85dc374f07759717da1f8598c6c4d8e5259a3",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE88/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE89",
+      "commit": "9bf120b9cc25bdab5078dfdd66c36c605ef6bf84",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE89/",
+      "index_files": [],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE9",
+      "commit": "1fdfddcefd291889e618adf8c42922e4893d514d",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE9/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE90",
+      "commit": "7e61faa83e157a08ff32ced31e74de2c28e0bc37",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE90/",
+      "index_files": [],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE91",
+      "commit": "f049d029022ec7076ae1e827ec2bfbebba2e5056",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE91/",
+      "index_files": [],
+      "readme_available": true
+    },
+    {
+      "repo": "GEMSDOE92",
+      "commit": "b99296cae6f52dd1885497e9b9c05efaf85c02fc",
+      "website": "https://buffedlizard55-lab.github.io/GEMSDOE92/",
+      "index_files": [],
+      "readme_available": true
+    },
+    {
+      "repo": "LEARNGEMSDOE",
+      "commit": "032abc124e0c1e2bbd43aa0a153b4ce962b0a661",
+      "website": "https://buffedlizard55-lab.github.io/LEARNGEMSDOE/",
+      "index_files": [
+        "docs/index.html",
+        "index.html"
+      ],
+      "readme_available": true
+    }
+  ],
+  "errors": [
+    {
+      "sources": [
+        "GEMSDOE63:docs/downloads/smoke.tif"
+      ],
+      "blob": "89ffb2d61840859392a758928ffdbae4260f2918",
+      "error": "89ffb2d61840859392a758928ffdbae4260f2918.tif: MissingRequired:TIFF directory is missing required \"StripOffsets\" field"
+    }
+  ]
+}

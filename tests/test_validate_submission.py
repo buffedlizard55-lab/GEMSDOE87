@@ -1,19 +1,22 @@
 from __future__ import annotations
 
+import json
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
+from io import StringIO
 from pathlib import Path
 
 try:
     import numpy as np
     import rasterio
-    from rasterio.transform import from_origin
+    from affine import Affine
 except ImportError:
     np = None
     rasterio = None
-    from_origin = None
+    Affine = None
 
-from scripts.validate_submission import validate_submission
+from scripts.validate_submission import main, validate_submission
 
 
 @unittest.skipIf(rasterio is None or np is None, "install requirements-validation.txt")
@@ -23,7 +26,7 @@ class ValidateSubmissionTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         self.reference = self.root / "sample_submission.tif"
         self.prediction = self.root / "candidate.tif"
-        self.transform = from_origin(500000, 4100000, 100, 100)
+        self.transform = Affine(100, 0, 500000, 0, -100, 4100000)
         self.reference_values = np.array(
             [
                 [0.0, 0.0, 0.0, np.nan],
@@ -54,7 +57,7 @@ class ValidateSubmissionTests(unittest.TestCase):
         crs="EPSG:32611",
         transform=None,
         dtype="float32",
-        nodata=np.nan,
+        nodata=float("nan"),
     ) -> None:
         if transform is None:
             transform = self.transform
@@ -82,6 +85,55 @@ class ValidateSubmissionTests(unittest.TestCase):
         self.assertTrue(result["checks"]["crs_matches_reference"]["passed"])
         self.assertTrue(result["checks"]["transform_matches_reference"]["passed"])
         self.assertTrue(result["checks"]["crs_shape_transform_match"]["passed"])
+
+    def test_cli_writes_json_report_without_changing_prediction(self) -> None:
+        report = self.root / "evidence" / "validation.json"
+        before = self.prediction.read_bytes()
+        stdout = StringIO()
+        with redirect_stdout(stdout):
+            result_code = main([
+                "--prediction", str(self.prediction),
+                "--reference", str(self.reference),
+                "--report", str(report),
+            ])
+        self.assertEqual(result_code, 0)
+        self.assertEqual(self.prediction.read_bytes(), before)
+        report_data = json.loads(report.read_text(encoding="utf-8"))
+        self.assertTrue(report_data["ready"])
+        self.assertEqual(report_data["sha256"], validate_submission(self.prediction, self.reference)["sha256"])
+
+    def test_cli_refuses_report_path_that_would_overwrite_prediction(self) -> None:
+        before = self.prediction.read_bytes()
+        stderr = StringIO()
+        with redirect_stderr(stderr):
+            result_code = main([
+                "--prediction", str(self.prediction),
+                "--reference", str(self.reference),
+                "--report", str(self.prediction),
+            ])
+        self.assertEqual(result_code, 2)
+        self.assertIn("refusing to overwrite", stderr.getvalue())
+        self.assertEqual(self.prediction.read_bytes(), before)
+        with rasterio.open(self.prediction) as ds:
+            self.assertEqual(ds.count, 1)
+
+    def test_cli_refuses_hardlink_alias_of_reference_as_report(self) -> None:
+        report_alias = self.root / "report-alias.json"
+        try:
+            report_alias.hardlink_to(self.reference)
+        except OSError as exc:
+            self.skipTest(f"hard links unavailable on this filesystem: {exc}")
+        before = self.reference.read_bytes()
+        stderr = StringIO()
+        with redirect_stderr(stderr):
+            result_code = main([
+                "--prediction", str(self.prediction),
+                "--reference", str(self.reference),
+                "--report", str(report_alias),
+            ])
+        self.assertEqual(result_code, 2)
+        self.assertIn("refusing to overwrite", stderr.getvalue())
+        self.assertEqual(self.reference.read_bytes(), before)
 
     def test_out_of_range_finite_value_fails_even_outside_footprint(self) -> None:
         bad = self.valid.copy()
@@ -113,7 +165,7 @@ class ValidateSubmissionTests(unittest.TestCase):
         self.assertFalse(result["checks"]["shape_matches_reference"]["passed"])
 
     def test_wrong_transform_fails(self) -> None:
-        shifted = from_origin(500100, 4100000, 100, 100)
+        shifted = Affine(100, 0, 500100, 0, -100, 4100000)
         self._write(self.prediction, self.valid, transform=shifted, nodata=np.nan)
         result = validate_submission(self.prediction, self.reference)
         self.assertFalse(result["ready"])
@@ -133,7 +185,7 @@ class ValidateSubmissionTests(unittest.TestCase):
 
     def test_reference_with_wrong_resolution_fails_closed(self) -> None:
         wrong_reference = self.root / "wrong_resolution.tif"
-        wrong_transform = from_origin(500000, 4100000, 50, 50)
+        wrong_transform = Affine(50, 0, 500000, 0, -50, 4100000)
         self._write(wrong_reference, self.reference_values, transform=wrong_transform, nodata=np.nan)
         result = validate_submission(self.prediction, wrong_reference)
         self.assertFalse(result["ready"])

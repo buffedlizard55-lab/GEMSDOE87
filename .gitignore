@@ -1,7 +1,10 @@
-# Python test/build artifacts
 .venv/
+.cache/
+data/raw/
+data/derived/
+data/bridge/
+artifacts/
 __pycache__/
-*.py[cod]
 .pytest_cache/
 
 # Local work products and heavy restored datasets/caches: keep out of Git.
@@ -26,3 +29,4 @@ evidence/tmp/
 
 # Site build output
 _site/
+evidence/tmp/

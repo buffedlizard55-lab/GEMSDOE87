@@ -42,7 +42,7 @@ class SiteTests(unittest.TestCase):
         html = (ROOT / "executive-summary.html").read_text(encoding="utf-8")
         for phrase in ("submission format", "sample submission", "validation", "Note", "Predicted values must be in range [0, 1]"):
             self.assertIn(phrase.lower(), html.lower())
-        self.assertIn("drivendata.org/competitions/306/competition-doe-gems/data/", html)
+        self.assertIn("drivendata.org/competitions/306/competition-doe-gems/submissions/", html)
 
     def test_all_local_html_links_resolve(self) -> None:
         for page in ROOT.glob("*.html"):
@@ -55,6 +55,11 @@ class SiteTests(unittest.TestCase):
                     continue
                 target = (page.parent / href.split("#", 1)[0].split("?", 1)[0]).resolve()
                 self.assertTrue(target.exists(), f"broken local link in {page.name}: {href}")
+
+    def test_pages_workflow_publishes_a_validated_download_directory(self) -> None:
+        workflow = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
+        self.assertIn("if [ -d downloads ]; then", workflow)
+        self.assertIn("cp -R downloads/. .cache/pages-publish/downloads/", workflow)
 
     def test_source_register_and_feed_are_parseable(self) -> None:
         sources = json.loads((ROOT / "data/sources.json").read_text(encoding="utf-8"))

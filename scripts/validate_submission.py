@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Read-only GeoTIFF preflight against the official sample grid.
+"""Preserved legacy readiness-only GeoTIFF preflight.
+
+Its `ready` field means this older local format policy only, not competition
+approval. It requires null/nodata outside the footprint. The current frozen
+research bundle uses the separate hash-pinned all-finite policy in
+check_submission.py, which always refuses submission authorization. This older
+helper is preserved for its existing callers/tests, not used to approve H87.
 
 The validator never writes or repairs a prediction. It fails closed on grid
 mismatches, finite values outside [0, 1], NaN/Inf inside the target footprint,
@@ -12,7 +18,9 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -35,6 +43,47 @@ def _sha256(path: Path) -> str:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def _distinct_output_path(output_path: Path, protected_paths: list[tuple[str, Path]]) -> Path:
+    """Reject report paths that alias any input raster, including symlinks/hardlinks."""
+    output = output_path.expanduser()
+    output_resolved = output.resolve(strict=False)
+    for label, protected in protected_paths:
+        protected = protected.expanduser()
+        aliases = output_resolved == protected.resolve(strict=False)
+        if not aliases and output.exists() and protected.exists():
+            try:
+                aliases = output.samefile(protected)
+            except OSError:
+                aliases = False
+        if aliases:
+            raise ValueError(f"report path aliases the {label} input; refusing to overwrite it")
+    return output
+
+
+def _write_json_report(path: Path, content: str) -> None:
+    """Atomically write a report so an interrupted write cannot leave partial JSON."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as stream:
+            temporary = Path(stream.name)
+            stream.write(content)
+            stream.write("\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def _grid_signature(dataset: Any) -> dict[str, Any]:
@@ -306,6 +355,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--report", type=Path, help="optional path to write the JSON receipt")
     args = parser.parse_args(argv)
 
+    report_path: Path | None = None
     try:
         result = validate_submission(
             args.prediction,
@@ -319,9 +369,12 @@ def main(argv: list[str] | None = None) -> int:
 
     rendered = json.dumps(result, indent=2, ensure_ascii=False)
     print(rendered)
-    if args.report:
-        args.report.parent.mkdir(parents=True, exist_ok=True)
-        args.report.write_text(rendered + "\n", encoding="utf-8")
+    if report_path is not None:
+        try:
+            _write_json_report(report_path, rendered)
+        except (OSError, ValueError) as exc:
+            print(json.dumps({"ready": False, "errors": [f"could not write report: {exc}"]}, indent=2), file=sys.stderr)
+            return 2
     return 0 if result["ready"] else 1
 
 

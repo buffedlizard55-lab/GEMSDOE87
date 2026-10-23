@@ -38,7 +38,7 @@
     },
     {
       "id": "usgs_geodawn",
-      "label": "USGS — GeoDAWN data release",
+      "label": "USGS \u2014 GeoDAWN data release",
       "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
       "status": "unavailable",
       "note": "Fetch failed: URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
@@ -52,7 +52,7 @@
     },
     {
       "id": "ingenious_gdr",
-      "label": "DOE Geothermal Data Repository — INGENIOUS regional compilation",
+      "label": "DOE Geothermal Data Repository \u2014 INGENIOUS regional compilation",
       "url": "https://gdr.openei.org/submissions/1391",
       "status": "unavailable",
       "note": "Fetch failed: URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
@@ -64,5 +64,7 @@
       "status": "unavailable",
       "note": "Fetch failed: URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>"
     }
-  ]
+  ],
+  "historical_readiness_snapshot": true,
+  "superseded_by": "../docs/data/feed.json"
 }

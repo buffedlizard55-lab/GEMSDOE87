@@ -1,4 +1,4 @@
-name: Refresh source feed and publish site
+name: Pages and read-only source feed
 
 on:
   push:
@@ -17,7 +17,7 @@ on:
       - "scripts/refresh_feed.py"
       - ".github/workflows/pages.yml"
   schedule:
-    - cron: "17 9 * * *"
+    - cron: '17 6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -26,23 +26,26 @@ permissions:
   id-token: write
 
 concurrency:
-  group: github-pages
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
-      - name: Check out published source
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-      - name: Assemble static site
+          python-version: '3.11'
+          cache: pip
+      - name: Install only the static-site and public-health dependencies
+        run: python -m pip install 'Markdown==3.11.2' 'requests==2.34.2'
+      - name: Refresh public transport health and derived next steps
         run: |
           mkdir -p _site/data _site/assets _site/docs _site/downloads _site/evidence
           cp index.html executive-summary.html research.html sources.html README.md _site/
@@ -56,7 +59,46 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
-      - name: Deploy to GitHub Pages
+          path: .cache/pages-publish
+      - name: Publish validated static pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify the actual public TIFF bytes
+        env:
+          PAGES_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          FILE=$(python -c "import json; print(json.load(open('run_card.json'))['submission_file'])")
+          SHA=$(python -c "import json; print(json.load(open('run_card.json'))['raster_sha256'])")
+          URL="${PAGES_URL%/}/docs/downloads/$FILE?gems87=$SHA"
+          curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$URL" -o .cache/published-research.tif
+          echo "$SHA  .cache/published-research.tif" | sha256sum --check
+          FEED_SHA=$(sha256sum docs/data/feed.json | cut -d ' ' -f 1)
+          FEED_URL="${PAGES_URL%/}/docs/data/feed.json?gems87_run=$GITHUB_RUN_ID"
+          curl --fail --location --silent --show-error --header 'Cache-Control: no-cache' --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$FEED_URL" -o .cache/published-feed.json
+          echo "$FEED_SHA  .cache/published-feed.json" | sha256sum --check
+          python - <<'PYRECEIPT'
+          import hashlib, json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          p = Path('.cache/published-research.tif')
+          card = json.loads(Path('run_card.json').read_text())
+          actual = hashlib.sha256(p.read_bytes()).hexdigest()
+          assert actual == card['raster_sha256'] and card['safe_to_submit'] is False
+          published_feed = json.loads(Path('.cache/published-feed.json').read_text())
+          local_feed = json.loads(Path('docs/data/feed.json').read_text())
+          assert published_feed['last_attempt_utc'] == local_feed['last_attempt_utc']
+          receipt = dict(feed_last_attempt_utc=published_feed['last_attempt_utc'], checked_utc=datetime.now(timezone.utc).isoformat(), passed=True,
+                         pages_url=os.environ['PAGES_URL'], public_tiff_sha256=actual,
+                         bytes=p.stat().st_size, safe_to_submit=False,
+                         scope='Public Pages byte check only; no DrivenData upload or slot selection.')
+          Path('.cache/publication-validation.json').write_text(json.dumps(receipt, indent=2) + '\n')
+          print(json.dumps(receipt, indent=2))
+          PYRECEIPT
+      - name: Retain public-byte verification receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-publication-verification
+          path: .cache/publication-validation.json
+          if-no-files-found: warn
+          retention-days: 14

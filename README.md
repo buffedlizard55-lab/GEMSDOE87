@@ -17,7 +17,16 @@
 
 ## Persistent Project Brief: Mission & Operating Principles
 
-Build an auditable workflow for finding geothermal-indicative faults missing from the public fault catalogue and for preparing a correctly formatted competition GeoTIFF. Optimize for evidence of real, unmapped faults—not for proxy scores alone.
+- **[Download the new research GeoTIFF](docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.tif)** · [single-TIFF ZIP](docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.zip)
+- **[Website](https://buffedlizard55-lab.github.io/GEMSDOE87/)** · [Executive summary / submission guide](https://buffedlizard55-lab.github.io/GEMSDOE87/docs/executive-summary.html)
+- [Machine-readable run card](run_card.json) · [Independent on-disk validator](docs/evidence/independent_validation.json)
+- SHA-256: `31aac679c1e5876144c55a97567b853694a6475cead81e0c122e19221a5c6152`
+- Submission identification: `GEMSDOE87-GCF-01-NEGATIVE`
+- Note (83 characters): `H87 GCF gravity curvature flanks; NEGATIVE research. No weekly slot. DO NOT SUBMIT.`
+- Archived experiment 1: [H87-LWD GeoTIFF](docs/downloads/gems87-lwd-20261023T002405Z-78270acd3587-RESEARCH-DO-NOT-SUBMIT.tif) (also negative)
+- Frozen prior lane: [H87-BMTD GeoTIFF](docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif) (negative; outer-grid defect IR87-016)
+- Experiment 3 (**H87-CROSSGRAD**, this branch): [binary dots .tif](docs/downloads/gems87-crossgrad-dots-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif) · [continuous .tif](docs/downloads/gems87-crossgrad-continuous-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif) (negative; [run card](evidence/h87crossgrad/run_card.json), [published copy](docs/evidence/h87crossgrad_run_card.json))
+- [Experiment index for every recorded run](docs/experiments.html)
 
 Keep Arena's core values central in every session:
 
