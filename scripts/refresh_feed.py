@@ -22,8 +22,6 @@ from urllib.parse import urlparse
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 ALLOWED_HOSTS = {
-    "www.drivendata.org",
-    "drivendata.org",
     "github.com",
     "gdr.openei.org",
     "www.usgs.gov",
