@@ -12,7 +12,7 @@
 - Note (83 characters): `H87 GCF gravity curvature flanks; NEGATIVE research. No weekly slot. DO NOT SUBMIT.`
 - Archived experiment 1: [H87-LWD GeoTIFF](docs/downloads/gems87-lwd-20261023T002405Z-78270acd3587-RESEARCH-DO-NOT-SUBMIT.tif) (also negative)
 - Frozen prior lane: [H87-BMTD GeoTIFF](docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif) (negative; outer-grid defect IR87-016)
-- Experiment 3 (**H87-CROSSGRAD**, this branch): [binary dots .tif](docs/downloads/gems87-crossgrad-dots-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif) · [continuous .tif](docs/downloads/gems87-crossgrad-continuous-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif) (negative; [run card](evidence/h87crossgrad/run_card.json), [published copy](docs/evidence/h87crossgrad_run_card.json))
+- Experiment 3 (**H87-CROSSGRAD**, merged to `main` 2026-10-23): [binary dots .tif](docs/downloads/gems87-crossgrad-dots-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif) · [continuous .tif](docs/downloads/gems87-crossgrad-continuous-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif) (negative; [run card](evidence/h87crossgrad/run_card.json), [published copy](docs/evidence/h87crossgrad_run_card.json))
 - [Experiment index for every recorded run](docs/experiments.html)
 
 | Automated gate | Result |
