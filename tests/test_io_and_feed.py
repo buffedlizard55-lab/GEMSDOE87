@@ -75,7 +75,7 @@ def test_shipped_tiff_and_zip_are_exact_and_in_range():
     assert np.isfinite(data).all()
     assert data.min() >= 0 and data.max() <= 1
     assert hashlib.sha256(file.read_bytes()).hexdigest() == card['raster_sha256']
-    assert np.count_nonzero(data > 0) == 4532408
+    assert np.count_nonzero(data > 0) == card['n_emitted_positive_pixels'] == 37654
     with zipfile.ZipFile(ROOT / 'docs/downloads' / card['submission_zip']) as z:
         assert z.namelist() == [file.name]
         with z.open(file.name) as src:

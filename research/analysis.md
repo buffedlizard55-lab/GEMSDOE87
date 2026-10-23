@@ -1,6 +1,28 @@
 # H87 research finding and H33 forensic explanation
 
-## What was actually established
+## Session 2026-10-23 (H87-LWD and H87-GCF)
+
+The frozen H87-BMTD lane was left stopped. This session preregistered five hypotheses, then ran two fixed experiments against the same hide-and-recover instrument (`gems57-pooled-hide-v2`, 60,988 withheld catalogue positives, 95% physical-cluster CI).
+
+**Uniqueness resolution:** shared `uniqueness.two_phase_summary` reports the inherited literal reading (dense continuous priors fire on every nonempty candidate) and a like-for-like reading (3 px overlap only vs dot-fields; Spearman vs every raster). Thresholds were not changed. Lane-drift stop = Spearman >0.90 or like-for-like overlap >0.70.
+
+All values below are **HOLDOUT-DTI**, evaluator **gems57-pooled-hide-v2**, **60,988 withheld positives**.
+
+| Arm | HOLDOUT-DTI | 95% CI |
+|---|---:|---|
+| H87-GCF sparse dots (downloadable file) | 0.049057 | [0.041359, 0.056931] |
+| H87-LWD sparse dots | 0.041641 | [0.033968, 0.049153] |
+| Gravity HGM control (`abs` band 18) | 0.058476 | [0.042655, 0.075295] |
+| Magnetic HGM control (band 3) | 0.043673 | [0.032318, 0.055570] |
+| Topographic slope control (band 19) | 0.022435 | [0.017370, 0.027722] |
+
+GCF minus gravity HGM: **HOLDOUT-DTI delta −0.009419**, 95% CI **[−0.025607, 0.005533]** (includes zero). Neither candidate beat every comparable control. Canaries: no two-sided AUC >0.90.
+
+Like-for-like sparse overlap of GCF dots vs H33 / H27-4 / D28: **17.2%** (under 70%). Worst Spearman **0.021**. Literal overlap vs the saturated 57GEMSDOE continuous witness remains **1.0**. GCF placed 37,654 off-catalogue dots. **Verdict: negative. DO NOT SUBMIT.** No weekly slot.
+
+Why H33 could still look strong on a leaderboard while these holdout numbers are ~0.05: holdout truth is the public catalogue; the official test is hidden expert faults. H33 is a 200 m catalogue-flank prune of a parent, not a new detector. The 0.2778 figure remains an unverified historical claim, not ORGANIZER-CONFIRMED. Public leaderboard observation 0.4413 is not an artifact receipt.
+
+## What was actually established (2026-10-22 H87-BMTD archive)
 
 This checkout began with only a repository title. There was no existing local training pipeline, holdout best, cached dataset, or prior-session task list to resume. We recovered the required feature stack and grid files autonomously from immutable owner GitHub mirrors, verified their SHA-256 hashes, and reused the inherited physical-band cache. These are **integrity-verified mirrors**, not organizer-authenticated originals. The sample's positive values were never used as predictions or features.
 

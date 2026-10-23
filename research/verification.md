@@ -1,6 +1,18 @@
 # Three-pass implementation review
 
-Scientific experimentation and software review are separate. H87-BMTD-01 stopped at the literal duplicate gate. Review did **not** run a corrected geophysical experiment, change the original measurements, authorize a selector or consume a competition slot.
+Scientific experimentation and software review are separate. Frozen H87-BMTD-01 remains stopped. Session 2026-10-23 ran H87-LWD-01 and H87-GCF-01; both are negative. The downloadable GCF GeoTIFF is research-only. Review did **not** authorize a selector or consume a competition slot.
+
+## Session 2026-10-23 — three passes
+
+**Pass 1.** Five hypotheses preregistered. Uniqueness resolved using shared `two_phase_summary` without changing thresholds. LWD then GCF implemented with the inherited evaluator, cache, and writer. Holdout: GCF 0.049057 vs gravity HGM 0.058476 (60,988 withheld positives, gems57-pooled-hide-v2). Like-for-like sparse overlap 17.2%. Format-valid unique TIF packaged. **DO NOT SUBMIT.**
+
+**Pass 2.** Synthetic LWD/GCF guard and contact tests. Independent TIFF/ZIP re-read. Frozen BMTD budget/tests preserved. Site, executive summary, and run card point at GCF with an explicit no-go. 108 pytest tests passed.
+
+**Pass 3.** Rechecked: unique nonempty TIF; download vs submit is explicit; no weekly slot; HOLDOUT-DTI labeled with evaluator/CI/N; no organizer score claimed; original user brief retained in README.
+
+---
+
+H87-BMTD-01 stopped at the literal duplicate gate. Review of that run did **not** run a corrected geophysical experiment, change the original measurements, authorize a selector or consume a competition slot.
 
 ## Pass 1 — implement and measure (completed)
 

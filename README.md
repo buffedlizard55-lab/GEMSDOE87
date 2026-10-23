@@ -2,26 +2,29 @@
 
 ## Download first. Submission decision: **DO NOT SUBMIT**
 
-**A new GeoTIFF was generated from RTP magnetic measurements, not copied from a previous submission.** It passes automated local format/range checks, but it is a **negative research result**, not a protocol-unique or competition-approved entry.
+**A new GeoTIFF was generated from the isostatic gravity anomaly (H87-GCF), not copied from a previous submission.** It passes automated local format/range checks. Like-for-like uniqueness versus sparse H33/H27-4/D28 priors passed (17.2% overlap). It did **not** beat the gravity-HGM control on holdout, so it is a **negative research result** and is **not** competition-approved.
 
-- **[Download the new research GeoTIFF](docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif)** · [single-TIFF ZIP](docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.zip)
+- **[Download the new research GeoTIFF](docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.tif)** · [single-TIFF ZIP](docs/downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.zip)
 - **[Website](https://buffedlizard55-lab.github.io/GEMSDOE87/)** · [Executive summary / submission guide](https://buffedlizard55-lab.github.io/GEMSDOE87/docs/executive-summary.html)
 - [Machine-readable run card](run_card.json) · [Independent on-disk validator](docs/evidence/independent_validation.json)
-- SHA-256: `10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d`
-- Submission identification: `GEMSDOE87-BMTD-01-NEGATIVE`
-- Note (126 characters): `H87 magnetic texture dislocation; NEGATIVE: no control gain; literal registry-overlap duplicate. Research only; DO NOT SUBMIT.`
+- SHA-256: `31aac679c1e5876144c55a97567b853694a6475cead81e0c122e19221a5c6152`
+- Submission identification: `GEMSDOE87-GCF-01-NEGATIVE`
+- Note (83 characters): `H87 GCF gravity curvature flanks; NEGATIVE research. No weekly slot. DO NOT SUBMIT.`
+- Archived experiment 1: [H87-LWD GeoTIFF](docs/downloads/gems87-lwd-20261023T002405Z-78270acd3587-RESEARCH-DO-NOT-SUBMIT.tif) (also negative)
+- Frozen prior lane: [H87-BMTD GeoTIFF](docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif) (negative; outer-grid defect IR87-016)
 
 | Automated gate | Result |
 |---|---|
 | Single-band float32; EPSG:32611; shape 3730×3292; exact sample transform | PASS — on-disk re-read |
 | Finite values in [0,1]; no NaN inside footprint; no nodata tag; zero outside footprint | PASS — conservative local policy, not authenticated portal acceptance |
 | ZIP contains exactly the same one TIFF | PASS — filename, decoded bytes and CRC checked |
-| Every individual feature/input leakage canary | No trigger; largest two-sided HOLDOUT-AUC-CANARY 0.592483; this does not prove no leakage |
-| Beats strongest comparable holdout control | **FAIL** — paired interval includes zero |
-| Literal registry uniqueness | **FAIL** — a continuous prior covers all allowed cells within 3 px; no dense-surface exemption was made |
+| Every individual feature/input leakage canary | No trigger; largest two-sided HOLDOUT-AUC-CANARY 0.592 (LWD) / see GCF card; this does not prove no leakage |
+| Beats strongest comparable holdout control | **FAIL** — GCF HOLDOUT-DTI 0.049057 vs gravity HGM 0.058476; paired CI includes zero |
+| Like-for-like uniqueness vs sparse priors | PASS — 17.2% forward 3 px overlap vs H33/H27-4/D28; Spearman ≤0.021 |
+| Literal registry uniqueness | **FAIL** — a continuous prior covers all allowed cells within 3 px; reported via `two_phase_summary`, thresholds unchanged |
 | Current submission-page cap/usage and organizer receipt | Unavailable (login protected); no slot selected or used |
 
-**Why the negative matters:** the original brief demands both a unique submission and a stop if overlap with *any* registry raster exceeds its threshold. An inherited continuous field covers every allowed location. Those requirements cannot both be satisfied for a nonempty file under the literal definition of a dot. We stopped before final dot placement, retained a new continuous diagnostic TIFF, and did not hide the failed gates behind a download button. Byte freshness is not geometric uniqueness.
+**Why the negative matters:** H87-GCF is a *new* gravity-curvature couplet detector, geometrically unlike the sparse H33 family. It still lost to a simple gravity-HGM control on catalogue holdout. Byte freshness plus sparse uniqueness is not a reason to spend a weekly slot. The literal dense-field overlap degeneracy is reported, not silently exempted.
 
 ## Read this at the start of every session
 

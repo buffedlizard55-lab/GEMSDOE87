@@ -21,12 +21,14 @@ def derive(card, feed):
         add('registry-rule-block', 'Keep scientific execution stopped; resolve the universal-overlap contradiction explicitly.',
             'The recorded literal overlap gate rejects every nonempty allowed candidate. No dense-raster exemption is authorized.',
             'Protocol decision required before a separately authorized future run; do not change this run or its thresholds.')
-    if card.get('execution_defects'):
-        add('frozen-defect', 'Do not describe the frozen TIFF as output of the corrected edge guard.',
+    frozen_bmtd = (ROOT / 'research/frozen/features_h87_01.py').is_file() or bool(card.get('execution_defects'))
+    if frozen_bmtd:
+        add('frozen-defect', 'Do not describe the frozen BMTD TIFF as output of the corrected edge guard.',
             'The source correction has synthetic regression coverage only; original negative data, hash and measurements are retained.',
             'A corrected scientific measurement requires a new authorized run, not an automatic retry.')
     if card['verdict'] == 'negative':
-        add('preserve-weekly-slot', 'Do not spend a weekly competition slot on H87-BMTD-01.',
+        add('preserve-weekly-slot',
+            f"Do not spend a weekly competition slot on {card.get('submission_name', 'this artifact')}.",
             'The improvement gate did not clear and a byte-fresh TIFF is not a uniqueness or submission authorization.',
             'Read-only recommendation; no selector or upload operation exists in this updater.')
     failures = sum(not row.get('transport_ok', False) for row in feed.get('checks', []))
@@ -38,9 +40,9 @@ def derive(card, feed):
         add('account-receipt', 'Require an authenticated current cap/usage receipt before any future selector authorization.',
             'A rules PDF or public leaderboard does not identify account-specific remaining slots or this artifact\'s acceptance.',
             'No real slot selected or consumed in this project.')
-    add('physical-research-queue', 'Retain the four ranked geological hypotheses as a future research queue, not tested winners.',
+    add('physical-research-queue', 'Retain untested hypotheses as a future research queue, not tested winners.',
         'Fault-specific signatures and named non-fault mimics are documented; no new external dataset or improved result is invented.',
-        'Do not run another experiment in this stopped lane. Exact layer definitions and official provenance must be checked first.')
+        'Do not spend a weekly slot on a negative holdout. Exact layer definitions and official provenance must be checked first.')
     return dict(schema_version=1, generated_utc=datetime.now(timezone.utc).isoformat(),
                 based_on_run=card['hypothesis'], raster_sha256=card['raster_sha256'],
                 source_health_last_attempt_utc=feed.get('last_attempt_utc'),
