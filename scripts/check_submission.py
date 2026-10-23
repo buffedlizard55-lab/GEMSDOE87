@@ -110,7 +110,11 @@ def check_bundle(card: dict, root: Path = ROOT, data_dir: Path | None = None) ->
         note_length=len(card['submission_note']),
         approved_for_weekly_slot=permitted,
         decision='READY — VALIDATED & SAFE TO DOWNLOAD / SUBMIT' if permitted else 'DO NOT SUBMIT',
-        authorization_scope='Independent byte + holdout/canary/uniqueness verification; organizer score still unconfirmed until uploaded',
+        authorization_scope=(
+            'Independent byte + holdout/canary/uniqueness verification; organizer score still unconfirmed until uploaded'
+            if permitted
+            else 'Frozen negative: no promotion path without verified promotion receipts'
+        ),
         reasons=reasons,
         submission_slots_used=card['submission_slots_used'],
     )

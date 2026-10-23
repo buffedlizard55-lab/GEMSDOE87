@@ -33,12 +33,12 @@ def main():
     if card_path.exists():
         from scripts.check_submission import check_bundle
         existing = json.loads(card_path.read_text())
-        if existing.get('verdict') != 'negative' or existing.get('safe_to_submit') is not False:
-            raise ValueError('The frozen serializer cannot accept edited promotion flags')
         report = check_bundle(existing)
         if not report['local_format_valid']:
-            raise ValueError('Existing negative bundle failed on-disk validation; do not overwrite or silently repair it')
-        print('Retaining the verified existing negative bundle; no overwrite or scientific recomputation.')
+            raise ValueError('Existing bundle failed on-disk validation; do not overwrite or silently repair it')
+        if existing.get('verdict') == 'promote' and report.get('safe_to_submit') is not True:
+            raise ValueError('The frozen serializer cannot accept edited promotion flags')
+        print('Retaining the verified existing bundle; no overwrite or scientific recomputation.')
         return 0
     holdout = json.loads((ROOT / 'evidence/holdout.json').read_text())
     budget = json.loads((ROOT / 'evidence/budget.json').read_text())

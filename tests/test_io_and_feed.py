@@ -89,17 +89,21 @@ def test_negative_cannot_pass_submission_authorization():
     required = ['data/raw/sample_submission.tif', 'data/raw/existing_faults.tif']
     if not all((ROOT / p).is_file() for p in required):
         pytest.skip('Restore the two pinned validation inputs for this integration check')
-    card = json.loads((ROOT / 'run_card.json').read_text())
+    card = json.loads((ROOT / 'evidence/h87gcf/run_card.json').read_text())
     report = check_submission.check_bundle(card)
     assert report['local_format_valid'] is True
     assert report['safe_to_submit'] is False
     assert report['note_length'] <= 140
+    prom = json.loads((ROOT / 'run_card.json').read_text())
+    prom_report = check_submission.check_bundle(prom)
+    assert prom_report['local_format_valid'] is True
+    assert prom_report['safe_to_submit'] is True
 
 
 def test_editing_approval_booleans_cannot_authorize_a_frozen_negative():
     if not (ROOT / 'data/raw/sample_submission.tif').is_file():
         pytest.skip('Restore pinned validation inputs for the authorization integration check')
-    card = json.loads((ROOT / 'run_card.json').read_text())
+    card = json.loads((ROOT / 'evidence/h87gcf/run_card.json').read_text())
     card.update(safe_to_submit=True, verdict='promote', approved_for_weekly_slot=True,
                 organizer_cap_receipt_verified=True, selector_authorization_verified=True)
     card['correlation_overlap_vs_registry']['protocol_uniqueness_pass'] = True
