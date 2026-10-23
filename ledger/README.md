@@ -1,3 +1,7 @@
 # Ledger
 
-`submissions.csv` lists MASS rows copied from GEMSDOE88 (not rebuilt), CONCENTRATION and PRUNE rows built in GEMSDOE87 on 2026-10-23, and SNAP rows (`tmi2`, `grav2`, `comb2`) built in session `arena/e89a6f6d-gemsdoe87` on 2026-10-23 (human-assigned axis). `receipt_score` / `date` stay empty until the human pastes a submission-page receipt. Mechanism cards: `mechanism_cards.json`.
+`submissions.csv` is the single record of built variants. Rows: `MASS` (`GEMSDOE88`, not rebuilt here), `CONCENTRATION` (built 2026-10-23, PR #25), `PRUNE` (built 2026-10-23, `scripts/build_prune_variants.py`) and `SNAP` ×6 built 2026-10-23 by two parallel sessions: crest operator (`tmi-hg`, `scarp`, `grav-argmax`; `scripts/build_snap_variants.py`, session `arena/d76a6a5f`) and edge-argmax operator (`tmi2`, `grav2`, `comb2`; `scripts/build_snap_edge_variants.py`, session `arena/e89a6f6d`, human-assigned axis). `receipt_score` / `date` stay empty until the human pastes a submission-page receipt; a fill is `RECEIPT`, everything else is `MODEL`/`CLAIM`/`PROXY`.
+
+Mechanism cards: `mechanism_cards.json` (`CONCENTRATION` + edge-argmax `SNAP`), `mechanism_cards_snap.json` (crest `SNAP`, keyed by variant id). `lineage_claims.csv` holds the collapsed pre-existing lineage (`CLAIM`, `receipt = N`).
+
+Do not delete rows: dedupe is exact-hash plus repeated `(parent, axis, value)`, and all builders refuse to write a duplicate.

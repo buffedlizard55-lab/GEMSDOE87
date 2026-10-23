@@ -1,0 +1,44 @@
+{
+  "h33-h33-2-b2-SNAPtmi-hg-20261023-95057a8a": {
+    "hypothesis": "R0's dot positions inherit the GeoDAWN survey geometry: Area 2 was flown at 400 m line spacing and 150-200 m above terrain (https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7), so an H19-5 lineament pixel can sit 1-2 px (100-200 m) off the basement edge it came from. Re-seating the dots that are NOT already on a magnetic horizontal-gradient ridge onto the nearest free ridge should raise kernel credit T on new-fault truth at unchanged emitted mass.",
+    "mechanism": "DTI = T/(0.2T + 0.2(S-M) + 0.8|G|) with the 300 m triangular kernel. For an isolated truth pixel a dot pays iff its credit exceeds ~0.2*DTI (about 0.056 at DTI 0.28), so a 100-200 m reposition is small against the kernel radius but not negligible for line-like truth, where a misplaced dot can duplicate another dot's truth cell. The operator high-passes band 03 tmi_hg at 2 km (removing the regional gradient trend that would otherwise drag every window maximum toward the regional high), robust-z scores it, extracts 3x3 crests at or above the footprint median, and moves each off-crest dot to the strongest FREE crest within 5x5 px (<=200 m), highest-gain dots served first. Count, zero catalogue mass, the d_cat > 2 px exclusion and every dot already on a crest are held fixed, so the only changed variable is cross-strike position.",
+    "non_fault_mimic": "Magnetic horizontal-gradient ridges also follow reversely magnetised Tertiary basalt flows, buried pluton contacts, caldera ring fractures and rail/road corridors; the 2 km high-pass further promotes shallow volcanic terrain texture with no Quaternary slip.",
+    "predicted_live_change": "MODEL -0.006 to +0.008 DTI vs R0. 8,132 of 37,654 dots (21.6%) move a mean of 1.95 px (195 m), inside the 3 px kernel, so the effect must be small. Fold-proper hide-and-recover PROXY = +0.0012 [-0.0002, +0.0024] and the off-catalogue SGMC PROXY = -0.0006 vs R0: two proxies that disagree in sign, so the arm is predicted neutral and must be read from a live receipt, not from either proxy.",
+    "falsifier": "A live RECEIPT gain >= +0.01 shows magnetic-crest position, not H19-5 lineament texture, carries the new-fault signal; a drop <= -0.01 falsifies the airborne-offset hypothesis for magnetics at this scale (|delta| < 0.01 on public chunks = no evidence).",
+    "axis": "SNAP",
+    "value": "tmi-hg",
+    "field": "tmi_hg",
+    "n_moved": 8132,
+    "mean_displacement_px": 1.9482,
+    "mean_displacement_m": 194.82,
+    "pct_changed": 21.6
+  },
+  "h33-h33-2-b2-SNAPscarp-20261023-8245ad43": {
+    "hypothesis": "New Quaternary faults in the Great Basin are expressed first as range-front scarps and faceted spurs, which the provided detrended-elevation slope band resolves at the 100 m grid. If R0's H19-5 lineaments are offset from the scarp crest they represent, moving each off-crest dot <= 200 m onto the free scarp crest should buy more kernel credit per dot than the current position does.",
+    "mechanism": "Same operator as SNAP-tmi-hg driven by band 19 det_elev_slope high-passed at 2 km and robust-z scored: 264,859 crest px, so 23,861 dots (63.4%) move a mean of 1.97 px (197 m). Topographic slope, not potential-field gradient, is the sensor; both are organizer-provided bands, neither is lidar-derived. Count, exclusions and all dots already on a scarp crest are fixed.",
+    "non_fault_mimic": "DEM slope ridges also follow fluvial terrace risers, alluvial-fan toes, landslide headwalls, playa shorelines (Lake Lahontan benches) and hillslope-aspect artefacts of the 2 km high-pass; those are exactly the landforms that mimic scarps in a 30 m DEM smoothed to 100 m.",
+    "predicted_live_change": "MODEL -0.008 to +0.006 DTI vs R0. This is the only arm that images surface rupture directly and the only one that moves a majority of the mass, but the fold-proper PROXY = -0.0007 [-0.0033, +0.0021] and the SGMC PROXY = -0.0022 vs R0 both lean slightly negative, so the prediction is neutral-to-slightly-negative.",
+    "falsifier": "A live RECEIPT drop <= -0.01 means R0's airborne-geophysics lineaments are better fault proxies than the topographic scarp crest within 200 m, i.e. the H19-5 texture is not merely a displaced scarp map.",
+    "axis": "SNAP",
+    "value": "scarp",
+    "field": "det_elev_slope",
+    "n_moved": 23861,
+    "mean_displacement_px": 1.9659,
+    "mean_displacement_m": 196.59,
+    "pct_changed": 63.37
+  },
+  "h33-h33-2-b2-SNAPgrav-argmax-20261023-7b0a8ac9": {
+    "hypothesis": "Null/calibration arm: how much live DTI does 200 m of unjustified relocation cost? The provided isostatic-gravity gradient is interpolated from sparse regional stations, so at the 100 m grid it resolves almost no crest (3,330 crest px in 5.17 M footprint px; the crest operator moves only 363 dots). This arm instead takes the literal window maximum of its 2 km residual with a 0.25 robust-z gain margin, which relocates mass without a fault-position warrant.",
+    "mechanism": "Each dot moves <= 2 px toward the strongest residual gravity-gradient cell in its 5x5 window provided that cell beats the dot's own position by >= 0.25 robust-z units; destinations are unique, stayers cannot be displaced, and the count, exclusions and zero-catalogue-mass rule are unchanged. Because the residual is nearly flat, the gain margin is only met at window corners, so 7,799 dots (20.7%) move a mean of 2.69 px (269 m) - an intentional maximal-misplacement control rather than a gravity-edge test.",
+    "non_fault_mimic": "Every residual crest in this field is a candidate mimic: with a km-scale interpolated input, the residual is dominated by gridding/station geometry, and a dot driven by it moves off the H19-5 lineament toward a gravity-shading maximum.",
+    "predicted_live_change": "MODEL -0.010 to +0.008 DTI vs R0. The two proxies disagree sharply: fold-proper PROXY +0.0046 [+0.0013, +0.0085] (relocation de-clumps near-duplicate dots) but off-catalogue SGMC PROXY -0.0036 (relocation leaves mapped bedrock faults). A live |delta| < 0.01 means 270 m of positional error is invisible to this metric and the whole SNAP axis is worth no further slots.",
+    "falsifier": "A live RECEIPT gain >= +0.01 on this arm would mean the interpolated gravity gradient locates faults better than the H19-5 field - contradicted by the crest census, so it would instead indicate a leak or a mis-scored submission and must be investigated before anything is concluded.",
+    "axis": "SNAP",
+    "value": "grav-argmax",
+    "field": "grav_hg",
+    "n_moved": 7799,
+    "mean_displacement_px": 2.6932,
+    "mean_displacement_m": 269.32,
+    "pct_changed": 20.71
+  }
+}
