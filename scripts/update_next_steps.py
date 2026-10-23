@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def derive(card, feed):
+    if card.get('safe_to_submit') is not False or card.get('verdict') != 'negative':
+        raise ValueError('Suggestions are limited to the frozen negative; edited approval flags cannot authorize a run')
     actions = []
     def add(identifier, title, reason, scope):
         actions.append(dict(id=identifier, priority=len(actions) + 1, title=title,

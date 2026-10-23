@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import shutil
 import re
+import zipfile
 
 import markdown
 
@@ -268,12 +269,54 @@ def write_compatibility(card):
             path.write_text(json.dumps(legacy, indent=2) + '\n')
 
 
+def require_validated_download(card, docs=None):
+    """Bind the recorded preflight to current download bytes before any writes.
+
+    This stdlib-only publication gate is not a new raster validator or scientific
+    approval. It lets scheduled static builds check integrity without raw data.
+    The raster preflight remains scripts/check_submission.py with shared tools.
+    """
+    docs = DOCS if docs is None else Path(docs)
+    if card.get('safe_to_submit') is not False or card.get('verdict') != 'negative':
+        raise ValueError('This build is for the recorded negative, not a fabricated promotion')
+    receipt = json.loads((docs / 'evidence/independent_validation.json').read_text())
+    for key in ('local_format_valid', 'reference_mirror_hashes_match',
+                'no_nan_inside_footprint', 'range_0_1', 'crs_shape_transform_match',
+                'zip_contains_exactly_one_matching_tiff'):
+        if receipt.get(key) is not True:
+            raise ValueError(f'Publication requires a passing preflight: {key}')
+    if receipt.get('safe_to_submit') is not False:
+        raise ValueError('Frozen negative receipt must refuse submission')
+    for key in ('raster_sha256', 'decoded_raster_sha256'):
+        if not re.fullmatch(r'[0-9a-f]{64}', str(card.get(key, ''))) or receipt.get(key) != card[key]:
+            raise ValueError(f'Stale or inconsistent validation receipt: {key}')
+    paths = []
+    for key in ('submission_file', 'submission_zip'):
+        name = card[key]
+        if not isinstance(name, str) or Path(name).name != name or '\\' in name:
+            raise ValueError(f'Unsafe download filename: {key}')
+        path = docs / 'downloads' / name
+        if path.is_symlink() or path.resolve().parent != (docs / 'downloads').resolve():
+            raise ValueError(f'Download escapes artifact directory: {key}')
+        paths.append(path)
+    tif, archive = paths
+    with tif.open('rb') as stream:
+        digest = hashlib.file_digest(stream, 'sha256').hexdigest()
+    if digest != card['raster_sha256']:
+        raise ValueError('Download TIFF no longer matches its validated hash')
+    with zipfile.ZipFile(archive) as bundle:
+        if bundle.namelist() != [tif.name] or bundle.getinfo(tif.name).file_size != tif.stat().st_size:
+            raise ValueError('Download ZIP must contain exactly the validated TIFF')
+        # Reading to EOF also checks CRC; stream to avoid expanding a whole file
+        # in memory. The expected length above bounds the declared member size.
+        with bundle.open(tif.name) as stream:
+            if hashlib.file_digest(stream, 'sha256').hexdigest() != digest:
+                raise ValueError('Download ZIP contains different TIFF bytes')
+
+
 def main():
     card = load('docs/evidence/run_card.json')
-    if card['safe_to_submit'] or card['verdict'] != 'negative':
-        raise ValueError('This build is for the recorded negative, not a fabricated promotion')
-    if not (DOCS / 'evidence/independent_validation.json').is_file():
-        raise FileNotFoundError('Run independent on-disk validation first')
+    require_validated_download(card)
     DOCS.mkdir(exist_ok=True)
     for build in (build_home, build_executive, build_science, build_validation, build_registry, build_sources, build_verification):
         build(card)

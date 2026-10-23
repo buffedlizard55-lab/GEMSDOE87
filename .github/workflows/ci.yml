@@ -2,7 +2,7 @@ name: Research artifact checks
 
 on:
   push:
-    branches: [main, arena/e6d76d5c-gemsdoe87]
+    branches: [main, 'arena/**']
   pull_request:
     branches: [main]
   workflow_dispatch:

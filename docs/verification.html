@@ -140,6 +140,7 @@
 <p>| IR87-025 | Main advanced again through <code>a7a7c77</code> with useful report-path hardening and a new H33 source-check document. Its most recent Pages run failed; the staged copy command also has a non-directory final argument. | Preserve the added helpers/tests/docs and exact snapshots. Current staging copies the complete docs directory, retaining optional legacy download publishing rather than the malformed file list. The last failed-run log archive could not be retrieved from its external log host; do not invent unseen log details. |
 | IR87-026 | Review of upstream report-path hardening revealed the same potential destructive <code>--output</code> misuse in this branch's independent checker. | Reuse the upstream alias/atomic-report helpers; reject raster outputs, existing cards/other files, symlinks and hard links before inspection. Frozen TIFF/card bytes are checked unchanged by regressions. |</p>
 <p>| IR87-027 | Public-site verification found the legacy Pages deployment racing the refresh workflow: the public feed remained the committed 22:33 snapshot despite the refresh step succeeding. The legacy deploy completed at 23:16:19, after the custom deployment and just before its job completed at 23:16:21. | Chain the refresh workflow after <code>pages-build-deployment</code> completes instead of simultaneously on push. Keep daily/manual triggers and check the actual public feed hash/timestamp as well as TIFF bytes. No settings privilege workaround or scientific rerun. |</p>
+<p>| IR87-028 | Static publication trusted the existence of a preflight JSON without binding it to current TIFF/ZIP bytes. The suggestions updater could also repeat edited approval flags. | Publication now requires passing boolean checks and current artifact/hash/ZIP consistency before page writes; the updater refuses non-negative cards. Thirty new regressions; no scientific rerun or changed verdict. |</p>
 <h3 id="permissions-and-publication">Permissions and publication</h3>
 <p>GitHub Pages was initially configured from <code>main</code> root and reported building. Root redirects and <code>.nojekyll</code> support that configuration. Deployment and Actions results are recorded in the final verification log, not assumed from the presence of a workflow file. The repository connection returned HTTP 403 for the Actions-permissions administration endpoint; ordinary repository, pull-request and Pages operations are verified separately.</p>
 <h2 id="three-pass-implementation-review">Three-pass implementation review</h2>
@@ -281,6 +282,60 @@
 <h3 id="publication-and-continuing-work">Publication and continuing work</h3>
 <p>CI is defined in <code>.github/workflows/ci.yml</code>. Pages/read-only source refresh is defined in <code>.github/workflows/pages.yml</code>, daily at 06:17 UTC after the legacy main Pages build completes. The workflow stages only the public site and compatible root entry points; it does not push main, modify this raster or run/authorize science. A successful deployment is not presumed from the YAML. The PR and Actions run provide externally verifiable publication receipts.</p>
 <p>Concurrent main readiness work at <code>f4f5944</code> and hardening through <code>a7a7c77</code> was integrated on this same fixed branch, with exact-byte snapshots and its code/tests preserved. Compatibility root status now distinguishes a research download from competition approval; historical documents are labeled as snapshots. No second scientific lane was executed. Pages settings write was denied to the integration; the already successful upload/deploy pattern is reused without changing those settings.</p>
-<p>The original request is <strong>not fully satisfied as a winning or protocol-cleared submission</strong>. Literal universal overlap, lack of control improvement, the frozen experiment's edge defect, unauthenticated originals/cap/receipts, one malformed prior, and incomplete historical mechanism review remain explicit. A separately authorized next run must resolve the protocol contradiction before any new experiment; see the research queue. No user action or human inspector is required to repeat local software/file validation, but software cannot create hidden truth or organizer authorization.</p></div></main>
+<p>The original request is <strong>not fully satisfied as a winning or protocol-cleared submission</strong>. Literal universal overlap, lack of control improvement, the frozen experiment's edge defect, unauthenticated originals/cap/receipts, one malformed prior, and incomplete historical mechanism review remain explicit. A separately authorized next run must resolve the protocol contradiction before any new experiment; see the research queue. No user action or human inspector is required to repeat local software/file validation, but software cannot create hidden truth or organizer authorization.</p>
+<h3 id="active-branch-follow-up-2026-10-23-software-only">Active-branch follow-up — 2026-10-23 (software only)</h3>
+<h4 id="pass-1-inspect-and-implement">Pass 1 — inspect and implement</h4>
+<p>Read the inherited brief, four-hypothesis queue, H33 analysis, stop certificate,
+run card, shared-tool pins and publication pipeline. This checkout already has a
+completed <strong>negative</strong>, unlike the historical empty-checkout descriptions above.
+No new hypothesis was fitted and no scientific budget was reset.</p>
+<p>Found that <code>build_site.py</code> previously checked only that a preflight JSON existed
+before publishing hardcoded “format-valid” text. Added a publication integrity
+gate <strong>before any page writes</strong>: require explicit passing preflight booleans,
+matching encoded/decoded hashes in the card and receipt, current TIFF SHA-256,
+and a ZIP containing exactly the same TIFF bytes. Reject unsafe paths and
+symlink downloads. Stream hashes with Python's standard library so scheduled
+Pages builds need no raw feature cache or raster dependencies. This binds the
+existing raster inspection to the published bytes; it is not a replacement
+validator, organizer authentication, or permission to submit.</p>
+<p>Also made read-only next-step derivation reject edited approval flags, and
+changed the scientific-check workflow push filter from a prior session's branch
+to <code>arena/**</code>, so this and later fixed Arena branches receive checks.</p>
+<h4 id="pass-2-adversarial-regression-and-actual-artifact-inspection">Pass 2 — adversarial regression and actual artifact inspection</h4>
+<ul>
+<li>Restored the two small hash-pinned grid/catalogue mirrors through GitHub;
+  original organizer authenticity remains unverified. The prior three-file
+  restoration receipt is preserved as historical evidence, not overwritten by
+  this narrower reinspection.</li>
+<li><strong>133 tests passed</strong>, no skips; added 30 publication/approval regressions.
+  Fixtures with altered TIFF bytes, equal-length wrong ZIP bytes, extra members,
+  corrupt ZIPs, stale hashes, false/missing/nonboolean receipt flags and unsafe
+  paths must fail. Confirmed failure occurs before page writes.</li>
+<li>Reopened the real research TIFF/ZIP: <code>check_submission.py --format-only</code>
+  returned <strong>0</strong>; the authorization command returned <strong>2</strong>, with local format
+  valid and submission refused. The TIFF hash, run card, holdout, shared modules
+  and experiment budget are unchanged.</li>
+<li>Static audit passed: seven pages, four root redirects and 120 local links.
+  Real Chromium passed all 37 existing checks, including actual download hash,
+  four viewport widths, no-JavaScript use and failed-feed fallback.</li>
+<li><code>compileall</code> and <code>git diff --check</code> passed. These are software checks, not DTI
+  measurements. The browser receipt is dated to this recheck.</li>
+</ul>
+<h4 id="pass-3-original-request-reconciliation-and-next-work">Pass 3 — original-request reconciliation and next work</h4>
+<p>The full brief remains in README. The site still offers the original newly
+computed <strong>research</strong> TIFF, not a new candidate from this review. No weekly slot
+was used. A protocol-cleared submission is <strong>not delivered</strong>: the inherited
+universal-overlap stop and failed improvement gate still apply. No leaderboard
+improvement, complete cross-site scientific review or new official-source
+verification is claimed. GitHub confirms the official reference repository is
+accessible; non-GitHub official sites, Dropbox and organizer authentication
+remain outside this sandbox's allowed outbound hosts/access.</p>
+<p>Before a separately authorized future scientific run, resolve how continuous
+registry surfaces should be represented in the dot-overlap protocol (without
+silently exempting them in this stopped run), confirm layer definitions for the
+queued hypotheses, restore the shared cache, and establish matched controls.
+Reevaluate the corrected edge guard only in that future run. Keep any slot
+selector separate and require authenticated current cap/usage. PR merge and CI
+outcomes must be checked on GitHub, not inferred from these local results.</p></div></main>
 <footer class="footer"><div class="shell footer-inner"><div class="values"><p><strong>Maximize P(Win).</strong> Preserve slots for evidence, not optimism. <strong>Own the Outcome.</strong> Publish the negative.</p><p>Fault evidence is not proof of a geothermal vent. Local validation is not organizer acceptance.</p></div><div><p><a href="https://github.com/buffedlizard55-lab/GEMSDOE87">Code &amp; original brief ↗</a> · <a href="evidence/run_card.json">JSON run card</a></p><p>Research snapshot: 22 OCT 2026 · <span data-feed-state>Dated source-health snapshot · see Sources</span></p></div></div></footer>
 </body></html>
