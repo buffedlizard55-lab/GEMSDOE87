@@ -74,7 +74,7 @@ jobs:
           echo "$SHA  .cache/published-research.tif" | sha256sum --check
           FEED_SHA=$(sha256sum docs/data/feed.json | cut -d ' ' -f 1)
           FEED_URL="${PAGES_URL%/}/docs/data/feed.json?gems87_run=$GITHUB_RUN_ID"
-          curl --fail --location --silent --show-error --header 'Cache-Control: no-cache' --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$FEED_URL" -o .cache/published-feed.json
+          curl --fail --location --silent --show-error --header 'Cache-Control: no-cache' --retry 10 --retry-all-errors --retry-delay 10 --retry-max-time 300 --connect-timeout 15 --max-time 60 "$FEED_URL" -o .cache/published-feed.json
           echo "$FEED_SHA  .cache/published-feed.json" | sha256sum --check
           python - <<'PYRECEIPT'
           import hashlib, json, os
