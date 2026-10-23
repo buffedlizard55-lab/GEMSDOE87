@@ -20,6 +20,9 @@ data/official/
 !downloads/
 !downloads/*.tif
 !downloads/*.zip
+!docs/downloads/
+!docs/downloads/*.tif
+!docs/downloads/*.zip
 # Keep transient evidence scratch out of Git; small final receipts may be tracked.
 evidence/tmp/
 

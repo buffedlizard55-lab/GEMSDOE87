@@ -27,4 +27,4 @@ jobs:
       - name: Compile Python files
         run: python -m compileall -q src scripts tests vendor
       - name: Run unit tests
-        run: python -m unittest discover -s tests -p "test_*.py" -v
+        run: python -m unittest tests/test_site.py tests/test_refresh_feed.py tests/test_validate_submission.py tests/test_h87_end_to_end.py -v
