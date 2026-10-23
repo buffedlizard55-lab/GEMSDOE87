@@ -86,3 +86,82 @@ CI is defined in `.github/workflows/ci.yml`. Pages/read-only source refresh is d
 Concurrent main readiness work at `f4f5944` and hardening through `a7a7c77` was integrated on this same fixed branch, with exact-byte snapshots and its code/tests preserved. Compatibility root status now distinguishes a research download from competition approval; historical documents are labeled as snapshots. No second scientific lane was executed. Pages settings write was denied to the integration; the already successful upload/deploy pattern is reused without changing those settings.
 
 The original request is **not fully satisfied as a winning or protocol-cleared submission**. Literal universal overlap, lack of control improvement, the frozen experiment's edge defect, unauthenticated originals/cap/receipts, one malformed prior, and incomplete historical mechanism review remain explicit. A separately authorized next run must resolve the protocol contradiction before any new experiment; see the research queue. No user action or human inspector is required to repeat local software/file validation, but software cannot create hidden truth or organizer authorization.
+
+## Active-branch follow-up — 2026-10-23 (software only)
+
+### Pass 1 — inspect and implement
+
+Read the inherited brief, four-hypothesis queue, H33 analysis, stop certificate,
+run card, shared-tool pins and publication pipeline. This checkout already has a
+completed **negative**, unlike the historical empty-checkout descriptions above.
+No new hypothesis was fitted and no scientific budget was reset.
+
+Found that `build_site.py` previously checked only that a preflight JSON existed
+before publishing hardcoded “format-valid” text. Added a publication integrity
+gate **before any page writes**: require explicit passing preflight booleans,
+matching encoded/decoded hashes in the card and receipt, current TIFF SHA-256,
+and a ZIP containing exactly the same TIFF bytes. Reject unsafe paths and
+symlink downloads. Stream hashes with Python's standard library so scheduled
+Pages builds need no raw feature cache or raster dependencies. This binds the
+existing raster inspection to the published bytes; it is not a replacement
+validator, organizer authentication, or permission to submit.
+
+Also made read-only next-step derivation reject edited approval flags, and
+changed the scientific-check workflow push filter from a prior session's branch
+to `arena/**`, so this and later fixed Arena branches receive checks.
+
+### Pass 2 — adversarial regression and actual artifact inspection
+
+- Restored the two small hash-pinned grid/catalogue mirrors through GitHub;
+  original organizer authenticity remains unverified. The prior three-file
+  restoration receipt is preserved as historical evidence, not overwritten by
+  this narrower reinspection.
+- **133 tests passed**, no skips; added 30 publication/approval regressions.
+  Fixtures with altered TIFF bytes, equal-length wrong ZIP bytes, extra members,
+  corrupt ZIPs, stale hashes, false/missing/nonboolean receipt flags and unsafe
+  paths must fail. Confirmed failure occurs before page writes.
+- Reopened the real research TIFF/ZIP: `check_submission.py --format-only`
+  returned **0**; the authorization command returned **2**, with local format
+  valid and submission refused. The TIFF hash, run card, holdout, shared modules
+  and experiment budget are unchanged.
+- Static audit passed: seven pages, four root redirects and 120 local links.
+  Real Chromium passed all 37 existing checks, including actual download hash,
+  four viewport widths, no-JavaScript use and failed-feed fallback.
+- `compileall` and `git diff --check` passed. These are software checks, not DTI
+  measurements. The browser receipt is dated to this recheck.
+
+### Pass 3 — original-request reconciliation and next work
+
+The full brief remains in README. The site still offers the original newly
+computed **research** TIFF, not a new candidate from this review. No weekly slot
+was used. A protocol-cleared submission is **not delivered**: the inherited
+universal-overlap stop and failed improvement gate still apply. No leaderboard
+improvement, complete cross-site scientific review or new official-source
+verification is claimed. GitHub confirms the official reference repository is
+accessible; non-GitHub official sites, Dropbox and organizer authentication
+remain outside this sandbox's allowed outbound hosts/access.
+
+Before a separately authorized future scientific run, resolve how continuous
+registry surfaces should be represented in the dot-overlap protocol (without
+silently exempting them in this stopped run), confirm layer definitions for the
+queued hypotheses, restore the shared cache, and establish matched controls.
+Reevaluate the corrected edge guard only in that future run. Keep any slot
+selector separate and require authenticated current cap/usage. PR merge and CI
+outcomes must be checked on GitHub, not inferred from these local results.
+
+### Concurrent-main integration before merge
+
+PR #12 merged while this review PR #13 was awaiting CI, causing conflicts in
+the browser-receipt timestamp and the equivalent approval-flag guard. Integrated
+`origin/main` on the fixed active branch, retained its corrupt-ZIP CLI refusal
+and additional tests, and kept the same negative-only guard. Re-ran the combined
+suite: **137 tests passed**, plus all **37 Chromium checks** and the static-site
+audit. This synchronization changed no raster, holdout, budget or shared tool.
+
+## Final active-branch audit — 2026-10-23 UTC
+
+After integrating the current main publication-integrity gate, the final local run passed all 137 Python tests, 37 Chromium checks, the static audit, TIFF/ZIP format preflight, and fail-closed authorization check. The current TIFF and decision remain unchanged; this was not a new scientific run.
+
+- [`validation-inputs-2026-10-23.json`](../docs/evidence/validation-inputs-2026-10-23.json) records the two small hash-pinned mirrors used for software checks. The older three-input `data/restore_receipt.json` remains historical; the full feature stack was not restored.
+- The latest checked-in public source-health attempt remains `2026-10-22T22:33:20.895788Z`, with 0/13 official-source transports reachable. No fresh official-page retrieval, account-cap observation or organizer receipt is claimed.
+- The site publication gate now verifies the current TIFF, exact ZIP member, card/receipt hashes, and fail-closed approval state **before page writes**. This protects the existing research download from stale/mutated bytes; it does not approve it for submission.

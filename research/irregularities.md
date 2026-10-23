@@ -35,6 +35,8 @@
 
 
 
+| IR87-028 | Static publication trusted the existence of a preflight JSON without binding it to current TIFF/ZIP bytes. The suggestions updater could also repeat edited approval flags. | Publication now requires passing boolean checks and current artifact/hash/ZIP consistency before page writes; the updater refuses non-negative cards. Thirty new regressions; no scientific rerun or changed verdict. |
+
 ## Permissions and publication
 
 GitHub Pages was initially configured from `main` root and reported building. Root redirects and `.nojekyll` support that configuration. Deployment and Actions results are recorded in the final verification log, not assumed from the presence of a workflow file. The repository connection returned HTTP 403 for the Actions-permissions administration endpoint; ordinary repository, pull-request and Pages operations are verified separately.

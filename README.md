@@ -26,6 +26,8 @@
 
 **Why the negative matters:** H87-GCF is a *new* gravity-curvature couplet detector, geometrically unlike the sparse H33 family. It still lost to a simple gravity-HGM control on catalogue holdout. Byte freshness plus sparse uniqueness is not a reason to spend a weekly slot. The literal dense-field overlap degeneracy is reported, not silently exempted.
 
+A concurrent `main` commit also added `gems87-pgf1-37654dots-20261023.tif` (H87-PGF). That file remains in `docs/downloads/` for audit. Its reported holdout compared against magnetic HGM, not gravity HGM. This session's GCF comparison uses gravity HGM as the relevant control and still does not promote. Neither file is ORGANIZER-CONFIRMED.
+
 ## Read this at the start of every session
 
 Read this README **including the complete original brief below**, then `research/hypotheses.md`, `research/analysis.md`, `registry/preregistration.json`, `registry/template_pin.json`, and the run card. `AGENTS.md` makes this the repository entry point.

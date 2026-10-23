@@ -12,6 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def derive(card, feed):
+    # This updater is not a selector. Refuse inconsistent approval metadata rather
+    # than publishing it as the status of this permanently stopped experiment.
+    if card.get('verdict') != 'negative' or card.get('safe_to_submit') is not False:
+        raise ValueError('Frozen negative updater refuses approval flags; no selector receipt is verified here.')
     actions = []
     def add(identifier, title, reason, scope):
         actions.append(dict(id=identifier, priority=len(actions) + 1, title=title,

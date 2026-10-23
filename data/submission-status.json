@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-10-23T00:29:41.689365+00:00",
+  "updated_at": "2026-10-23T00:31:15.755698+00:00",
   "status": "negative_research_only",
   "submission_ready": false,
   "safe_to_submit": false,
@@ -13,20 +13,20 @@
     "evidence_class": "HOLDOUT-DTI",
     "evaluator_version": "gems57-pooled-hide-v2",
     "withheld_positive_count": 60988,
-    "score": 0.007972079248185259,
+    "score": 0.04905734583964548,
     "ci_95": [
-      0.007094311753433103,
-      0.008937499687218306
+      0.041359374765026505,
+      0.0569307032483932
     ],
     "beats_current_best": false,
-    "representation": "frozen continuous research artifact"
+    "representation": "sparse-offcatalogue-tile3-37654"
   },
   "novelty": {
     "rank_correlation_max": 0.02061584076510462,
     "fraction_within_3px_max": 1.0,
     "registry_rasters_checked": 4,
-    "status": "duplicate-stop",
-    "maxima_scope": "Two inspected references only; not a global correlation maximum or clearance."
+    "status": "like-for-like-pass-literal-dense-fail",
+    "maxima_scope": "Scoped H33/H27-4/D28 plus saturated witness; not a global clearance."
   },
   "validation": {
     "status": "local_format_pass_not_submission_approval",

@@ -112,7 +112,7 @@ def main():
         output = checked_report_output(args.output, card)
         result = check_bundle(card)
         _write_json_report(output, json.dumps(result, indent=2, allow_nan=False))
-    except (OSError, ValueError) as exc:
+    except (OSError, ValueError, zipfile.BadZipFile, RuntimeError) as exc:
         print(json.dumps(dict(safe_to_submit=False, inspection_completed=False, errors=[str(exc)]), indent=2))
         return 2
     print(json.dumps(result, indent=2, allow_nan=False))
