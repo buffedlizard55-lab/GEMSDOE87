@@ -33,3 +33,8 @@ evidence/tmp/
 node_modules/
 .cache/
 .pytest_cache/
+
+!docs/downloads/*.tif
+!docs/downloads/*.zip
+!downloads/*.tif
+!downloads/*.zip
