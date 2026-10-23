@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from datetime import datetime, timezone
@@ -18,6 +19,25 @@ from gems57.grid import load_grid, TRANSFORM
 from gems57 import emit, gates
 from gems57.submission_writer import write_submission
 from gems87.features_crossgrad import crossgrad, bounded_control, load_band
+
+
+def recorded_stamp() -> str:
+    """Timestamp of the already-committed artifact pair, taken from its run card.
+
+    Re-running the generator must reproduce the SAME filenames and hashes; it
+    must never mint a second, differently-dated "candidate" beside an archived
+    one. That is how ambiguous duplicate downloads get created.
+    """
+    card_path = ROOT / 'evidence/h87crossgrad/run_card.json'
+    if not card_path.is_file():
+        raise SystemExit('No recorded run card; pass --stamp explicitly for a new experiment.')
+    card = json.loads(card_path.read_text())
+    name = card['submission_file']
+    marker = '-2026'
+    start = name.find(marker)
+    if start < 0:
+        raise SystemExit(f'Cannot parse a timestamp out of {name!r}; pass --stamp explicitly.')
+    return name[start + 1:start + 1 + len('20261023T003957Z')]
 
 
 def main():
@@ -48,17 +68,30 @@ def main():
     dots[catalogue] = 0
     dots = np.clip(dots, 0, 1)
 
-    timestamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--stamp', default=None,
+                        help='Artifact timestamp (UTC, e.g. 20261023T003957Z). '
+                             'Defaults to the stamp already recorded in the run card.')
+    parser.add_argument('--force-new-stamp', action='store_true',
+                        help='Explicitly allow a brand-new timestamped artifact pair.')
+    args = parser.parse_args()
+    if args.stamp:
+        timestamp = args.stamp
+    else:
+        timestamp = recorded_stamp()
+    if not args.stamp and args.force_new_stamp:
+        timestamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
 
     # Generate continuous surface TIF
     cont_name = f'gems87-crossgrad-continuous-{timestamp}-RESEARCH-DO-NOT-SUBMIT.tif'
     cont_path = ROOT / 'docs/downloads' / cont_name
     cont_zip = cont_path.with_suffix('.zip')
 
-    # Remove existing
+    # Never delete or silently replace an archived artifact.
     for p in (cont_path, cont_zip):
         if p.exists():
-            p.unlink()
+            raise SystemExit(f'Refusing to overwrite archived artifact: {p.name}. '
+                             'Choose a new --stamp for a new experiment.')
 
     print("Writing continuous surface GeoTIFF...")
     receipt_cont = write_submission(
@@ -88,7 +121,8 @@ def main():
 
     for p in (dots_path, dots_zip):
         if p.exists():
-            p.unlink()
+            raise SystemExit(f'Refusing to overwrite archived artifact: {p.name}. '
+                             'Choose a new --stamp for a new experiment.')
 
     print("Writing binary dots GeoTIFF...")
     receipt_dots = write_submission(

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-10-22T22:33:20.941468+00:00",
-  "based_on_run": "H87-BMTD: a tangential shift restores bilateral magnetic texture similarity across a concealed fault.",
-  "raster_sha256": "10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d",
+  "generated_utc": "2026-10-23T00:31:15.653922+00:00",
+  "based_on_run": "H87-GCF: opposite-sign gravity-curvature flanks mark a basement step.",
+  "raster_sha256": "31aac679c1e5876144c55a97567b853694a6475cead81e0c122e19221a5c6152",
   "source_health_last_attempt_utc": "2026-10-22T22:33:20.895788+00:00",
   "current_verdict": "negative",
   "safe_to_submit": false,
@@ -18,7 +18,7 @@
     {
       "id": "frozen-defect",
       "priority": 2,
-      "title": "Do not describe the frozen TIFF as output of the corrected edge guard.",
+      "title": "Do not describe the frozen BMTD TIFF as output of the corrected edge guard.",
       "reason": "The source correction has synthetic regression coverage only; original negative data, hash and measurements are retained.",
       "execution_scope": "A corrected scientific measurement requires a new authorized run, not an automatic retry.",
       "automatically_executed": false
@@ -26,7 +26,7 @@
     {
       "id": "preserve-weekly-slot",
       "priority": 3,
-      "title": "Do not spend a weekly competition slot on H87-BMTD-01.",
+      "title": "Do not spend a weekly competition slot on GEMSDOE87-GCF-01-NEGATIVE.",
       "reason": "The improvement gate did not clear and a byte-fresh TIFF is not a uniqueness or submission authorization.",
       "execution_scope": "Read-only recommendation; no selector or upload operation exists in this updater.",
       "automatically_executed": false
@@ -50,9 +50,9 @@
     {
       "id": "physical-research-queue",
       "priority": 6,
-      "title": "Retain the four ranked geological hypotheses as a future research queue, not tested winners.",
+      "title": "Retain untested hypotheses as a future research queue, not tested winners.",
       "reason": "Fault-specific signatures and named non-fault mimics are documented; no new external dataset or improved result is invented.",
-      "execution_scope": "Do not run another experiment in this stopped lane. Exact layer definitions and official provenance must be checked first.",
+      "execution_scope": "Do not spend a weekly slot on a negative holdout. Exact layer definitions and official provenance must be checked first.",
       "automatically_executed": false
     }
   ],

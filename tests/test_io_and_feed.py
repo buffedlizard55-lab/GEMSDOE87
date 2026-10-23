@@ -75,7 +75,7 @@ def test_shipped_tiff_and_zip_are_exact_and_in_range():
     assert np.isfinite(data).all()
     assert data.min() >= 0 and data.max() <= 1
     assert hashlib.sha256(file.read_bytes()).hexdigest() == card['raster_sha256']
-    assert np.count_nonzero(data > 0) == 4532408
+    assert np.count_nonzero(data > 0) == card['n_emitted_positive_pixels'] == 37654
     with zipfile.ZipFile(ROOT / 'docs/downloads' / card['submission_zip']) as z:
         assert z.namelist() == [file.name]
         with z.open(file.name) as src:
@@ -281,3 +281,21 @@ def test_designated_report_refuses_symlink_and_hardlink_aliases(tmp_path):
     with pytest.raises(ValueError, match='link alias'):
         check_submission.checked_report_output(output, card, tmp_path)
     assert source.read_bytes() == b'preserved synthetic input'
+
+
+@pytest.mark.parametrize('error', [
+    zipfile.BadZipFile('corrupt ZIP fixture'),
+    RuntimeError('encrypted ZIP fixture'),
+])
+def test_cli_bad_zip_returns_structured_refusal(monkeypatch, tmp_path, capsys, error):
+    report = tmp_path / 'refusal.json'
+    def fail(*args, **kwargs):
+        raise error
+    monkeypatch.setattr(check_submission, 'check_bundle', fail)
+    monkeypatch.setattr(sys, 'argv', ['check_submission.py', '--format-only', '--output', str(report)])
+    assert check_submission.main() == 2
+    result = json.loads(capsys.readouterr().out)
+    assert result['safe_to_submit'] is False
+    assert result['inspection_completed'] is False
+    assert result['errors'] == [str(error)]
+    assert not report.exists()  # Never publish a successful receipt on failure.

@@ -4,12 +4,13 @@
 <meta name="theme-color" content="#f7f8f4"><title>Research &amp; measured findings · GEMSDOE87</title>
 <link rel="stylesheet" href="assets/site.css"><script defer src="assets/site.js"></script></head>
 <body><a class="skip" href="#main">Skip to content</a>
-<header class="header"><div class="shell header-inner"><a class="brand" href="index.html" aria-label="GEMSDOE87 overview"><span class="brand-icon" aria-hidden="true">≋</span>GEMS<small>DOE / 87</small></a><nav class="nav" aria-label="Main navigation"><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">Submission guide</a><a href="science.html" class="active" aria-current="page">Research</a><a href="validation.html" class="">Validation</a><a href="registry.html" class="">Registry</a><a href="sources.html" class="">Sources</a></nav></div></header>
-<main id="main" class="shell content"><div class="topline"><span>FAULT DISCOVERY / GEODAWN, NEVADA–CALIFORNIA</span><span class="pill negative"><span class="dot" aria-hidden="true"></span>Run 01 · negative</span></div><div class="page-heading"><p class="eyebrow">Research / hypotheses / negative evidence</p><h1>Measure the hypothesis.<br>Keep the counterevidence.</h1><p>Physical plausibility earns an experiment, not a favorable conclusion. The preregistered magnetic-texture hypothesis did not pass the improvement gate.</p></div><div class="notice"><strong>Scientific optimization stopped.</strong> Only one fixed experiment was run. The other hypotheses below are a future queue, not extra tested candidates. No final dots were placed after the registry stop.</div><div class="anchor-list"><a href="#hypotheses">Ranked hypotheses</a><a href="#research-report">Result &amp; H33 analysis</a><a href="evidence/holdout.json">Raw holdout evidence</a></div>
-<section id="hypotheses" class="prose"><h2 id="preregistered-hypotheses-2026-10-22">Preregistered hypotheses — 2026-10-22</h2>
-<p>Written before model construction or holdout evaluation. This checkout initially contained only <code># GEMSDOE87</code>; therefore none of these methods was previously implemented <strong>here</strong>. Novelty across all sibling projects cannot be asserted from filenames or summaries alone. The registry audit checks numerical duplication independently.</p>
-<h3 id="lane-and-budget">Lane and budget</h3>
-<p>The brief refers to a single-method paragraph, but does not supply one. Irregularity IR87-001: no assigned scientific lane. Adopt <strong>H87-BMTD: bilateral magnetic texture dislocation</strong> as the only implemented hypothesis. The other ideas below are a research queue, not additional experiments. No imported prediction is a model input. At most three experiments or two hours, whichever comes first. Fixed parameters; no holdout-driven sweep. No competition uploads, slot selections, or automatic promotion to a weekly slot.</p>
+<header class="header"><div class="shell header-inner"><a class="brand" href="index.html" aria-label="GEMSDOE87 overview"><span class="brand-icon" aria-hidden="true">≋</span>GEMS<small>DOE / 87</small></a><nav class="nav" aria-label="Main navigation"><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">Submission guide</a><a href="experiments.html" class="">All experiments</a><a href="science.html" class="active" aria-current="page">Research</a><a href="validation.html" class="">Validation</a><a href="registry.html" class="">Registry</a><a href="sources.html" class="">Sources</a></nav></div></header>
+<main id="main" class="shell content"><div class="topline"><span>FAULT DISCOVERY / GEODAWN, NEVADA–CALIFORNIA</span><span class="pill negative"><span class="dot" aria-hidden="true"></span>Run 01 · negative</span></div><div class="page-heading"><p class="eyebrow">Research / hypotheses / negative evidence</p><h1>Measure the hypothesis.<br>Keep the counterevidence.</h1><p>Physical plausibility earns an experiment, not a favorable conclusion. H87-LWD and H87-GCF were run; neither beat gravity HGM on holdout.</p></div><div class="notice"><strong>Two fixed experiments; no weekly slot.</strong> Like-for-like uniqueness versus sparse priors passed. Literal dense-field overlap is the known protocol degeneracy. Remaining hypotheses are a future queue. Archived H87-BMTD retains an outer-grid guard defect.</div><div class="anchor-list"><a href="#hypotheses">Ranked hypotheses</a><a href="#research-report">Result &amp; H33 analysis</a><a href="evidence/holdout.json">GCF holdout evidence</a></div>
+<section id="hypotheses" class="prose"><h2 id="preregistered-hypotheses-session-2026-10-23">Preregistered hypotheses — session 2026-10-23</h2>
+<p>Written <strong>before</strong> H87-LWD construction or holdout evaluation. The frozen H87-BMTD lane remains a completed negative (<code>evidence/budget.json</code> status <code>stopped-by-duplicate</code>) and is not rerun.</p>
+<h3 id="lane-uniqueness-resolution-and-budget">Lane, uniqueness resolution, and budget</h3>
+<p>The brief still supplies no single-method paragraph (IR87-001). This session adopts <strong>H87-LWD: magnetic tilt local-wavenumber contact locator</strong> as the only implemented hypothesis. At most three experiments or two hours. Fixed parameters; no holdout-driven sweep. No competition uploads.</p>
+<p><strong>Uniqueness resolution (next-step 1 from the frozen run, explicit):</strong> the protocol names two tests — rank-correlation of the <em>raster</em> (&gt;0.90) and 3 px overlap of <em>dots</em> (&gt;0.70). The shared template already implements <code>uniqueness.two_phase_summary</code>: the inherited <em>literal</em> reading treats every positive pixel as a dot (so a saturated continuous prior fires on every nonempty candidate), and a <em>like-for-like</em> reading applies the same overlap threshold only to dot-fields while Spearman still applies to every raster. Thresholds are not changed and dense fields are not silently exempted. Lane-drift stop uses Spearman plus like-for-like overlap. Literal dense-field overlap is reported as the known degeneracy. Complete inventory clearance is not claimed from a scoped comparison set.</p>
 <h3 id="ranked-queue-qualitative-expectations-not-projected-scores">Ranked queue (qualitative expectations, not projected scores)</h3>
 <div class="table-wrap"><table>
 <thead>
@@ -25,59 +26,115 @@
 <tbody>
 <tr>
 <td>1</td>
-<td><strong>H87-BMTD — bilateral magnetic texture dislocation</strong>; supplied <code>rtp</code> (band 2), with <code>tmi_hg</code> (band 3) and <code>det_elev_slope</code> (band 19) as independent controls only</td>
-<td>A tangential shift increases normalized local cross-correlation between magnetic textures sampled on opposite sides of a candidate line. Require bilateral texture energy and positive shifted similarity; subtract zero-shift similarity. Four axial orientations, fixed shifts.</td>
-<td>Magnetic markers can be displaced below alluvium without a visible topographic scarp. No catalogue distance, tips, fault-density prior, SGMC faults, or earlier prediction field enters the feature.</td>
-<td>Unlike the reviewed H33 flank-pruning/dot-thinning family, this measures <strong>restorable displaced texture</strong>, not edge strength, catalogue proximity, or a new packing of an old surface. Moderate CPU cost; all required bands are already obtainable in the pinned feature stack. Expected improvement uncertain, highest <em>research priority</em>, not a numerical prediction.</td>
-<td>Curved volcanic flow boundaries, lithologic facies changes, paleochannels, and flight-line/leveling artifacts.</td>
+<td><strong>H87-LWD — tilt local wavenumber</strong>; <code>tmi_hg</code> (band 3) and <code>tmi_vg</code> (band 9) enter the candidate. <code>iso_grav_anom_hg</code> (18) and <code>det_elev_slope</code> (19) are controls only, with band 3 also as the magnetic-HGM control</td>
+<td>Miller–Singh tilt <code>atan2(VDR, THDR)</code>; Thurston–Smith local wavenumber <code>k = \|grad tilt\|</code>; ranking <code>k × AS/(AS+median AS)</code>, label-free max-normalization. Binary diagnostic uses shared <code>emit_decimated</code> (<code>tile_px=3</code>) and 37,654 area-allocated dots</td>
+<td>USGS Qfaults / INGENIOUS traces are Quaternary <em>surface</em> ruptures. Buried basin-fill faults can still juxtapose magnetic layers (Grauch et al. 2001) without a mapped scarp. No catalogue distance, tips, or prior prediction enters the feature</td>
+<td>Not H87-BMTD (no texture NCC / tangential shift). Not H33 (not a 200 m catalogue-flank prune of a parent). Not HGM magnitude: k uses <em>both</em> vertical and horizontal derivatives and is theoretically magnetization-direction independent for 2-D contacts. Low CPU cost; bands already in the pinned stack. Highest research priority, <strong>not</strong> a numerical score prediction</td>
+<td>Lithologic contacts, dikes, volcanic flow edges, GeoDAWN flight-line / terrain-clearance artifacts</td>
 </tr>
 <tr>
 <td>2</td>
-<td><strong>Paired opposite-sign gravity-curvature flanks</strong>; <code>iso_grav_anom</code> (13), <code>depth_to_base_surf</code> (15), <code>det_elev_slope</code> (19)</td>
-<td>Detect an antisymmetric pair of cross-normal second derivatives bounding a narrow basement-flexure corridor, rather than selecting the maximum gradient.</td>
-<td>Could find a buried throw discontinuity with no surface rupture. No fault-map input required.</td>
-<td>A signed paired-flank test rather than the existing basement-step/HGM/ridge approach. Moderate cost; depth-to-base definition and spatial support need confirmation before geological interpretation. Lower priority than H87-BMTD because regional smoothing may erase the required pair.</td>
-<td>Sedimentary pinch-outs, buried intrusive margins, smooth basin edges.</td>
+<td><strong>H87-GCF — paired opposite-sign gravity-curvature flanks</strong>; <code>iso_grav_anom</code> (13), <code>iso_grav_anom_hg</code> (18)</td>
+<td>Antisymmetric second-derivative pair across a narrow basement-flexure corridor, not the maximum gravity gradient</td>
+<td>Buried throw with no scarp. No fault-map input</td>
+<td>Signed pair test, not HGM ridge / basement-step magnitude. Moderate cost. Lower than LWD because regional gravity smoothing may erase the pair</td>
+<td>Sedimentary pinch-outs, buried intrusive margins, smooth basin edges</td>
 </tr>
 <tr>
 <td>3</td>
-<td><strong>Terminating magnetic fabric at a conductive seam</strong>; <code>rtp</code> (2), <code>cond_surf</code> (17), <code>tmi_vg</code> (9)</td>
-<td>Orientation structure tensor detects magnetic fabric ending at a thin conductivity-gradient boundary; require termination instead of simple co-located edges.</td>
-<td>Can target an altered concealed intersection where magnetic fabric dies out beneath cover.</td>
-<td>Fabric termination is distinct from generic clay-cap/alteration fusion, but overlaps conceptually with prior multi-physics work; no global novelty claim. Moderate-to-high cost; no new external data.</td>
-<td>Volcanic contacts, saline playa margins, irrigation-related conductivity.</td>
+<td><strong>H87-FABRIC — magnetic fabric termination at a conductive seam</strong>; <code>rtp</code> (2), <code>cond_surf</code> (17), <code>tmi_vg</code> (9)</td>
+<td>Orientation structure tensor of RTP texture ending at a thin conductivity-gradient boundary</td>
+<td>Altered concealed intersection under cover</td>
+<td>Termination, not co-located clay-cap fusion. Moderate-to-high cost; no new external data</td>
+<td>Volcanic contacts, saline playas, irrigation conductivity</td>
 </tr>
 <tr>
 <td>4</td>
-<td><strong>Localized strain-gradient mismatch</strong>; <code>geod_shearrate</code> (7), <code>geod_dilaterate</code> (8), <code>iso_grav_anom_hg</code> (18)</td>
-<td>A sharp rotation in the shear/dilatation gradient ratio localized to a gravity discontinuity; avoid using strain magnitude alone.</td>
-<td>May emphasize transfer boundaries not selected by catalogue continuation or broad strain favorability.</td>
-<td>Ratio-gradient rotation differs from magnitude gating, but the scalar bands cannot reconstruct a full stress or strain tensor. Low-to-moderate cost; weaker identifiability, so lowest priority.</td>
-<td>Groundwater subsidence, interpolation boundaries, broad distributed deformation.</td>
+<td><strong>H87-EQRES — off-catalogue earthquake-density residual</strong>; <code>ieq_n100a15</code> (16)</td>
+<td>High earthquake density where the public catalogue is absent</td>
+<td>Seismogenic blind structures omitted from Qfaults</td>
+<td>Residual, not raw density. <strong>Leakage canary is mandatory</strong> (AUC &gt;0.90 blocks). Low cost</td>
+<td>Mining blasts, induced seismicity, catalogue-correlated kernels</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>H87-STRANS — dilatational transfer at a gravity step</strong>; <code>geod_dilaterate</code> (8), <code>geod_shearrate</code> (7), <code>iso_grav_anom_hg</code> (18)</td>
+<td>Localized dilatation (or shear/dilatation rotation) on a gravity discontinuity</td>
+<td>Poorly mapped stepovers / relay ramps</td>
+<td>Ratio-gradient, not strain magnitude gating. Low-to-moderate cost; scalar bands cannot reconstruct a full tensor</td>
+<td>Groundwater subsidence, interpolation seams</td>
 </tr>
 </tbody>
 </table></div>
-<p>All four require only layers already present in the integrity-verified competition mirror. No untested external-data dependency is presented as viable. Official original download is login-protected; mirror consistency is not organizer authentication.</p>
+<p>All five use only layers already present in the integrity-verified competition mirror. No untested external-data dependency is presented as viable. Band 6 (<code>tc</code>) and band 15 (<code>depth_to_base_surf</code>) remain unused: GeoTIFF descriptions conflict with the organizer page’s radiometric “tc” visualization and “top-of-crustal magnetic source depth” wording (IR87-014). Official original download is login-protected; mirror consistency is not organizer authentication.</p>
 <h3 id="physical-evidence-and-limits">Physical evidence and limits</h3>
 <ul>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem/metric/submission specification</a>: the target is <strong>fault presence</strong>, not geothermal vent coordinates. The hidden labels include expert-identified faults absent from the public catalogue. A fault prediction does not establish permeability, temperature, or an economic geothermal resource.</li>
-<li><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a>, DOI 10.5066/P93LGLVQ: airborne magnetic data support subsurface structural mapping. East-west production flight lines, north-south tie lines, block boundaries, and variable terrain clearance are documented artifact risks.</li>
-<li><a href="https://pubs.usgs.gov/sir/2007/5289/SIR2007-5289-C.pdf">USGS: Matching Magnetic Trends and Patterns Across the Tintina Fault</a>: magnetic pattern correspondence can constrain displacement. This is a different region and scale, <strong>not validation</strong> of a sub-kilometre GeoDAWN detector.</li>
-<li><a href="https://www.usgs.gov/publications/aeromagnetic-expression-faults-offset-basin-fill-albuquerque-basin-new-mexico">USGS: Aeromagnetic expression of faults that offset basin fill</a>: concealed basin-fill faults can have magnetic expressions. This supports the possibility, not the precision, of this hypothesis.</li>
-<li><a href="https://gbcge.org/current-projects/ingenious/">INGENIOUS official project</a> and <a href="https://gdr.openei.org/submissions/1391">GDR dataset 1391</a>: contextual geothermal datasets and licensing; neither is used as new training data in this lane.</li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem / metric / submission</a>: target is <strong>fault presence</strong>, not geothermal vent coordinates. Hidden labels are expert-identified faults absent from the public catalogue.</li>
+<li><a href="https://doi.org/10.1190/1.1443674">Miller &amp; Singh 1994, Geophysics, doi:10.1190/1.1443674</a>: tilt angle as a contact locator.</li>
+<li><a href="https://doi.org/10.1190/1.1444190">Thurston &amp; Smith 1997 SPI, Geophysics, doi:10.1190/1.1444190</a> and <a href="https://wiki.seg.org/wiki/Dictionary:Source_parameter_imaging_method_(SPI)">SEG Wiki: SPI</a>: local wavenumber maxima over 2-D contacts; depth = 1/k only <em>at those maxima</em>.</li>
+<li><a href="https://www.usgs.gov/publications/aeromagnetic-expression-faults-offset-basin-fill-albuquerque-basin-new-mexico">Grauch, Hudson &amp; Minor 2001, USGS / Geophysics, doi:10.1190/1.1444961</a>: aeromagnetic linear anomalies from faults that offset basin fill, including a thin–thick growth-fault model. Different basin; supports the <em>possibility</em>, not this detector’s precision.</li>
+<li><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN</a>, DOI 10.5066/P93LGLVQ: E–W flight lines, N–S tie lines, variable terrain clearance are documented artifact risks.</li>
+<li><a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">DrivenData staff masking clarification</a>: known-fault <em>pixels</em> are excluded; neighborhoods are not automatically excluded.</li>
 </ul>
-<h3 id="fixed-experimental-design">Fixed experimental design</h3>
+<h3 id="fixed-experimental-design-h87-lwd-01">Fixed experimental design (H87-LWD-01)</h3>
 <ol>
-<li>Reuse the unmodified <code>gems57</code> template, pinned to <code>60GEMSDOE@b99591eede63c6d45c8a896255b8cd34824fa00b</code>, including <code>evaluate_holdout.py</code>, <code>spatial.folds</code>, and <code>submission_writer.py</code>. Reuse the inherited feature-band cache; no new training-feature source.</li>
-<li>Four fixed grid quadrants. Hide whole intersecting 8-connected catalogue components (stricter than branch fragments), including tails outside the scored quadrant. Exclude training within an 80-pixel buffer of the evaluation region and held tails. Pixel-exact masking of visible faults. Only label-free physical features are used; there are zero catalogue-derived model features.</li>
-<li>Canary each feature and each control on held-out positives versus sampled, catalogue-zero proxy negatives. Report raw and two-sided AUC. AUC greater than 0.90 blocks trust pending explanation; a low AUC does <strong>not</strong> prove absence of leakage.</li>
-<li>Fixed binary emission density corresponding to 37,654 points over the full footprint, identical allocation by eligible area for candidate and controls. No allocation by hidden-positive density. Pooled official-formula DTI, alpha 0.2, beta 0.8, triangular support 300 m. Shared physical 20 km cluster bootstrap, paired controls, 95% conditional intervals. Catalogue-zero pixels are not verified geological absence.</li>
-<li>Compare against freshly generated magnetic-HGM and topographic-slope controls under identical folds and budgets, not a shipped prior that has already zeroed every catalogue fault. There was no inherited comparable holdout best in the empty checkout; therefore beating these controls cannot establish beating all prior projects.</li>
-<li>Before placement compare the continuous surface to the immutable registry snapshot. On final dots compare full-footprint rank-correlation and literal forward 3 px support overlap; any rho &gt;0.90 or overlap &gt;0.70 is a duplicate stop, with no dense-support exemption. Byte identity is separately checked. Incomplete registries never pass.</li>
-<li>Stop experimentation at a failed canary, duplicate, or exhausted budget. Negative artifacts are downloadable research results, never green-lit submissions. Promotion additionally requires a positive paired lower CI against all comparable controls, independent registry clearance, and a separately authorized selector with current cap/usage from the logged-in submission page.</li>
+<li>Reuse the unmodified <code>gems57</code> template pinned to <code>60GEMSDOE@b99591eede63c6d45c8a896255b8cd34824fa00b</code>. Reuse the inherited physical-band cache.</li>
+<li>Four fixed grid quadrants; whole intersecting 8-connected catalogue components withheld; 80-pixel training buffer; pixel-exact masking of visible faults. Zero catalogue-derived model features.</li>
+<li>Canary each derived channel, both magnetic inputs, and each control. AUC &gt;0.90 blocks trust.</li>
+<li>Binary emission density 37,654 points, area-allocated, <code>tile_px=3</code>. Pooled official-formula DTI, α=0.2, β=0.8, 300 m triangular kernel. Shared physical 20 km cluster bootstrap, 2,000 draws, seed 87122.</li>
+<li>Controls: magnetic HGM (band 3), gravity HGM magnitude (<code>abs</code> of signed band 18), topographic slope (band 19). Beating these cannot establish beating all prior projects.</li>
+<li>Surface then dots compared to H33, H27-4, D28-poisson (sparse family) and the 57GEMSDOE saturated witness. Spearman &gt;0.90 or like-for-like overlap &gt;0.70 is a lane-drift stop.</li>
+<li>No weekly slot. Negative artifacts remain downloadable research files.</li>
 </ol>
-<p><strong>No actual public/private leaderboard improvement can be predicted or certified by this holdout.</strong> No weekly slot will be used by this run.</p></section><hr class="rule"><section id="research-report" class="prose"><h2 id="h87-research-finding-and-h33-forensic-explanation">H87 research finding and H33 forensic explanation</h2>
-<h3 id="what-was-actually-established">What was actually established</h3>
+<p><strong>No public/private leaderboard improvement can be predicted or certified by this holdout.</strong></p>
+<hr />
+<h2 id="archive-2026-10-22-h87-bmtd-completed-negative">Archive — 2026-10-22 H87-BMTD (completed negative)</h2>
+<p>The following lane was implemented and stopped. It is not this session’s candidate.</p>
+<p>Lane <strong>H87-BMTD: bilateral magnetic texture dislocation</strong> used only RTP (band 2). HOLDOUT-DTI binary diagnostic 0.043385, 95% CI [0.035700, 0.051025], 60,988 withheld positives, evaluator <code>gems57-pooled-hide-v2</code>; paired delta versus magnetic HGM −0.000288, CI includes zero. Literal overlap with a saturated continuous prior was 1.0. Frozen TIFF: <code>gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif</code>. Post-run defect IR87-016 (outer-grid guard) was not remeasured after the stop.</p></section><hr class="rule"><section id="research-report" class="prose"><h2 id="h87-research-finding-and-h33-forensic-explanation">H87 research finding and H33 forensic explanation</h2>
+<h3 id="session-2026-10-23-h87-lwd-and-h87-gcf">Session 2026-10-23 (H87-LWD and H87-GCF)</h3>
+<p>The frozen H87-BMTD lane was left stopped. This session preregistered five hypotheses, then ran two fixed experiments against the same hide-and-recover instrument (<code>gems57-pooled-hide-v2</code>, 60,988 withheld catalogue positives, 95% physical-cluster CI).</p>
+<p><strong>Uniqueness resolution:</strong> shared <code>uniqueness.two_phase_summary</code> reports the inherited literal reading (dense continuous priors fire on every nonempty candidate) and a like-for-like reading (3 px overlap only vs dot-fields; Spearman vs every raster). Thresholds were not changed. Lane-drift stop = Spearman &gt;0.90 or like-for-like overlap &gt;0.70.</p>
+<p>All values below are <strong>HOLDOUT-DTI</strong>, evaluator <strong>gems57-pooled-hide-v2</strong>, <strong>60,988 withheld positives</strong>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">HOLDOUT-DTI</th>
+<th>95% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H87-GCF sparse dots (downloadable file)</td>
+<td style="text-align: right;">0.049057</td>
+<td>[0.041359, 0.056931]</td>
+</tr>
+<tr>
+<td>H87-LWD sparse dots</td>
+<td style="text-align: right;">0.041641</td>
+<td>[0.033968, 0.049153]</td>
+</tr>
+<tr>
+<td>Gravity HGM control (<code>abs</code> band 18)</td>
+<td style="text-align: right;">0.058476</td>
+<td>[0.042655, 0.075295]</td>
+</tr>
+<tr>
+<td>Magnetic HGM control (band 3)</td>
+<td style="text-align: right;">0.043673</td>
+<td>[0.032318, 0.055570]</td>
+</tr>
+<tr>
+<td>Topographic slope control (band 19)</td>
+<td style="text-align: right;">0.022435</td>
+<td>[0.017370, 0.027722]</td>
+</tr>
+</tbody>
+</table></div>
+<p>GCF minus gravity HGM: <strong>HOLDOUT-DTI delta −0.009419</strong>, 95% CI <strong>[−0.025607, 0.005533]</strong> (includes zero). Neither candidate beat every comparable control. Canaries: no two-sided AUC &gt;0.90.</p>
+<p>Like-for-like sparse overlap of GCF dots vs H33 / H27-4 / D28: <strong>17.2%</strong> (under 70%). Worst Spearman <strong>0.021</strong>. Literal overlap vs the saturated 57GEMSDOE continuous witness remains <strong>1.0</strong>. GCF placed 37,654 off-catalogue dots. <strong>Verdict: negative. DO NOT SUBMIT.</strong> No weekly slot.</p>
+<p>Why H33 could still look strong on a leaderboard while these holdout numbers are ~0.05: holdout truth is the public catalogue; the official test is hidden expert faults. H33 is a 200 m catalogue-flank prune of a parent, not a new detector. The 0.2778 figure remains an unverified historical claim, not ORGANIZER-CONFIRMED. Public leaderboard observation 0.4413 is not an artifact receipt.</p>
+<h3 id="what-was-actually-established-2026-10-22-h87-bmtd-archive">What was actually established (2026-10-22 H87-BMTD archive)</h3>
 <p>This checkout began with only a repository title. There was no existing local training pipeline, holdout best, cached dataset, or prior-session task list to resume. We recovered the required feature stack and grid files autonomously from immutable owner GitHub mirrors, verified their SHA-256 hashes, and reused the inherited physical-band cache. These are <strong>integrity-verified mirrors</strong>, not organizer-authenticated originals. The sample's positive values were never used as predictions or features.</p>
 <p>Four hypotheses were recorded in <code>research/hypotheses.md</code> before implementation. Only H87-BMTD was implemented. This is a deterministic CPU image-statistic model, not a claimed neural-network training run. No earlier prediction raster entered the candidate. The scientific experiment stopped on the duplicate gate; packaging and software validation afterwards did not resume scientific optimization.</p>
 <h3 id="registry-wide-quick-review-explicit-scope">Registry-wide quick review: explicit scope</h3>

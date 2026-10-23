@@ -1,0 +1,12 @@
+{
+  "experiment_id": "H87-CROSSGRAD-01",
+  "experiments_used": 1,
+  "experiments_allowed": 3,
+  "started_utc": "2026-10-23T00:19:46.866434+00:00",
+  "maximum_hours": 2,
+  "preregistration_sha256": "48f6717e4fefc75999fb052399dacf2d1c583d0394b7fbec00d140d0debbeb1f",
+  "status": "holdout-complete-awaiting-registry-stop-gate",
+  "elapsed_seconds": 84.954321,
+  "submission_slots_used": 0,
+  "selector_invoked": false
+}

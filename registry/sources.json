@@ -142,6 +142,36 @@
       "locator": "Primary artifact / Status / What is not claimed",
       "verified_claim": "The page describes H33-2-B2 as a catalogue-flank-pruned earlier field and says no organizer score exists in that repository.",
       "qualification": "The user-reported historical result is quarantined as an unverified claim. We measured raster ancestry directly but cannot establish why an unverified hidden-label score changed."
+    },
+    {
+      "id": "tilt",
+      "title": "Miller & Singh 1994: Potential field tilt",
+      "url": "https://doi.org/10.1190/1.1443674",
+      "authority": "Geophysics journal article",
+      "retrieval": "DOI lander retrieved; formula used is TDR = arctan(VDR/THDR)",
+      "locator": "doi:10.1190/1.1443674",
+      "verified_claim": "Tilt angle is a standard contact locator for potential-field sources.",
+      "qualification": "A published contact locator is not validation of this 100 m GeoDAWN implementation."
+    },
+    {
+      "id": "spi",
+      "title": "Thurston & Smith 1997 SPI / SEG Wiki",
+      "url": "https://wiki.seg.org/wiki/Dictionary:Source_parameter_imaging_method_(SPI)",
+      "authority": "SEG Wiki citing Geophysics 62, 807–813, doi:10.1190/1.1444190",
+      "retrieval": "SEG Wiki page retrieved; DOI recorded",
+      "locator": "SPI dictionary entry",
+      "verified_claim": "Local wavenumber maxima over 2-D contacts; depth = 1/k only at those maxima.",
+      "qualification": "H87-LWD ranks k, not a continuous 1/k depth map. Different region/scale than the original SPI papers."
+    },
+    {
+      "id": "grauch2001",
+      "title": "Grauch, Hudson & Minor 2001: aeromagnetic basin-fill faults",
+      "url": "https://www.usgs.gov/publications/aeromagnetic-expression-faults-offset-basin-fill-albuquerque-basin-new-mexico",
+      "authority": "USGS Publications Warehouse / Geophysics, doi:10.1190/1.1444961",
+      "retrieval": "USGS page retrieved 2026-10-23",
+      "locator": "Abstract / citation",
+      "verified_claim": "High-resolution aeromagnetic data can express faults that offset basin fill, including a thin–thick growth-fault model.",
+      "qualification": "Albuquerque basin, not GeoDAWN. Supports possibility of magnetic/gravity expression of buried faults, not this detector's accuracy."
     }
   ]
 }

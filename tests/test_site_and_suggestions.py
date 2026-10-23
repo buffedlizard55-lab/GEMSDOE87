@@ -10,8 +10,24 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_all_local_site_links_headings_and_no_go_wording():
     report = check_site.audit()
     assert report['passed'], report['errors']
-    assert report['pages'] == 7
+    # 8 pages since the experiment index was added (7 before it).
+    assert report['pages'] == 8
     assert report['local_links_verified'] >= 100
+
+
+def test_experiment_index_lists_every_run_card_without_approving_any():
+    rows, notes = build_site._experiment_rows()
+    assert notes == []
+    archived = {p.parent.name for p in (ROOT / 'evidence').glob('*/run_card.json')}
+    assert archived, 'expected at least one archived run card'
+    assert len(rows) == len(archived)
+    html = (ROOT / 'docs/experiments.html').read_text()
+    for name in archived:
+        assert f'id="exp-{name}"' in html, name
+        # Every archived card is downloadable as JSON from the published site.
+        assert (ROOT / 'docs/evidence' / f'{name}_run_card.json').is_file(), name
+    assert 'research-only' in html
+    assert 'Approved for a weekly slot' in html
 
 
 def test_markdown_tables_scroll_without_extra_main_headings():
@@ -85,3 +101,23 @@ def test_refreshed_pages_deploys_after_legacy_build_and_checks_public_feed():
     assert '  workflow_run:' in workflow and 'workflows: [pages-build-deployment]' in workflow
     assert 'types: [completed]' in workflow and '\n  push:' not in workflow
     assert '.cache/published-feed.json' in workflow and 'feed_last_attempt_utc' in workflow
+
+
+def test_next_steps_refuses_edited_approval_flags():
+    import pytest
+    original = json.loads((ROOT / 'run_card.json').read_text())
+    for patch in ({'safe_to_submit': True}, {'verdict': 'promote'},
+                  {'safe_to_submit': None}, {'verdict': None}):
+        card = copy.deepcopy(original)
+        card.update(patch)
+        before = copy.deepcopy(card)
+        with pytest.raises(ValueError, match='refuses approval flags'):
+            update_next_steps.derive(card, {})
+        assert card == before
+
+
+def test_ci_push_checks_include_all_fixed_session_branches():
+    for name in ('ci.yml', 'tests.yml'):
+        workflow = (ROOT / '.github/workflows' / name).read_text()
+        assert "'arena/**'" in workflow
+        assert 'arena/e6d76d5c-gemsdoe87' not in workflow

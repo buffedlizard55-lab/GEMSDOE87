@@ -2,6 +2,7 @@
 
 | ID | Measured discrepancy / limitation | Automatic handling / outcome |
 |---|---|---|
+| IR87-028 | 2026-10-23 session: no method paragraph still; H87-LWD and H87-GCF were run as experiments 1–2. Gravity HGM control (0.058476) beat both candidates. Like-for-like uniqueness passed; literal dense overlap remains 1.0. | New unique GCF GeoTIFF packaged as research-only / DO NOT SUBMIT. Frozen BMTD budget untouched. No weekly slot. Remaining hypotheses untested. |
 | IR87-001 | The brief references a single-method lane paragraph, but no distinct lane is supplied. | Narrow H87-BMTD lane documented before construction; four hypotheses listed, only one implemented. No claim that an externally assigned lane was received. |
 | IR87-002 | Initial repository contained only the title, not the assumed previous-session pipeline, GPU training assets, cached data, or current holdout best. | Shared tool/data restoration completed autonomously. Comparators evaluated under the same new instrument; no inherited global-best claim or U-Net training claim. |
 | IR87-003 | DrivenData originals are login-protected. Mirror hashes are not organizer authenticity. The mirrored sample contains positives despite public text describing a total-absence sample. | Sample used ONLY for grid/finite footprint. Candidate input is cached RTP, not sample values or prior predictions. Original provenance remains unauthenticated. |
@@ -33,6 +34,16 @@
 | IR87-027 | Public-site verification found the legacy Pages deployment racing the refresh workflow: the public feed remained the committed 22:33 snapshot despite the refresh step succeeding. The legacy deploy completed at 23:16:19, after the custom deployment and just before its job completed at 23:16:21. | Chain the refresh workflow after `pages-build-deployment` completes instead of simultaneously on push. Keep daily/manual triggers and check the actual public feed hash/timestamp as well as TIFF bytes. No settings privilege workaround or scientific rerun. |
 
 
+
+| IR87-028 | Static publication trusted the existence of a preflight JSON without binding it to current TIFF/ZIP bytes. The suggestions updater could also repeat edited approval flags. | Publication now requires passing boolean checks and current artifact/hash/ZIP consistency before page writes; the updater refuses non-negative cards. Thirty new regressions; no scientific rerun or changed verdict. |
+
+| IR87-029 | The H87-CROSSGRAD generator originally derived a fresh UTC timestamp on every run, so a second execution silently created a *second* pair of differently-dated `RESEARCH-DO-NOT-SUBMIT` artifacts beside the archived one. Two plausible-looking downloads would have been a real ambiguity for anyone deciding what to submit. | The timestamp now defaults to the value recorded in `evidence/h87crossgrad/run_card.json`; the generator refuses to overwrite or delete an archived artifact and requires an explicit new `--stamp` for a new experiment. The two accidentally created `20261023T005553Z` files were deleted, and `tests/test_crossgrad.py` asserts the refusal path. No scientific value changed. |
+
+| IR87-030 | `build_site.py` could only publish the single `docs/evidence/run_card.json`, so the H87-CROSSGRAD artifacts and their numbers were invisible on the Pages site even though they were committed and downloadable. | Added a read-only `experiments.html` that lists every `evidence/*/run_card.json` with its own HOLDOUT-DTI, interval, paired delta, evaluator, mimic and hash, and publishes each card under `docs/evidence/`. It recomputes nothing, marks every entry research-only, and prints named errors for unreadable cards rather than skipping them. Page count 7 → 8; the site test was updated to match. |
+
+| IR87-031 | The H87-CROSSGRAD lane is **not a novel transform family**. Accessible prior artifacts already implement cross-gradient work: `GEMSDOE54:gems54-h1-crossgradient-q095.tif`, `GEMSDOE77:gems77-h79-crossgrad-ridge-37654dots`, `GEMSDOE88:gems88-mgc-crossgradient-37654`. | Disclosed in the run card (`prior_art_disclosure`) and README rather than framed as new. Measured similarity to the closest member (GEMSDOE88) is rho 0.0418 and 19.8% dot overlap, so the artifacts are numerically distinct — which is a uniqueness fact, not a novelty claim. No score or leaderboard inference is drawn from the prior filenames. |
+
+| IR87-032 | A full candidate-versus-all-1,193-raster comparison exceeded the practical runtime (each prior needs a decode plus a ranked pass over 12.3 M cells). Running it naively would have breached the 2 h budget. | Narrowed to a **named-scope** check of 40 priors selected by transform-family filename plus the continuity priors, all of which compared cleanly (0 errors). `full_registry_clearance_claimed: false` is recorded in both the receipt and the card, so a targeted pass is never reported as global clearance. |
 
 ## Permissions and publication
 
