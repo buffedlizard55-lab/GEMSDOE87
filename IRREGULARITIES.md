@@ -49,3 +49,13 @@
 
 - **Observed:** A heading in README.md, outside the CURRENT STATE block, calls `0.2778` "ORGANIZER-CONFIRMED". There is no receipt in `ledger/`.
 - **Decision:** It is treated as a CLAIM everywhere in this session's outputs. I did not edit that heading, because the brief limits README edits to the CURRENT STATE block. The human should correct it or paste a receipt.
+
+## IR-87-V2-11: SNAP was built twice in parallel (this PR #31 and merged PR #28)
+
+- **Observed:** While this session ran, PR #28 merged into main its own SNAP variants on the same bands:
+  - `SNAPtmi-hg` `95057a8a` (b03)
+  - `SNAPscarp` `8245ad43` (b19)
+  - `SNAPgrav-argmax` `7b0a8ac9` (b18)
+
+  This PR's `tmihg`, `slope` and `gravhg` differ only in the operator: raw band instead of a 2 km high-pass, and every dot rather than only off-crest dots. They are substantive repeats of (SNAP, band), so the PR now conflicts with main.
+- **Decision:** PR #31 is left **open and unmerged**. Its 3 rasters must not take slots ahead of PR #28's files. The one decision-relevant result is the catalogue snap PROXY: TMI-HG crests did worse than a random-crest null (-0.6% of near-trace credit), while slope crests did better (+4.1%). That argues for scoring `SNAPscarp` before the `SNAPtmi-hg` that main's SLOT_PLAN puts in slot 2. It is a PROXY, not a score; the human decides.
