@@ -56,16 +56,6 @@ The public leaderboard was observed on 2026-10-22 at **0.4413** on the [official
 
 We verified from decoded bytes that H33 removes 2,545 near-catalogue pixels from a 40,199-pixel parent and adds none, yielding 37,654 pixels. That is exactly a 200 m catalogue-flank prune. Under the official metric, removing low marginal-coverage mass can reduce false-positive cost. Hidden labels and receipts are unavailable, so this is a plausible mechanism, **not** a causal proof of the reported historical result. See [the full mathematical analysis](research/analysis.md) and [measured raster ancestry](docs/evidence/h33_forensics.json).
 
-## Latest repository review (2026-10-23; no new scientific experiment)
-
-The complete user brief, including this run's protocol and Core Values, remains preserved in the archived section below and was reread before review. H87 remains frozen as a negative: no corrected scientific measurement, new TIFF, final-dot placement, competition upload, or weekly slot selection was performed.
-
-- Restored only the two small SHA-256-pinned grid/catalogue mirrors needed for local software checks. Current receipt: [`data/restore_receipt.json`](data/restore_receipt.json). The large feature raster/cache was not restored for this review, and mirror integrity is not organizer authentication.
-- Verification: **103 Python tests passed**; **37 Chromium checks passed** at 320/390/768/1440 px; offline site audit passed (7 pages, 120 local targets, 4 compatibility entry points); TIFF format-only preflight exited 0; normal authorization check exited 2 with `safe_to_submit=false` and `DO NOT SUBMIT`. Receipts: [browser](docs/evidence/browser_validation.json), [site](docs/evidence/site_validation.json), [independent validation](docs/evidence/independent_validation.json).
-- The source-health feed still records its latest attempt at `2026-10-22T22:33:20.895788Z`: **0/13** official-source transports reachable, with the dated public-leaderboard observation retained. No new official-source fetch or current account-cap/receipt check is claimed in this review; see [the feed](docs/data/feed.json).
-
-Tracked changes are limited to the dated review notes, the current two-file restore receipt, refreshed browser-validation evidence, the rebuilt verification page, and its decision-status timestamp. No scientific output changed. Detailed three-pass review: [`research/verification.md`](research/verification.md).
-
 ## Reproduce the automated file inspection
 
 Python 3.11+, `gh`, and the existing GitHub connection are required. No passwords, tokens, or manual data placement are requested. Large inputs and caches are ignored by Git.
@@ -101,7 +91,7 @@ bash scripts/download_competition_data.sh
 
 The GitHub Pages site starts with the file download and an unambiguous **DO NOT SUBMIT** decision. The executive-summary subpage explains the upload format and future authorized submission steps. Sources are claim-linked and dated; machine-readable receipts are adjacent to the file. The source-health feed has a timestamp and stale/failure state, and never upgrades historical claims to organizer receipts. Scheduled feed deployment is separate from scientific experimentation; deployment success is verified rather than assumed.
 
-Software verification: **103 automated tests** plus real Chromium checks at 1440, 768, 390 and 320 px, actual TIFF-download SHA-256, search, clipboard success/failure, no-JavaScript download, and failed-feed fallback. See [the review log](research/verification.md). Optional browser tooling: `npm ci --ignore-scripts && npm run test:browser` (Linux x64, Node 22.17+).
+Software verification: **107 automated tests** (2026-10-23 review) plus real Chromium checks at 1440, 768, 390 and 320 px, actual TIFF-download SHA-256, search, clipboard success/failure, no-JavaScript download, and failed-feed fallback. See [the review log](research/verification.md). Optional browser tooling: `npm ci --ignore-scripts && npm run test:browser` (Linux x64, Node 22.17+).
 
 `.github/workflows/ci.yml` repeats format/authorization, synthetic regression and browser checks. `.github/workflows/pages.yml` attempts a daily 06:17 UTC public source-health refresh and read-only next-step generation, rebuilding the static site without touching the frozen raster or running a scientific experiment. Deployment needs Pages write permission; a checked-in workflow alone is not proof of a successful deployed run. Failed fetches stay explicit. This is not an autonomous geological-claim verifier or hosted live training service.
 
@@ -112,6 +102,17 @@ Local preview: `.venv/bin/python -m http.server 8000 --bind 0.0.0.0 --directory 
 While this branch was working from the initial title-only commit, `main` advanced through PRs #1/#3/#4 to a readiness-only site at `f4f5944`, followed by read-only H33/report-path hardening through `a7a7c77`. PR #5 integrates that work without importing or running another scientific lane. Earlier source audits, score-free feed helper, independent legacy preflight, assets and regression tests are retained; exact prior entrypoint/metadata snapshots are in [the archive](research/upstream_readiness/README.md). Historical documents are explicitly marked as snapshots. Root entry points and machine-readable compatibility status now lead to the current negative research result.
 
 The Pages-settings API refused this integration permission (HTTP 403); no credential workaround was attempted. The existing successful upload/deploy workflow pattern is reused, without trying to rewrite Pages settings. It runs after the built-in `pages-build-deployment` completes, preventing that legacy deployment from overwriting the refreshed feed; public TIFF and feed bytes are checked after publication. Local preflight and actual CI/deployment results remain separate evidence classes.
+
+## Review update — 2026-10-23
+
+Three-pass software review preserved the stopped scientific run and original prompt.
+Fixed CI push coverage for all Arena session branches, structured rejection of corrupt/encrypted
+ZIP inspection, and refusal of edited approval flags by the read-only next-step updater.
+**107 tests passed, no skips** after restoring only the two hash-pinned validation inputs;
+**37 Chromium checks passed**, including actual TIFF download/hash, mobile layouts and no-JavaScript status.
+Local format validation passed again; normal authorization still exits 2 / **DO NOT SUBMIT**.
+No new model, holdout estimate, registry clearance, competition upload or slot use is claimed.
+The local validation-input hashes are recorded separately in [this receipt](docs/evidence/validation-inputs-2026-10-23.json); the original three-input restore receipt remains historical. The latest checked-in source-health attempt is `2026-10-22T22:33:20.895788Z` (0/13 official-source transports reachable); no fresh non-GitHub source retrieval or account-cap/receipt check is claimed. See [the dated three-pass review](research/review-2026-10-23.md).
 
 ## Next session / limitations
 
