@@ -23,6 +23,10 @@
 
 **Why the negative matters:** the original brief demands both a unique submission and a stop if overlap with *any* registry raster exceeds its threshold. An inherited continuous field covers every allowed location. Those requirements cannot both be satisfied for a nonempty file under the literal definition of a dot. We stopped before final dot placement, retained a new continuous diagnostic TIFF, and did not hide the failed gates behind a download button. Byte freshness is not geometric uniqueness.
 
+## Latest review — 2026-10-23
+
+Software-only follow-up: **137 tests and 37 browser checks passed** after integrating concurrent PR #12. Publication now refuses stale validation receipts, changed TIFF/ZIP bytes, unsafe download paths and edited approval flags before writing pages. The existing research artifact and negative scientific verdict are unchanged; **no new candidate or competition submission was made**. See [the three-pass review and remaining blockers](research/verification.md#active-branch-follow-up--2026-10-23-software-only).
+
 ## Read this at the start of every session
 
 Read this README **including the complete original brief below**, then `research/hypotheses.md`, `research/analysis.md`, `registry/preregistration.json`, `registry/template_pin.json`, and the run card. `AGENTS.md` makes this the repository entry point.
