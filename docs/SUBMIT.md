@@ -81,3 +81,43 @@
 - **Fallback:** `releases/h33-h33-2-b2-CONCc20-20261023-03244051-zeros.tif` (sha256 `a9b0a226404ca91f34f91026313a68a0b168728481bf0eb9b8f7b3bb7ad6fb2f`)
 - **Name:** `h33-h33-2-b2-CONCc20-20261023-03244051`
 - **Note (81/140):** `h33-2-b2 CONCc20 37654 move20% lo->hi 1km; pred -0.006 MODEL; parent 0.2778 CLAIM`
+
+---
+
+## Part D — `AXIS = SNAP` Variants (This Session, Reproducible via `python3 scripts/build_snap_variants.py`)
+
+**Parent `R0` rebuild receipt (re-verified this session):** `dot_thin_geodesic_bfs(H19-5, 2.8) & (d_cat > 2.0)` from the SHA-256-pinned `registry/data_manifest.json` inputs, written with `deflate/predictor=3/zlevel=9/tiled=256`, matches **both** R0 twins byte-for-byte (`zeros` `c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9`, `NaN` `baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd`, `37,654` dots). All `25/25` manifest pins verified before building; zero randomness (`FIXED_SEED = 0`, row-major tie-breaks).
+
+**Operator (identical for all three arms):** take a provided potential-field/topographic band, robust-z score it inside the footprint (median/MAD, clipped ±10), subtract its 2 km Gaussian trend (removes the regional gradient that would otherwise drag every window maximum toward the regional high), robust-z the residual, then move each dot that is **not already on a 3x3 edge crest** onto the strongest *unclaimed* crest pixel inside a 5×5 window (Chebyshev radius `2 px = 200 m`). Dots already on a crest never move; a mover can never displace a stayer; destinations are unique, so the dot count is exactly preserved and no destination lands on a catalogue pixel.
+
+### D1. `SNAPtmi-hg` — Recommended Slot 2 (`magnetic horizontal gradient`, `21.60%` of dots moved)
+
+- **File (NaN outside, per spec):** `releases/h33-h33-2-b2-SNAPtmi-hg-20261023-95057a8a.tif` (`355,602 B`, sha256 `95057a8ae47390891e1692075f0e958089a6518bc1dee33241323a8aae24d4a0`)
+- **Fallback (zeros outside):** `releases/h33-h33-2-b2-SNAPtmi-hg-20261023-95057a8a-zeros.tif` (`219,235 B`, sha256 `2f42ec8e4f4883b151a8fb9f584beb3c483a9bfec0dfb191ea65e693d6e6c8e9`)
+- **Name:** `h33-h33-2-b2-SNAPtmi-hg-20261023-95057a8a`
+- **Note (116/140):** `h33-h33-2-b2; SNAP<=2px off-crest dots to magnetic-HGM crest (bd03 hp2km), 8132 moved; pred -0.006 to +0.008 [MODEL]`
+- **Parent-diff & format receipt:** `8,132` dots moved (`21.60%` changed), mean displacement **`1.9482 px` (195 m)**, max `2.8284 px`; `26,886` dots had no free crest in their window and stayed, `1,825` lost their crest to a higher-gain dot; `min d_cat = 2.2361 px` (parent exclusion inherited), `0` on catalogue; `10 km` block-density `CV` `0.6381 -> 0.6376`; nearest-neighbour median `3.0 -> 3.1623 px` but `2,345` dots now sit in a new sub-`2 px` pair (see `IR-87-V2-08`). Re-read from disk: `validate_submission` `ready=true`, `errors=[]`; `gems57.validate` `all_checks_passed=true`.
+- **Mechanism card:** see `ledger/mechanism_cards_snap.json` (hypothesis: GeoDAWN 400 m line spacing / 150–200 m terrain clearance leaves H19-5 lineaments 100–200 m off the basement edge; mechanism: crest re-seating raises kernel credit `T` at fixed mass; mimic: reversely magnetised Tertiary basalts, pluton contacts, caldera rings; prediction `-0.006…+0.008` [`MODEL`]; falsifier: `|Δ| < 0.01` retires the whole SNAP axis).
+
+### D2. `SNAPscarp` — Largest-dose arm (`DEM detrended-elevation slope`, `63.37%` moved)
+
+- **File (NaN outside):** `releases/h33-h33-2-b2-SNAPscarp-20261023-8245ad43.tif` (`355,988 B`, sha256 `8245ad430b6aea10b94d580ee66403d68624cd9451bd2add2ec09310bf1f2250`)
+- **Fallback (zeros outside):** `releases/h33-h33-2-b2-SNAPscarp-20261023-8245ad43-zeros.tif` (`219,482 B`, sha256 `8d0d343f87061a5df75f62361fb86311e32c86b367776c93fc773e36ced3a915`)
+- **Name:** `h33-h33-2-b2-SNAPscarp-20261023-8245ad43`
+- **Note (114/140):** `h33-h33-2-b2; SNAP<=2px to DEM scarp crest (bd19 det_elev_slope hp2km), 23861 moved; pred -0.008 to +0.006 [MODEL]`
+- **Parent-diff & format receipt:** `23,861` dots moved (`63.37%`), mean `1.9659 px` (197 m), max `2.8284 px`; `9,096` stayed with no free crest, `2,768` lost their crest; `min d_cat = 2.2361 px`; `2,396` dots in new sub-`2 px` pairs; `CV_10km` `0.6381 -> 0.6383`; validators `ready=true` / `all_checks_passed=true`.
+
+### D3. `SNAPgrav-argmax` — Misplacement control, not a slot candidate (`20.71%` moved, mean `2.69 px`)
+
+- **File (NaN outside):** `releases/h33-h33-2-b2-SNAPgrav-argmax-20261023-7b0a8ac9.tif` (`355,606 B`, sha256 `7b0a8ac9327fb3a342d7ef75af96e3e8c8844505e7e0aabbb82692af60c5e07b`)
+- **Fallback (zeros outside):** `releases/h33-h33-2-b2-SNAPgrav-argmax-20261023-7b0a8ac9-zeros.tif` (`219,339 B`, sha256 `4e367cf9003ae750ef0868509f4b857cdf019946f2793c2a468bb09177ee7a59`)
+- **Name:** `h33-h33-2-b2-SNAPgrav-argmax-20261023-7b0a8ac9`
+- **Note (113/140):** `h33-h33-2-b2; SNAP<=2px gravity-HGM window-argmax control (bd18 hp2km), 7799 moved; pred -0.010 to +0.008 [MODEL]`
+- **Why the rule differs:** the provided isostatic-gravity horizontal gradient resolves only `3,330` crest px in `5,171,373` footprint px, so the crest operator moves just `363` dots (`0.96%`) — a near-copy of R0 that cannot test the mechanism. The arm therefore uses the literal window maximum with a `0.25` robust-z gain margin; because that residual is nearly flat, the margin is met only at window corners, giving a maximal-misplacement control (mean `2.6932 px = 269 m`). **Do not spend a slot on this file unless Slots 1–3 all fail to separate from R0.**
+
+### D4. Report-Only `PROXY` Diagnostics (SNAP session — never gates, never called scores)
+
+- **Fold-proper hide-and-recover `PROXY`** (`gems57-pooled-hide-v2`, `n = 22,663` withheld positives, seeds 20 & 30, 95% CI): `R0` (fold-fair control) `0.097493 [0.0857, 0.1094]`; `tmi-hg` `0.096323 [0.0850, 0.1081]` (Δ `+0.00117 [-0.00024, +0.00240]`); `scarp` `0.098196 [0.0863, 0.1101]` (Δ `-0.00070 [-0.00333, +0.00208]`); `grav-argmax` `0.092882 [0.0819, 0.1036]` (Δ `+0.00461 [+0.00127, +0.00853]`) [`PROXY`]. The `R0` arm reproduces the `0.097493` value already recorded for `H33-2-B2_fold_fair`, an independent check that the fold-proper harness is unchanged.
+- **Off-catalogue USGS SGMC control `PROXY`** (`62,122` bedrock fault px at `d_cat > 3 px`): `R0` `0.095386`; `tmi-hg` `0.094801`; `scarp` `0.093186`; `grav-argmax` `0.091822` [`PROXY`]. All three arms are *below* R0 here while `grav-argmax` is *above* it on the hide-and-recover proxy: the two proxies disagree in sign, which is why no SNAP file is promoted on proxy evidence.
+- **Leakage canary `PROXY`:** `23` channels audited (all 19 training bands, the three residual edge fields, and the binary H19-5 parent); max symmetric AUC = **`0.56883 <= 0.90`**, `0` flagged [`PROXY`].
+- **Static-raster `PROXY`** (`~0.0039` for every arm) is reported only to document the `IR87-031` self-masking artefact: the literal files carry the full-catalogue `2 px` collar, so they zero their own credit against withheld truth.
