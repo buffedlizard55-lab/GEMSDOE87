@@ -669,6 +669,13 @@
       "positive_in_footprint": 37654,
       "abs_spearman": 0.001568,
       "forward_3px_overlap": 0.088171
+    },
+    {
+      "file": "gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros.tif",
+      "positive_in_footprint": 37654,
+      "abs_spearman": 0.013874,
+      "forward_3px_overlap": 0.470415,
+      "passed": true
     }
   ],
   "decoded_raster_sha256": "2082cfb6830ae75421b1eb02c929c516051fc25292da0add9102050ca63c5260"
