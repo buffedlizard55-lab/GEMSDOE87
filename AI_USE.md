@@ -20,3 +20,12 @@ GitHub mirrors named in `registry/data_manifest.json` /
 `registry/canonical_scored_index.json`, each sha256-verified before use.
 Scores labelled CLAIM/PROXY/MODEL follow brief §8; nothing here calls a
 MODEL a score.
+
+**Session addendum (later, 2026-10-23, agent-picked axis):** the human
+instructed the agent not to prompt over the axis and to pick its own;
+the agent picked SNAP. The AI then wrote `scripts/build_snap_variants.py`
+and `tests/test_snap.py`, restored + sha256-verified the pinned
+`training_features.tif`, built the three SNAP rasters in `releases/`,
+and updated the ledger, slot plan, mechanism cards, submit notes and
+irregularities. Still no submission, login, scraping, or contact with
+dropbox.com / drivendata.org by the AI.

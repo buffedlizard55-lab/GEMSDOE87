@@ -2,12 +2,11 @@
 
 ## CURRENT STATE (brief v2, 2026-10-23)
 
-- **Parent / incumbent:** R0 `h33-h33-2-b2` (GEMSDOE32), 37,654 dots, sha256 `c55bafc4…` — recipe reproduced byte-exactly this session.
+- **Parent / incumbent:** R0 `h33-h33-2-b2` (GEMSDOE32), 37,654 dots, sha256 `c55bafc4…` — recipe reproduced byte-exactly (2026-10-23 sessions).
 - **Best receipt:** none in `ledger/` — incumbent 0.2778 is **CLAIM** (owner-reported, no receipt). **TOP_PUBLIC:** ____ (human fills, with date).
 - **Slots:** __ left this rolling week / __ total (3/week/entity, 1 final; deadline 2026-12-03 unconfirmed).
-- **This session (AXIS=MASS):** built + validated `h33-2-b2-massminus10-20261023-a00d6355` (33,889 dots) and `h33-2-b2-massplus10-20261023-70e3d289` (41,419 dots) in `releases/`. Nothing submitted — the human submits.
-- **Next 3 slots:** (1) MASS −10%, (2) MASS +10%, (3) best remaining single axis — see `SLOT_PLAN.md`; submit notes in `docs/SUBMIT.md`.
-
+- **Built, not submitted:** MASS −10% (33,889 dots), MASS +10% (41,419), SNAP-mag / SNAP-grav / SNAP-comb (37,654 each, ≤2 px edge snap) — all in `releases/`, validated; the human submits. AXIS history: MASS (human-assigned), then SNAP (agent-picked per human instruction).
+- **Next 3 slots:** (1) SNAP-comb, (2) MASS −10%, (3) SNAP-mag if SNAP-comb ≥ 0 else MASS +10% — see `SLOT_PLAN.md`; notes in `docs/SUBMIT.md`.
 > ### **SUBMISSION STATUS: READY — VALIDATED FILE AVAILABLE (`verdict: "promote"`)**
 >
 > - **Is it OK to download and submit?** **YES.** Both the primary NaN-outside GeoTIFF and the companion zeros-outside GeoTIFF have passed all 15 automated format, CRS (`EPSG:32611`), shape (`3730 x 3292`), affine transform, and `[0, 1]` finite range checks, cleared the 92-channel leakage canary (`max symmetric AUC = 0.7823 <= 0.90`), cleared the 202-raster registry uniqueness gate (`worst |rho_S| = 0.61814` surface / `0.03977` dots `<= 0.90`; `worst 3-px overlap = 0.62000 <= 0.70` across all 196 discriminating priors), and achieved **`HOLDOUT-DTI = 0.171555`** (`95% CI [0.154922, 0.187832]`, evaluator `gems57-pooled-hide-v2`, `22,663` withheld positive pixels), beating all 5 controlled ablation arms with strictly positive 95% paired bootstrap confidence intervals.
