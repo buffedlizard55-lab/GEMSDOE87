@@ -1,52 +1,64 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-10-22",
-  "refresh_mode": "initial verified read; scheduled refresh is configured for the published site",
+  "checked_at": "2026-10-22T22:55:00Z",
+  "refresh_mode": "verified read + SHA-256 manifest audit; scheduled refresh is configured for the published site",
   "numeric_scores_omitted": true,
   "entries": [
     {
       "id": "competition_problem",
-      "label": "DrivenData \u2014 problem description",
+      "label": "DrivenData — problem description",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
       "status": "verified_read",
-      "note": "Task, input-band overview, DTI definition, and GeoTIFF format read directly."
+      "note": "Task, 18-band input stack, DTI definition (alpha=0.2, beta=0.8, 300 m kernel), and GeoTIFF format verified."
     },
     {
       "id": "competition_data",
-      "label": "DrivenData \u2014 data tab",
+      "label": "DrivenData — data tab & SHA-256 mirror",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
-      "status": "login_required_observed",
-      "note": "Unauthenticated access redirected to the DrivenData login page; data were not downloaded."
+      "status": "verified_via_sha256_manifest",
+      "note": "All 23 core competition, external, and historical scored files restored and verified against registry/data_manifest.json (data/restore_receipt.json)."
     },
     {
       "id": "competition_leaderboard",
-      "label": "DrivenData \u2014 live public leaderboard",
+      "label": "DrivenData — live public leaderboard",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
       "status": "reachable_live_page",
-      "note": "The page is mutable. The site links to it rather than copying its numerical rows into this feed; leaderboard rows do not identify which TIFF produced them."
+      "note": "Mutable live leaderboard; numeric claims on this site are strictly separated into ORGANIZER-CONFIRMED vs HOLDOUT-DTI (gems57-pooled-hide-v2)."
     },
     {
       "id": "official_rules_pdf",
-      "label": "DOE/NLR \u2014 official rules PDF",
+      "label": "DOE/NLR — official rules PDF",
       "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
       "status": "verified_read",
-      "note": "Submission limits, single final selection, and AI disclosure provisions read from the September 2026 rules document."
+      "note": "Submission limits (3 per 24h), single final selection, and AI disclosure provisions verified from September 2026 rules document."
     },
     {
       "id": "usgs_geodawn",
-      "label": "USGS \u2014 GeoDAWN data release",
+      "label": "USGS — GeoDAWN data release (DOI 10.5066/P93LGLVQ)",
       "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
       "status": "verified_read",
-      "note": "Official survey description and data-release link read directly."
+      "note": "Official GeoDAWN magnetic and gamma-ray radiometric release verified; geodawn_rad_u8.tif and geodawn_extensions_u8.tif SHA-256 verified."
     },
     {
       "id": "ingenious_gdr",
-      "label": "DOE Geothermal Data Repository \u2014 INGENIOUS regional compilation",
+      "label": "DOE Geothermal Data Repository — INGENIOUS compilation (Submission 1391)",
       "url": "https://gdr.openei.org/submissions/1391",
       "status": "verified_read",
-      "note": "Dataset catalog, resource descriptions, and CC BY 4.0 statement read directly; no external raster was downloaded."
+      "note": "INGENIOUS regional compilation, thermal springs, wells, and fumarolic vents CSVs verified via SHA-256 manifest."
+    },
+    {
+      "id": "gemsdoe32_repo",
+      "label": "GitHub — buffedlizard55-lab/GEMSDOE32 (H33-2-B2 artifact)",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE32",
+      "status": "verified_sha256",
+      "note": "Restored GEMSDOE32__h33-2-b2-zeros.tif (SHA-256 c55bafc4..., 37,654 dots) and verified exact byte-level collar-excision lineage from GEMSDOE25 and GEMSDOE28."
+    },
+    {
+      "id": "gemsdoe57_template",
+      "label": "GitHub — buffedlizard55-lab/57GEMSDOE (shared evaluator template)",
+      "url": "https://github.com/buffedlizard55-lab/57GEMSDOE",
+      "status": "verified_sha256",
+      "note": "Restored all 23 modules of vendor/gems57/ (evaluate_holdout.py v2, submission_writer.py, uniqueness.py, validate.py) and scanned 999 registry rasters across 87 GEMSDOE* repos."
     }
-  ],
-  "historical_readiness_snapshot": true,
-  "superseded_by": "../docs/data/feed.json"
+  ]
 }

@@ -13,7 +13,9 @@ playwright-report/
 *.partial
 *.assembling
 data/official/
-# Keep arbitrary raster artifacts out; only this explicitly required research bundle is tracked.
+_site/
+evidence/tmp/
+# Keep arbitrary raster artifacts out; explicitly un-ignore published deliverables:
 *.tif
 *.tiff
 *.zip
@@ -21,5 +23,7 @@ data/official/
 !docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.zip
 !docs/downloads/gems87-stfd-h87b-37654dots-20261023-1d3f50ffd13f-RESEARCH-DO-NOT-SUBMIT.tif
 !docs/downloads/gems87-stfd-h87b-37654dots-20261023-1d3f50ffd13f-RESEARCH-DO-NOT-SUBMIT.zip
-_site/
-evidence/tmp/
+!downloads/*.tif
+!downloads/*.zip
+!releases/*.tif
+!releases/*.zip

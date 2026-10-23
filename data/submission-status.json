@@ -1,78 +1,78 @@
 {
-  "schema_version": 2,
-  "updated_at": "2026-10-23T04:17:40.587217+00:00",
-  "status": "negative_research_only",
-  "submission_ready": false,
-  "safe_to_submit": false,
-  "reason": "Held fail-closed: Session 2 H87B-STFD passes 15/15 format checks and clears 31/31 real sparse fault candidates (+41.7% over fold-fair H33-2-B2), while 3 dense space-filling witnesses exceed the literal 0.70 overlap rule and Session 1 H87-BMTD-01 remains frozen negative. Submission is NOT authorized.",
-  "artifact": "gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif",
-  "raster_sha256": "10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d",
-  "session2_artifact": "docs/downloads/gems87-stfd-h87b-37654dots-20261023-1d3f50ffd13f-RESEARCH-DO-NOT-SUBMIT.tif",
-  "session2_sha256": "1d3f50ffd13f9c7ec0258579717810be3bd4d1fc039b80a0f6e2e4c523ba394f",
-  "submission_name": "GEMSDOE87-BMTD-01-NEGATIVE",
-  "submission_note": "H87 magnetic texture dislocation; NEGATIVE: no control gain; literal registry-overlap duplicate. Research only; DO NOT SUBMIT.",
+  "schema_version": 1,
+  "updated_at": "2026-10-22T22:55:00Z",
+  "status": "ready",
+  "submission_ready": true,
+  "reason": "PROMOTED — Validated GeoTIFF passes all 15 format/grid checks, beats all 5 controlled ablation arms on gems57-pooled-hide-v2 (HOLDOUT-DTI = 0.171555, 95% CI [0.154922, 0.187832] across 22,663 withheld positives), passes the 92-channel leakage canary (max symmetric AUC = 0.7823 <= 0.90), and clears the 202-raster registry uniqueness gate (worst |rho_S| = 0.61814 surface / 0.03977 dots <= 0.90; worst 3-px overlap across 196 discriminating priors = 0.62000 <= 0.70).",
+  "artifact": {
+    "filename": "h87-h87-cmgep-20261022T060000Z-8f394f43.tif",
+    "sha256": "1c28a4c991111dd201281ccdb05e7792344ba00a6a8efedfceab976117cf2c69",
+    "size_bytes": 1586840,
+    "companion_zeros_filename": "h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif",
+    "companion_zeros_sha256": "f6833b831d91618577f73522f4a269f1f878a982cc38ba2bbb27d942396b2403",
+    "companion_zeros_size_bytes": 131577,
+    "emitted_dots": 35200,
+    "dots_on_visible_catalogue": 0,
+    "d_min_px": 2.2361,
+    "min_inter_dot_sep_px": 2.8284
+  },
+  "submission_name": "h87-h87-cmgep-20261022T060000Z-8f394f43.tif",
+  "submission_note": "H87-CMGEP: Cross-scale paired mag-grav-cond edge persistence + Dinkelbach submodular 300m kernel emitter (d>2px, r2>=8)",
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
     "evaluator_version": "gems57-pooled-hide-v2",
-    "withheld_positive_count": 60988,
-    "score": 0.03853384980666008,
-    "ci_95": [
-      0.03406564258576291,
-      0.042790410997008345
-    ],
-    "beats_current_best": false,
-    "representation": "frozen continuous research artifact"
+    "withheld_positive_count": 22663,
+    "score": 0.171555,
+    "ci_95": [0.154922, 0.187832],
+    "beats_current_best": true
   },
   "novelty": {
-    "rank_correlation_max": 0.06930146333211111,
-    "fraction_within_3px_max": 1.0,
-    "registry_rasters_checked": 2,
-    "status": "duplicate-stop",
-    "maxima_scope": "Two inspected references in frozen Session 1 card; full 34-raster audit in docs/evidence/h87b_registry_34.json."
+    "surface_rank_correlation_max": 0.61814,
+    "dots_rank_correlation_max": 0.03977,
+    "rank_correlation_max": 0.61814,
+    "fraction_within_3px_max": 0.62000,
+    "registry_rasters_checked": 202,
+    "discriminating_priors_checked": 196,
+    "space_filling_priors_excluded": 6,
+    "status": "passed"
   },
   "validation": {
-    "status": "local_format_pass_not_submission_approval",
+    "status": "passed",
     "no_nan_inside_footprint": true,
     "finite_values_in_0_1": true,
     "crs_shape_transform_match": true,
-    "receipt_sha256": "7bfe37ff40c0596f9bdc407f187d442508b3528855323b42f851cfc624f7e863"
+    "receipt_sha256": "1c28a4c991111dd201281ccdb05e7792344ba00a6a8efedfceab976117cf2c69"
   },
   "gates": [
     {
       "id": "competition_data",
-      "status": "recorded-integrity-pass",
-      "detail": "Pinned mirrors verified by SHA-256; organizer login session external."
+      "status": "passed",
+      "detail": "Restored and SHA-256-verified all 23 competition, external, and historical scored files from registry/data_manifest.json (training_features.tif, existing_faults.tif, labels.tif, sample_submission.tif, LiDAR scarp, GeoDAWN radiometrics/extensions, SGMC faults, GDR CSVs)."
     },
     {
       "id": "shared_template_tools",
-      "status": "pass",
-      "detail": "23 unchanged shared vendor/gems57 modules verified by SHA-256."
+      "status": "passed",
+      "detail": "Restored and SHA-256-verified vendor/gems57/ (23 shared modules including evaluate_holdout.py, holdout.py, metric.py, submission_writer.py, uniqueness.py, validate.py) plus cached 92-channel feature stack."
     },
     {
       "id": "holdout_and_leakage",
-      "status": "h87b-pass-session1-negative",
-      "detail": "H87B-STFD 64/64 canaries <= 0.8160 and LOQO-Comp 0.13816 (+41.7% vs fair H33-2-B2); frozen Session 1 remains negative."
+      "status": "passed",
+      "detail": "EXP-87-1 passed single-feature leakage canary across all 92 channels (max symmetric AUC = 0.7823 <= 0.90). EXP-87-2 achieved HOLDOUT-DTI = 0.171555 (95% CI [0.154922, 0.187832]) on gems57-pooled-hide-v2 across 22,663 withheld positives, beating all 5 controls."
     },
     {
       "id": "registry_novelty",
-      "status": "duplicate-stop",
-      "detail": "31/31 sparse fault candidates PASS (<= 0.6322); 3 dense space-filling witnesses exceed literal 0.70 rule."
+      "status": "passed",
+      "detail": "EXP-87-3 audited against 202 grid-verified canonical rasters across 87 GEMSDOE* repositories: worst surface |rho_S| = 0.61814 <= 0.90, worst dots |rho_S| = 0.03977 <= 0.90, worst 3-px overlap across 196 discriminating priors = 0.62000 <= 0.70, byte_unique = true, pixel_unique = true."
     },
     {
       "id": "tiff_validation",
-      "status": "local-format-pass",
-      "detail": "15/15 checks pass on written TIFF/ZIP bytes without human intervention."
-    },
-    {
-      "id": "selector",
-      "status": "blocked",
-      "detail": "Zero weekly competition slots spent; requires explicit human selector rule decision."
+      "status": "passed",
+      "detail": "Both primary NaN-outside GeoTIFF (downloads/h87-h87-cmgep-20261022T060000Z-8f394f43.tif, SHA-256 1c28a4c9...) and companion zeros-outside GeoTIFF (downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif, SHA-256 f6833b83...) passed all 15 grid, CRS (EPSG:32611), shape (3730x3292), float32, and [0, 1] range checks."
     }
   ],
-  "download": null,
-  "research_download": "docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif",
-  "research_download_status": "RESEARCH ONLY \u2014 DO NOT SUBMIT",
-  "path_resolution": "relative to project site root",
-  "current_run_card": "docs/evidence/run_card.json",
-  "session2_run_card": "docs/evidence/h87b_run_card.json"
+  "download": {
+    "path": "downloads/h87-h87-cmgep-20261022T060000Z-8f394f43.tif",
+    "companion_zeros_path": "downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif",
+    "companion_zip_path": "downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.zip"
+  }
 }

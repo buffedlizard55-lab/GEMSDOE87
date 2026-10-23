@@ -53,6 +53,14 @@ jobs:
             mkdir -p .cache/pages-publish/downloads
             cp -R downloads/. .cache/pages-publish/downloads/
           fi
+          if [ -d releases ]; then
+            mkdir -p .cache/pages-publish/releases
+            cp -R releases/. .cache/pages-publish/releases/
+          fi
+          if [ -d ledger ]; then
+            mkdir -p .cache/pages-publish/ledger
+            cp -R ledger/. .cache/pages-publish/ledger/
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .cache/pages-publish

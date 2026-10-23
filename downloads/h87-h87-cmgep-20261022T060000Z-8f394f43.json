@@ -1,0 +1,155 @@
+{
+  "ready": true,
+  "prediction": "downloads/h87-h87-cmgep-20261022T060000Z-8f394f43.tif",
+  "reference": ".cache/raw/sample_submission.tif",
+  "footprint_source": ".cache/raw/sample_submission.tif",
+  "sha256": "1c28a4c991111dd201281ccdb05e7792344ba00a6a8efedfceab976117cf2c69",
+  "checks": {
+    "reference_single_band": {
+      "passed": true,
+      "actual": 1
+    },
+    "reference_epsg_32611": {
+      "passed": true,
+      "actual": "EPSG:32611"
+    },
+    "reference_100m_resolution": {
+      "passed": true,
+      "pixel_size": [
+        100.0,
+        -100.0
+      ]
+    },
+    "crs_shape_transform_match": {
+      "passed": true
+    },
+    "single_band": {
+      "passed": true,
+      "actual": 1
+    },
+    "float32": {
+      "passed": true,
+      "actual": [
+        "float32"
+      ]
+    },
+    "crs_matches_reference": {
+      "passed": true,
+      "actual": "EPSG:32611",
+      "expected": "EPSG:32611"
+    },
+    "shape_matches_reference": {
+      "passed": true,
+      "actual": [
+        3730,
+        3292
+      ],
+      "expected": [
+        3730,
+        3292
+      ]
+    },
+    "transform_matches_reference": {
+      "passed": true,
+      "actual": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "expected": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ]
+    },
+    "bounds_match_reference": {
+      "passed": true,
+      "actual": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "expected": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ]
+    },
+    "no_nan_inside_footprint": {
+      "passed": true,
+      "count": 0,
+      "footprint_pixels": 5167373
+    },
+    "all_finite_inside_footprint": {
+      "passed": true,
+      "nonfinite_count": 0
+    },
+    "finite_values_in_0_1": {
+      "passed": true,
+      "min": 0.0,
+      "max": 1.0,
+      "out_of_range_count": 0
+    },
+    "no_infinity": {
+      "passed": true,
+      "count": 0
+    },
+    "outside_footprint_is_null_or_nodata": {
+      "passed": true,
+      "nonnull_count": 0,
+      "outside_pixels": 7111787,
+      "nodata_tag": "nan"
+    }
+  },
+  "errors": [],
+  "grid": {
+    "reference": {
+      "width": 3292,
+      "height": 3730,
+      "count": 1,
+      "crs": "EPSG:32611",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ]
+    },
+    "prediction": {
+      "width": 3292,
+      "height": 3730,
+      "count": 1,
+      "crs": "EPSG:32611",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ]
+    }
+  }
+}

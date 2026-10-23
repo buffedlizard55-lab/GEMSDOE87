@@ -1,0 +1,1845 @@
+{
+  "experiment_id": "EXP-87-1",
+  "title": "92-Channel Feature Stack Build & Single-Feature Holdout Leakage Canary Audit",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "seeds": [
+    20,
+    30
+  ],
+  "n_physical_channels": 68,
+  "n_h87_novel_physical_channels": 8,
+  "n_structural_and_coupling_channels": 24,
+  "total_channels_audited": 92,
+  "canary_limit_symmetric_auc": 0.9,
+  "max_symmetric_auc_observed": 0.78225,
+  "n_flagged_channels": 0,
+  "flagged_channels": [],
+  "passed": true,
+  "forbidden_point_columns_excluded": [
+    "dist_known_fault_px",
+    "known_fault",
+    "label"
+  ],
+  "top_15_channels_by_symmetric_auc": [
+    {
+      "channel": "net_ann_near",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.78225,
+        "30": 0.77481
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.78225,
+        "30": 0.77481
+      },
+      "mean_symmetric_auc": 0.77853,
+      "max_symmetric_auc": 0.78225,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_logdist",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.24852,
+        "30": 0.25112
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.75148,
+        "30": 0.74888
+      },
+      "mean_symmetric_auc": 0.75018,
+      "max_symmetric_auc": 0.75148,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_cont",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.7389,
+        "30": 0.74791
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.7389,
+        "30": 0.74791
+      },
+      "mean_symmetric_auc": 0.7434,
+      "max_symmetric_auc": 0.74791,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_cont_max",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.73838,
+        "30": 0.74776
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.73838,
+        "30": 0.74776
+      },
+      "mean_symmetric_auc": 0.74307,
+      "max_symmetric_auc": 0.74776,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_den12",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.74299,
+        "30": 0.73614
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.74299,
+        "30": 0.73614
+      },
+      "mean_symmetric_auc": 0.73957,
+      "max_symmetric_auc": 0.74299,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_bridge_long",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.73839,
+        "30": 0.72664
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.73839,
+        "30": 0.72664
+      },
+      "mean_symmetric_auc": 0.73252,
+      "max_symmetric_auc": 0.73839,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_beam_long",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.73572,
+        "30": 0.72895
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.73572,
+        "30": 0.72895
+      },
+      "mean_symmetric_auc": 0.73233,
+      "max_symmetric_auc": 0.73572,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_beam_med",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.7319,
+        "30": 0.72175
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.7319,
+        "30": 0.72175
+      },
+      "mean_symmetric_auc": 0.72683,
+      "max_symmetric_auc": 0.7319,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_tip_ray",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.72827,
+        "30": 0.71677
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.72827,
+        "30": 0.71677
+      },
+      "mean_symmetric_auc": 0.72252,
+      "max_symmetric_auc": 0.72827,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_den32",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.72673,
+        "30": 0.72499
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.72673,
+        "30": 0.72499
+      },
+      "mean_symmetric_auc": 0.72586,
+      "max_symmetric_auc": 0.72673,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_den4",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.71817,
+        "30": 0.7131
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.71817,
+        "30": 0.7131
+      },
+      "mean_symmetric_auc": 0.71564,
+      "max_symmetric_auc": 0.71817,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_beam_short",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.70585,
+        "30": 0.70063
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.70585,
+        "30": 0.70063
+      },
+      "mean_symmetric_auc": 0.70324,
+      "max_symmetric_auc": 0.70585,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_gap",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.69205,
+        "30": 0.7027
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.69205,
+        "30": 0.7027
+      },
+      "mean_symmetric_auc": 0.69738,
+      "max_symmetric_auc": 0.7027,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_bridge_med",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.70226,
+        "30": 0.69239
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.70226,
+        "30": 0.69239
+      },
+      "mean_symmetric_auc": 0.69732,
+      "max_symmetric_auc": 0.70226,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_sib",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.68708,
+        "30": 0.67203
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.68708,
+        "30": 0.67203
+      },
+      "mean_symmetric_auc": 0.67956,
+      "max_symmetric_auc": 0.68708,
+      "flagged_over_0_90": false
+    }
+  ],
+  "h87_novel_channel_aucs": [
+    {
+      "channel": "coup_cmgep_cont",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.63435,
+        "30": 0.64617
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.63435,
+        "30": 0.64617
+      },
+      "mean_symmetric_auc": 0.64026,
+      "max_symmetric_auc": 0.64617,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "coup_seism_tip",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.63957,
+        "30": 0.63878
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.63957,
+        "30": 0.63878
+      },
+      "mean_symmetric_auc": 0.63918,
+      "max_symmetric_auc": 0.63957,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "coup_condbase_gap",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.61671,
+        "30": 0.63323
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.61671,
+        "30": 0.63323
+      },
+      "mean_symmetric_auc": 0.62497,
+      "max_symmetric_auc": 0.63323,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "coup_lidar_bridge",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.62328,
+        "30": 0.61116
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.62328,
+        "30": 0.61116
+      },
+      "mean_symmetric_auc": 0.61722,
+      "max_symmetric_auc": 0.62328,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "coup_vent_tip",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.59792,
+        "30": 0.62094
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.59792,
+        "30": 0.62094
+      },
+      "mean_symmetric_auc": 0.60943,
+      "max_symmetric_auc": 0.62094,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "coup_straincurv_sib",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.60043,
+        "30": 0.56147
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.60043,
+        "30": 0.56147
+      },
+      "mean_symmetric_auc": 0.58095,
+      "max_symmetric_auc": 0.60043,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "seismic_strain_aniso",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.55616,
+        "30": 0.56443
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.55616,
+        "30": 0.56443
+      },
+      "mean_symmetric_auc": 0.56029,
+      "max_symmetric_auc": 0.56443,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "transtension_scarp_lock",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.56438,
+        "30": 0.55604
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.56438,
+        "30": 0.55604
+      },
+      "mean_symmetric_auc": 0.56021,
+      "max_symmetric_auc": 0.56438,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "cmgep_edge_persist",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.52459,
+        "30": 0.54996
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52459,
+        "30": 0.54996
+      },
+      "mean_symmetric_auc": 0.53727,
+      "max_symmetric_auc": 0.54996,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "cond_base_pot_corrob",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.53746,
+        "30": 0.54402
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.53746,
+        "30": 0.54402
+      },
+      "mean_symmetric_auc": 0.54074,
+      "max_symmetric_auc": 0.54402,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "strain_curv_coinc",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.53759,
+        "30": 0.50875
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.53759,
+        "30": 0.50875
+      },
+      "mean_symmetric_auc": 0.52317,
+      "max_symmetric_auc": 0.53759,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "basement_flexure_step",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.51969,
+        "30": 0.53573
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51969,
+        "30": 0.53573
+      },
+      "mean_symmetric_auc": 0.52771,
+      "max_symmetric_auc": 0.53573,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "vent_enthalpy_alteration_conduit",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.48298,
+        "30": 0.51508
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51702,
+        "30": 0.51508
+      },
+      "mean_symmetric_auc": 0.51605,
+      "max_symmetric_auc": 0.51702,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "cmgep_orient_cos2",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.50294,
+        "30": 0.49478
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50294,
+        "30": 0.50522
+      },
+      "mean_symmetric_auc": 0.50408,
+      "max_symmetric_auc": 0.50522,
+      "flagged_over_0_90": false
+    }
+  ],
+  "all_channels": [
+    {
+      "channel": "net_ann_near",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.78225,
+        "30": 0.77481
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.78225,
+        "30": 0.77481
+      },
+      "mean_symmetric_auc": 0.77853,
+      "max_symmetric_auc": 0.78225,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_logdist",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.24852,
+        "30": 0.25112
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.75148,
+        "30": 0.74888
+      },
+      "mean_symmetric_auc": 0.75018,
+      "max_symmetric_auc": 0.75148,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_cont",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.7389,
+        "30": 0.74791
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.7389,
+        "30": 0.74791
+      },
+      "mean_symmetric_auc": 0.7434,
+      "max_symmetric_auc": 0.74791,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_cont_max",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.73838,
+        "30": 0.74776
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.73838,
+        "30": 0.74776
+      },
+      "mean_symmetric_auc": 0.74307,
+      "max_symmetric_auc": 0.74776,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_den12",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.74299,
+        "30": 0.73614
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.74299,
+        "30": 0.73614
+      },
+      "mean_symmetric_auc": 0.73957,
+      "max_symmetric_auc": 0.74299,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_bridge_long",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.73839,
+        "30": 0.72664
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.73839,
+        "30": 0.72664
+      },
+      "mean_symmetric_auc": 0.73252,
+      "max_symmetric_auc": 0.73839,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_beam_long",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.73572,
+        "30": 0.72895
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.73572,
+        "30": 0.72895
+      },
+      "mean_symmetric_auc": 0.73233,
+      "max_symmetric_auc": 0.73572,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_beam_med",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.7319,
+        "30": 0.72175
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.7319,
+        "30": 0.72175
+      },
+      "mean_symmetric_auc": 0.72683,
+      "max_symmetric_auc": 0.7319,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_tip_ray",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.72827,
+        "30": 0.71677
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.72827,
+        "30": 0.71677
+      },
+      "mean_symmetric_auc": 0.72252,
+      "max_symmetric_auc": 0.72827,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_den32",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.72673,
+        "30": 0.72499
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.72673,
+        "30": 0.72499
+      },
+      "mean_symmetric_auc": 0.72586,
+      "max_symmetric_auc": 0.72673,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_den4",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.71817,
+        "30": 0.7131
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.71817,
+        "30": 0.7131
+      },
+      "mean_symmetric_auc": 0.71564,
+      "max_symmetric_auc": 0.71817,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_beam_short",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.70585,
+        "30": 0.70063
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.70585,
+        "30": 0.70063
+      },
+      "mean_symmetric_auc": 0.70324,
+      "max_symmetric_auc": 0.70585,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_gap",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.69205,
+        "30": 0.7027
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.69205,
+        "30": 0.7027
+      },
+      "mean_symmetric_auc": 0.69738,
+      "max_symmetric_auc": 0.7027,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_bridge_med",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.70226,
+        "30": 0.69239
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.70226,
+        "30": 0.69239
+      },
+      "mean_symmetric_auc": 0.69732,
+      "max_symmetric_auc": 0.70226,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_sib",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.68708,
+        "30": 0.67203
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.68708,
+        "30": 0.67203
+      },
+      "mean_symmetric_auc": 0.67956,
+      "max_symmetric_auc": 0.68708,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_sib_max",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.68206,
+        "30": 0.66794
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.68206,
+        "30": 0.66794
+      },
+      "mean_symmetric_auc": 0.675,
+      "max_symmetric_auc": 0.68206,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "net_ann_far",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.64714,
+        "30": 0.65731
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.64714,
+        "30": 0.65731
+      },
+      "mean_symmetric_auc": 0.65223,
+      "max_symmetric_auc": 0.65731,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "coup_cmgep_cont",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.63435,
+        "30": 0.64617
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.63435,
+        "30": 0.64617
+      },
+      "mean_symmetric_auc": 0.64026,
+      "max_symmetric_auc": 0.64617,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "coup_seism_tip",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.63957,
+        "30": 0.63878
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.63957,
+        "30": 0.63878
+      },
+      "mean_symmetric_auc": 0.63918,
+      "max_symmetric_auc": 0.63957,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "coup_condbase_gap",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.61671,
+        "30": 0.63323
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.61671,
+        "30": 0.63323
+      },
+      "mean_symmetric_auc": 0.62497,
+      "max_symmetric_auc": 0.63323,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "coup_lidar_bridge",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.62328,
+        "30": 0.61116
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.62328,
+        "30": 0.61116
+      },
+      "mean_symmetric_auc": 0.61722,
+      "max_symmetric_auc": 0.62328,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "coup_vent_tip",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.59792,
+        "30": 0.62094
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.59792,
+        "30": 0.62094
+      },
+      "mean_symmetric_auc": 0.60943,
+      "max_symmetric_auc": 0.62094,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "coup_straincurv_sib",
+      "group": "h87_coupling",
+      "auc_by_seed": {
+        "20": 0.60043,
+        "30": 0.56147
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.60043,
+        "30": 0.56147
+      },
+      "mean_symmetric_auc": 0.58095,
+      "max_symmetric_auc": 0.60043,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "grad_detrended_elevation_slope",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.58638,
+        "30": 0.56237
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.58638,
+        "30": 0.56237
+      },
+      "mean_symmetric_auc": 0.57438,
+      "max_symmetric_auc": 0.58638,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_iso_gravity_slope",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.52121,
+        "30": 0.5693
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52121,
+        "30": 0.5693
+      },
+      "mean_symmetric_auc": 0.54526,
+      "max_symmetric_auc": 0.5693,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_geodetic_shear_rate",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.56492,
+        "30": 0.56884
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.56492,
+        "30": 0.56884
+      },
+      "mean_symmetric_auc": 0.56688,
+      "max_symmetric_auc": 0.56884,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "grad_detrended_elevation",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.56883,
+        "30": 0.54321
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.56883,
+        "30": 0.54321
+      },
+      "mean_symmetric_auc": 0.55602,
+      "max_symmetric_auc": 0.56883,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "grad_iso_gravity_anomaly",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.52351,
+        "30": 0.56821
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52351,
+        "30": 0.56821
+      },
+      "mean_symmetric_auc": 0.54586,
+      "max_symmetric_auc": 0.56821,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "std5_detrended_elevation",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.56686,
+        "30": 0.54011
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.56686,
+        "30": 0.54011
+      },
+      "mean_symmetric_auc": 0.55349,
+      "max_symmetric_auc": 0.56686,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_geodetic_second_invariant",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.56452,
+        "30": 0.56296
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.56452,
+        "30": 0.56296
+      },
+      "mean_symmetric_auc": 0.56374,
+      "max_symmetric_auc": 0.56452,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "seismic_strain_aniso",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.55616,
+        "30": 0.56443
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.55616,
+        "30": 0.56443
+      },
+      "mean_symmetric_auc": 0.56029,
+      "max_symmetric_auc": 0.56443,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "transtension_scarp_lock",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.56438,
+        "30": 0.55604
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.56438,
+        "30": 0.55604
+      },
+      "mean_symmetric_auc": 0.56021,
+      "max_symmetric_auc": 0.56438,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_detrended_elevation_slope",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.56408,
+        "30": 0.53742
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.56408,
+        "30": 0.53742
+      },
+      "mean_symmetric_auc": 0.55075,
+      "max_symmetric_auc": 0.56408,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "x_strain_transtension",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.56358,
+        "30": 0.55902
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.56358,
+        "30": 0.55902
+      },
+      "mean_symmetric_auc": 0.5613,
+      "max_symmetric_auc": 0.56358,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_earthquake_density",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.53877,
+        "30": 0.56276
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.53877,
+        "30": 0.56276
+      },
+      "mean_symmetric_auc": 0.55076,
+      "max_symmetric_auc": 0.56276,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "lap_detrended_elevation",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.55883,
+        "30": 0.55971
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.55883,
+        "30": 0.55971
+      },
+      "mean_symmetric_auc": 0.55927,
+      "max_symmetric_auc": 0.55971,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ridge_detrended_elevation_slope",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.55695,
+        "30": 0.54664
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.55695,
+        "30": 0.54664
+      },
+      "mean_symmetric_auc": 0.5518,
+      "max_symmetric_auc": 0.55695,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "grad_depth_to_basement",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.53482,
+        "30": 0.55558
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.53482,
+        "30": 0.55558
+      },
+      "mean_symmetric_auc": 0.5452,
+      "max_symmetric_auc": 0.55558,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ridge_iso_gravity_anomaly",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.53799,
+        "30": 0.55407
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.53799,
+        "30": 0.55407
+      },
+      "mean_symmetric_auc": 0.54603,
+      "max_symmetric_auc": 0.55407,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "lidar_relief_norm_scarp",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.55052,
+        "30": 0.53276
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.55052,
+        "30": 0.53276
+      },
+      "mean_symmetric_auc": 0.54164,
+      "max_symmetric_auc": 0.55052,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "cmgep_edge_persist",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.52459,
+        "30": 0.54996
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52459,
+        "30": 0.54996
+      },
+      "mean_symmetric_auc": 0.53727,
+      "max_symmetric_auc": 0.54996,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_distance_to_earthquake",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.53582,
+        "30": 0.54709
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.53582,
+        "30": 0.54709
+      },
+      "mean_symmetric_auc": 0.54146,
+      "max_symmetric_auc": 0.54709,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_tilt_angle_total_curvature",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.47018,
+        "30": 0.4544
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52982,
+        "30": 0.5456
+      },
+      "mean_symmetric_auc": 0.53771,
+      "max_symmetric_auc": 0.5456,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_iso_gravity_vertical_gradient",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51426,
+        "30": 0.54411
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51426,
+        "30": 0.54411
+      },
+      "mean_symmetric_auc": 0.52919,
+      "max_symmetric_auc": 0.54411,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "cond_base_pot_corrob",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.53746,
+        "30": 0.54402
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.53746,
+        "30": 0.54402
+      },
+      "mean_symmetric_auc": 0.54074,
+      "max_symmetric_auc": 0.54402,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_iso_gravity_anomaly",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.46138,
+        "30": 0.4684
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.53862,
+        "30": 0.5316
+      },
+      "mean_symmetric_auc": 0.53511,
+      "max_symmetric_auc": 0.53862,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "geotherm_claycap_conduit",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.49765,
+        "30": 0.53839
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50235,
+        "30": 0.53839
+      },
+      "mean_symmetric_auc": 0.52037,
+      "max_symmetric_auc": 0.53839,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "strain_curv_coinc",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.53759,
+        "30": 0.50875
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.53759,
+        "30": 0.50875
+      },
+      "mean_symmetric_auc": 0.52317,
+      "max_symmetric_auc": 0.53759,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ns_coh",
+      "group": "structural_relay",
+      "auc_by_seed": {
+        "20": 0.53598,
+        "30": 0.53116
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.53598,
+        "30": 0.53116
+      },
+      "mean_symmetric_auc": 0.53357,
+      "max_symmetric_auc": 0.53598,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "basement_flexure_step",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.51969,
+        "30": 0.53573
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51969,
+        "30": 0.53573
+      },
+      "mean_symmetric_auc": 0.52771,
+      "max_symmetric_auc": 0.53573,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "grad_mag_reduced_to_pole",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.53399,
+        "30": 0.50531
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.53399,
+        "30": 0.50531
+      },
+      "mean_symmetric_auc": 0.51965,
+      "max_symmetric_auc": 0.53399,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "lap_depth_to_basement",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51387,
+        "30": 0.53293
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51387,
+        "30": 0.53293
+      },
+      "mean_symmetric_auc": 0.5234,
+      "max_symmetric_auc": 0.53293,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_depth_to_basement",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.52304,
+        "30": 0.53246
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52304,
+        "30": 0.53246
+      },
+      "mean_symmetric_auc": 0.52775,
+      "max_symmetric_auc": 0.53246,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_tmi_horizontal_gradient",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.52938,
+        "30": 0.5054
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52938,
+        "30": 0.5054
+      },
+      "mean_symmetric_auc": 0.51739,
+      "max_symmetric_auc": 0.52938,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "grad_total_magnetic_intensity",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.52835,
+        "30": 0.50443
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52835,
+        "30": 0.50443
+      },
+      "mean_symmetric_auc": 0.51639,
+      "max_symmetric_auc": 0.52835,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "std5_total_magnetic_intensity",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.52803,
+        "30": 0.50313
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52803,
+        "30": 0.50313
+      },
+      "mean_symmetric_auc": 0.51558,
+      "max_symmetric_auc": 0.52803,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "x_couple_tmi_grav",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.52718,
+        "30": 0.51036
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52718,
+        "30": 0.51036
+      },
+      "mean_symmetric_auc": 0.51877,
+      "max_symmetric_auc": 0.52718,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ridge_tilt_angle_total_curvature",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.47877,
+        "30": 0.47373
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52123,
+        "30": 0.52627
+      },
+      "mean_symmetric_auc": 0.52375,
+      "max_symmetric_auc": 0.52627,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "mag_shallow_ridge",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.52623,
+        "30": 0.50111
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52623,
+        "30": 0.50111
+      },
+      "mean_symmetric_auc": 0.51367,
+      "max_symmetric_auc": 0.52623,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "lap_iso_gravity_anomaly",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.4741,
+        "30": 0.47865
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.5259,
+        "30": 0.52135
+      },
+      "mean_symmetric_auc": 0.52363,
+      "max_symmetric_auc": 0.5259,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_detrended_elevation",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51435,
+        "30": 0.47413
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51435,
+        "30": 0.52587
+      },
+      "mean_symmetric_auc": 0.52011,
+      "max_symmetric_auc": 0.52587,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "rad_k_metasomatism",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.47666,
+        "30": 0.5011
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52334,
+        "30": 0.5011
+      },
+      "mean_symmetric_auc": 0.51222,
+      "max_symmetric_auc": 0.52334,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_conductivity_surface",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.4791,
+        "30": 0.52013
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.5209,
+        "30": 0.52013
+      },
+      "mean_symmetric_auc": 0.52052,
+      "max_symmetric_auc": 0.5209,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "rad_u_redox_halo",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.47983,
+        "30": 0.48401
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.52017,
+        "30": 0.51599
+      },
+      "mean_symmetric_auc": 0.51808,
+      "max_symmetric_auc": 0.52017,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_iso_gravity_horizontal_gradient",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.49188,
+        "30": 0.47994
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50812,
+        "30": 0.52006
+      },
+      "mean_symmetric_auc": 0.51409,
+      "max_symmetric_auc": 0.52006,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "lap_total_magnetic_intensity",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51964,
+        "30": 0.50429
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51964,
+        "30": 0.50429
+      },
+      "mean_symmetric_auc": 0.51197,
+      "max_symmetric_auc": 0.51964,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_mag_reduced_to_pole",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51955,
+        "30": 0.49417
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51955,
+        "30": 0.50583
+      },
+      "mean_symmetric_auc": 0.51269,
+      "max_symmetric_auc": 0.51955,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "lap_tilt_angle_total_curvature",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51892,
+        "30": 0.51576
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51892,
+        "30": 0.51576
+      },
+      "mean_symmetric_auc": 0.51734,
+      "max_symmetric_auc": 0.51892,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "geotherm_vent_plume_s6",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.48288,
+        "30": 0.50769
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51712,
+        "30": 0.50769
+      },
+      "mean_symmetric_auc": 0.5124,
+      "max_symmetric_auc": 0.51712,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "vent_enthalpy_alteration_conduit",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.48298,
+        "30": 0.51508
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51702,
+        "30": 0.51508
+      },
+      "mean_symmetric_auc": 0.51605,
+      "max_symmetric_auc": 0.51702,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_geodetic_dilatation_rate",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51359,
+        "30": 0.51642
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51359,
+        "30": 0.51642
+      },
+      "mean_symmetric_auc": 0.515,
+      "max_symmetric_auc": 0.51642,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "lap_conductivity_surface",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.48731,
+        "30": 0.48376
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51269,
+        "30": 0.51624
+      },
+      "mean_symmetric_auc": 0.51446,
+      "max_symmetric_auc": 0.51624,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "std5_conductivity_surface",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51589,
+        "30": 0.4972
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51589,
+        "30": 0.5028
+      },
+      "mean_symmetric_auc": 0.50934,
+      "max_symmetric_auc": 0.51589,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "std5_tilt_angle_total_curvature",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.49694,
+        "30": 0.48436
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50306,
+        "30": 0.51564
+      },
+      "mean_symmetric_auc": 0.50935,
+      "max_symmetric_auc": 0.51564,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "lidar_scarp_coherence",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.48622,
+        "30": 0.48439
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51378,
+        "30": 0.51561
+      },
+      "mean_symmetric_auc": 0.5147,
+      "max_symmetric_auc": 0.51561,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "mag_shallow_residual",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.4845,
+        "30": 0.49934
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.5155,
+        "30": 0.50066
+      },
+      "mean_symmetric_auc": 0.50808,
+      "max_symmetric_auc": 0.5155,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "geotherm_vent_plume_s18",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.49088,
+        "30": 0.51526
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50912,
+        "30": 0.51526
+      },
+      "mean_symmetric_auc": 0.51219,
+      "max_symmetric_auc": 0.51526,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "grad_conductivity_surface",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51516,
+        "30": 0.49874
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51516,
+        "30": 0.50126
+      },
+      "mean_symmetric_auc": 0.50821,
+      "max_symmetric_auc": 0.51516,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "x_couple_tmi_dem",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.515,
+        "30": 0.49142
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.515,
+        "30": 0.50858
+      },
+      "mean_symmetric_auc": 0.51179,
+      "max_symmetric_auc": 0.515,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ridge_conductivity_surface",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51361,
+        "30": 0.50141
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51361,
+        "30": 0.50141
+      },
+      "mean_symmetric_auc": 0.50751,
+      "max_symmetric_auc": 0.51361,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_tmi_vertical_gradient",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.48721,
+        "30": 0.49967
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51279,
+        "30": 0.50033
+      },
+      "mean_symmetric_auc": 0.50656,
+      "max_symmetric_auc": 0.51279,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "grad_tilt_angle_total_curvature",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.50038,
+        "30": 0.48735
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50038,
+        "30": 0.51265
+      },
+      "mean_symmetric_auc": 0.50652,
+      "max_symmetric_auc": 0.51265,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_mag_anomaly_deviation",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51196,
+        "30": 0.4996
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51196,
+        "30": 0.5004
+      },
+      "mean_symmetric_auc": 0.50618,
+      "max_symmetric_auc": 0.51196,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "z_total_magnetic_intensity",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51166,
+        "30": 0.50509
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51166,
+        "30": 0.50509
+      },
+      "mean_symmetric_auc": 0.50838,
+      "max_symmetric_auc": 0.51166,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "x_ridge_dem_slope",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.50978,
+        "30": 0.48835
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50978,
+        "30": 0.51165
+      },
+      "mean_symmetric_auc": 0.51072,
+      "max_symmetric_auc": 0.51165,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ridge_mag_reduced_to_pole",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.51054,
+        "30": 0.50329
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.51054,
+        "30": 0.50329
+      },
+      "mean_symmetric_auc": 0.50692,
+      "max_symmetric_auc": 0.51054,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "geotherm_reservoir_enthalpy",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.50721,
+        "30": 0.51041
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50721,
+        "30": 0.51041
+      },
+      "mean_symmetric_auc": 0.50881,
+      "max_symmetric_auc": 0.51041,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ridge_detrended_elevation",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.50816,
+        "30": 0.48987
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50816,
+        "30": 0.51013
+      },
+      "mean_symmetric_auc": 0.50914,
+      "max_symmetric_auc": 0.51013,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "rad_tc_grad",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.50318,
+        "30": 0.49073
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50318,
+        "30": 0.50927
+      },
+      "mean_symmetric_auc": 0.50622,
+      "max_symmetric_auc": 0.50927,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ridge_total_magnetic_intensity",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.50845,
+        "30": 0.50069
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50845,
+        "30": 0.50069
+      },
+      "mean_symmetric_auc": 0.50457,
+      "max_symmetric_auc": 0.50845,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "ridge_depth_to_basement",
+      "group": "core_physical",
+      "auc_by_seed": {
+        "20": 0.50795,
+        "30": 0.50639
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50795,
+        "30": 0.50639
+      },
+      "mean_symmetric_auc": 0.50717,
+      "max_symmetric_auc": 0.50795,
+      "flagged_over_0_90": false
+    },
+    {
+      "channel": "cmgep_orient_cos2",
+      "group": "h87_novel_physical",
+      "auc_by_seed": {
+        "20": 0.50294,
+        "30": 0.49478
+      },
+      "symmetric_auc_by_seed": {
+        "20": 0.50294,
+        "30": 0.50522
+      },
+      "mean_symmetric_auc": 0.50408,
+      "max_symmetric_auc": 0.50522,
+      "flagged_over_0_90": false
+    }
+  ],
+  "elapsed_seconds": 4.75
+}

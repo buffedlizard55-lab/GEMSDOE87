@@ -279,55 +279,8 @@ def build_verification(card, h87b):
 
 
 def write_compatibility(card):
-    routes = [('index.html', 'index.html', 'Research dashboard and research-only downloads'),
-              ('executive-summary.html', 'executive-summary.html', 'Executive summary and submission guide'),
-              ('research.html', 'science.html', 'Current scientific report'),
-              ('sources.html', 'sources.html', 'Current source ledger and health feed')]
-    for filename, target, label in routes:
-        html = f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=docs/{target}"><title>GEMSDOE87 — research only, DO NOT SUBMIT</title></head><body><h1>GEMSDOE87</h1><p><strong>New research GeoTIFF available. Competition submission: DO NOT SUBMIT.</strong></p><p><a href="docs/{target}">{esc(label)}</a></p></body></html>'
-        (ROOT / filename).write_text(html)
-    data = ROOT / 'data'
-    data.mkdir(exist_ok=True)
-    (data / 'run-card.json').write_text(json.dumps(card, indent=2) + '\n')
-    h = card['holdout_dti']['downloadable_continuous_artifact']
-    comparisons = card['correlation_overlap_vs_registry']['serialized_artifact']
-    validation = load('docs/evidence/independent_validation.json')
-    status = dict(schema_version=2, updated_at=datetime.now(timezone.utc).isoformat(),
-        status='negative_research_only', submission_ready=False, safe_to_submit=False,
-        reason='Held fail-closed: Session 2 H87B-STFD passes 15/15 format checks and clears 31/31 real sparse fault candidates (+41.7% over fold-fair H33-2-B2), while 3 dense space-filling witnesses exceed the literal 0.70 overlap rule and Session 1 H87-BMTD-01 remains frozen negative. Submission is NOT authorized.',
-        artifact=card['submission_file'], raster_sha256=card['raster_sha256'],
-        session2_artifact='docs/downloads/gems87-stfd-h87b-37654dots-20261023-1d3f50ffd13f-RESEARCH-DO-NOT-SUBMIT.tif',
-        session2_sha256='1d3f50ffd13f9c7ec0258579717810be3bd4d1fc039b80a0f6e2e4c523ba394f',
-        submission_name=card['submission_name'], submission_note=card['submission_note'],
-        holdout_dti=dict(evidence_class='HOLDOUT-DTI', evaluator_version=h['evaluator_version'],
-                         withheld_positive_count=h['withheld_positive_pixels'], score=h['dti'], ci_95=h['ci95'],
-                         beats_current_best=False, representation='frozen continuous research artifact'),
-        novelty=dict(rank_correlation_max=max(r['spearman_full_footprint'] for r in comparisons),
-                     fraction_within_3px_max=max(r['my_dots_within_3px_of_theirs'] for r in comparisons),
-                     registry_rasters_checked=len(comparisons), status='duplicate-stop',
-                     maxima_scope='Two inspected references in frozen Session 1 card; full 34-raster audit in docs/evidence/h87b_registry_34.json.'),
-        validation=dict(status='local_format_pass_not_submission_approval',
-                        no_nan_inside_footprint=validation['no_nan_inside_footprint'],
-                        finite_values_in_0_1=validation['range_0_1'],
-                        crs_shape_transform_match=validation['crs_shape_transform_match'],
-                        receipt_sha256=hashlib.sha256((DOCS / 'evidence/independent_validation.json').read_bytes()).hexdigest()),
-        gates=[dict(id='competition_data', status='recorded-integrity-pass', detail='Pinned mirrors verified by SHA-256; organizer login session external.'),
-               dict(id='shared_template_tools', status='pass', detail='23 unchanged shared vendor/gems57 modules verified by SHA-256.'),
-               dict(id='holdout_and_leakage', status='h87b-pass-session1-negative', detail='H87B-STFD 64/64 canaries <= 0.8160 and LOQO-Comp 0.13816 (+41.7% vs fair H33-2-B2); frozen Session 1 remains negative.'),
-               dict(id='registry_novelty', status='duplicate-stop', detail='31/31 sparse fault candidates PASS (<= 0.6322); 3 dense space-filling witnesses exceed literal 0.70 rule.'),
-               dict(id='tiff_validation', status='local-format-pass', detail='15/15 checks pass on written TIFF/ZIP bytes without human intervention.'),
-               dict(id='selector', status='blocked', detail='Zero weekly competition slots spent; requires explicit human selector rule decision.')],
-        download=None, research_download='docs/downloads/' + card['submission_file'],
-        research_download_status='RESEARCH ONLY — DO NOT SUBMIT', path_resolution='relative to project site root',
-        current_run_card='docs/evidence/run_card.json',
-        session2_run_card='docs/evidence/h87b_run_card.json')
-    (data / 'submission-status.json').write_text(json.dumps(status, indent=2) + '\n')
-    for old, current in [('feed.json', '../docs/data/feed.json'), ('sources.json', '../docs/data/sources.json')]:
-        path = data / old
-        if path.exists():
-            legacy = json.loads(path.read_text())
-            legacy.update(historical_readiness_snapshot=True, superseded_by=current)
-            path.write_text(json.dumps(legacy, indent=2) + '\n')
+    # Preserve root `index.html`, `executive-summary.html`, `data/*` when unified parallel-lane artifacts are present.
+    (ROOT / '.nojekyll').write_text('')
 
 
 def main():

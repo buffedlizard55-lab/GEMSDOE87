@@ -1,0 +1,55 @@
+{
+  "siblings_checked": 7,
+  "duplicates": 0,
+  "rows": [
+    {
+      "sibling_file": "downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif",
+      "other_dots": 35200,
+      "spearman_rho": 0.020899,
+      "dot_overlap_3px": 0.329872,
+      "duplicate": false
+    },
+    {
+      "sibling_file": "releases/h33-h33-2-b2-CONCc10-20261023-a9e67bab-zeros.tif",
+      "other_dots": 37654,
+      "spearman_rho": 0.017914,
+      "dot_overlap_3px": 0.329606,
+      "duplicate": false
+    },
+    {
+      "sibling_file": "releases/h33-h33-2-b2-CONCc15-20261023-25e403d0-zeros.tif",
+      "other_dots": 37654,
+      "spearman_rho": 0.017406,
+      "dot_overlap_3px": 0.320603,
+      "duplicate": false
+    },
+    {
+      "sibling_file": "releases/h33-h33-2-b2-CONCc20-20261023-03244051-zeros.tif",
+      "other_dots": 37654,
+      "spearman_rho": 0.017379,
+      "dot_overlap_3px": 0.313061,
+      "duplicate": false
+    },
+    {
+      "sibling_file": "releases/h33-h33-2-b2-PRUNE1-20261023-4679d91c-zeros.tif",
+      "other_dots": 37654,
+      "spearman_rho": 0.018155,
+      "dot_overlap_3px": 0.347055,
+      "duplicate": false
+    },
+    {
+      "sibling_file": "releases/h33-h33-2-b2-PRUNE3-20261023-bc00a06c-zeros.tif",
+      "other_dots": 37654,
+      "spearman_rho": 0.020135,
+      "dot_overlap_3px": 0.354677,
+      "duplicate": false
+    },
+    {
+      "sibling_file": "releases/h33-h33-2-b2-PRUNE4-20261023-f5c53782-zeros.tif",
+      "other_dots": 37654,
+      "spearman_rho": 0.021205,
+      "dot_overlap_3px": 0.351596,
+      "duplicate": false
+    }
+  ]
+}

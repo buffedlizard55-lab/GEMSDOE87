@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "generated_utc": "2026-10-23T04:17:30.467Z",
+  "generated_utc": "2026-10-23T04:24:04.222Z",
   "browser_version": "153.0.8010.0",
   "checks": [
     {
@@ -58,19 +58,19 @@
     },
     {
       "compatibility_entrypoint": "index.html",
-      "redirects_to_current_page": "docs/index.html"
+      "target": "docs/index.html"
     },
     {
       "compatibility_entrypoint": "executive-summary.html",
-      "redirects_to_current_page": "docs/executive-summary.html"
+      "target": "docs/executive-summary.html"
     },
     {
       "compatibility_entrypoint": "research.html",
-      "redirects_to_current_page": "docs/science.html"
+      "target": "docs/science.html"
     },
     {
       "compatibility_entrypoint": "sources.html",
-      "redirects_to_current_page": "docs/sources.html"
+      "target": "docs/sources.html"
     },
     {
       "clipboard_copy_and_unavailable_fallback_verified": true
