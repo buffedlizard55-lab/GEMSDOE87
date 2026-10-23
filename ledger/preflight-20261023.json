@@ -1,0 +1,179 @@
+{
+  "date": "2026-10-23",
+  "git_sha": "2b59f5d66fa2f3d11fba73cffe658454b45ae334",
+  "status": "BLOCKED",
+  "scope": "Local availability and hashes only; no remote restoration attempted. Historical restore_receipt.json is not evidence of current availability.",
+  "inputs": [
+    {
+      "id": "training_features",
+      "path": ".cache/raw/training_features.tif",
+      "expected_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "labels",
+      "path": ".cache/raw/labels.tif",
+      "expected_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "existing_faults",
+      "path": ".cache/raw/existing_faults.tif",
+      "expected_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "sample_submission",
+      "path": ".cache/raw/sample_submission.tif",
+      "expected_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "ext_lidar_scarp_features_u8",
+      "path": ".cache/raw/external/lidar_scarp_features_u8.tif",
+      "expected_sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "ext_geodawn_rad_u8",
+      "path": ".cache/raw/external/geodawn_rad_u8.tif",
+      "expected_sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "ext_geodawn_extensions_u8",
+      "path": ".cache/raw/external/geodawn_extensions_u8.tif",
+      "expected_sha256": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "ext_derived_sgmc_faults_100m_u8",
+      "path": ".cache/raw/external/derived_sgmc_faults_100m_u8.tif",
+      "expected_sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "ext_gdr_wellspring_in_footprint",
+      "path": ".cache/raw/external/gdr_wellspring_in_footprint.csv",
+      "expected_sha256": "122718e65bdf55aab0ee12ad20d80062f0deb1de957225a61ad880dd5dc196ea",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "ext_gdr_qfaults_traces",
+      "path": ".cache/raw/external/gdr_qfaults_traces.csv",
+      "expected_sha256": "9702f2e5c382a4f472ae834d22b94990983b059677a37adfafd51c50f75e643c",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "ext_gdr_volcanic_vents_in_footprint",
+      "path": ".cache/raw/external/gdr_volcanic_vents_in_footprint.csv",
+      "expected_sha256": "f91bafbaccaaf2754e71d60434fc0f9eb2c7b880c6e714883f4974542ff6a0bf",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "scored_h19_5",
+      "path": ".cache/raw/scored/gems19-h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan.tif",
+      "expected_sha256": "ec1f9b56b83ce33cad781ceb9f104b18fb4f2ff785263a4e89616af4aabdee8d",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "scored_h19_4",
+      "path": ".cache/raw/scored/gems19-h19-4-multiline-corroborated-openness-thermal-pop-20260930-691e4dfa-nan.tif",
+      "expected_sha256": "89109a3bd2cd3b12e7a0f388113c519843acfc9c4f46825affefc3e63dd99b22",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "scored_h16_1",
+      "path": ".cache/raw/scored/gems16-h16-1-topo-geophys-baseline-ridges-20260930-df20f65e-nan.tif",
+      "expected_sha256": "055309694ed499ca3d87e76b3f5e81c292aef6e39c418d33ff5a817aa1309bea",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "scored_d15_scored",
+      "path": ".cache/raw/scored/gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+      "expected_sha256": "68d0e2e4fcc594f9a23f56c44b885fee733d026d39be55e18ad2a07289525310",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "scored_d28_unscored",
+      "path": ".cache/raw/scored/gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+      "expected_sha256": "91eae1ca42ec845eaa8c2ba32da49806e24751743459b8a10017c479bbe639b8",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "calib_13gems_20261001_r13-lattice-s5_v2_nan-ou",
+      "path": ".cache/raw/scored/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+      "expected_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "calib_8GEMSDOE_Hedge-v2_submission",
+      "path": ".cache/raw/scored/8GEMSDOE_Hedge-v2_submission.tif",
+      "expected_sha256": "052688eafbc7a55d90caab72252a50304fe5caa8ecf973f8e791b4ae910f0792",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "calib_gems10-h25-ctx-ridge-20260927T2329477041",
+      "path": ".cache/raw/scored/gems10-h25-ctx-ridge-20260927T232947704150Z-6452ae1d00.tif",
+      "expected_sha256": "1381e784fb8b8340beffd0e735ac9eea89ad35d1a807f8a9bab5506e3fc8275e",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "calib_gems10-h28-dotted-ridge-20260928T0202562",
+      "path": ".cache/raw/scored/gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
+      "expected_sha256": "7637b72d4c6c3e10226bf46bd72a20272d62ccbe29743062632d10b158b49c58",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "calib_gemsdoe-ens12-adopted-7f00890a",
+      "path": ".cache/raw/scored/gemsdoe-ens12-adopted-7f00890a.tif",
+      "expected_sha256": "7f00890a62878d612fb5eef67a9a364a2df819433dde74b6762ce4fc0fc4fe15",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "calib_gemsdoe9-PLACEHOLDER-2314b599",
+      "path": ".cache/raw/scored/gemsdoe9-PLACEHOLDER-2314b599.tif",
+      "expected_sha256": "2314b59920bfeeaf6a592d4868b25eca62212825620f9945723c2f6d0a2e5b22",
+      "actual_sha256": null,
+      "status": "MISSING"
+    },
+    {
+      "id": "scored_gems27_tgc_v2_d15",
+      "path": ".cache/raw/scored/gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+      "expected_sha256": "33003374335d84bf885f2d8f5e9dd4c57044c8ec58fa6a0d7fa581e8bc41c11d",
+      "actual_sha256": null,
+      "status": "MISSING"
+    }
+  ],
+  "r0": {
+    "sha256_recorded": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+    "source": "registry/canonical_scored_index.json",
+    "local_status": "MISSING",
+    "rebuild_status": "NOT REBUILT; exact recipe/ranking not established"
+  },
+  "ledger_status": "ledger/submissions.csv and ledger/raw_paste.txt absent; history not reconstructed",
+  "slot_plan_status_at_start": "ABSENT",
+  "axis": "UNASSIGNED",
+  "variants_built": 0
+}
