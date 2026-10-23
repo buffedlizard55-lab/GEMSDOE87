@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A newly generated GeoTIFF with automated format validation, spatial holdout evidence, and an explicit negative / do-not-submit decision.">
+<meta name="theme-color" content="#f7f8f4"><title>Experiment index · GEMSDOE87</title>
+<link rel="stylesheet" href="assets/site.css"><script defer src="assets/site.js"></script></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="shell header-inner"><a class="brand" href="index.html" aria-label="GEMSDOE87 overview"><span class="brand-icon" aria-hidden="true">≋</span>GEMS<small>DOE / 87</small></a><nav class="nav" aria-label="Main navigation"><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">Submission guide</a><a href="experiments.html" class="active" aria-current="page">All experiments</a><a href="science.html" class="">Research</a><a href="validation.html" class="">Validation</a><a href="registry.html" class="">Registry</a><a href="sources.html" class="">Sources</a></nav></div></header>
+<main id="main" class="shell content"><div class="topline"><span>FAULT DISCOVERY / GEODAWN, NEVADA–CALIFORNIA</span><span class="pill negative"><span class="dot" aria-hidden="true"></span>Run 01 · negative</span></div><div class="page-heading"><p class="eyebrow">Experiment index / every recorded run</p><h1>All of it, including the losses.</h1><p>Every archived experiment in this repository, with its own holdout number, interval, control comparison and hash. Values are copied from recorded run cards; nothing is recomputed or projected onto a leaderboard.</p></div>
+<div class="notice"><strong>Every file on this page is research-only.</strong><p>None is approved for a weekly competition slot. Downloading a TIFF here means "inspect or reuse for research", not "upload to the competition". Rank correlation and overlap versus the registry are reported per experiment; the literal dense-field overlap degeneracy is documented on the <a href="registry.html">registry page</a>.</p></div>
+
+<div class="grid two"><article class="card" id="exp-h87_bmtd">
+<p class="eyebrow">h87_bmtd · verdict: negative</p>
+<h3>H87-BMTD: a tangential shift restores bilateral magnetic texture similarity across a concealed fault.</h3>
+<p>NCC gain for opposite-side RTP texture panels under fixed tangential shifts; texture energy and balance suppress unstable matches.</p>
+<div class="table-wrap"><table class="status-table"><tbody>
+<tr><td>HOLDOUT-DTI (binary)</td><td>0.043385</td></tr>
+<tr><td>95% CI</td><td>[0.035700, 0.051025]</td></tr>
+<tr><td>Withheld positives</td><td>60988</td></tr>
+<tr><td>Paired delta vs best control</td><td>-0.000288 · [-0.009126, 0.008212]</td></tr>
+<tr><td>Evaluator</td><td>gems57-pooled-hide-v2</td></tr>
+<tr><td>Named non-fault mimic</td><td>Curved volcanic flow contacts and paleochannels; flight-line leveling artifacts can also mimic shifted texture.</td></tr>
+<tr><td>Raster SHA-256</td><td><code>10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d</code></td></tr>
+<tr><td>Approved for a weekly slot</td><td><strong class="red">False</strong></td></tr>
+</tbody></table></div>
+<p><a class="small-link" href="downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif" download>Download .tif ↗</a> · <a class="small-link" href="downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.zip" download>ZIP ↗</a></p>
+<a class="small-link" href="evidence/h87_bmtd_run_card.json">Machine-readable card ↗</a>
+</article><article class="card" id="exp-h87crossgrad">
+<p class="eyebrow">h87crossgrad · verdict: negative</p>
+<h3>H87-CROSSGRAD: gravity-magnetic cross-gradient magnitude highlights concealed structural boundaries where gravity and magnetic gradients are orthogonal.</h3>
+<p>Cross-gradient |∇g × ∇m| gated by joint coherence and gradient magnitude; targets faults with weak expression in either field alone.</p>
+<div class="table-wrap"><table class="status-table"><tbody>
+<tr><td>HOLDOUT-DTI (binary)</td><td>0.047177</td></tr>
+<tr><td>95% CI</td><td>[0.039149, 0.055703]</td></tr>
+<tr><td>Withheld positives</td><td>60988</td></tr>
+<tr><td>Paired delta vs best control</td><td>0.002576 · [-0.011157, 0.015771]</td></tr>
+<tr><td>Evaluator</td><td>gems57-pooled-hide-v2</td></tr>
+<tr><td>Named non-fault mimic</td><td>Lithologic contacts, basement topography, flight-line artifacts in either gravity or magnetics can produce cross-gradient signals.</td></tr>
+<tr><td>Raster SHA-256</td><td><code>0908fe41483fe3f69764b51c51c49065652be4ce1543b1b2dfab2410ddbb42b9</code></td></tr>
+<tr><td>Approved for a weekly slot</td><td><strong class="red">False</strong></td></tr>
+</tbody></table></div>
+<p><a class="small-link" href="downloads/gems87-crossgrad-dots-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif" download>Download .tif ↗</a> · <a class="small-link" href="downloads/gems87-crossgrad-dots-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.zip" download>ZIP ↗</a><br><a class="small-link" href="downloads/gems87-crossgrad-continuous-20261023T003957Z-RESEARCH-DO-NOT-SUBMIT.tif" download>Secondary: continuous_confidence ↗</a></p>
+<a class="small-link" href="evidence/h87crossgrad_run_card.json">Machine-readable card ↗</a>
+</article><article class="card" id="exp-h87gcf">
+<p class="eyebrow">h87gcf · verdict: negative</p>
+<h3>H87-GCF: opposite-sign gravity-curvature flanks mark a basement step.</h3>
+<p>Laplacian couplet of smoothed isostatic gravity; score between opposite-sign flanks.</p>
+<div class="table-wrap"><table class="status-table"><tbody>
+<tr><td>HOLDOUT-DTI (binary)</td><td>0.049057</td></tr>
+<tr><td>95% CI</td><td>[0.041359, 0.056931]</td></tr>
+<tr><td>Withheld positives</td><td>60988</td></tr>
+<tr><td>Paired delta vs best control</td><td>-0.009419 · [-0.025607, 0.005533]</td></tr>
+<tr><td>Evaluator</td><td>gems57-pooled-hide-v2</td></tr>
+<tr><td>Named non-fault mimic</td><td>Sedimentary pinch-outs, buried intrusive margins, smooth basin edges.</td></tr>
+<tr><td>Raster SHA-256</td><td><code>31aac679c1e5876144c55a97567b853694a6475cead81e0c122e19221a5c6152</code></td></tr>
+<tr><td>Approved for a weekly slot</td><td><strong class="red">False</strong></td></tr>
+</tbody></table></div>
+<p><a class="small-link" href="downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.tif" download>Download .tif ↗</a> · <a class="small-link" href="downloads/gems87-gcf-20261023T002606Z-69e34bfc18ba-RESEARCH-DO-NOT-SUBMIT.zip" download>ZIP ↗</a></p>
+<a class="small-link" href="evidence/h87gcf_run_card.json">Machine-readable card ↗</a>
+</article><article class="card" id="exp-h87lwd">
+<p class="eyebrow">h87lwd · verdict: negative</p>
+<h3>H87-LWD: magnetic tilt-angle local wavenumber peaks over concealed 2-D contacts.</h3>
+<p>Miller–Singh tilt from TMI VDR/HGM; Thurston–Smith local wavenumber k=|grad tilt|; ranking is k times analytic-signal reliability. No catalogue features.</p>
+<div class="table-wrap"><table class="status-table"><tbody>
+<tr><td>HOLDOUT-DTI (binary)</td><td>0.041641</td></tr>
+<tr><td>95% CI</td><td>[0.033968, 0.049153]</td></tr>
+<tr><td>Withheld positives</td><td>60988</td></tr>
+<tr><td>Paired delta vs best control</td><td>-0.016835 · [-0.036676, 0.002517]</td></tr>
+<tr><td>Evaluator</td><td>gems57-pooled-hide-v2</td></tr>
+<tr><td>Named non-fault mimic</td><td>Lithologic magnetic contacts, dikes, volcanic flow edges, and GeoDAWN flight-line or terrain-clearance artifacts.</td></tr>
+<tr><td>Raster SHA-256</td><td><code>61be810eac588cfff9229464160870f42c356be5480a735509e5fba07e1469b4</code></td></tr>
+<tr><td>Approved for a weekly slot</td><td><strong class="red">False</strong></td></tr>
+</tbody></table></div>
+<p><a class="small-link" href="downloads/gems87-lwd-20261023T002405Z-78270acd3587-RESEARCH-DO-NOT-SUBMIT.tif" download>Download .tif ↗</a> · <a class="small-link" href="downloads/gems87-lwd-20261023T002405Z-78270acd3587-RESEARCH-DO-NOT-SUBMIT.zip" download>ZIP ↗</a></p>
+<a class="small-link" href="evidence/h87lwd_run_card.json">Machine-readable card ↗</a>
+</article></div>
+<section class="prose"><h2>How to read these numbers</h2><p>HOLDOUT-DTI is a local hide-and-recover score on catalogue positives, not an organizer score and not a leaderboard projection. Each entry names the control it was paired against; an interval that includes zero is a failure to demonstrate improvement, regardless of which point estimate is larger. Negative results are retained rather than deleted because they define which mechanisms have already been ruled out.</p><p><a href="science.html">Full scientific record →</a> · <a href="validation.html">Automatic validation →</a></p></section></main>
+<footer class="footer"><div class="shell footer-inner"><div class="values"><p><strong>Maximize P(Win).</strong> Preserve slots for evidence, not optimism. <strong>Own the Outcome.</strong> Publish the negative.</p><p>Fault evidence is not proof of a geothermal vent. Local validation is not organizer acceptance.</p></div><div><p><a href="https://github.com/buffedlizard55-lab/GEMSDOE87">Code &amp; original brief ↗</a> · <a href="evidence/run_card.json">JSON run card</a></p><p>Research snapshot: 22 OCT 2026 · <span data-feed-state>Dated source-health snapshot · see Sources</span></p></div></div></footer>
+</body></html>

@@ -1355,62 +1355,77 @@
     },
     {
       "repository": "GEMSDOE84",
-      "pinned_commit": "ae0196ee46f388c0e755d7b48c1ac1a76cacd5ca",
-      "pinned_tree_url": "https://github.com/buffedlizard55-lab/GEMSDOE84/tree/ae0196ee46f388c0e755d7b48c1ac1a76cacd5ca",
-      "indexed_raster_paths": 0,
+      "pinned_commit": "c5e3f20ed4f5779a8f549aba3802d76155f089d6",
+      "pinned_tree_url": "https://github.com/buffedlizard55-lab/GEMSDOE84/tree/c5e3f20ed4f5779a8f549aba3802d76155f089d6",
+      "indexed_raster_paths": 2,
       "historical_unverified_claim_references": 0,
       "literal_filename_tags": [
         "not inferred"
       ],
-      "representative_filenames": [],
+      "representative_filenames": [
+        "gems84-h84-thms-dink300-37654dots-20261022-2f4190b4-zeros.tif",
+        "gems84-h84-thms-dink300-37654dots-20261022-2f4190b4-zeros.tif"
+      ],
       "scope": "Metadata triage only; names do not verify implementation, geology, uniqueness or organizer performance."
     },
     {
       "repository": "GEMSDOE85",
-      "pinned_commit": "4ca13338599434619b6da46fdd18621fc311330f",
-      "pinned_tree_url": "https://github.com/buffedlizard55-lab/GEMSDOE85/tree/4ca13338599434619b6da46fdd18621fc311330f",
-      "indexed_raster_paths": 0,
+      "pinned_commit": "ea6cf2f0395ef52beef56d43dfcf1bf27c1e27be",
+      "pinned_tree_url": "https://github.com/buffedlizard55-lab/GEMSDOE85/tree/ea6cf2f0395ef52beef56d43dfcf1bf27c1e27be",
+      "indexed_raster_paths": 32,
       "historical_unverified_claim_references": 0,
       "literal_filename_tags": [
         "not inferred"
       ],
-      "representative_filenames": [],
+      "representative_filenames": [
+        "gems85-geopb-crest-37654dots-sep4-20261022T222707Z-60029d07-nan.tif",
+        "gems85-geopb-crest-37654dots-sep4-20261022T222707Z-60029d07-zeros.tif",
+        "gems85-geopb-crest-60000dots-sep4-20261022T222707Z-cbb4e82c-nan.tif"
+      ],
       "scope": "Metadata triage only; names do not verify implementation, geology, uniqueness or organizer performance."
     },
     {
       "repository": "GEMSDOE86",
-      "pinned_commit": "04f77ecce2d09b8ce89e0d7f4d5255d70a930787",
-      "pinned_tree_url": "https://github.com/buffedlizard55-lab/GEMSDOE86/tree/04f77ecce2d09b8ce89e0d7f4d5255d70a930787",
-      "indexed_raster_paths": 0,
+      "pinned_commit": "7d8145755a534a1ac102416bddb1286251a9524d",
+      "pinned_tree_url": "https://github.com/buffedlizard55-lab/GEMSDOE86/tree/7d8145755a534a1ac102416bddb1286251a9524d",
+      "indexed_raster_paths": 6,
       "historical_unverified_claim_references": 0,
       "literal_filename_tags": [
         "not inferred"
       ],
-      "representative_filenames": [],
+      "representative_filenames": [
+        "gems86-gmc-linepost-90568d-20261022T222859Z-900ceac1-zeros.tif",
+        "gems86-gmc-linepost-offcat-90568d-20261022T224539Z-e6f914e4-zeros.tif",
+        "gems86-h86-edge2of5-dotted38000-20261022T225931Z-70513125-zeros.tif"
+      ],
       "scope": "Metadata triage only; names do not verify implementation, geology, uniqueness or organizer performance."
     },
     {
       "repository": "GEMSDOE87",
-      "pinned_commit": "7da68b032251de3eb93c8fa063f8ecc5d12a37f8",
-      "pinned_tree_url": "https://github.com/buffedlizard55-lab/GEMSDOE87/tree/7da68b032251de3eb93c8fa063f8ecc5d12a37f8",
-      "indexed_raster_paths": 0,
+      "pinned_commit": "2d22520d12348ff04de42a673248b428a3c306c1",
+      "pinned_tree_url": "https://github.com/buffedlizard55-lab/GEMSDOE87/tree/2d22520d12348ff04de42a673248b428a3c306c1",
+      "indexed_raster_paths": 1,
       "historical_unverified_claim_references": 0,
       "literal_filename_tags": [
         "not inferred"
       ],
-      "representative_filenames": [],
+      "representative_filenames": [
+        "gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif"
+      ],
       "scope": "Metadata triage only; names do not verify implementation, geology, uniqueness or organizer performance."
     },
     {
       "repository": "GEMSDOE88",
-      "pinned_commit": "3e3402552d5ce311ef0bdc98306d7ea46aab4e9f",
-      "pinned_tree_url": "https://github.com/buffedlizard55-lab/GEMSDOE88/tree/3e3402552d5ce311ef0bdc98306d7ea46aab4e9f",
-      "indexed_raster_paths": 0,
+      "pinned_commit": "21f85dc374f07759717da1f8598c6c4d8e5259a3",
+      "pinned_tree_url": "https://github.com/buffedlizard55-lab/GEMSDOE88/tree/21f85dc374f07759717da1f8598c6c4d8e5259a3",
+      "indexed_raster_paths": 1,
       "historical_unverified_claim_references": 0,
       "literal_filename_tags": [
-        "not inferred"
+        "gradient / physical-layer name"
       ],
-      "representative_filenames": [],
+      "representative_filenames": [
+        "gems88-mgc-crossgradient-37654-20261022-v1-DO-NOT-SUBMIT.tif"
+      ],
       "scope": "Metadata triage only; names do not verify implementation, geology, uniqueness or organizer performance."
     },
     {

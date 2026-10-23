@@ -1,0 +1,890 @@
+{
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "status": "evaluated",
+  "all_canaries_pass": true,
+  "full_grid_budget": 37654,
+  "folds": [
+    {
+      "fold": 0,
+      "split": {
+        "fold": 0,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 29319,
+        "evaluation_px": 2449030,
+        "training_domain_px": 2508386,
+        "held_components": 1830,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 244
+      },
+      "canaries": {
+        "crossgrad_mag": {
+          "auc": 0.5321640598246871,
+          "two_sided_auc": 0.5321640598246871,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 29319,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87100,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "joint_coherence": {
+          "auc": 0.5059275463010335,
+          "two_sided_auc": 0.5059275463010335,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 29319,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87100,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "mag_gate": {
+          "auc": 0.5384655046215765,
+          "two_sided_auc": 0.5384655046215765,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 29319,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87100,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "crossgrad": {
+          "auc": 0.5368465551348954,
+          "two_sided_auc": 0.5368465551348954,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 29319,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87100,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "gravity_hg_control": {
+          "auc": 0.48036115249496913,
+          "two_sided_auc": 0.5196388475050309,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 29319,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87100,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "magnetic_hg_control": {
+          "auc": 0.52627638050411,
+          "two_sided_auc": 0.52627638050411,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 29319,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87100,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "topographic_slope_control": {
+          "auc": 0.5477021088713803,
+          "two_sided_auc": 0.5477021088713803,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 29319,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87100,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        }
+      },
+      "area_allocated_budget": 17846,
+      "metrics": {
+        "crossgrad_dots": {
+          "tp": 1252.0019828724758,
+          "fp": 16975.446898458482,
+          "fn": 28066.998017127524,
+          "n_truth": 29319,
+          "n_emitted": 17846,
+          "dti": 0.046198159279655454,
+          "coverage": 0.04270275189714778,
+          "tpw": 1252.0019828724758,
+          "fpw": 16975.446898458482,
+          "fnw": 28066.998017127524,
+          "emitted": 17846,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "gravity_hg_control": {
+          "tp": 809.5723054199577,
+          "fp": 17320.90653402578,
+          "fn": 28509.42769458004,
+          "n_truth": 29319,
+          "n_emitted": 17846,
+          "dti": 0.02989414953991545,
+          "coverage": 0.027612548361811717,
+          "tpw": 809.5723054199577,
+          "fpw": 17320.90653402578,
+          "fnw": 28509.42769458004,
+          "emitted": 17846,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "magnetic_hg_control": {
+          "tp": 1315.1603136345616,
+          "fp": 16917.054183263524,
+          "fn": 28003.839686365438,
+          "n_truth": 29319,
+          "n_emitted": 17846,
+          "dti": 0.0485269589934958,
+          "coverage": 0.0448569294189625,
+          "tpw": 1315.1603136345616,
+          "fpw": 16917.054183263524,
+          "fnw": 28003.839686365438,
+          "emitted": 17846,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "topographic_slope_control": {
+          "tp": 565.0658090542521,
+          "fp": 17496.24510458202,
+          "fn": 28753.934190945747,
+          "n_truth": 29319,
+          "n_emitted": 17846,
+          "dti": 0.02087620203326049,
+          "coverage": 0.01927302462751977,
+          "tpw": 565.0658090542521,
+          "fpw": 17496.24510458202,
+          "fnw": 28753.934190945747,
+          "emitted": 17846,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "crossgrad_continuous_diagnostic": {
+          "tp": 1188.7325723100055,
+          "fp": 64198.411628909074,
+          "fn": 28130.267427689996,
+          "n_truth": 29319,
+          "n_emitted": 2448424,
+          "dti": 0.0325389278036437,
+          "coverage": 0.04054478571267797,
+          "tpw": 1188.7325723100055,
+          "fpw": 64198.411628909074,
+          "fnw": 28130.267427689996,
+          "emitted": 2448424,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        }
+      },
+      "crop_origin": [
+        0,
+        0
+      ]
+    },
+    {
+      "fold": 1,
+      "split": {
+        "fold": 1,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 12596,
+        "evaluation_px": 1366431,
+        "training_domain_px": 3636842,
+        "held_components": 687,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 82
+      },
+      "canaries": {
+        "crossgrad_mag": {
+          "auc": 0.523697335662115,
+          "two_sided_auc": 0.523697335662115,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 12596,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87101,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "joint_coherence": {
+          "auc": 0.5319767068910766,
+          "two_sided_auc": 0.5319767068910766,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 12596,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87101,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "mag_gate": {
+          "auc": 0.5308054922197523,
+          "two_sided_auc": 0.5308054922197523,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 12596,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87101,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "crossgrad": {
+          "auc": 0.530321714036202,
+          "two_sided_auc": 0.530321714036202,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 12596,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87101,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "gravity_hg_control": {
+          "auc": 0.5752920133375675,
+          "two_sided_auc": 0.5752920133375675,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 12596,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87101,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "magnetic_hg_control": {
+          "auc": 0.48799020562083206,
+          "two_sided_auc": 0.5120097943791679,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 12596,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87101,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "topographic_slope_control": {
+          "auc": 0.5548480890758971,
+          "two_sided_auc": 0.5548480890758971,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 12596,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87101,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        }
+      },
+      "area_allocated_budget": 9957,
+      "metrics": {
+        "crossgrad_dots": {
+          "tp": 606.3925593867091,
+          "fp": 9519.18102354384,
+          "fn": 11989.60744061329,
+          "n_truth": 12596,
+          "n_emitted": 9957,
+          "dti": 0.05010715854373243,
+          "coverage": 0.04814167667407979,
+          "tpw": 606.3925593867091,
+          "fpw": 9519.18102354384,
+          "fnw": 11989.60744061329,
+          "emitted": 9957,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "gravity_hg_control": {
+          "tp": 875.202772137043,
+          "fp": 9418.802602665817,
+          "fn": 11720.797227862957,
+          "n_truth": 12596,
+          "n_emitted": 9957,
+          "dti": 0.07211861750654047,
+          "coverage": 0.0694825954379996,
+          "tpw": 875.202772137043,
+          "fpw": 9418.802602665817,
+          "fnw": 11720.797227862957,
+          "emitted": 9957,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "magnetic_hg_control": {
+          "tp": 313.2705354663911,
+          "fp": 9739.73625452002,
+          "fn": 12282.72946453361,
+          "n_truth": 12596,
+          "n_emitted": 9957,
+          "dti": 0.02591711205644086,
+          "coverage": 0.024870636350142195,
+          "tpw": 313.2705354663911,
+          "fpw": 9739.73625452002,
+          "fnw": 12282.72946453361,
+          "emitted": 9957,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "topographic_slope_control": {
+          "tp": 277.2035389826366,
+          "fp": 9790.043487003313,
+          "fn": 12318.796461017364,
+          "n_truth": 12596,
+          "n_emitted": 9957,
+          "dti": 0.022927859442128308,
+          "coverage": 0.022007267305703127,
+          "tpw": 277.2035389826366,
+          "fpw": 9790.043487003313,
+          "fnw": 12318.796461017364,
+          "emitted": 9957,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "crossgrad_continuous_diagnostic": {
+          "tp": 186.53490234696318,
+          "fp": 11888.56933519259,
+          "fn": 12409.465097653037,
+          "n_truth": 12596,
+          "n_emitted": 1365164,
+          "dti": 0.014932563044576196,
+          "coverage": 0.014809058617574086,
+          "tpw": 186.53490234696318,
+          "fpw": 11888.56933519259,
+          "fnw": 12409.465097653037,
+          "emitted": 1365164,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        }
+      },
+      "crop_origin": [
+        0,
+        1638
+      ]
+    },
+    {
+      "fold": 2,
+      "split": {
+        "fold": 2,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 9473,
+        "evaluation_px": 564135,
+        "training_domain_px": 4383314,
+        "held_components": 382,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 483
+      },
+      "canaries": {
+        "crossgrad_mag": {
+          "auc": 0.5253426601921249,
+          "two_sided_auc": 0.5253426601921249,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9473,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87102,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "joint_coherence": {
+          "auc": 0.5234143323128893,
+          "two_sided_auc": 0.5234143323128893,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9473,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87102,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "mag_gate": {
+          "auc": 0.5357494531827298,
+          "two_sided_auc": 0.5357494531827298,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9473,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87102,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "crossgrad": {
+          "auc": 0.5317700475034307,
+          "two_sided_auc": 0.5317700475034307,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9473,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87102,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "gravity_hg_control": {
+          "auc": 0.49408476512192556,
+          "two_sided_auc": 0.5059152348780744,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9473,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87102,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "magnetic_hg_control": {
+          "auc": 0.5327747197297582,
+          "two_sided_auc": 0.5327747197297582,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9473,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87102,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "topographic_slope_control": {
+          "auc": 0.5887486741264647,
+          "two_sided_auc": 0.5887486741264647,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9473,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87102,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        }
+      },
+      "area_allocated_budget": 4111,
+      "metrics": {
+        "crossgrad_dots": {
+          "tp": 447.8751152108099,
+          "fp": 3789.3731665650243,
+          "fn": 9025.12488478919,
+          "n_truth": 9473,
+          "n_emitted": 4111,
+          "dti": 0.05315489042378078,
+          "coverage": 0.0472791212087839,
+          "tpw": 447.8751152108099,
+          "fpw": 3789.3731665650243,
+          "fnw": 9025.12488478919,
+          "emitted": 4111,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "gravity_hg_control": {
+          "tp": 296.3791830000025,
+          "fp": 3909.8382156529865,
+          "fn": 9176.620816999997,
+          "n_truth": 9473,
+          "n_emitted": 4111,
+          "dti": 0.035200918389656756,
+          "coverage": 0.03128672891375515,
+          "tpw": 296.3791830000025,
+          "fpw": 3909.8382156529865,
+          "fnw": 9176.620816999997,
+          "emitted": 4111,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "magnetic_hg_control": {
+          "tp": 462.51944858308525,
+          "fp": 3791.545981632484,
+          "fn": 9010.480551416915,
+          "n_truth": 9473,
+          "n_emitted": 4111,
+          "dti": 0.05487101154779366,
+          "coverage": 0.048825023602141374,
+          "tpw": 462.51944858308525,
+          "fpw": 3791.545981632484,
+          "fnw": 9010.480551416915,
+          "emitted": 4111,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "topographic_slope_control": {
+          "tp": 192.40745435673318,
+          "fp": 3994.6014196406977,
+          "fn": 9280.592545643267,
+          "n_truth": 9473,
+          "n_emitted": 4111,
+          "dti": 0.02286264095868839,
+          "coverage": 0.02031114265351348,
+          "tpw": 192.40745435673318,
+          "fpw": 3994.6014196406977,
+          "fnw": 9280.592545643267,
+          "emitted": 4111,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "crossgrad_continuous_diagnostic": {
+          "tp": 378.20278385035937,
+          "fp": 11889.68746662929,
+          "fn": 9094.79721614964,
+          "n_truth": 9473,
+          "n_emitted": 563951,
+          "dti": 0.03769972202508385,
+          "coverage": 0.03992428838281002,
+          "tpw": 378.20278385035937,
+          "fpw": 11889.68746662929,
+          "fnw": 9094.79721614964,
+          "emitted": 563951,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        }
+      },
+      "crop_origin": [
+        1857,
+        807
+      ]
+    },
+    {
+      "fold": 3,
+      "split": {
+        "fold": 3,
+        "split_version": "label-blind-quadrants-v2",
+        "evaluation_region_label_blind": true,
+        "truth_px": 9600,
+        "evaluation_px": 787777,
+        "training_domain_px": 4263431,
+        "held_components": 329,
+        "shared_train_truth_components": 0,
+        "buffer_px": 80,
+        "nearest_training_to_region_px": 80.00624975587844,
+        "held_pixels_without_feature_support": 0,
+        "held_positive_pixels_outside_this_evaluation_region": 368
+      },
+      "canaries": {
+        "crossgrad_mag": {
+          "auc": 0.53716981875,
+          "two_sided_auc": 0.53716981875,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9600,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87103,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "joint_coherence": {
+          "auc": 0.5146905395833333,
+          "two_sided_auc": 0.5146905395833333,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9600,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87103,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "mag_gate": {
+          "auc": 0.5461515708333333,
+          "two_sided_auc": 0.5461515708333333,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9600,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87103,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "crossgrad": {
+          "auc": 0.5433876739583333,
+          "two_sided_auc": 0.5433876739583333,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9600,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87103,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "gravity_hg_control": {
+          "auc": 0.5177628999999999,
+          "two_sided_auc": 0.5177628999999999,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9600,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87103,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "magnetic_hg_control": {
+          "auc": 0.49902845625000003,
+          "two_sided_auc": 0.50097154375,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9600,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87103,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        },
+        "topographic_slope_control": {
+          "auc": 0.5666475614583334,
+          "two_sided_auc": 0.5666475614583334,
+          "passed": true,
+          "threshold": 0.9,
+          "withheld_positive_pixels": 9600,
+          "sampled_proxy_negative_pixels": 50000,
+          "seed": 87103,
+          "evidence_class": "HOLDOUT-AUC-CANARY",
+          "interpretation": "A pass does not prove no leakage; catalogue-zero is not verified fault absence."
+        }
+      },
+      "area_allocated_budget": 5740,
+      "metrics": {
+        "crossgrad_dots": {
+          "tp": 358.22785270228104,
+          "fp": 5491.49402449755,
+          "fn": 9241.77214729772,
+          "n_truth": 9600,
+          "n_emitted": 5740,
+          "dti": 0.04047797788384088,
+          "coverage": 0.03731540132315427,
+          "tpw": 358.22785270228104,
+          "fpw": 5491.49402449755,
+          "fnw": 9241.77214729772,
+          "emitted": 5740,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "gravity_hg_control": {
+          "tp": 539.1377117000941,
+          "fp": 5416.962920744995,
+          "fn": 9060.862288299906,
+          "n_truth": 9600,
+          "n_emitted": 5740,
+          "dti": 0.06077379481208631,
+          "coverage": 0.05616017830209313,
+          "tpw": 539.1377117000941,
+          "fpw": 5416.962920744995,
+          "fnw": 9060.862288299906,
+          "emitted": 5740,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "magnetic_hg_control": {
+          "tp": 375.28608566620903,
+          "fp": 5486.389137627749,
+          "fn": 9224.713914333792,
+          "n_truth": 9600,
+          "n_emitted": 5740,
+          "dti": 0.04239402189060209,
+          "coverage": 0.039092300590230104,
+          "tpw": 375.28608566620903,
+          "fpw": 5486.389137627749,
+          "fnw": 9224.713914333792,
+          "emitted": 5740,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "topographic_slope_control": {
+          "tp": 231.12035406636613,
+          "fp": 5600.045798489384,
+          "fn": 9368.879645933634,
+          "n_truth": 9600,
+          "n_emitted": 5740,
+          "dti": 0.026126414265138197,
+          "coverage": 0.024075036881913137,
+          "tpw": 231.12035406636613,
+          "fpw": 5600.045798489384,
+          "fnw": 9368.879645933634,
+          "emitted": 5740,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        },
+        "crossgrad_continuous_diagnostic": {
+          "tp": 198.10832836088107,
+          "fp": 11193.739539351129,
+          "fn": 9401.89167163912,
+          "n_truth": 9600,
+          "n_emitted": 787623,
+          "dti": 0.019893650953386913,
+          "coverage": 0.020636284204258445,
+          "tpw": 198.10832836088107,
+          "fpw": 11193.739539351129,
+          "fnw": 9401.89167163912,
+          "emitted": 787623,
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "spatial_bootstrap_cluster_m": 20000.0
+        }
+      },
+      "crop_origin": [
+        1857,
+        1638
+      ]
+    }
+  ],
+  "pooled": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "crossgrad_dots": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.047177285117414834,
+        "ci95": [
+          0.03914854847061432,
+          0.05570285827576389
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 2664.4975101722744,
+        "fpw": 35775.4951130649,
+        "fnw": 58323.50248982775
+      },
+      "gravity_hg_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.04460081150320309,
+        "ci95": [
+          0.03296809204141799,
+          0.057476659080761924
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 2520.2919722570973,
+        "fpw": 36066.510273089596,
+        "fnw": 58467.70802774293
+      },
+      "magnetic_hg_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.04367293274350142,
+        "ci95": [
+          0.03226655526027726,
+          0.055086263246055346
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 2466.2363833502486,
+        "fpw": 35934.725557043785,
+        "fnw": 58521.76361664975
+      },
+      "topographic_slope_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.022435356996299623,
+        "ci95": [
+          0.01741363392309615,
+          0.02789338671721176
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 1265.7971564599884,
+        "fpw": 36880.935809715425,
+        "fnw": 59722.20284354
+      },
+      "crossgrad_continuous_diagnostic": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.028277683379447173,
+        "ci95": [
+          0.024335868924318563,
+          0.03250845956873381
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 1951.5785868682103,
+        "fpw": 99170.4079700821,
+        "fnw": 59036.42141313179
+      }
+    },
+    "best_comparable_control": "gravity_hg_control",
+    "paired_differences": {
+      "gravity_hg_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.0025764736142117467,
+        "ci95": [
+          -0.011157287386068686,
+          0.015770986599922227
+        ],
+        "withheld_positive_pixels": 60988
+      },
+      "magnetic_hg_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.0035043523739134164,
+        "ci95": [
+          -0.007014868684160611,
+          0.013883642486734413
+        ],
+        "withheld_positive_pixels": 60988
+      },
+      "topographic_slope_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.02474192812111521,
+        "ci95": [
+          0.01479812215168702,
+          0.035109612211320786
+        ],
+        "withheld_positive_pixels": 60988
+      },
+      "crossgrad_continuous_diagnostic": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.01889960173796766,
+        "ci95": [
+          0.013905742627228178,
+          0.024334767541856414
+        ],
+        "withheld_positive_pixels": 60988
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 162,
+      "draws": 2000,
+      "seed": 87122,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
+  },
+  "comparable_controls": [
+    "gravity_hg_control",
+    "magnetic_hg_control",
+    "topographic_slope_control"
+  ],
+  "best_comparable_control": "gravity_hg_control",
+  "paired_lower_ci_beats_all_comparable_controls": false,
+  "inherited_comparable_holdout_best": null,
+  "limitations": [
+    "No pre-existing comparable holdout best in the initially empty repository.",
+    "Labels are the mapped catalogue, not organizer hidden faults or geothermal vents.",
+    "Negatives are unlabelled proxies; intervals condition on labels, folds, and fixed method.",
+    "The continuous research artifact and binary placement diagnostics are separately reported.",
+    "No leaderboard projection or organizer-confirmed submission score is produced."
+  ],
+  "experiment_id": "H87-CROSSGRAD-01",
+  "generated_utc": "2026-10-23T00:21:11.818293+00:00"
+}

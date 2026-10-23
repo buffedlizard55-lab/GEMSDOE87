@@ -10,8 +10,24 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_all_local_site_links_headings_and_no_go_wording():
     report = check_site.audit()
     assert report['passed'], report['errors']
-    assert report['pages'] == 7
+    # 8 pages since the experiment index was added (7 before it).
+    assert report['pages'] == 8
     assert report['local_links_verified'] >= 100
+
+
+def test_experiment_index_lists_every_run_card_without_approving_any():
+    rows, notes = build_site._experiment_rows()
+    assert notes == []
+    archived = {p.parent.name for p in (ROOT / 'evidence').glob('*/run_card.json')}
+    assert archived, 'expected at least one archived run card'
+    assert len(rows) == len(archived)
+    html = (ROOT / 'docs/experiments.html').read_text()
+    for name in archived:
+        assert f'id="exp-{name}"' in html, name
+        # Every archived card is downloadable as JSON from the published site.
+        assert (ROOT / 'docs/evidence' / f'{name}_run_card.json').is_file(), name
+    assert 'research-only' in html
+    assert 'Approved for a weekly slot' in html
 
 
 def test_markdown_tables_scroll_without_extra_main_headings():

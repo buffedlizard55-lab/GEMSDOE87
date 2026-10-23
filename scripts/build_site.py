@@ -17,8 +17,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / 'docs'
 REPO_URL = 'https://github.com/buffedlizard55-lab/GEMSDOE87'
 NAV = [('index.html', 'Overview'), ('executive-summary.html', 'Submission guide'),
-       ('science.html', 'Research'), ('validation.html', 'Validation'),
-       ('registry.html', 'Registry'), ('sources.html', 'Sources')]
+       ('experiments.html', 'All experiments'), ('science.html', 'Research'),
+       ('validation.html', 'Validation'), ('registry.html', 'Registry'),
+       ('sources.html', 'Sources')]
 
 
 def load(path):
@@ -243,6 +244,75 @@ def build_verification(card):
     page('verification.html', 'Verification & irregularities', body, card=card)
 
 
+def _experiment_rows():
+    """Every archived run card, including ones this page did not run itself.
+
+    Read-only: values are copied from the recorded cards. A missing or malformed
+    card is reported as an error row instead of being silently skipped, and no
+    number is recomputed here.
+    """
+    rows, notes = [], []
+    for card_path in sorted((ROOT / 'evidence').glob('*/run_card.json')):
+        try:
+            card = json.loads(card_path.read_text())
+        except (OSError, json.JSONDecodeError) as exc:
+            notes.append(f'{card_path.parent.name}: unreadable run card ({type(exc).__name__})')
+            continue
+        holdout = card.get('holdout_dti') or {}
+        binary = holdout.get('binary_diagnostic') or {}
+        delta = holdout.get('paired_difference_vs_best') or {}
+        tif = card.get('submission_file')
+        zip_name = card.get('submission_zip')
+        available = bool(tif) and (DOCS / 'downloads' / tif).is_file()
+        links = ''
+        if available:
+            links = (f'<a class="small-link" href="downloads/{esc(tif)}" download>Download .tif ↗</a>')
+            if zip_name and (DOCS / 'downloads' / zip_name).is_file():
+                links += f' · <a class="small-link" href="downloads/{esc(zip_name)}" download>ZIP ↗</a>'
+        elif tif:
+            links = '<span class="tiny">TIFF not present in this checkout</span>'
+        secondary = card.get('archived_secondary_artifact') or {}
+        if secondary.get('submission_file') and (DOCS / 'downloads' / secondary['submission_file']).is_file():
+            links += (f'<br><a class="small-link" href="downloads/{esc(secondary["submission_file"])}" '
+                      f'download>Secondary: {esc(secondary.get("representation", "alt"))} ↗</a>')
+        def num(value):
+            return f'{value:.6f}' if isinstance(value, (int, float)) else 'n/a'
+        def ci(block):
+            low, high = (block.get('ci95') or [None, None])[:2]
+            return (f'[{num(low)}, {num(high)}]' if isinstance(low, (int, float))
+                    and isinstance(high, (int, float)) else 'n/a')
+        rows.append(f'''<article class="card" id="exp-{esc(card_path.parent.name)}">
+<p class="eyebrow">{esc(card_path.parent.name)} · verdict: {esc(str(card.get('verdict', 'unknown')))}</p>
+<h3>{esc(str(card.get('hypothesis', 'unnamed hypothesis')))}</h3>
+<p>{esc(str(card.get('mechanism', '')))}</p>
+<div class="table-wrap"><table class="status-table"><tbody>
+<tr><td>HOLDOUT-DTI (binary)</td><td>{num(binary.get('dti'))}</td></tr>
+<tr><td>95% CI</td><td>{ci(binary)}</td></tr>
+<tr><td>Withheld positives</td><td>{esc(str(holdout.get('withheld_positive_pixels', 'n/a')))}</td></tr>
+<tr><td>Paired delta vs best control</td><td>{num(delta.get('delta'))} · {ci(delta)}</td></tr>
+<tr><td>Evaluator</td><td>{esc(str(holdout.get('evaluator_version', 'n/a')))}</td></tr>
+<tr><td>Named non-fault mimic</td><td>{esc(str(card.get('non_fault_mimic', 'n/a')))}</td></tr>
+<tr><td>Raster SHA-256</td><td><code>{esc(str(card.get('raster_sha256', 'n/a')))}</code></td></tr>
+<tr><td>Approved for a weekly slot</td><td><strong class="red">{esc(str(card.get('approved_for_weekly_slot', 'n/a')))}</strong></td></tr>
+</tbody></table></div>
+<p>{links}</p>
+<a class="small-link" href="evidence/{esc(card_path.parent.name)}_run_card.json">Machine-readable card ↗</a>
+</article>''')
+    return rows, notes
+
+
+def build_experiments(card):
+    rows, notes = _experiment_rows()
+    problems = ''.join(f'<li>{esc(n)}</li>' for n in notes)
+    note_block = f'<div class="notice"><strong>Card problems</strong><ul>{problems}</ul></div>' if notes else ''
+    body = f'''<div class="page-heading"><p class="eyebrow">Experiment index / every recorded run</p><h1>All of it, including the losses.</h1><p>Every archived experiment in this repository, with its own holdout number, interval, control comparison and hash. Values are copied from recorded run cards; nothing is recomputed or projected onto a leaderboard.</p></div>
+<div class="notice"><strong>Every file on this page is research-only.</strong><p>None is approved for a weekly competition slot. Downloading a TIFF here means "inspect or reuse for research", not "upload to the competition". Rank correlation and overlap versus the registry are reported per experiment; the literal dense-field overlap degeneracy is documented on the <a href="registry.html">registry page</a>.</p></div>
+{note_block}
+<div class="grid two">{''.join(rows) if rows else '<p>No run cards found.</p>'}</div>
+<section class="prose"><h2>How to read these numbers</h2><p>HOLDOUT-DTI is a local hide-and-recover score on catalogue positives, not an organizer score and not a leaderboard projection. Each entry names the control it was paired against; an interval that includes zero is a failure to demonstrate improvement, regardless of which point estimate is larger. Negative results are retained rather than deleted because they define which mechanisms have already been ruled out.</p><p><a href="science.html">Full scientific record →</a> · <a href="validation.html">Automatic validation →</a></p></section>'''
+    page('experiments.html', 'Experiment index', body, card=card)
+
+
 def write_compatibility(card):
     status_file = ROOT / 'data/submission-status.json'
     if status_file.exists():
@@ -352,7 +422,7 @@ def main():
     card = load('docs/evidence/run_card.json')
     require_validated_download(card)
     DOCS.mkdir(exist_ok=True)
-    for build in (build_home, build_executive, build_science, build_validation, build_registry, build_sources, build_verification):
+    for build in (build_home, build_executive, build_experiments, build_science, build_validation, build_registry, build_sources, build_verification):
         build(card)
     (DOCS / '.nojekyll').write_text('')
     (ROOT / '.nojekyll').write_text('')
@@ -360,6 +430,11 @@ def main():
     # Raw linked evidence, without raw raster/data caches.
     for source, dest in [('registry/sources.json', 'data/sources.json'), ('evidence/site_inventory.json', 'data/site_inventory.json')]:
         shutil.copyfile(ROOT / source, DOCS / dest)
+    # Publish every archived run card beside the site so the experiment index
+    # link resolves on Pages, not only in a local checkout.
+    (DOCS / 'evidence').mkdir(parents=True, exist_ok=True)
+    for card_path in sorted((ROOT / 'evidence').glob('*/run_card.json')):
+        shutil.copyfile(card_path, DOCS / 'evidence' / f'{card_path.parent.name}_run_card.json')
     print('Built static pages from the recorded negative; no scientific computation or slot selection.')
     return 0
 
