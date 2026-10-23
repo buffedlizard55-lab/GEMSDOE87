@@ -45,6 +45,8 @@
 
 | IR87-032 | A full candidate-versus-all-1,193-raster comparison exceeded the practical runtime (each prior needs a decode plus a ranked pass over 12.3 M cells). Running it naively would have breached the 2 h budget. | Narrowed to a **named-scope** check of 40 priors selected by transform-family filename plus the continuity priors, all of which compared cleanly (0 errors). `full_registry_clearance_claimed: false` is recorded in both the receipt and the card, so a targeted pass is never reported as global clearance. |
 
+| IR87-033 | The `pages.yml` public-byte verification failed on the PR #18 merge run even though the deployment itself succeeded and the live site served the new page and byte-identical TIFFs (verified independently: `main` blob SHA-256 equals the run card for both crossgrad artifacts). A 404 during CDN catch-up looks exactly like a real failure, and the old retry window (5 attempts, ~25 s) is shorter than the observed propagation delay. | Widened to a 20 s pre-wait plus 10 attempts / 10 s delay / 300 s cap before the check can fail. No threshold, hash comparison or authorization logic was weakened; the check still fails closed on genuinely different bytes. Treated as a flake, not as a passing deployment, until a green run is observed. |
+
 ## Permissions and publication
 
 GitHub Pages was initially configured from `main` root and reported building. Root redirects and `.nojekyll` support that configuration. Deployment and Actions results are recorded in the final verification log, not assumed from the presence of a workflow file. The repository connection returned HTTP 403 for the Actions-permissions administration endpoint; ordinary repository, pull-request and Pages operations are verified separately.
