@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-23T00:17:27.681928+00:00",
+  "evidence_class": "LOCAL_VALIDATION_INPUT_RESTORE",
+  "purpose": "format, authorization and software tests only; no feature construction or scientific experiment",
+  "source_integrity": "SHA-256 matches owner-supplied GitHub mirror pins; not organizer authentication",
+  "large_training_feature_stack_restored": false,
+  "files": [
+    {
+      "id": "existing_faults",
+      "working_path": "data/raw/existing_faults.tif",
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "mirror_repository": "buffedlizard55-lab/GEMSDOE24",
+      "mirror_commit": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "mirror_path": "data/bridge/existing_faults.tif",
+      "organizer_authenticated": false
+    },
+    {
+      "id": "sample_submission",
+      "working_path": "data/raw/sample_submission.tif",
+      "bytes": 1599597,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "mirror_repository": "buffedlizard55-lab/GEMSDOE24",
+      "mirror_commit": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "mirror_path": "data/bridge/sample_submission.tif",
+      "organizer_authenticated": false
+    }
+  ]
+}

@@ -343,6 +343,13 @@ the browser-receipt timestamp and the equivalent approval-flag guard. Integrated
 <code>origin/main</code> on the fixed active branch, retained its corrupt-ZIP CLI refusal
 and additional tests, and kept the same negative-only guard. Re-ran the combined
 suite: <strong>137 tests passed</strong>, plus all <strong>37 Chromium checks</strong> and the static-site
-audit. This synchronization changed no raster, holdout, budget or shared tool.</p></div></main>
+audit. This synchronization changed no raster, holdout, budget or shared tool.</p>
+<h3 id="final-active-branch-audit-2026-10-23-utc">Final active-branch audit — 2026-10-23 UTC</h3>
+<p>After integrating the current main publication-integrity gate, the final local run passed all 137 Python tests, 37 Chromium checks, the static audit, TIFF/ZIP format preflight, and fail-closed authorization check. The current TIFF and decision remain unchanged; this was not a new scientific run.</p>
+<ul>
+<li><a href="../docs/evidence/validation-inputs-2026-10-23.json"><code>validation-inputs-2026-10-23.json</code></a> records the two small hash-pinned mirrors used for software checks. The older three-input <code>data/restore_receipt.json</code> remains historical; the full feature stack was not restored.</li>
+<li>The latest checked-in public source-health attempt remains <code>2026-10-22T22:33:20.895788Z</code>, with 0/13 official-source transports reachable. No fresh official-page retrieval, account-cap observation or organizer receipt is claimed.</li>
+<li>The site publication gate now verifies the current TIFF, exact ZIP member, card/receipt hashes, and fail-closed approval state <strong>before page writes</strong>. This protects the existing research download from stale/mutated bytes; it does not approve it for submission.</li>
+</ul></div></main>
 <footer class="footer"><div class="shell footer-inner"><div class="values"><p><strong>Maximize P(Win).</strong> Preserve slots for evidence, not optimism. <strong>Own the Outcome.</strong> Publish the negative.</p><p>Fault evidence is not proof of a geothermal vent. Local validation is not organizer acceptance.</p></div><div><p><a href="https://github.com/buffedlizard55-lab/GEMSDOE87">Code &amp; original brief ↗</a> · <a href="evidence/run_card.json">JSON run card</a></p><p>Research snapshot: 22 OCT 2026 · <span data-feed-state>Dated source-health snapshot · see Sources</span></p></div></div></footer>
 </body></html>

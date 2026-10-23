@@ -25,7 +25,7 @@
 
 ## Latest review — 2026-10-23
 
-Software-only follow-up: **137 tests and 37 browser checks passed** after integrating concurrent PR #12. Publication now refuses stale validation receipts, changed TIFF/ZIP bytes, unsafe download paths and edited approval flags before writing pages. The existing research artifact and negative scientific verdict are unchanged; **no new candidate or competition submission was made**. See [the three-pass review and remaining blockers](research/verification.md#active-branch-follow-up--2026-10-23-software-only).
+Software-only follow-up: **137 tests and 37 browser checks passed** after integrating current main's review and publication-hardening changes. Publication refuses stale validation receipts, changed TIFF/ZIP bytes, unsafe download paths and edited approval flags before writing pages. The existing research artifact and negative scientific verdict are unchanged; **no new candidate or competition submission was made**. See [the three-pass review and remaining blockers](research/verification.md#active-branch-follow-up--2026-10-23-software-only).
 
 ## Read this at the start of every session
 
@@ -95,7 +95,7 @@ bash scripts/download_competition_data.sh
 
 The GitHub Pages site starts with the file download and an unambiguous **DO NOT SUBMIT** decision. The executive-summary subpage explains the upload format and future authorized submission steps. Sources are claim-linked and dated; machine-readable receipts are adjacent to the file. The source-health feed has a timestamp and stale/failure state, and never upgrades historical claims to organizer receipts. Scheduled feed deployment is separate from scientific experimentation; deployment success is verified rather than assumed.
 
-Software verification: **107 automated tests** (2026-10-23 review) plus real Chromium checks at 1440, 768, 390 and 320 px, actual TIFF-download SHA-256, search, clipboard success/failure, no-JavaScript download, and failed-feed fallback. See [the review log](research/verification.md). Optional browser tooling: `npm ci --ignore-scripts && npm run test:browser` (Linux x64, Node 22.17+).
+Software verification: **137 automated tests** (after the 2026-10-23 publication-gate review) plus real Chromium checks at 1440, 768, 390 and 320 px, actual TIFF-download SHA-256, search, clipboard success/failure, no-JavaScript download, and failed-feed fallback. See [the review log](research/verification.md). Optional browser tooling: `npm ci --ignore-scripts && npm run test:browser` (Linux x64, Node 22.17+).
 
 `.github/workflows/ci.yml` repeats format/authorization, synthetic regression and browser checks. `.github/workflows/pages.yml` attempts a daily 06:17 UTC public source-health refresh and read-only next-step generation, rebuilding the static site without touching the frozen raster or running a scientific experiment. Deployment needs Pages write permission; a checked-in workflow alone is not proof of a successful deployed run. Failed fetches stay explicit. This is not an autonomous geological-claim verifier or hosted live training service.
 
@@ -111,13 +111,18 @@ The Pages-settings API refused this integration permission (HTTP 403); no creden
 
 Three-pass software review preserved the stopped scientific run and original prompt.
 Fixed CI push coverage for all Arena session branches, structured rejection of corrupt/encrypted
-ZIP inspection, and refusal of edited approval flags by the read-only next-step updater.
-**107 tests passed, no skips** after restoring only the two hash-pinned validation inputs;
-**37 Chromium checks passed**, including actual TIFF download/hash, mobile layouts and no-JavaScript status.
-Local format validation passed again; normal authorization still exits 2 / **DO NOT SUBMIT**.
-No new model, holdout estimate, registry clearance, competition upload or slot use is claimed.
-See [the dated three-pass review](research/review-2026-10-23.md). Official non-GitHub sources
-cannot be freshly retrieved through this sandbox's network allowlist; existing observations remain dated.
+ZIP inspection, refusal of edited approval flags, and a pre-publication integrity gate for the
+validated TIFF/ZIP bytes and fail-closed receipt. **137 tests passed, no skips** after restoring
+the two hash-pinned validation inputs; **37 Chromium checks passed**, including actual TIFF
+download/hash, mobile layouts and no-JavaScript status. Local format validation passed again;
+normal authorization still exits 2 / **DO NOT SUBMIT**. The offline site audit has 7 pages,
+121 local targets and 4 compatibility entry points. No new model, holdout estimate, registry
+clearance, competition upload or slot use is claimed. The local validation-input hashes are
+recorded separately in [this receipt](docs/evidence/validation-inputs-2026-10-23.json); the
+original three-input restore receipt remains historical. The latest checked-in source-health
+attempt is `2026-10-22T22:33:20.895788Z` (0/13 official-source transports reachable); no fresh
+non-GitHub source retrieval or account-cap/receipt check is claimed. See the [initial three-pass
+review](research/review-2026-10-23.md) and [final active-branch verification](research/verification.md).
 
 ## Next session / limitations
 

@@ -145,3 +145,11 @@ the browser-receipt timestamp and the equivalent approval-flag guard. Integrated
 and additional tests, and kept the same negative-only guard. Re-ran the combined
 suite: **137 tests passed**, plus all **37 Chromium checks** and the static-site
 audit. This synchronization changed no raster, holdout, budget or shared tool.
+
+## Final active-branch audit — 2026-10-23 UTC
+
+After integrating the current main publication-integrity gate, the final local run passed all 137 Python tests, 37 Chromium checks, the static audit, TIFF/ZIP format preflight, and fail-closed authorization check. The current TIFF and decision remain unchanged; this was not a new scientific run.
+
+- [`validation-inputs-2026-10-23.json`](../docs/evidence/validation-inputs-2026-10-23.json) records the two small hash-pinned mirrors used for software checks. The older three-input `data/restore_receipt.json` remains historical; the full feature stack was not restored.
+- The latest checked-in public source-health attempt remains `2026-10-22T22:33:20.895788Z`, with 0/13 official-source transports reachable. No fresh official-page retrieval, account-cap observation or organizer receipt is claimed.
+- The site publication gate now verifies the current TIFF, exact ZIP member, card/receipt hashes, and fail-closed approval state **before page writes**. This protects the existing research download from stale/mutated bytes; it does not approve it for submission.
