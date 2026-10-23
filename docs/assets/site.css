@@ -5,3 +5,8 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 h1,h2,h3{overflow-wrap:anywhere}
 @media(max-width:360px){.page-heading h1{font-size:29px;letter-spacing:-1.3px}.hero h1{font-size:36px;letter-spacing:-1.7px}.download-panel{padding:15px}.button{gap:6px;padding:11px 12px;font-size:11px}.map-label{font-size:9px;padding:10px}}
+
+.topline, .download-top, .actions, .badge-stack { flex-wrap: wrap; max-width: 100%; }
+main p code, main li code, .verdict-line code, .file-name { overflow-wrap: anywhere; word-break: break-word; }
+.hero > * { min-width: 0; }
+.verdict-line.pass { border-left-color: #006c66; color: #153c39; }

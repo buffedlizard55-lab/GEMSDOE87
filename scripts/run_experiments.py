@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from gems57 import evaluate_holdout, grid, holdout, submission_writer, validate as g57_validate
 from gems87 import DEFAULT_DOT_BUDGET, EVALUATOR_VERSION, LANE_ID
 from gems87.audit import fast_full_registry_audit, load_or_build_packed_halos
-from gems87.features import build_or_load_static_stack, compute_visible_transfer_features
+from gems87.csct_features import build_or_load_static_stack, compute_visible_transfer_features
 from gems87.model import (
     AUG_TRANSFER_NAMES,
     augment_fold_transfer,

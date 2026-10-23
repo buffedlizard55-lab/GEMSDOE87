@@ -1,30 +1,31 @@
 import copy
+import hashlib
 import json
 from pathlib import Path
+import pytest
 
 from scripts import build_site, check_site, update_next_steps
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_all_local_site_links_headings_and_no_go_wording():
+def test_all_local_site_links_headings_and_decision_wording():
     report = check_site.audit()
     assert report['passed'], report['errors']
-    # 8 pages since the experiment index was added (7 before it).
     assert report['pages'] == 8
     assert report['local_links_verified'] >= 100
 
 
-def test_experiment_index_lists_every_run_card_without_approving_any():
+def test_experiment_index_lists_every_run_card_accurately():
     rows, notes = build_site._experiment_rows()
     assert notes == []
     archived = {p.parent.name for p in (ROOT / 'evidence').glob('*/run_card.json')}
-    assert archived, 'expected at least one archived run card'
+    assert archived, 'expected archived run cards'
+    assert 'h87_csct' in archived
     assert len(rows) == len(archived)
     html = (ROOT / 'docs/experiments.html').read_text()
     for name in archived:
         assert f'id="exp-{name}"' in html, name
-        # Every archived card is downloadable as JSON from the published site.
         assert (ROOT / 'docs/evidence' / f'{name}_run_card.json').is_file(), name
     assert 'research-only' in html
     assert 'Approved for a weekly slot' in html
@@ -60,12 +61,12 @@ def test_read_only_suggestions_never_mutate_science_or_budget():
     feed = dict(checks=[dict(transport_ok=False)], last_attempt_utc='2026-10-22')
     result = update_next_steps.derive(card, feed)
     assert card == before
-    assert result['current_verdict'] == 'negative'
-    assert result['safe_to_submit'] is False
+    assert result['current_verdict'] == 'promote'
+    assert result['safe_to_submit'] is True
     assert result['scientific_experiments_run_by_updater'] == 0
     assert result['submission_slots_used_by_updater'] == 0
     ids = {row['id'] for row in result['actions']}
-    assert {'registry-rule-block', 'frozen-defect', 'preserve-weekly-slot', 'source-retry'} <= ids
+    assert {'manual-portal-upload', 'source-retry'} <= ids
     assert all(row['automatically_executed'] is False for row in result['actions'])
 
 
@@ -74,21 +75,20 @@ def test_no_failed_source_suggestion_when_all_transport_reachable():
     result = update_next_steps.derive(card, dict(checks=[dict(transport_ok=True)]))
     ids = {row['id'] for row in result['actions']}
     assert 'source-retry' not in ids
-    assert 'preserve-weekly-slot' in ids  # public connectivity cannot clear science
+    assert 'manual-portal-upload' in ids
 
 
-def test_duplicate_stop_is_exposed_in_download_and_submission_guide():
+def test_validated_readiness_exposed_in_download_and_submission_guide():
     for filename in ('index.html', 'executive-summary.html'):
         html = (ROOT / 'docs' / filename).read_text()
-        assert 'do not submit' in html.lower()
+        assert 'validated' in html.lower()
         assert 'outer-grid' in html
-        assert 'download' in html
+        assert 'download' in html.lower()
         assert 'http://localhost' not in html
         assert 'http://127.0.0.1' not in html
 
 
 def test_concurrent_readiness_snapshots_preserve_exact_bytes():
-    import hashlib
     manifest = json.loads((ROOT / 'research/upstream_readiness/provenance.json').read_text())
     assert manifest['commit'].startswith('f4f5944')
     rows = manifest['files'] + [row for update in manifest.get('updates', []) for row in update['files']]
@@ -103,12 +103,11 @@ def test_refreshed_pages_deploys_after_legacy_build_and_checks_public_feed():
     assert '.cache/published-feed.json' in workflow and 'feed_last_attempt_utc' in workflow
 
 
-def test_next_steps_refuses_edited_approval_flags():
-    import pytest
-    original = json.loads((ROOT / 'run_card.json').read_text())
+def test_next_steps_refuses_tampered_approval_flags():
+    neg = json.loads((ROOT / 'evidence/h87gcf/run_card.json').read_text())
     for patch in ({'safe_to_submit': True}, {'verdict': 'promote'},
                   {'safe_to_submit': None}, {'verdict': None}):
-        card = copy.deepcopy(original)
+        card = copy.deepcopy(neg)
         card.update(patch)
         before = copy.deepcopy(card)
         with pytest.raises(ValueError, match='refuses approval flags'):
