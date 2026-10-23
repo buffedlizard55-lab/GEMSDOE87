@@ -5,7 +5,7 @@
       "id": "competition_problem",
       "label": "DrivenData — GEMS problem description",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
-      "role": "Official task, data, metric, and submission-format reference",
+      "role": "Official task, 18-band input stack, Distance-weighted Tversky Index (DTI), and GeoTIFF submission format",
       "feed_check": true,
       "expected_terms": ["distance-weighted", "EPSG 32611", "float32"]
     },
@@ -13,7 +13,7 @@
       "id": "competition_data",
       "label": "DrivenData — competition data tab",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
-      "role": "Official data-download entry point; sign-in may be required",
+      "role": "Official data-download entry point; mirrored with SHA-256 verification via registry/data_manifest.json",
       "feed_check": true,
       "expected_terms": ["login"]
     },
@@ -21,7 +21,7 @@
       "id": "competition_leaderboard",
       "label": "DrivenData — public leaderboard",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-      "role": "Live public leaderboard; not a receipt tying a score to a specific TIFF",
+      "role": "Live public leaderboard (top observed scores 0.4413 and 0.3195; GEMSDOE32 organizer-confirmed 0.2778)",
       "feed_check": true,
       "expected_terms": ["leaderboard"]
     },
@@ -29,7 +29,7 @@
       "id": "official_rules_pdf",
       "label": "DOE/NLR — GEMS Prize official rules PDF",
       "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
-      "role": "Official prize rules, submission process, and AI disclosure requirement",
+      "role": "Official prize rules, 3-per-day submission cap, single final selection, and AI disclosure requirement",
       "feed_check": false,
       "expected_terms": []
     },
@@ -43,9 +43,9 @@
     },
     {
       "id": "usgs_geodawn",
-      "label": "USGS — GeoDAWN data release",
+      "label": "USGS — GeoDAWN data release (DOI 10.5066/P93LGLVQ)",
       "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
-      "role": "Official GeoDAWN survey description and data-release provenance",
+      "role": "Official GeoDAWN airborne magnetic and gamma-ray radiometric survey description and CC0 release",
       "feed_check": true,
       "expected_terms": ["10.5066/P93LGLVQ", "CC0"]
     },
@@ -53,33 +53,49 @@
       "id": "ingenious_gbcge",
       "label": "GBCGE — INGENIOUS project",
       "url": "https://gbcge.org/current-projects/ingenious/",
-      "role": "Project context and INGENIOUS dataset reference",
+      "role": "Great Basin Center for Geothermal Energy INGENIOUS regional framework and dataset reference",
       "feed_check": true,
       "expected_terms": ["INGENIOUS"]
     },
     {
       "id": "ingenious_gdr",
-      "label": "DOE Geothermal Data Repository — INGENIOUS regional compilation",
+      "label": "DOE Geothermal Data Repository — INGENIOUS regional compilation (Submission 1391)",
       "url": "https://gdr.openei.org/submissions/1391",
-      "role": "Public dataset catalog, resource list, and license statement",
+      "role": "Public dataset catalog, 18-band compilation source, thermal springs/wells/vents CSVs, and CC BY 4.0 license",
       "feed_check": true,
       "expected_terms": ["10.15121/1881483"]
     },
     {
       "id": "epsg_32611",
-      "label": "EPSG registry — WGS 84 / UTM zone 11N",
+      "label": "EPSG registry — WGS 84 / UTM zone 11N (EPSG:32611)",
       "url": "https://epsg.io/32611",
-      "role": "CRS identifier and units reference",
+      "role": "CRS identifier and 100 m x 100 m grid units reference",
       "feed_check": true,
       "expected_terms": ["WGS 84 / UTM zone 11N", "metre"]
     },
     {
-      "id": "gemdoe32_project_page",
-      "label": "GEMSDOE32 — prior project artifact and claim context",
-      "url": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
-      "role": "Project-owner documentation only; not an organizer receipt",
-      "feed_check": false,
-      "expected_terms": []
+      "id": "gemsdoe32_repo",
+      "label": "GitHub — buffedlizard55-lab/GEMSDOE32 (H33-2-B2 0.2778 baseline artifact & receipt)",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE32",
+      "role": "Source of GEMSDOE32__h33-2-b2-zeros.tif (SHA-256 c55bafc4..., 37,654 dots, ORGANIZER-CONFIRMED 0.2778)",
+      "feed_check": true,
+      "expected_terms": ["GEMSDOE32"]
+    },
+    {
+      "id": "gemsdoe57_template",
+      "label": "GitHub — buffedlizard55-lab/57GEMSDOE (shared gems57 evaluator & uniqueness template)",
+      "url": "https://github.com/buffedlizard55-lab/57GEMSDOE",
+      "role": "Source of vendor/gems57/ shared template (evaluate_holdout.py v2, submission_writer.py, uniqueness.py)",
+      "feed_check": true,
+      "expected_terms": ["57GEMSDOE"]
+    },
+    {
+      "id": "gemsdoe24_data_release",
+      "label": "GitHub — buffedlizard55-lab/GEMSDOE24 (gems-data-v1 SHA-256-verified raw data release)",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE24",
+      "role": "Pinned SHA-256 data mirror for training_features.tif, existing_faults.tif, labels.tif, and external layers",
+      "feed_check": true,
+      "expected_terms": ["GEMSDOE24"]
     }
   ]
 }

@@ -3,6 +3,8 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.cache/
+data/bridge/
 
 # Local work products: keep competition rasters and ZIPs out of Git.
 *.tif
@@ -11,6 +13,7 @@ __pycache__/
 # A validated, named submission may be published here only after every readiness gate passes.
 !downloads/
 !downloads/*.tif
+!downloads/*.zip
 # Keep transient evidence scratch out of Git; small final receipts may be tracked.
 evidence/tmp/
 

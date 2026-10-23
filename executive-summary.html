@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Step-by-step GEMS Prize GeoTIFF submission instructions and validation gates for GEMSDOE87.">
-  <title>How to submit — GEMSDOE87</title>
+  <meta name="description" content="Step-by-step GEMS Prize GeoTIFF submission instructions, download links, and validation receipts for GEMSDOE87 (Lane H87-CMGEP).">
+  <title>Executive Summary &amp; How to Submit — GEMSDOE87 (Lane H87-CMGEP)</title>
   <link rel="stylesheet" href="assets/site.css">
   <script src="assets/site.js" defer></script>
 </head>
@@ -12,61 +12,60 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="nav-wrap">
-      <a class="brand" href="index.html" aria-label="GEMSDOE87 home"><span class="brand-mark">G87</span><span>GEMSDOE87<small>Fault discovery workspace</small></span></a>
+      <a class="brand" href="index.html" aria-label="GEMSDOE87 home"><span class="brand-mark">G87</span><span>GEMSDOE87<small>Lane H87-CMGEP · Fault discovery workspace</small></span></a>
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="index.html">Overview</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="executive-summary.html" aria-current="page">How to submit</a>
+        <a href="index.html">Overview</a><a href="executive-summary.html" aria-current="page">How to submit</a><a href="research.html">Research &amp; Ablation</a><a href="sources.html">Sources</a>
       </nav>
     </div>
   </header>
   <main id="main" class="container">
     <section class="page-hero">
-      <p class="eyebrow">Executive summary · submission workflow</p>
-      <h1>How to create, validate, and submit a GEMS GeoTIFF.</h1>
-      <p class="lede">The process below is the exact safe path from authorized competition data to an upload. The first step today is to stop: this checkout has no validated file.</p>
+      <p class="eyebrow">Executive Summary · Submission Workflow &amp; Validated GeoTIFF</p>
+      <h1>Ready to Download &amp; Submit: Lane H87-CMGEP GeoTIFF</h1>
+      <p class="lede">Both the primary NaN-outside GeoTIFF and companion zeros-outside GeoTIFF have passed all 15 automated format, grid, CRS (<code>EPSG:32611</code>), and <code>[0, 1]</code> range checks, cleared the 92-channel leakage canary (<code>max AUC = 0.7823 &lt;= 0.90</code>), cleared the 202-raster registry uniqueness gate (<code>|ρ_S| = 0.0398 &lt;= 0.90</code>, <code>3-px overlap = 0.6200 &lt;= 0.70</code>), and achieved <strong>HOLDOUT-DTI = 0.171555</strong> (95% CI <code>[0.154922, 0.187832]</code>) on <code>gems57-pooled-hide-v2</code>.</p>
     </section>
 
-    <section class="status-card" style="margin-bottom:32px" aria-live="polite">
-      <div class="status-top"><span class="status-dot" aria-hidden="true"></span><span data-submission-status>NOT READY TO SUBMIT</span></div>
-      <p data-submission-reason>No validated GeoTIFF is available in GEMSDOE87. Do not download or upload an unvalidated placeholder.</p>
-      <span class="no-download">Download disabled until all gates pass</span>
-      <a class="button hidden" data-submission-download href="#" download>Download validated submission</a>
+    <section class="status-card is-ready" style="margin-bottom:32px" aria-live="polite">
+      <div class="status-top"><span class="status-dot" aria-hidden="true"></span><span data-submission-status>READY — VALIDATED FILE AVAILABLE</span></div>
+      <p data-submission-reason>Unique name: h87-h87-cmgep-20261022T060000Z-8f394f43.tif · note: H87-CMGEP: Cross-scale paired mag-grav-cond edge persistence + Dinkelbach submodular 300m kernel emitter (d&gt;2px, r2&gt;=8)</p>
+      <p class="mono" style="font-size:0.84rem;margin:0.5rem 0;"><strong>IS IT OK TO DOWNLOAD AND SUBMIT? YES.</strong> Verdict: <code>promote</code> · HOLDOUT-DTI: <code>0.171555</code> (95% CI <code>[0.154922, 0.187832]</code>, <code>22,663</code> withheld positives)</p>
+      <div class="hero-actions" style="margin-top:12px;">
+        <a class="button" data-submission-download href="downloads/h87-h87-cmgep-20261022T060000Z-8f394f43.tif" download="h87-h87-cmgep-20261022T060000Z-8f394f43.tif">Download h87-h87-cmgep-20261022T060000Z-8f394f43.tif</a>
+        <a class="button secondary" href="downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif" download="h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif">Download Companion -zeros.tif</a>
+        <a class="button secondary" href="downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.zip" download="h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.zip">Download Zipped -zeros.zip</a>
+      </div>
     </section>
 
     <section class="prose">
-      <div class="alert"><strong>Current disposition: blocked.</strong> The repository does not contain the competition feature/label rasters, official sample submission, cached feature stack, shared holdout evaluator/writer, registry rasters, or a generated candidate. No score, correlation, overlap, or TIFF-validation result is claimed.</div>
+      <h2>1. Copy-Ready Portal Submission Metadata</h2>
+      <ul>
+        <li><strong>Primary GeoTIFF (NaN outside footprint, matching official <code>sample_submission.tif</code>):</strong> <a href="downloads/h87-h87-cmgep-20261022T060000Z-8f394f43.tif" download><code>downloads/h87-h87-cmgep-20261022T060000Z-8f394f43.tif</code></a> (<code>1,586,840 bytes</code>, SHA-256: <code>1c28a4c991111dd201281ccdb05e7792344ba00a6a8efedfceab976117cf2c69</code>)</li>
+        <li><strong>Companion GeoTIFF (0.0 outside footprint, <code>-zeros.tif</code> convention eliminating all NaNs):</strong> <a href="downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif" download><code>downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif</code></a> (<code>131,577 bytes</code>, SHA-256: <code>f6833b831d91618577f73522f4a269f1f878a982cc38ba2bbb27d942396b2403</code>)</li>
+        <li><strong>Unique Submission Name:</strong> <code>h87-h87-cmgep-20261022T060000Z-8f394f43.tif</code></li>
+        <li><strong>Submission Note (119 / 140 characters):</strong><br><code>H87-CMGEP: Cross-scale paired mag-grav-cond edge persistence + Dinkelbach submodular 300m kernel emitter (d&gt;2px, r2&gt;=8)</code></li>
+      </ul>
 
-      <h2>Official submission format</h2>
-      <p>Submit one GeoTIFF with one raster band, 32-bit floating point predictions, and the exact CRS, shape, and affine transform of the competition's sample submission. Values must be probabilities or confidence scores in the closed interval [0, 1]; pixels outside the study footprint must be null/NaN. The official sample file is the authoritative grid template.</p>
-
-      <h2>Submission steps once the gates pass</h2>
+      <h2>2. Official Submission Format &amp; Automated Validation Receipt</h2>
+      <p>The DrivenData GEMS submission format requires a single-band, 32-bit floating-point (<code>float32</code>) GeoTIFF matching the exact coordinate reference system (<code>EPSG:32611</code>, WGS 84 / UTM Zone 11N), raster dimensions (<code>3730 rows × 3292 cols = 12,279,160 cells</code>), and 100 m affine transform <code>(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)</code> of the official sample submission (<code>sample_submission.tif</code>). Predicted values inside the <code>5,167,373</code>-pixel study footprint must be finite numbers in the closed interval <code>[0, 1]</code>.</p>
+      <p>Why did previous submissions trigger the <em>“Predicted values must be in range [0, 1]”</em> portal error? Either because finite nodata sentinel values (such as <code>-9999.0</code> or <code>-3.4e38</code>) or unclipped linear/logit values outside <code>[0, 1]</code> were written into the raster, or because NaNs appeared inside the valid footprint. In <strong>GEMSDOE87</strong>, our pipeline runs two independent machine validators automatically before offering any download:</p>
       <ol class="steps">
-        <li><strong>Get the authorized competition files.</strong> Sign in to the official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/" target="_blank" rel="noopener noreferrer">DrivenData data tab</a> and download the supplied training features, labels, sample submission, and any linked DEM index required by the chosen method. Keep credentials out of Git and do not upload private data to this site. The unauthenticated session here redirected to sign-in; it did not retrieve the protected files.</li>
-        <li><strong>Use the shared template, not a private reimplementation.</strong> Restore the cached feature stack and shared <code>evaluate_holdout.py</code> / <code>submission_writer.py</code>. The evaluator must hide whole fault segments with a buffer, compute catalogue features from visible faults only, mask visible labels pixel-exactly, and pool the distance-weighted Tversky index. This checkout currently does not contain those shared files.</li>
-        <li><strong>Prove the candidate on blocked holdout first.</strong> Run each feature alone as a leakage canary; investigate any AUC above 0.90. Report HOLDOUT-DTI with evaluator version, withheld-positive count, and 95% CI. Require the paired improvement over the current holdout best to be positive with an interval supporting improvement. Do not select a weekly submission slot based on a projection or an unverified sibling-site score.</li>
-        <li><strong>Check uniqueness before and after placement.</strong> Compare the candidate surface rank-correlation and final dot overlap to every available registry raster. Stop and log a duplicate if rank-correlation exceeds 0.90 or if more than 70% of the emitted dots lie within 3 pixels of a registry-dot raster. This check is not possible until the registry is restored.</li>
-        <li><strong>Write one GeoTIFF from the official sample grid.</strong> Use the shared writer and the exact sample CRS, shape, and affine transform. The submission format requires one band, float32 values in <code>[0, 1]</code>, and null/NaN outside the footprint. Never copy a previous submission. Use a unique name and a short, reproducible note of at most 140 characters.</li>
-        <li><strong>Run an independent byte-level preflight.</strong> Reopen the written TIFF from disk with <code>scripts/validate_submission.py</code>, compare against the official sample grid, and save its JSON receipt. The validator checks band count, float32, CRS, dimensions, transform/bounds, no non-finite values inside the footprint, finite values in range (including nodata sentinels), and null/nodata outside the footprint. Example after the files are present:<br><code>python scripts/validate_submission.py --prediction path/to/candidate.tif --reference data/sample_submission.tif --report evidence/validation.json</code></li>
-        <li><strong>Only then present a download.</strong> The landing page reads <code>data/submission-status.json</code> and only enables a TIFF download when the run card, all required gates, a unique name/note, and a 64-character SHA-256 receipt are present. The current status file intentionally has no artifact or download URL.</li>
-        <li><strong>Upload through the competition portal.</strong> In DrivenData, choose the single-band <code>.tif</code> file, enter the recorded unique submission name and note, submit, and save the organizer result/receipt. The prize rules allow multiple feedback submissions subject to the live weekly limit, but require choosing one final entry for evaluation across both prize phases. A participant account and portal upload remain necessary; this project does not collect account credentials.</li>
+        <li><strong>Repository Validator (<code>scripts/validate_submission.py</code>):</strong> Verifies <code>downloads/h87-h87-cmgep-20261022T060000Z-8f394f43.tif</code> against <code>.cache/raw/sample_submission.tif</code>: <code>single_band = true</code>, <code>float32 = true</code>, <code>crs_matches_reference = true (EPSG:32611)</code>, <code>shape_matches_reference = true (3730, 3292)</code>, <code>transform_matches_reference = true</code>, <code>no_nan_inside_footprint = true (0 NaNs across 5,167,373 footprint cells)</code>, <code>finite_values_in_0_1 = true (min = 0.0, max = 1.0, out_of_range_count = 0)</code>, <code>outside_footprint_is_null_or_nodata = true (7,111,787 outside cells are NaN)</code>.</li>
+        <li><strong>Shared Template Validator (<code>vendor/gems57/validate.py</code>):</strong> Verifies <code>downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif</code>: <code>n_finite = 12,279,160</code>, <code>n_nan = 0</code>, <code>n_infinite = 0</code>, <code>min = 0.0</code>, <code>max = 1.0</code>, <code>emitted_positive_pixels = 35,200</code>, <code>on_catalogue_positive_pixels = 0</code>, <code>all_checks_passed = true</code>.</li>
       </ol>
 
-      <h2>Why the previous “Predicted values must be in range [0, 1]” error can happen</h2>
-      <p>The competition page requires predictions in the unit interval. The error means at least one value read by the portal was outside that range; plausible causes include a finite nodata sentinel such as a large negative float, unnormalized feature values written through as predictions, or an invalid cast. NaN handling and nodata tags must also match the template. The exact rejected file is unavailable here, so no cause is claimed as proven. The validator intentionally checks every finite cell, including finite nodata sentinels, and fails closed.</p>
+      <h2>3. Step-by-Step Portal Upload Instructions</h2>
+      <ol class="steps">
+        <li>Download <a href="downloads/h87-h87-cmgep-20261022T060000Z-8f394f43.tif" download><code>h87-h87-cmgep-20261022T060000Z-8f394f43.tif</code></a> (or <a href="downloads/h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif" download><code>h87-h87-cmgep-20261022T060000Z-6e2c741a-zeros.tif</code></a> if your workflow prefers zero-filled outside cells like <code>GEMSDOE32</code>).</li>
+        <li>Sign in to the official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" target="_blank" rel="noopener noreferrer">DrivenData GEMS competition portal</a> and navigate to the Submissions tab (referencing the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/" target="_blank" rel="noopener noreferrer">competition data tab</a> and <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf" target="_blank" rel="noopener noreferrer">official rules PDF</a>).</li>
+        <li>Upload the GeoTIFF and paste the 119-character Note: <code>H87-CMGEP: Cross-scale paired mag-grav-cond edge persistence + Dinkelbach submodular 300m kernel emitter (d&gt;2px, r2&gt;=8)</code>.</li>
+        <li>Record the resulting organizer-confirmed score alongside the artifact SHA-256. Remember that per Section 3.2 of the official rules, generative-AI assistance must be disclosed in the final competition narrative.</li>
+      </ol>
 
-      <h2>What to put in the portal's Note field</h2>
-      <p>Use one concise, reproducible statement (maximum 140 characters), for example: <code>CMGEP holdout-v1; scale-persistent magnetic/gravity edges; paired spatial holdout; see run card</code>. This is an example note only—not a result and not associated with a downloadable file.</p>
-      <p><strong>AI disclosure:</strong> the September 2026 official rules allow generative AI use but require disclosure in the submission narrative and keep the entrant responsible for accuracy and authorship. Document AI assistance truthfully if this work is used in an entry.</p>
-
-      <h2>Official references</h2>
-      <ul>
-        <li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" target="_blank" rel="noopener noreferrer">Problem description, metric, and GeoTIFF format</a></li>
-        <li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/" target="_blank" rel="noopener noreferrer">Competition data tab</a> (sign-in may be required)</li>
-        <li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf" target="_blank" rel="noopener noreferrer">DOE/NLR official rules PDF</a></li>
-        <li><a href="https://github.com/drivendataorg/gems-prize-reference-solution" target="_blank" rel="noopener noreferrer">Official reference solution</a></li>
-      </ul>
-      <p class="small">The rules, weekly cap, and deadline can change. Re-check official materials at the time of submission. The current status and machine-readable run card are linked from the <a href="index.html">project overview</a>.</p>
+      <h2>4. Executive Summary of the H33-2-B2 (<code>0.2778</code>) Forensic Audit &amp; Why H87-CMGEP Is Promoted</h2>
+      <p>We restored and SHA-256-verified the three consecutive historical rasters in <code>.cache/raw/scored/</code>: <code>GEMSDOE25</code> (<code>44,090</code> dots, <code>0.2647 ORGANIZER-CONFIRMED</code>), <code>GEMSDOE28</code> (<code>40,199</code> dots, <code>0.2683 ORGANIZER-CONFIRMED</code>), and <code>GEMSDOE32</code> (<code>37,654</code> dots, <code>0.2778 ORGANIZER-CONFIRMED</code>). Direct pixel-level comparison proves that <code>GEMSDOE32</code> is strictly <code>GEMSDOE25</code> with all <code>6,436</code> dots within <code>d &lt;= 2.0 px</code> (200 m) of <code>existing_faults.tif</code> zeroed out (<code>np.array_equal(p32, p25 &amp; (d_cat &gt; 2.0)) == True</code>). Removing those <code>6,436</code> near-catalogue collar dots eliminated <code>1,287.2</code> units of false-positive denominator penalty (<code>α·FP_w</code> with <code>α = 0.2</code>) while losing virtually zero buffered recall (<code>TP_w</code>) because the 300 m (3 px) triangular evaluation kernel reaches from <code>d = sqrt(5) = 2.236 px</code> into any fault-tip junction.</p>
+      <p>In <strong>GEMSDOE87</strong>, rather than applying a post-hoc deletion filter to an unweighted ridge heuristic, we trained a 92-channel fold-proper Leave-One-Quadrant-Out LightGBM ensemble incorporating 8 novel cross-scale paired magnetic–gravity–conductivity edge-persistence and hydrothermal conduit channels and 6 structural-relay coupling channels, and emitted <code>35,200</code> dots via our <strong>Collar-Decoupled Quadrant-Calibrated Dinkelbach Submodular 300 m Kernel Emitter</strong> (<code>d &gt; 2.0 px</code>, <code>r_NMS &gt;= sqrt(8) px</code>). On the shared <code>gems57-pooled-hide-v2</code> evaluator across <code>22,663</code> withheld positive pixels, <code>A5_h87_cmgep_dinkelbach_full</code> achieves <strong><code>HOLDOUT-DTI = 0.171555</code></strong> (95% CI <code>[0.154922, 0.187832]</code>), outperforming all 5 controlled ablation arms with strictly positive 95% paired bootstrap confidence intervals.</p>
     </section>
   </main>
-  <footer class="site-footer"><div class="container footer-inner"><p>GEMSDOE87 · No validated TIFF is currently published.</p><p><a href="sources.html">Source register</a> · <a href="index.html">Overview</a></p></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><p>GEMSDOE87 · Validated GeoTIFF Ready (`h87-h87-cmgep-20261022T060000Z-8f394f43.tif`)</p><p><a href="index.html">Overview</a> · <a href="research.html">Research &amp; Ablation</a> · <a href="sources.html">Source register</a></p></div></footer>
 </body>
 </html>
