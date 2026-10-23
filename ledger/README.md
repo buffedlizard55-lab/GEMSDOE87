@@ -1,3 +1,3 @@
 # Ledger
 
-`submissions.csv` lists MASS rows copied from GEMSDOE88 (not rebuilt) and CONCENTRATION rows built in GEMSDOE87 on 2026-10-23. `receipt_score` / `date` stay empty until the human pastes a submission-page receipt. Mechanism cards: `mechanism_cards.json`.
+`submissions.csv` lists `MASS` rows copied from `GEMSDOE88` (not rebuilt) alongside `CONCENTRATION`, `PRUNE`, and `SNAP` rows built and verified against Parent `R0` (`h33-h33-2-b2`, exact byte-level SHA-256 rebuild verified) in `GEMSDOE87` on `2026-10-23`. `receipt_score` and `date` stay empty until the human competitor pastes an actual submission-page receipt. Historical lineage claims (`CLAIM`, `receipt=N`) are in `lineage_claims.csv`; mechanism cards are in `mechanism_cards.json` (`CONCENTRATION`), `snap_mechanism_cards.json` (`SNAP`), and `releases/manifest.json` / `releases/snap_manifest.json`.

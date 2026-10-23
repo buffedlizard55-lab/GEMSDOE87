@@ -4,9 +4,61 @@
 
 ---
 
-## Part A — `AXIS = PRUNE` Variants (Built `2026-10-23`, Reproducible via `python3 scripts/build_prune_variants.py`)
+## Part S — `AXIS = SNAP` Variants (Built `2026-10-23`, Reproducible via `python3 scripts/build_snap_variants.py`)
 
-**Parent `R0` Exact Byte-Level Rebuild Receipt:** Rebuilt from SHA-256-verified `registry/data_manifest.json` (`scored_h19_5` `ec1f9b56…` + `existing_faults.tif` `7ba308cc…` + `sample_submission.tif` `2176d08e…`) via `dot_thin_geodesic_bfs(..., 2.8) & (d_cat > 2.0)` (`37,654` dots) with `deflate/predictor=3/zlevel=9/tiled=256`, matching `R0` **byte-for-byte** (`zeros` SHA-256 `c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9`, `nan` SHA-256 `baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd`).
+**Parent `R0` Exact Byte-Level Rebuild & Input Receipt:** All `25` SHA-256 pins in `registry/data_manifest.json` verified on disk; `R0` rebuilt from `scored_h19_5` (`ec1f9b56…`) + `existing_faults.tif` (`7ba308cc…`) + `sample_submission.tif` (`2176d08e…`) via `dot_thin_geodesic_bfs(..., 2.8) & (d_cat > 2.0)` (`37,654` dots) with `deflate/predictor=3/zlevel=9/tiled=256`, matching `R0` **byte-for-byte** (`zeros` SHA-256 `c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9`, `nan` SHA-256 `baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd`). Zero external lidar rasters used (`training_features.tif` Bands `02`, `03`, `05`, `19` only; `IR-87-V2-07` verified `Band 05` is isotropic $|\nabla_H g|$ `r = +0.9619` whereas `Band 18` is directional $\partial g/\partial x$ `r = +0.9482`).
+
+### S1. `SNAPscarp2` — Recommended `SNAP` Candidate (`<= 2 px` Cross-Strike RTP + Gravity + Scarp Crest, Fixed `37,654` Dots)
+
+- **File (NaN outside, per spec):** `releases/h33-h33-2-b2-SNAPscarp2-20261023-065e17a9.tif` (`355,512 B`, sha256 `065e17a96674d997ed98e25fa93433c15e79e7bb06ccedd2e4a4868018c00cb9`)
+- **Fallback (zeros outside):** `releases/h33-h33-2-b2-SNAPscarp2-20261023-065e17a9-zeros.tif` (`219,348 B`, sha256 `b2098fa58fbabeb6ebc1e766c7c2138eba776cfc0337d5cdedab5ee5c47aeb2a`)
+- **Name:** `h33-h33-2-b2-SNAPscarp2-20261023-065e17a9`
+- **Note (121/140):** `h33-h33-2-b2; SNAP<=2px x-strike RTP+grav+scarp crest (n=37654, 36.03% chg, mean d=0.54px); pred +0.005 to +0.012 [MODEL]`
+- **Displacement, Parent-diff & Format receipt:** `37,654` dots (`shared = 24,089`, `moved = 13,565`, **`36.03%` changed**), **mean displacement = `0.5390 px` (`53.9 m`) across all `37,654` dots** (`1.4961 px` / `149.6 m` across moved dots; `24,089` at `0 px`, `3,814` at `1 px`, `5,158` at `sqrt(2) px`, `4,593` at `2 px`; `max = 2.0000 px`), `min d_cat = 2.2361 px` (`> 2 px`, `0` on catalogue, identical exclusions to `R0`), `min sep = 2.8284 px` (`sqrt(8)`), `10 km CV` `0.6381 -> 0.6376`. Re-read verified: `scripts/validate_submission.py` `ready=true`, `errors=[]`; `gems57.validate` `all_checks_passed=true` on zeros.
+- **Mechanism Card (Structural Geologist):**
+  - *Hypothesis:* Range-front and piedmont normal faults dip `45°–60°` basinward, shifting subsurface magnetic/gravity gradients into the hanging wall while the mapped surface fault trace sits on the `100 m` topographic break-in-slope (`Band 19 det_elev_slope`); conversely, concealed basin faults lack relief and express only in RTP/gravity crests (`Bands 02 & 05`). Combining both aligns surface scarps and blind basin structures across [GeoDAWN's `400 m` line spacing](https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7).
+  - *Mechanism:* Compute `max(q_rtp_crest, q_grav_crest, q_scarp_crest)` via 1-D Blakely-Simpson Hessian ridge curvature $-\lambda_{\min}(\nabla^2 \log(1+G))$ strictly on organizer-provided `Bands 02, 05, 19` and snap each R0 dot `<= 2.0 px` cross-strike (`|\mathbf{u}\cdot\mathbf{n}_\perp| \ge 0.80`) when `q >= 0.80` and `Δq >= +0.10`, holding `n_dots = 37,654`, `d_cat > 2 px`, and `sqrt(8)` spacing fixed.
+  - *Non-fault mimic:* Pleistocene Lake Lahontan wave-cut shorelines, incised fan-head trench walls, and erosional range-front facet spurs retreated `100–200 m` footwall-ward from the active piedmont fault trace.
+  - *Predicted live change:* `+0.005` to `+0.012` [`MODEL`] vs. `R0` (`|Δ| < 0.01` = no evidence).
+  - *Falsifier:* Live `RECEIPT` underperforms `SNAPrtp2` or `R0` by `>= 0.01`, proving footwall scarp retreat and pluvial shoreline terraces pull dots off true fault traces.
+
+### S2. `SNAPrtp2` — Pure Subsurface Potential-Field Crest (`<= 2 px` Cross-Strike RTP + Gravity Crest, Fixed `37,654` Dots)
+
+- **File (NaN outside, per spec):** `releases/h33-h33-2-b2-SNAPrtp2-20261023-3d8bcc8a.tif` (`355,217 B`, sha256 `3d8bcc8a47481ac2d2a7e7549d8c837ce2961bee1057ebbb0cb2206ba4048727`)
+- **Fallback (zeros outside):** `releases/h33-h33-2-b2-SNAPrtp2-20261023-3d8bcc8a-zeros.tif` (`218,983 B`, sha256 `58539675dcafc069d9b43f16232cbd17d8eb941c0beafec10c175e967031b79a`)
+- **Name:** `h33-h33-2-b2-SNAPrtp2-20261023-3d8bcc8a`
+- **Note (115/140):** `h33-h33-2-b2; SNAP<=2px x-strike RTP+grav crest (n=37654, 30.95% chg, mean d=0.48px); pred +0.004 to +0.011 [MODEL]`
+- **Displacement, Parent-diff & Format receipt:** `37,654` dots (`shared = 26,001`, `moved = 11,653`, **`30.95%` changed**), **mean displacement = `0.4833 px` (`48.3 m`) across all `37,654` dots** (`1.5617 px` / `156.2 m` across moved dots; `26,001` at `0 px`, `2,288` at `1 px`, `4,814` at `sqrt(2) px`, `4,551` at `2 px`; `max = 2.0000 px`), `min d_cat = 2.2361 px`, `min sep = 2.8284 px`, `0` on catalogue. Re-read verified: `ready=true`, `all_checks_passed=true`.
+- **Mechanism Card (Structural Geologist):**
+  - *Hypothesis:* GeoDAWN's `400 m` flight-line gridding, unweighted BFS `dot_thin(2.8)` placement on the northern/western margin of `2–4 px` wide `H19-5` ribbons, and Nevada's `~64°` geomagnetic inclination leave `R0` dots `100–200 m` off steep subsurface contacts; snapping onto Reduced-to-Pole (`Band 02`) and isotropic gravity (`Band 05`) 1-D crests centers the `300 m` DTI kernel.
+  - *Mechanism:* Snap each `R0` dot `<= 2.0 px` cross-strike onto `max(q_rtp_crest, q_grav_crest)` when `q >= 0.75` and `Δq >= +0.10` (`n = 37,654`, `d_cat > 2 px`, `min sep = sqrt(8)`).
+  - *Non-fault mimic:* Unfaulted Tertiary volcanic flow margins, shallow dikes, and Miocene caldera ring contacts.
+  - *Predicted live change:* `+0.004` to `+0.011` [`MODEL`] vs. `R0`.
+  - *Falsifier:* Live `RECEIPT` drops `>= 0.01` below `R0`, showing `H19-5`'s smoothed multi-layer centerline sits closer to fault traces than subsurface RTP/gravity steps.
+
+### S3. `SNAPtg2` — Raw `tmi_hg` + Gravity Crest Control (`<= 2 px` Cross-Strike `Band 03` + `Band 05`, Fixed `37,654` Dots)
+
+- **File (NaN outside, per spec):** `releases/h33-h33-2-b2-SNAPtg2-20261023-712c9309.tif` (`355,500 B`, sha256 `712c9309ed55dfc2229ab49d6c5864867fe59d1f03926ae6741ec3b2dac906c2`)
+- **Fallback (zeros outside):** `releases/h33-h33-2-b2-SNAPtg2-20261023-712c9309-zeros.tif` (`219,410 B`, sha256 `3294eb1e30fc008e8a8347509be50fb178dc2ec8793e426855fdfd14f28eaf1b`)
+- **Name:** `h33-h33-2-b2-SNAPtg2-20261023-712c9309`
+- **Note (118/140):** `h33-h33-2-b2; SNAP<=2px x-strike tmi_hg+grav crest (n=37654, 31.51% chg, mean d=0.49px); pred +0.002 to +0.008 [MODEL]`
+- **Displacement, Parent-diff & Format receipt:** `37,654` dots (`shared = 25,791`, `moved = 11,863`, **`31.51%` changed**), **mean displacement = `0.4908 px` (`49.1 m`) across all `37,654` dots** (`1.5578 px` / `155.8 m` across moved dots; `25,791` at `0 px`, `2,350` at `1 px`, `4,943` at `sqrt(2) px`, `4,570` at `2 px`; `max = 2.0000 px`), `min d_cat = 2.2361 px`, `min sep = 2.8284 px`, `0` on catalogue. Re-read verified: `ready=true`, `all_checks_passed=true`.
+- **Mechanism Card (Structural Geologist):**
+  - *Hypothesis:* Direct control against `SNAPrtp2`: tests whether raw provided `tmi_hg` (`Band 03`) + `iso_grav_anom_slope` (`Band 05`) crests capture airborne gridding offsets without RTP transformation, or lose kernel credit due to `~100–250 m` southward dipolar TMI shift.
+  - *Mechanism:* Identical operator, thresholds (`q >= 0.75`, `Δq >= +0.10`), `d_cat > 2 px`, and `sqrt(8)` spacing as `SNAPrtp2`, substituting `Band 03 (tmi_hg)` for `|\nabla_H(Band 02 rtp)|`.
+  - *Non-fault mimic:* Oblique-inclination dipolar shift and remanently magnetized volcanic contacts plus E–W `400 m` flight-line corrugation.
+  - *Predicted live change:* `+0.002` to `+0.008` [`MODEL`] vs. `R0`.
+  - *Falsifier:* `SNAPtg2` beats `SNAPrtp2` by `>= +0.01` (`RECEIPT`), showing remanent magnetization invalidates constant-inclination RTP centering.
+
+### S4. Report-Only `PROXY` Diagnostics (`SNAP` Session — Never Used as Gates)
+
+- **Fold-proper hide-and-recover `PROXY`** (`gems57-pooled-hide-v2`, `n = 22,663` withheld positives, Seeds 20 & 30, 95% CI): `R0` `0.097493 [0.0854, 0.1096]`, `SNAPtg2` `0.097543 [0.0860, 0.1092]`, `SNAPrtp2` `0.098233 [0.0863, 0.1099]`, **`SNAPscarp2` `0.100124 [0.0879, 0.1124]`** [`PROXY`].
+- **Off-catalogue USGS SGMC control `PROXY`** (`62,122` bedrock fault px at `d_cat > 3 px`): `R0` `0.095386`, `SNAPtg2` `0.095416`, `SNAPrtp2` `0.096457`, **`SNAPscarp2` `0.096814`** [`PROXY`].
+- **Leakage canary `PROXY`:** `23` provided + crest channels audited; max symmetric AUC = **`0.56883 <= 0.90`** (`0` flagged) [`PROXY`].
+
+---
+
+## Part A — `AXIS = PRUNE` Variants (Prior Session in `ledger/submissions.csv`)
 
 ### A1. `PRUNE3` — Recommended Slot 1 (`d_cat > 3.0 px`, Fixed `37,654` Dots)
 
@@ -14,13 +66,7 @@
 - **Fallback (zeros outside):** `releases/h33-h33-2-b2-PRUNE3-20261023-bc00a06c-zeros.tif` (`218,052 B`, sha256 `482e21662dd99b9b33ca16b4627d6dadb81dc0892323ba85fbecf0332cf01876`)
 - **Name:** `h33-h33-2-b2-PRUNE3-20261023-bc00a06c`
 - **Note (122/140):** `h33-h33-2-b2; PRUNE<=3px (2171 collar dots refilled on H19-5 by DTI dT, n=37654, 5.77% chg); pred +0.005 to +0.012 [MODEL]`
-- **Parent-diff & Format receipt:** `37,654` dots (`shared = 35,483`, `removed = 2,171`, `added = 2,171`, **`5.77%` changed**), `min d_cat = 3.1623 px` (`>= 3 px`), `min sep = 2.2361 px` (`sqrt(5)`), `10 km CV` `0.6381 -> 0.6571` (`15 km CV` `0.5162 -> 0.5332`), `0` on catalogue. Re-read verified: `scripts/validate_submission.py` `ready=true`, `errors=[]`; `gems57.validate` `all_checks_passed=true` on zeros.
-- **Mechanism Card (Structural Geologist):**
-  - *Hypothesis:* Dots in `200–300 m` (`2 < d <= 3 px`) around mapped USGS/INGENIOUS Quaternary faults sit inside the known-fault potential-field/scarp halo where new-fault density is low, while dots at `d >= 3.16 px` (`316 m`) still project `300 m` kernel credit inward onto splay junctions ([forum #11516](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516)).
-  - *Mechanism:* Delete `2,171` R0 dots in `2 < d_cat <= 3 px` (eliminating up to `0.2 * 2,171 = 434.2` denominator FP units) and refill `2,171` dots onto uncovered `H19-5` ridge gaps (`d_cat > 3 px`) ranked by exact sequential DTI marginal gain `dT` (`2.86` down to `0.88` kernel units).
-  - *Non-fault mimic:* Off-collar `H19-5` lineaments along Tertiary volcanic dike margins, caldera ring fractures, or fluvial terrace risers.
-  - *Predicted live change:* `+0.005` to `+0.012` [`MODEL`] vs. `R0` (`|Δ| < 0.01` = no evidence).
-  - *Falsifier:* Live `RECEIPT` drops `>= 0.01` below `R0`, proving re-mapped strands of existing systems ([forum #11536](https://community.drivendata.org/t/where-do-you-draw-the-line/11536)) concentrate inside `200–300 m`.
+- **Parent-diff & Format receipt:** `37,654` dots (`shared = 35,483`, `removed = 2,171`, `added = 2,171`, **`5.77%` changed**), `min d_cat = 3.1623 px` (`>= 3 px`), `min sep = 2.2361 px` (`sqrt(5)`), `0` on catalogue (`ready=true`, `all_checks_passed=true`).
 
 ### A2. `PRUNE1` — Conditional Inward Collar Control (`d_cat > 1.0 px`, Fixed `37,654` Dots)
 
@@ -28,13 +74,6 @@
 - **Fallback (zeros outside):** `releases/h33-h33-2-b2-PRUNE1-20261023-4679d91c-zeros.tif` (`219,324 B`, sha256 `b3b1e75b82f1ac418902aa3ac4fecbe517ca429b4eac0794cb43e487761b7b2a`)
 - **Name:** `h33-h33-2-b2-PRUNE1-20261023-4679d91c`
 - **Note (125/140):** `h33-h33-2-b2; PRUNE<=1px (restore 2545 1-2px dots, drop 2545 weak R0 dots, n=37654, 6.76% chg); pred -0.012 to -0.005 [MODEL]`
-- **Parent-diff & Format receipt:** `37,654` dots (`shared = 35,109`, `removed = 2,545`, `added = 2,545`, **`6.76%` changed**), `min d_cat = 1.4142 px`, `min sep = 2.8284 px`, `10 km CV` `0.6381 -> 0.6286`, `0` on catalogue. Re-read verified: `ready=true`, `all_checks_passed=true`.
-- **Mechanism Card (Structural Geologist):**
-  - *Hypothesis:* Separates `solo-d28 -> R0`'s `-2,545` dot mass reduction from its `1–2 px` collar deletion at fixed `37,654` count.
-  - *Mechanism:* Restore all `2,545` `d28` parent dots in `1 < d_cat <= 2 px` and remove the `2,545` lowest exact LOO DTI marginal-loss dots of `R0` (`dT_loss <= 1.0`, isolated 1-px speckles).
-  - *Non-fault mimic:* `1:24k`/`1:100k` fault-line digitization offset relative to the `100 m` DEM/TMI scarp crest (`100–200 m` lateral offset beside a single known strand).
-  - *Predicted live change:* `-0.012` to `-0.005` [`MODEL`] vs. `R0`.
-  - *Falsifier:* Live `RECEIPT` rises `>= +0.01` over `R0`, showing `100–200 m` flanks host dense newly mapped fault geometry.
 
 ### A3. `PRUNE4` — Conditional GeoDAWN 400 m Halo Probe (`d_cat > 4.0 px`, Fixed `37,654` Dots)
 
@@ -42,19 +81,6 @@
 - **Fallback (zeros outside):** `releases/h33-h33-2-b2-PRUNE4-20261023-f5c53782-zeros.tif` (`217,405 B`, sha256 `16539fac84c71b8c0e8d7769b8bb7be9a74128febc44e870c9c82ac0ad7d48d3`)
 - **Name:** `h33-h33-2-b2-PRUNE4-20261023-f5c53782`
 - **Note (123/140):** `h33-h33-2-b2; PRUNE<=4px (3825 collar dots refilled on H19-5 by DTI dT, n=37654, 10.16% chg); pred -0.004 to +0.006 [MODEL]`
-- **Parent-diff & Format receipt:** `37,654` dots (`shared = 33,829`, `removed = 3,825`, `added = 3,825`, **`10.16%` changed**), `min d_cat = 4.1231 px`, `min sep = 2.2361 px`, `10 km CV` `0.6381 -> 0.6752`, `0` on catalogue. Re-read verified: `ready=true`, `all_checks_passed=true`.
-- **Mechanism Card (Structural Geologist):**
-  - *Hypothesis:* Tests whether GeoDAWN Area 2's `400 m` flight-line spacing ([USGS GeoDAWN](https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7)) smears known-fault potential-field halos to `4 px`, or whether pruning past `R = 300 m` cuts into hanging-wall synthetic splays and relay ramps.
-  - *Mechanism:* Delete `3,825` R0 dots in `2 < d_cat <= 4 px` and refill `3,825` dots onto uncovered `H19-5` ridge gaps (`d_cat > 4 px`) by exact DTI marginal gain `dT` (`3.45` down to `0.75`).
-  - *Non-fault mimic:* Airborne minimum-curvature gridding shoulders (`300–400 m`) beside a single steep range-front fault.
-  - *Predicted live change:* `-0.004` to `+0.006` [`MODEL`] vs. `R0` (diminishing return past `R = 300 m`).
-  - *Falsifier:* `PRUNE4` beats `PRUNE3` by `>= +0.01` (`RECEIPT`).
-
-### A4. Report-Only `PROXY` Diagnostics (`PRUNE` Session — Never Used as Gates)
-
-- **Fold-proper hide-and-recover `PROXY`** (`gems57-pooled-hide-v2`, `n = 22,663` withheld positives, Seeds 20 & 30, 95% CI): `PRUNE1` `0.091880 [0.0811, 0.1031]`, `R0 (PRUNE2)` `0.095962 [0.0843, 0.1076]`, `PRUNE3` `0.095412 [0.0835, 0.1076]`, `PRUNE4` `0.094483 [0.0822, 0.1065]` [`PROXY`].
-- **Off-catalogue USGS SGMC control `PROXY`** (`62,122` bedrock fault px at `d_cat > 3 px`): `PRUNE1` `0.091757`, `R0` `0.095386`, **`PRUNE3` `0.096085`**, `PRUNE4` `0.094560` [`PROXY`].
-- **Leakage canary `PROXY`:** `40` raw/external/parent channels audited; max symmetric AUC = **`0.60217 <= 0.90`** (`0` flagged) [`PROXY`].
 
 ---
 
@@ -66,7 +92,6 @@
 - **Fallback (zeros outside):** `releases/h33-h33-2-b2-CONCc10-20261023-a9e67bab-zeros.tif` (sha256 `c79400032488ed92002f897a078b8143272f35787e843f179073aab686dae6f0`)
 - **Name:** `h33-h33-2-b2-CONCc10-20261023-a9e67bab`
 - **Note (81/140):** `h33-2-b2 CONCc10 37654 move10% lo->hi 1km; pred +0.004 MODEL; parent 0.2778 CLAIM`
-- **Format receipt:** `37,654` dots, `10.00%` changed, `CV_occ` `0.619 -> 0.748`, `min sep` `sqrt(8)`, `min d_cat` `2.236`, `0` on catalogue (`ready=true`, `all_checks_passed=true`).
 
 ### B2. `CONCc15` (`15.00%` relocated)
 
