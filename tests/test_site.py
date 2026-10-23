@@ -21,24 +21,26 @@ class _Links(HTMLParser):
 
 
 class SiteTests(unittest.TestCase):
-    def test_landing_page_explicitly_blocks_unvalidated_download(self) -> None:
+    def test_landing_page_prominently_exposes_validated_download(self) -> None:
         html = (ROOT / "index.html").read_text(encoding="utf-8")
-        self.assertIn("NOT READY TO SUBMIT", html)
-        self.assertIn("No validated GeoTIFF", html)
+        self.assertIn("READY — VALIDATED FILE AVAILABLE", html)
+        self.assertIn("gems87-csct-dink300-37654dots-20261022-zeros.tif", html)
+        self.assertIn("30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f", html)
 
-    def test_no_download_link_exists_while_status_is_blocked(self) -> None:
+    def test_submission_status_and_html_download_targets_match_on_disk(self) -> None:
         status = json.loads((ROOT / "data/submission-status.json").read_text(encoding="utf-8"))
-        self.assertFalse(status["submission_ready"])
-        self.assertIsNone(status["download"])
+        self.assertTrue(status["submission_ready"])
+        self.assertEqual(status["status"], "ready")
+        dl_path = status["download"]["path"]
+        self.assertTrue((ROOT / dl_path).is_file())
         for filename in ("index.html", "executive-summary.html"):
             parser = _Links()
             parser.feed((ROOT / filename).read_text(encoding="utf-8"))
-            tif_links = [href for href in parser.hrefs if href.lower().endswith((".tif", ".tiff", ".zip"))]
-            self.assertEqual(tif_links, [], f"unready page exposes a downloadable TIFF: {filename}")
+            self.assertIn(dl_path, parser.hrefs, f"missing validated download link in {filename}")
 
-    def test_executive_summary_explains_submission_and_current_block(self) -> None:
+    def test_executive_summary_explains_submission_format_and_validation(self) -> None:
         html = (ROOT / "executive-summary.html").read_text(encoding="utf-8")
-        for phrase in ("submission format", "sample submission", "validation", "not ready", "Note"):
+        for phrase in ("submission format", "sample submission", "validation", "Note", "Predicted values must be in range [0, 1]"):
             self.assertIn(phrase.lower(), html.lower())
         self.assertIn("drivendata.org/competitions/306/competition-doe-gems/data/", html)
 
@@ -62,11 +64,16 @@ class SiteTests(unittest.TestCase):
         self.assertTrue(any(source["id"] == "competition_problem" for source in sources["sources"]))
         self.assertTrue((ROOT / "docs/review-log.md").is_file())
 
-    def test_run_card_is_negative_and_has_no_claimed_measurement(self) -> None:
+    def test_run_card_is_promoted_complete_and_within_note_limit(self) -> None:
         card = json.loads((ROOT / "data/run-card.json").read_text(encoding="utf-8"))
-        self.assertEqual(card["verdict"], "negative")
-        self.assertIsNone(card["raster_sha256"])
-        self.assertIsNone(card["holdout_dti"]["score"])
+        self.assertEqual(card["verdict"], "promote")
+        self.assertEqual(card["experiments_run"], 3)
+        self.assertEqual(card["holdout_dti"]["evidence_class"], "HOLDOUT-DTI")
+        self.assertEqual(card["holdout_dti"]["evaluator_version"], "gems57-pooled-hide-v2")
+        self.assertEqual(card["holdout_dti"]["withheld_positive_count"], 22663)
+        self.assertGreater(card["holdout_dti"]["score"], 0.21)
+        self.assertLessEqual(len(card["submission_note"]), 140)
+        self.assertIsNone(card["organizer_confirmed_scores"]["candidate_gems87_csct_dink300"])
 
 
 if __name__ == "__main__":

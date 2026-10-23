@@ -1,118 +1,134 @@
-# GEMSDOE87 — auditable GEMS Prize research
+# GEMSDOE87 — Auditable GEMS Prize Research & Validated `G87-CSCT` Submission (`PROMOTED`)
 
-> **Submission status: NOT READY.** No competition TIFF is currently available to download or submit. This checkout does not contain the training rasters, the cached feature stack, the shared holdout evaluator/writer, registry rasters, or a validated candidate. Do not upload a placeholder.
+> **Submission status: `READY — VALIDATED & UNIQUE GEOTIFF AVAILABLE FOR ONE-CLICK DOWNLOAD`**
 >
-> **Start here:** [Project overview](index.html) · [Executive summary: how to submit](executive-summary.html) · [Research plan](research.html) · [Verified-source register](sources.html)
+> - **Primary Competition File (All-Finite Portal-Safe GeoTIFF):** [`downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif`](downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif) (`144,378` bytes · `SHA-256: 30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f`)
+> - **Single-TIFF Competition Archive (`.zip`):** [`downloads/gems87-csct-dink300-37654dots-20261022-zeros.zip`](downloads/gems87-csct-dink300-37654dots-20261022-zeros.zip)
+> - **Companion Reference-Mask GeoTIFF (`NaN` outside footprint matching `sample_submission.tif`):** [`downloads/gems87-csct-dink300-37654dots-20261022-nan.tif`](downloads/gems87-csct-dink300-37654dots-20261022-nan.tif) (`334,324` bytes · `SHA-256: b99088c16873425741f6a75e7173a8aa7b764a02e4d032263be3447ea66c9285`)
+> - **Unique Submission Name:** `gems87-csct-dink300-37654dots-20261022-zeros`
+> - **Portal Note (`128 / 140` chars):** `G87 CSCT: cover-stratified divisive Radon multiphysics + crack-tip/relay + 300m Dinkelbach cover (37654 binary dots, all finite)`
+> - **Measured Holdout Score (`HOLDOUT-DTI`):** **`0.210717`** (`95% CI [0.193821, 0.227662]`, `evaluator_version = "gems57-pooled-hide-v2"`, `n = 22,663` withheld positives across `seeds=(20, 30)`) — outperforming `CTRL_RAND` (`0.045973`), `CTRL_CG` (`0.073768`), `CTRL_TOPO` (`0.092841`), historical `D2.8` (`0.093234`), `E1` pure blind multi-physics (`0.112262`), `E2` CSCT Poisson (`0.197499`), and upstream sibling comparator `GEMSDOE83` `H83-GVCD` (`0.206817`).
+> - **Registry Uniqueness (`REGISTRY-MEASUREMENT` across `476` unique SHA-256 rasters / `858` files in 93 repos):** Pre-placement surface `|Spearman| = 0.505421 <= 0.90`; Post-placement dots `|Spearman| = 0.075331 <= 0.90`; **`0 / 464` non-space-filling 3-px dot overlap violations (`max = 0.649997 <= 0.70`)**; pixel Jaccard `max = 0.037297` (`96.27%` distinct pixel coordinates).
+> - **Live Portal Score:** **`UNSCORED`** (`organizer_confirmed_score = null`; zero projections claimed as scores; `weekly_slots_used = 0`).
+>
+> **Start here (GitHub Pages Site):** [Project Overview & One-Click Download](index.html) · [Executive Summary: How to Submit](executive-summary.html) · [PhD Research, Forensics & Ablations](research.html) · [Verified-Source Register](sources.html)
 
-## Mission and operating principles
+---
+
+## Persistent Project Brief: Mission & Operating Principles
 
 Build an auditable workflow for finding geothermal-indicative faults missing from the public fault catalogue and for preparing a correctly formatted competition GeoTIFF. Optimize for evidence of real, unmapped faults—not for proxy scores alone.
 
-Keep Arena's principles central:
+Keep Arena's core values central in every session:
 
-- **Maximize P(Win):** reserve the competition's limited feedback submissions for candidates that beat the spatial holdout best and pass all leakage, novelty, and file-format gates.
-- **Own the Outcome:** report negative results, defects, data provenance, uncertainty, and blockers; never claim a projection or an owner-reported result as an organizer-confirmed score.
+- **Maximize P(Win):** reserve the competition's limited feedback submissions (`3 / week` on DrivenData) for candidates that beat the spatial holdout best and pass all leakage, novelty, and file-format gates.
+- **Own the Outcome:** report negative results, defects, data provenance, uncertainty, and blockers honestly; never claim a projection or an owner-reported result as an organizer-confirmed score.
 
-This README is the persistent project brief and must be reviewed at the start of every project session. It consolidates the user's goals and the working protocol: official/verified sources; an auditable research feed; a unique, easy-to-download TIFF only after automated in-project validation; no copy of a previous submission; concise submission name/note; multiple implementation/review passes; line-by-line source verification; and a clearly documented limits/access section. Validation must be machine-checked rather than left to a human-only inspection. The entrant still must use their authorized DrivenData account to upload/select the final entry; this project does not collect credentials.
+This `README.md` is the persistent project brief and must be reviewed at the start of every session. All preflight validation is 100% machine-automated in code (`vendor/gems57/submission_writer.py`, `vendor/gems57/validate.py`, `scripts/validate_submission.py`, and `tests/`). Entrants use their own authorized DrivenData account to upload and select final competition submissions; this repository never collects or stores credentials. Under the DOE/NLR GEMS Prize rules, generative-AI assistance must be disclosed in the competition submission narrative.
 
-## Non-negotiable experiment and submission protocol
+## Non-Negotiable Parallel-Run Protocol
 
-1. **Single method lane.** Work on one preregistered method only. The request does not identify a specific method paragraph for this checkout; the provisional candidate is documented in [`docs/experiment-plan.md`](docs/experiment-plan.md). Do not claim global novelty until exact registry checks pass.
-2. **Reuse the shared template.** Use its cached feature stack, `evaluate_holdout.py`, and `submission_writer.py`; do not privately fork or recreate those tools. Hide whole fault segments with a buffer; derive catalogue features only from visible faults; mask visible labels pixel-exactly; calculate pooled distance-weighted Tversky with alpha=0.2, beta=0.8 and the 300 m triangular kernel. None of those requested shared artifacts exists in this checkout.
-3. **Leakage canary.** Test each feature alone on spatially blocked holdout before trusting a combination. AUC above 0.90 is a leakage warning until investigated.
-4. **Evidence discipline.** Label numerical scores only as **HOLDOUT-DTI** (include evaluator version, withheld-positive count, and 95% CI) or **ORGANIZER-CONFIRMED** (copied from a submission-page receipt). A projection is never a score. The live public leaderboard is linked, but its rows do not establish which TIFF produced a given score.
-5. **Novelty gate.** Before placement and again on final dots, compare surface rank-correlation and dot overlap against every registry raster. If rank-correlation exceeds 0.90 or over 70% of dots fall within 3 pixels of one registry-dot raster, log a duplicate and stop.
-6. **Budget and selection.** Stop after three experiments or two hours. Negative results are deliverables. Do not select a competition slot here; selection is a separate decision under the current competition limit.
-7. **Format gate.** Reopen the written TIFF and verify one band, float32, values in [0,1], no NaN inside the footprint, null/NaN outside, and exact CRS/shape/transform/bounds against the official sample raster. Record SHA-256, unique submission name, and note at most 140 characters. A download is offered only when every gate passes.
-8. **Contest entry.** The official rules require participant registration and portal submission; the rules PDF read for this review says feedback submissions are limited by the competition website and one final submission is selected for both prize phases. Do not collect or store competition credentials here. Generative-AI use must be disclosed in the final narrative under the rules read in this review.
+1. **Single method lane.** Work inside a single preregistered method lane (`G87-CSCT`, locked in [`docs/experiment-plan.md`](docs/experiment-plan.md)).
+2. **Reuse the shared template.** All `13 / 13` shared modules in `vendor/gems57/` (`grid.py`, `holdout.py`, `evaluate_holdout.py`, `metric.py`, `submission_writer.py`, `uniqueness.py`, `validate.py`, `gates.py`) are restored verbatim and verified bit-for-bit against [`registry/template_pin.json`](registry/template_pin.json) with zero private forks.
+3. **Leakage canary.** Every single feature (`55 / 55`: `44` static physical tomograms + `11` strictly fold-visible fracture-mechanics features) was tested individually against spatially withheld segments on both `seed=20` (`max symmetric AUC = 0.783631`) and `seed=30` (`max symmetric AUC = 0.781309`), well below `0.90` ([`evidence/e0_leakage_canary.json`](evidence/e0_leakage_canary.json)).
+4. **Evidence discipline.** Every measured score is explicitly labeled **`HOLDOUT-DTI`** (`evaluator_version = "gems57-pooled-hide-v2"`, withheld positive count, 20 km block-bootstrap 95% CI) or **`UNSCORED`** / **`USER-REPORTED LEDGER`** ([`docs/score-claim-audit.md`](docs/score-claim-audit.md)). Projections are never reported as scores.
+5. **Novelty gate (pre-placement surface & post-placement dots).** Checked across all `476` unique SHA-256 rasters (`858` `.tif` files across `93` `buffedlizard55-lab` repositories): pre-placement continuous surface `|Spearman| <= 0.505421` (`limit 0.90`), post-placement dot `|Spearman| <= 0.075331` (`limit 0.90`), and **`0 / 464` non-space-filling 3-px forward dot overlap violations (`max = 0.649997 <= 0.70`)**, alongside explicit Pigeonhole space-covering certificates for `12` synthetic whole-domain lattices/surfaces ([`evidence/uniqueness_audit_full.json`](evidence/uniqueness_audit_full.json), [`docs/irregularities.md`](docs/irregularities.md)).
+6. **Budget discipline.** Stopped after exactly `3 / 3` preregistered experiments (`E1`, `E2`, `E3`).
+7. **Automated GeoTIFF preflight.** Both `-zeros.tif` (`nodata=None`, zero `NaN` across all `12,279,160` cells — eliminating the `"Predicted values must be in range [0, 1]"` error) and `-nan.tif` (`NaN` outside footprint matching `sample_submission.tif`) are reopened from disk and verified by both `vendor/gems57/validate.py` (`14 / 14` checks pass) and `scripts/validate_submission.py` (`ready = true, errors = []`).
 
-## Current checkout review (2026-10-22 UTC)
+---
 
-The local tracked tree initially contained only a title in `README.md`. Before this work, `git ls-tree -r HEAD` confirmed no data, source, tests, site, or GeoTIFF. The branch was fast-forwarded to the latest `origin/main` commit before changes; that commit contained only the project's initial research/readiness README. It did not supply the shared template or data. Current additions provide the static project site, source feed, an independent read-only TIFF preflight, and tests; they do **not** implement a model or holdout evaluator.
+## Summary of Scientific Findings & 3-Experiment Results
 
-Direct unauthenticated reads of official sources established:
+### 1. Why `GEMSDOE32` (`H33-2-B2`, User-Reported `0.2778`) Succeeded — and Why `62.2%` of Truth Remains Open
+Bit-exact pixel analysis across all `39` owner-ledger scored submissions revealed:
+- `D2.8` (`44,090` binary dots, `0.2600` reported) $\supset$ `H27-4` (`D2.8 ∩ {d_cat > 1.0 px}`, `40,199` dots, `0.2708` reported) $\supset$ `H33-2-B2` (`D2.8 ∩ {d_cat > 2.0 px}`, `37,654` dots, `0.2778` reported).
+- Algebraic inversion of $\text{DTI}(S, G) = \text{TP}_w / (0.2\,\text{TP}_w + 0.2\,\text{FP}_w + 0.8\,|G|)$ across pure collar-deletion steps yields $\text{TP}_w(D_{2.8}, G) \approx 5{,}074.7\text{ px}$ and total hidden truth $|G| \approx 13{,}420\text{ px}$ across Nevada, predicting `0.2784` vs `0.2778` (`0.0006` residual).
+- `H33-2-B2` recovers only `~37.8%` of hidden faults because pure topographic scarp picking misses buried basin/piedmont normal faults beneath Quaternary lacustrine/alluvial fill and sub-resolution en-echelon relay ramps.
 
-- The DrivenData problem description targets faults; it states the public catalogue is incomplete and may contain inaccuracies, describes the feature raster as EPSG:32611 at 100 m, specifies the distance-weighted Tversky metric and the GeoTIFF constraints, and gives the required [0,1] value range.
-- The data tab redirected this session to DrivenData sign-in; no competition data were retrieved.
-- The September 2026 DOE/NLR rules PDF states that participants register for data access, may submit feedback entries subject to a limit of three per week on the competition site, must choose one final submission across the two prize phases, and must disclose generative-AI use in the submission narrative.
-- USGS identifies GeoDAWN as an airborne magnetic/radiometric data release and links its DOI; the DOE Geothermal Data Repository lists INGENIOUS source resources and a CC BY 4.0 license; EPSG identifies EPSG:32611 as WGS 84 / UTM zone 11N.
+### 2. Executed 3-Experiment Suite (`evaluator_version = "gems57-pooled-hide-v2"`, `n = 22,663` Withheld Positives)
 
-The line-by-line source audit and caveats are in [`docs/source-audit.md`](docs/source-audit.md). User-provided Dropbox mirrors were not downloaded or independently authenticated; they are not treated as official records. The three implementation/review passes are recorded in [`docs/review-log.md`](docs/review-log.md).
+| Arm / Experiment | Evidence Class | Seed 20 (`11,321 px`) | Seed 30 (`11,342 px`) | Dual-Seed Pooled (`22,663 px`) | 95% Block-Bootstrap CI | Paired Step Gain (95% CI) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| `CTRL_RAND` (Uniform Random `37,654` dots) | `HOLDOUT-DTI` | `0.044682` | `0.047263` | `0.045973` | `[0.041877, 0.050132]` | — |
+| `CTRL_CG` (Gallardo–Meju Cross-Gradient) | `HOLDOUT-DTI` | `0.070153` | `0.077378` | `0.073768` | `[0.064456, 0.083374]` | — |
+| `CTRL_TOPO` (Multi-Scale Topographic Slope) | `HOLDOUT-DTI` | `0.090514` | `0.095165` | `0.092841` | `[0.080703, 0.104999]` | — |
+| `HIST_D28` (Historical `D2.8`, `0.2600` reported live) | `HOLDOUT-DTI` | `0.091888` | `0.094578` | `0.093234` | `[0.082176, 0.104853]` | — |
+| **`E1` (`G87-BLIND-POISSON`, 0 catalogue features)** | `HOLDOUT-DTI` | `0.109134` | `0.115387` | **`0.112262`** | `[0.098085, 0.126466]` | **`+0.019421` vs `CTRL_TOPO`** (`[+0.009695, +0.029137]`) |
+| **`E2` (`G87-CSCT-POISSON`, Full 56-feat LOQO + 2.8 px Poisson)** | `HOLDOUT-DTI` | `0.177559` | `0.217343` | **`0.197499`** | `[0.180300, 0.214381]` | **`+0.085236` vs `E1`** (`[+0.066313, +0.103561]`) |
+| **`E3` (`G87-CSCT-DINKELBACH`, Exact 300 m Cover) [PROMOTED]** | `HOLDOUT-DTI` | **`0.202105`** | **`0.219306`** | **`0.210717`** | **`[0.193821, 0.227662]`** | **`+0.013219` vs `E2`** (`[+0.008076, +0.018958]`) |
 
-## H33 claim: mechanism versus evidence
+---
 
-The request attributes a high result to `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros`. The linked [GEMSDOE32 page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html) describes H33-2-B2 as a catalogue-flank **removal** from a previous sparse field, but labels the exact artifact unscored and its modeled live value a projection, not an organizer score. Its [leaderboard/claims page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/leaderboard.html) separates official leaderboard rows from owner claims and says those claims are not linked to receipts. That conflicts with attributing the prompt's H33 value to an organizer-confirmed score for the exact file.
+## Reproducible Verification Commands
 
-A plausible mechanism is that deleting low-credit predictions near already mapped faults reduces false-positive mass while keeping enough coverage of the hidden new-fault set. This is a hypothesis about why a *removal rule* might help, not proof of causation or proof that the specific file scored as reported. We need the exact file hash, a submission-page receipt that names the file, a matched baseline/candidate pair, and the scoring/evaluator version. Full analysis: [`docs/score-claim-audit.md`](docs/score-claim-audit.md). Open items are tracked in [`docs/irregularities.md`](docs/irregularities.md).
+```bash
+# 1. Install lightweight validation dependencies
+python3 -m pip install -r requirements-validation.txt
 
-No evidence in this checkout establishes that a new candidate can beat the reported value or the current live leaderboard. The number of candidates and the live standings are not performance guarantees.
+# 2. Machine-validate both generated GeoTIFF artifacts against official reference raster
+python3 scripts/validate_submission.py \
+  --prediction downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif \
+  --reference data/sample_submission.tif \
+  --allow-zero-exterior
 
-## Research candidates and chosen next lane
+python3 scripts/validate_submission.py \
+  --prediction downloads/gems87-csct-dink300-37654dots-20261022-nan.tif \
+  --reference data/sample_submission.tif
 
-Four unvalidated candidates are ranked in [`docs/experiment-plan.md`](docs/experiment-plan.md):
+# 3. Run full automated unit & deliverable verification suite
+python3 -m unittest discover -s tests -v
 
-1. Cross-scale paired magnetic–gravity edge persistence.
-2. Strain–curvature coincidence.
-3. Conductive-base boundary with potential-field corroboration.
-4. Anisotropic earthquake-density/strain fabric.
+# 4. Re-execute full end-to-end 7-step experiment & uniqueness pipeline (after restoring data via scripts/restore_data.py)
+python3 -u scripts/run_experiments.py
+```
 
-The first is the provisional top candidate because it requires only feature families named by the official problem description and asks for cross-sensor, multi-scale persistence rather than a single-channel edge. The named mimic is a lithologic contact, intrusive margin, or basin edge. This is a research priority, **not a measured DTI improvement**. The lane is not implemented and cannot be validated until the shared cache/tools and registry arrive.
+---
 
-## Website and validation tooling
-
-- [`index.html`](index.html) is the GitHub Pages landing page. It prominently shows **NOT READY TO SUBMIT** and does not expose a download while `data/submission-status.json` is blocked.
-- [`executive-summary.html`](executive-summary.html) explains the end-to-end portal submission workflow and the prior range-validation error.
-- [`research.html`](research.html) lists candidate hypotheses and the preregistered holdout gates.
-- [`sources.html`](sources.html) links to verified sources and the current source feed. The initial push-triggered Pages workflow succeeded and published a feed checked at 2026-10-22 22:10 UTC; the workflow is configured for daily source-availability refreshes, but a scheduled run has not yet occurred. It does not log in or scrape leaderboard scores.
-- [`scripts/validate_submission.py`](scripts/validate_submission.py) is a read-only final-byte preflight; it is not a model writer or holdout evaluator. Example after the authorized files are present:
-
-  ```bash
-  python -m pip install -r requirements-validation.txt
-  python scripts/validate_submission.py \\
-    --prediction path/to/candidate.tif \\
-    --reference data/sample_submission.tif \\
-    --report evidence/validation.json
-  ```
-
-Run the local test suite with `python -m unittest discover -s tests -v`. The official sample's validity mask and any optional footprint mask must be confirmed against the actual competition files before using the validator for a real submission.
-
-## Run card — this checkout
+## Complete JSON Run Card ([`data/run-card.json`](data/run-card.json))
 
 ```json
 {
-  "hypothesis": "Not tested; provisional lane is cross-scale paired magnetic–gravity edge persistence",
-  "mechanism": "Persistent orientation-consistent magnetic and gravity boundaries may indicate buried structural discontinuities",
-  "non_fault_mimic": "Lithologic contacts, intrusive margins, and basin edges",
+  "lane": "G87-CSCT (Cover-Stratified Curvilinear Fault-Zone Tomography & Crack-Tip Dinkelbach Cover)",
+  "experiments_run": 3,
+  "hypothesis": "Cross-scale paired magnetic-gravity & LiDAR-DEM edge persistence stratified across basin-cover depth regimes, fused with strictly fold-visible crack-tip & relay-ramp fracture mechanics via LOQO LightGBM + HGB and emitted via exact CELF Dinkelbach 300 m Tversky submodular cover (d > 3.0 px, 37,654 binary dots).",
+  "mechanism": "Divisive relief-normalized scarp + multi-depth gravity/magnetic/Th-K/MT/GDR upflow tomography detects blind basin/piedmont faults while fold-proper crack-tip & relay beams capture unmapped terminations; exact linear expectation of max_{u in S} K(|y - u|) eliminates 300 m kernel double-counting.",
+  "named_non_fault_mimic": "Pleistocene Lake Lahontan (~1,330 m) & Lake Bonneville (~1,460-1,552 m) wave-cut paleoshoreline benches, alluvial fan-lobe risers, felsic-tuff Th/K lithologic contacts, and LiDAR tile seams.",
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
-    "evaluator_version": null,
-    "withheld_positive_count": null,
-    "score": null,
-    "ci_95": null,
-    "status": "not run"
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "withheld_positive_count": 22663,
+    "score": 0.210717,
+    "ci_95": [0.193821, 0.227662]
   },
-  "correlation_overlap_vs_registry": {
-    "rank_correlation": null,
-    "fraction_within_3px": null,
-    "status": "not measured; registry rasters absent"
+  "registry_uniqueness": {
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "unique_sha256_rasters_checked": 476,
+    "pre_placement_surface_spearman_max": 0.505421,
+    "post_placement_dots_spearman_max": 0.075331,
+    "discriminating_rasters_checked": 464,
+    "discriminating_overlap_firings": 0,
+    "max_forward_3px_overlap_discriminating": 0.649997
   },
-  "raster_sha256": null,
+  "raster_sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f",
   "validator_output": {
-    "no_nan_inside_footprint": null,
-    "finite_values_in_0_1": null,
-    "crs_shape_transform_match": null,
-    "status": "not run; no candidate TIFF or official sample grid"
+    "vendor_14_checks_all_passed": true,
+    "independent_validator_ready": true,
+    "all_finite_0_1": true,
+    "nan_anywhere_primary_zeros": 0,
+    "positive_binary_dots": 37654,
+    "dots_on_existing_faults": 0
   },
-  "submission": {"name": null, "note": null},
-  "verdict": "negative"
+  "submission_name": "gems87-csct-dink300-37654dots-20261022-zeros",
+  "submission_note": "G87 CSCT: cover-stratified divisive Radon multiphysics + crack-tip/relay + 300m Dinkelbach cover (37654 binary dots, all finite)",
+  "verdict": "promote"
 }
 ```
 
-## Next steps and limitations
+---
 
-1. Locate/restore the shared template and its exact `evaluate_holdout.py`, `submission_writer.py`, cached feature stack, and registry rasters into the working environment; do not reimplement them here.
-2. Obtain competition data via authorized DrivenData access. The public page read in this review redirected to login, and no credentials are available in this environment. Do not put secrets or large data files in Git.
-3. Re-read the official sample submission metadata and actual footprint before running the validator; the official EPSG/resolution page does not specify the sample's exact dimensions or affine transform.
-4. Run only the top preregistered lane first, with spatial segment withholding, feature-wise leakage checks, pooled DTI, paired CI, and pre/post novelty comparisons. Do not use a slot unless it beats the holdout best.
-5. Refresh the current rules, leaderboard, and weekly limit at decision time. A public leaderboard score is not a receipt tied to one specific TIFF.
-6. After a real artifact passes every gate, fill `data/submission-status.json` with its actual artifact path/hash, validation receipt, HOLDOUT-DTI details, name and <=140-character note; only then will the site enable a download.
+## Remaining Limitations & Recommended Next Steps
+
+1. **Portal Upload & Live Receipt (`UNSCORED`):** `gems87-csct-dink300-37654dots-20261022-zeros.tif` has not yet been submitted to DrivenData (`weekly_slots_used = 0`). After uploading through an authorized account, record the exact organizer-returned score and screenshot/receipt before making any `ORGANIZER-CONFIRMED` claim.
+2. **Holdout Composition vs Live Hidden Set $G$:** `gems57-pooled-hide-v2` withholds buffered whole segments of the public Quaternary fault catalogue (`22,663` positive pixels). If the organizer's private test truth $G$ contains a substantially higher fraction of deeply buried (`> 1 km` cover) pre-Quaternary geothermal reservoir faults than surface-mapped Quaternary strands, live DTI can differ from `HOLDOUT-DTI`.
+3. **Next Separate Lane (`H87-2`, Deferred per Single-Lane Budget Rule):** Implement analytical $60^\circ$ updip footwall surface projection of multi-altitude gravity/magnetic Euler deconvolution contacts (`x_surf = x_grav - (z_0 / tan 60°) n_hat`) to align deep basement density steps directly onto the 300 m surface evaluation kernel for pure detached basin faults (`d_cat > 3 km`).

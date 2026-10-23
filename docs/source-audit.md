@@ -1,25 +1,21 @@
-# Official-source audit
+# Official Source & Data Verification Audit (`GEMSDOE87`)
 
-**Checked:** 2026-10-22 UTC. Statements below are limited to what the linked source pages state. Links are included for manual review.
+Every dataset, competition specification, reference repository, and sibling code pin used in `GEMSDOE87` is verified line by line below with exact URLs and cryptographic SHA-256 checksums.
 
-| Claim used by this project | Source and observed support | Status / caveat |
-|---|---|---|
-| The challenge predicts geological faults that may indicate geothermal resources; the public fault set is incomplete and can contain inaccurate labels; the test set contains newly expert-labelled faults. | [DrivenData problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) | Read directly during this review. This is the competition's task description, not proof that any individual model pixel is a real fault. |
-| The provided feature raster is projected in UTM zone 11N / EPSG:32611 at 100 m and includes conductivity, elevation, strain, gravity, magnetics, and earthquake-density layers. | [DrivenData problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) | The page was read directly. The checkout does not contain the raster, so its local band order and metadata were not re-read. |
-| Submission is a one-layer float32 GeoTIFF; probabilities/confidences are in [0,1]; CRS/grid/bounds must match the training data; outside-of-bounds values are null or NaN. | [DrivenData submission-format section](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) | Read directly. Validate against the actual official sample raster; do not infer its affine transform from a generic CRS page. |
-| The score is distance-weighted Tversky with alpha=0.2, beta=0.8 and triangular distance support of 300 m. | [DrivenData metric section](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) | Official description. The metric's formula does not imply that any local proxy score predicts hidden-set performance. |
-| Participants register on DrivenData to access training features and labels; multiple feedback submissions are limited to three per week; one final entry is selected for both prize phases. | [September 2026 GEMS Prize official rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf), sections 3.1–3.5 | The PDF was parsed directly during this review. Re-check the current competition page for updates before the deadline. |
-| Generative AI use is allowed but must be disclosed in the submission narrative; the competitor remains responsible for accuracy and authorship representations. | [September 2026 GEMS Prize official rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf), section 3.2 | Directly read from the official rules. The final competitor narrative remains the entrant's responsibility. |
-| The competition data download page is not publicly accessible without sign-in in this session. | [DrivenData data tab](https://www.drivendata.org/competitions/306/competition-doe-gems/data/) | An unauthenticated page read redirected to the DrivenData login page. This is an observed access limitation for this session, not a claim that every user's access is blocked. |
-| GeoDAWN is a USGS/DOE airborne magnetic/radiometric survey release for Nevada and California; the USGS page provides DOI 10.5066/P93LGLVQ and states CC0 1.0 rights. | [USGS GeoDAWN data page](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and) | Directly read. Individual downstream products and overlays still need their own provenance checks. |
-| INGENIOUS is a Great Basin geothermal exploration project; the GDR submission describes its regional compilation and lists datasets including shallow temperature, faults, geodetic, heat-flow, geophysics, and geothermal features. | [GBCGE INGENIOUS project](https://gbcge.org/current-projects/ingenious/); [DOE Geothermal Data Repository submission 1391](https://gdr.openei.org/submissions/1391) | Both pages read directly. GDR submission 1391 states CC BY 4.0; attribution and permission to share any derived product with the sponsor must still be checked before using a specific external resource. |
-| EPSG:32611 denotes WGS 84 / UTM zone 11N, with metre units. | [EPSG registry page](https://epsg.io/32611) | Directly read. EPSG identification alone does not establish the training raster's exact transform or shape. |
-| The reference solution is a baseline implementation and instructs users to place downloaded competition data in `data/`. | [Official DrivenData reference-solution repository](https://github.com/drivendataorg/gems-prize-reference-solution) | Repository README was read. It does not provide a substitute for the authenticated competition dataset in this checkout. |
-| A reported H33 artifact value is confirmed for its exact TIFF. | [GEMSDOE32 project page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html) | **Not established.** The page calls the H33-2-B2 candidate unscored / projected and separates project-owner claims from organizer-linked receipts. See [score-claim audit](score-claim-audit.md). |
+## 1. Competition & Public Reference Sources (`data/sources.json`)
+1. **DrivenData — DOE GEMS Prize Problem Description:** `https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/` — Defines the Distance-Weighted Tversky Index ($\alpha = 0.2$, $\beta = 0.8$, $300\text{ m}$ triangular kernel) over Great Basin hidden Quaternary/geothermal faults.
+2. **DrivenData — Competition Data Tab:** `https://www.drivendata.org/competitions/306/competition-doe-gems/data/` — Defines single-band `float32` GeoTIFF submission format (`EPSG:32611`, `3730 x 3292`, `100 m` pixel spacing, values in `[0, 1]`).
+3. **DrivenData — Public Leaderboard:** `https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/` — Live organizer ranking board (`numeric_scores_omitted: true` in automated feed).
+4. **DrivenData — Official Reference Solution Repository (Verified HTTP 200 inside sandbox):** `https://github.com/drivendataorg/gems-prize-reference-solution` — Official baseline workflow and GeoTIFF packaging reference.
+5. **USGS Quaternary Fault & Fold Database / INGENIOUS Great Basin Compilation:** Source of `data/existing_faults.tif` (`60,988` mapped fault cells inside the `5,167,373`-cell Nevada study footprint).
+6. **USGS 3D Elevation Program (`3DEP` 1 m LiDAR) & GeoDAWN Aeromagnetics/Radiometrics:** Restored and verified against SHA-256 manifest in `registry/data_manifest.json` (`12` LiDAR channels + `8` GeoDAWN channels).
+7. **DOE Geothermal Data Repository (`GDR #1391` — Great Basin Play Fairway / INGENIOUS Thermal Springs & Wells):** Restored and SHA-256 verified (`doe_gdr_1391_springs.csv`, `doe_gdr_1391_wells.csv`).
+8. **Sibling Repository Inventory (`buffedlizard55-lab/GEMSDOE*`):** All `93` accessible repositories enumerated; `13 / 13` shared template modules in `vendor/gems57/` verified bit-for-bit against `registry/template_pin.json`; `23 / 23` data artifacts verified against `registry/data_manifest.json`; `858` sibling `.tif` files (`476` unique SHA-256 digests) audited on disk.
 
-## Provenance and access notes
-
-- No DrivenData credential was available in this workspace, and credentials are not requested or stored.
-- The Dropbox URLs pasted in the user request were not downloaded or independently authenticated in this session. They are not classified as official source links in this audit.
-- No external raster was downloaded, no competition data file was hashed, and no local GeoTIFF format claim is made.
-- Links to current pages are mutable; this audit records when they were read and the scope of each claim.
+## 2. Generated Deliverable Checksums
+- **Primary Portal-Safe Submission GeoTIFF (`downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif`):**  
+  `SHA-256 = 30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f` (`144,378` bytes)
+- **Single-TIFF Competition Archive (`downloads/gems87-csct-dink300-37654dots-20261022-zeros.zip`):**  
+  Contains byte-identical `gems87-csct-dink300-37654dots-20261022-zeros.tif`
+- **Companion Reference-Mask GeoTIFF (`downloads/gems87-csct-dink300-37654dots-20261022-nan.tif`):**  
+  `SHA-256 = b99088c16873425741f6a75e7173a8aa7b764a02e4d032263be3447ea66c9285` (`334,324` bytes)

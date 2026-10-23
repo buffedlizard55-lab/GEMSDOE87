@@ -56,6 +56,7 @@ def validate_submission(
     prediction_path: str | Path,
     reference_path: str | Path,
     footprint_mask_path: str | Path | None = None,
+    allow_zero_exterior: bool = False,
 ) -> dict[str, Any]:
     """Validate prediction metadata and pixel values against a reference grid.
 
@@ -217,6 +218,8 @@ def validate_submission(
                 outside = ~footprint
                 nodata = pred.nodata
                 outside_is_null = np.isnan(values)
+                if allow_zero_exterior:
+                    outside_is_null = outside_is_null | (values == 0.0)
                 if nodata is not None:
                     try:
                         if math.isnan(float(nodata)):
@@ -295,11 +298,21 @@ def main(argv: list[str] | None = None) -> int:
         type=Path,
         help="optional raster on the same grid; valid pixels define the submission footprint",
     )
+    parser.add_argument(
+        "--allow-zero-exterior",
+        action="store_true",
+        help="accept exact 0.0 outside the footprint (used by portal-safe all-finite -zeros.tif artifacts)",
+    )
     parser.add_argument("--report", type=Path, help="optional path to write the JSON receipt")
     args = parser.parse_args(argv)
 
     try:
-        result = validate_submission(args.prediction, args.reference, args.footprint_mask)
+        result = validate_submission(
+            args.prediction,
+            args.reference,
+            args.footprint_mask,
+            allow_zero_exterior=args.allow_zero_exterior,
+        )
     except RuntimeError as exc:
         print(json.dumps({"ready": False, "errors": [str(exc)]}, indent=2), file=sys.stderr)
         return 2

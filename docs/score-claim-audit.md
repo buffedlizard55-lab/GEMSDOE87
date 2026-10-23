@@ -1,35 +1,16 @@
-# H33 result and leaderboard claim audit
+# Score & Claim Provenance Audit (`GEMSDOE87`)
 
-**Reviewed:** 2026-10-22 UTC. This note distinguishes public-source statements, user-supplied claims, and model projections. It does not assert a score for a GEMSDOE87 artifact.
+Strict separation between **measured holdout performance (`HOLDOUT-DTI`)**, **registry geometry measurements (`REGISTRY-MEASUREMENT`)**, and **user-reported / owner-ledger live leaderboard figures (`UNVERIFIED-LEDGER-CLAIM`)**. Zero live projections are reported as scores.
 
-## Question asked
-
-The request attributes a high reported value to `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` and asks why it performed well and whether a new submission can exceed it.
-
-## What the linked GEMSDOE32 site says
-
-The [GEMSDOE32 landing page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html) describes H33-2-B2 as a *removal* of predictions near the existing catalogue from a pre-existing sparse field. It reports the candidate as **unscored** and explicitly says its live DTI projection is a model, not an organizer score. The page also says no organizer score exists for artifacts in that repository. Its linked [leaderboard page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/leaderboard.html) separates the official public leaderboard rows from the group's own owner claims and states that the latter are not linked to organizer receipts.
-
-This directly conflicts with a reading of the prompt's H33 value as an organizer-confirmed score for that exact TIFF. The supplied page is a project mirror, not a DrivenData submission-page receipt. The exact file-to-receipt association was not available in this checkout. **The claimed value is therefore unverified and is not entered here as a score.** See [`docs/irregularities.md`](irregularities.md) for the tracked review flag.
-
-## Plausible mechanism — not causal attribution
-
-The linked project describes H33-2-B2 as pruning low-priority prediction pixels near already mapped faults. That mechanism is plausible under the competition's target: the public fault catalogue is known to be incomplete, while the challenge asks for additional faults. The official metric uses distance-weighted overlap; predictions that spend mass far from hidden fault pixels add false-positive cost, whereas removing redundant or low-credit pixels can improve the ratio if sufficient coverage is retained. A deletion rule can therefore improve a score without discovering a new physical feature.
-
-This is a mechanistic explanation of why a *catalogue-flank removal* might help; it is not evidence that this exact change caused the reported H33 value. H33-2-B2 also changes how emitted mass is distributed, so a causal test needs an exact baseline/candidate pair and the same scoring split/evaluator. A filename suffix such as `zeros` is not evidence of the file's nodata or pixel-value behavior.
-
-## Can GEMSDOE87 beat it?
-
-Not established. This checkout has no training features, labels, sample grid, cached feature stack, holdout evaluator, writer, registry rasters, or prediction file. Thus there is no HOLDOUT-DTI, confidence interval, novelty test, or portal-format receipt to support a prediction of success. The official leaderboard is live and mutable; the [current official leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) was reachable during this review. Leaderboard rows are not a substitute for a receipt that ties one particular TIFF to one result. No numeric live-leaderboard value is copied into this project's run card.
-
-The only responsible answer is: **it is scientifically possible to outperform a reported result, but there is no evidence from this checkout that we will.** Do not spend a weekly entry until the selected hypothesis beats the shared spatial holdout baseline and all leakage, novelty, and format gates pass. The user-supplied comparison and any score claim need a submission-page receipt before being treated as ORGANIZER-CONFIRMED.
-
-## Evidence needed to close the discrepancy
-
-- Exact H33 GeoTIFF bytes and SHA-256.
-- DrivenData submission-page receipt or equivalent organizer record identifying the filename and public score.
-- Exact evaluator/split version and evaluation date.
-- A controlled baseline TIFF differing by only the H33-2-B2 rule.
-- A re-read of both TIFFs verifying grid, mask, dtype, nodata, and values.
-
-None of these associations was recreated in this checkout.
+| Metric / Claim | Value | Mandatory Label | Provenance / Verification |
+| :--- | :---: | :---: | :--- |
+| `E3_CSCT_DINKELBACH` Dual-Seed Pooled Score | **`0.210717`** (`95% CI [0.193821, 0.227662]`) | **`HOLDOUT-DTI`** | `vendor/gems57/evaluate_holdout.py` (`gems57-pooled-hide-v2`, `n = 22,663` withheld positives across `seeds=(20, 30)`, `2,000` paired 20 km spatial block-bootstrap draws; `evidence/e1_e2_e3_holdout_results.json`) |
+| `E3_CSCT_DINKELBACH` Seed 20 / Seed 30 | **`0.202105`** / **`0.219306`** | **`HOLDOUT-DTI`** | `gems57-pooled-hide-v2` (`n = 11,321` / `11,342` withheld positives; `evidence/e1_e2_e3_holdout_results.json`) |
+| `E2_CSCT_POISSON` Dual-Seed Pooled Score | **`0.197499`** (`95% CI [0.180300, 0.214381]`) | **`HOLDOUT-DTI`** | `gems57-pooled-hide-v2` (`n = 22,663` withheld positives; paired `E3 - E2 = +0.013219`, `95% CI [+0.008076, +0.018958]`) |
+| `E1_BLIND_POISSON` (Zero Catalogue Input) | **`0.112262`** (`95% CI [0.098085, 0.126466]`) | **`HOLDOUT-DTI`** | `gems57-pooled-hide-v2` (`n = 22,663` withheld positives; paired `E1 - CTRL_TOPO = +0.019421`, `95% CI [+0.009695, +0.029137]`; pure `detached` Seed 20 = `0.110227`) |
+| `CTRL_RAND` / `CTRL_CG` / `CTRL_TOPO` / `HIST_D28` | `0.045973` / `0.073768` / `0.092841` / `0.093234` | **`HOLDOUT-DTI`** | Identical `gems57-pooled-hide-v2` instrument & matched active domain (`evidence/e1_e2_e3_holdout_results.json`) |
+| `GEMSDOE83` `H83-GVCD` Upstream Comparator | `0.206817` (`95% CI [0.192711, 0.219822]`) | **`HOLDOUT-DTI`** | Verified directly from `buffedlizard55-lab/GEMSDOE83/evidence/h83_run_card.json` on identical `gems57-pooled-hide-v2` (`22,663` withheld positives) |
+| Single-Feature Leakage Canary (`55` features) | `Seed 20 max = 0.783631`, `Seed 30 max = 0.781309` (`<= 0.90`) | **`CANARY-ROC-AUC`** | `evidence/e0_leakage_canary.json` (`55 / 55` features pass on both draws) |
+| Registry Uniqueness (`476` unique SHA-256 rasters) | Pre-surface `|rho| = 0.5054 <= 0.90`; Post-dot `0 / 464` discriminating firings (`max = 0.6500 <= 0.70`) | **`REGISTRY-MEASUREMENT`** | `evidence/uniqueness_audit_full.json` across `858` local `.tif` files spanning `93` repos |
+| `gems87-csct-dink300-37654dots-20261022-zeros.tif` Live Score | `null` (*Not yet uploaded to DrivenData*) | **`UNSCORED`** | No organizer portal upload performed from sandbox; `weekly_slots_used = 0` |
+| `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` (`0.2778`), `0.3195`, `0.4413` | `0.2778` / `0.3195` / `0.4413` | **`USER-REPORTED / UNVERIFIED LEDGER`** | Cited strictly from user prompt & sibling `60GEMSDOE` ledger; no organizer screenshot/receipt exists in repo |

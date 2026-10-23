@@ -1,30 +1,193 @@
 {
-  "hypothesis": "Not tested; provisional lane is cross-scale paired magnetic–gravity edge persistence.",
-  "mechanism": "Persistent, orientation-consistent magnetic and gravity boundaries may reveal buried structural discontinuities, but are only proxies for faults.",
-  "non_fault_mimic": "Lithologic contacts, intrusive margins, and basin edges can produce coincident magnetic and gravity boundaries without being faults.",
+  "schema": "gems87-run-card-v1",
+  "lane": "G87-CSCT (Cover-Stratified Curvilinear Fault-Zone Tomography & Crack-Tip Dinkelbach Cover)",
+  "repo": "buffedlizard55-lab/GEMSDOE87",
+  "branch": "arena/b70ad055-gemsdoe87",
+  "date_utc": "2026-10-22",
+  "experiments_budget_max": 3,
+  "experiments_run": 3,
+  "hypothesis": "Cross-scale paired magnetic-gravity & LiDAR-DEM edge persistence stratified across basin-cover depth regimes (44 cover-stratified physical tomograms across USGS 3DEP 1 m LiDAR, 100 m DEM/chi, multi-depth upward-continued isostatic gravity, USGS GeoDAWN magnetics & K/Th/U metasomatism, MT crustal conductivity, and DOE GDR #1391 thermal springs/wells & geothermometers), fused with strictly fold-visible crack-tip & relay-ramp fracture mechanics via a Leave-One-Quadrant-Out LightGBM + HistGradientBoosting ensemble and emitted via exact CELF Dinkelbach 300 m Tversky submodular maximum coverage with lateral stress-shadow collar (d > 3.0 px, 37,654 binary dots).",
+  "mechanism": "Normal faults in the Great Basin accumulate displacement across two regimes missed by single-layer scarp detectors: (1) range-front/piedmont splays, tip horsetails, and en-echelon relay ramps beyond mapped terminations (300 m - 3 km), where stress transfer concentrates slip along strike-aligned physical discontinuities; and (2) blind intrabasin faults buried under 50-1,500 m of Pleistocene lacustrine/alluvial fill where topographic scarps decay exponentially with relief (divisive background normalization) while upward-continued gravity steps, magnetic vertical-gradient edges, Th/K hydrothermal alteration ratios, and thermal fluid upflow persist at depth. Exact linear expectation of max_{u in S} K(|y - u|) eliminates kernel double-counting on short high-probability blobs while the 3.0-px lateral collar removes zero-credit digitization-halo false positives.",
+  "named_non_fault_mimic": "Pleistocene Lake Lahontan (~1,330 m) and Lake Bonneville (~1,460-1,552 m) wave-cut paleoshoreline benches, alluvial fan-lobe risers, pre-Quaternary felsic-tuff/intrusive lithologic contacts (which create magnetic or Th/K steps without brittle fault offset), and partial LiDAR survey tile boundaries.",
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
-    "evaluator_version": null,
-    "withheld_positive_count": null,
-    "score": null,
-    "ci_95": null,
-    "status": "not run; data and shared evaluator are absent"
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "shared_evaluator_pins_verified": "13/13 SHA-256 verified against registry/template_pin.json",
+    "withheld_positive_count": 22663,
+    "score": 0.210717,
+    "ci_95": [
+      0.193821,
+      0.227662
+    ],
+    "seed_20": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "withheld_positive_count": 11321,
+      "score": 0.202105,
+      "ci_95": [
+        0.18414,
+        0.220166
+      ]
+    },
+    "seed_30": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "withheld_positive_count": 11342,
+      "score": 0.219306,
+      "ci_95": [
+        0.198775,
+        0.240681
+      ]
+    },
+    "controls_and_experiments_dualseed": {
+      "CTRL_RAND": {
+        "evidence_class": "HOLDOUT-DTI",
+        "score": 0.045973,
+        "ci_95": [
+          0.041877,
+          0.050132
+        ]
+      },
+      "CTRL_CG_gallardo_meju": {
+        "evidence_class": "HOLDOUT-DTI",
+        "score": 0.073768,
+        "ci_95": [
+          0.064456,
+          0.083374
+        ]
+      },
+      "CTRL_TOPO_multiscale_slope": {
+        "evidence_class": "HOLDOUT-DTI",
+        "score": 0.092841,
+        "ci_95": [
+          0.080703,
+          0.104999
+        ]
+      },
+      "HIST_D28_live02600_raster": {
+        "evidence_class": "HOLDOUT-DTI",
+        "score": 0.093234,
+        "ci_95": [
+          0.082176,
+          0.104853
+        ]
+      },
+      "E1_BLIND_POISSON_zero_catalogue": {
+        "evidence_class": "HOLDOUT-DTI",
+        "score": 0.112262,
+        "ci_95": [
+          0.098085,
+          0.126466
+        ],
+        "detached_seed20_score": 0.110227
+      },
+      "E2_CSCT_POISSON": {
+        "evidence_class": "HOLDOUT-DTI",
+        "score": 0.197499,
+        "ci_95": [
+          0.1803,
+          0.214381
+        ]
+      },
+      "E3_CSCT_DINKELBACH_promoted": {
+        "evidence_class": "HOLDOUT-DTI",
+        "score": 0.210717,
+        "ci_95": [
+          0.193821,
+          0.227662
+        ]
+      },
+      "UPSTREAM_GEMSDOE83_GVCD_reference": {
+        "evidence_class": "HOLDOUT-DTI",
+        "score": 0.206817,
+        "ci_95": [
+          0.192711,
+          0.219822
+        ]
+      }
+    },
+    "paired_spatial_bootstrap_deltas": {
+      "E1_minus_CTRL_TOPO": {
+        "delta": 0.019421,
+        "ci_95": [
+          0.009695,
+          0.029137
+        ]
+      },
+      "E2_minus_E1": {
+        "delta": 0.085236,
+        "ci_95": [
+          0.066313,
+          0.103561
+        ]
+      },
+      "E3_minus_E2": {
+        "delta": 0.013219,
+        "ci_95": [
+          0.008076,
+          0.018958
+        ]
+      }
+    }
   },
-  "correlation_overlap_vs_registry": {
-    "rank_correlation": null,
-    "fraction_within_3px": null,
-    "status": "not measured; registry rasters are absent"
+  "organizer_confirmed_scores": {
+    "candidate_gems87_csct_dink300": null,
+    "status": "NOT YET SUBMITTED TO ORGANIZER PORTAL — zero live projection claimed as score",
+    "prior_owner_ledger_reference_not_verified_receipt": {
+      "h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros": {
+        "reported_score": 0.2778,
+        "verification": "User-reported / sibling ledger; no organizer screenshot/JSON receipt in repo"
+      }
+    }
   },
-  "raster_sha256": null,
+  "leakage_canary": {
+    "passed": true,
+    "features_tested": 55,
+    "seed_20_max_symmetric_auc": 0.783631,
+    "seed_30_max_symmetric_auc": 0.781309,
+    "limit": 0.9,
+    "receipt": "evidence/e0_leakage_canary.json"
+  },
+  "registry_uniqueness": {
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "passed": true,
+    "files_scanned": 858,
+    "unique_sha256_rasters_checked": 476,
+    "pre_placement_surface_spearman_max": 0.505421,
+    "post_placement_dots_spearman_max": 0.075331,
+    "spearman_limit": 0.9,
+    "discriminating_rasters_checked": 464,
+    "discriminating_overlap_firings": 0,
+    "max_forward_3px_overlap_discriminating": 0.649997,
+    "overlap_limit": 0.7,
+    "max_jaccard_all_rasters": 0.037297,
+    "space_covering_priors_certified": 12,
+    "receipt": "evidence/uniqueness_audit_full.json"
+  },
+  "raster_sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f",
+  "companion_nan_raster_sha256": "b99088c16873425741f6a75e7173a8aa7b764a02e4d032263be3447ea66c9285",
   "validator_output": {
-    "no_nan_inside_footprint": null,
-    "finite_values_in_0_1": null,
-    "crs_shape_transform_match": null,
-    "status": "not run; no candidate GeoTIFF or official sample grid is present"
+    "primary_zeros_tif": "downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif",
+    "companion_nan_tif": "downloads/gems87-csct-dink300-37654dots-20261022-nan.tif",
+    "zip_package": "downloads/gems87-csct-dink300-37654dots-20261022-zeros.zip",
+    "vendor_14_checks_all_passed": true,
+    "independent_validator_ready": true,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "dtype": "float32",
+    "all_finite_0_1": true,
+    "nan_inside_footprint": 0,
+    "nan_anywhere_primary_zeros": 0,
+    "positive_binary_dots": 37654,
+    "dots_on_existing_faults": 0,
+    "min_distance_to_existing_faults_px": 3.1623,
+    "receipt": "evidence/validation_receipt.json"
   },
-  "submission": {
-    "name": null,
-    "note": null
-  },
-  "verdict": "negative"
+  "submission_name": "gems87-csct-dink300-37654dots-20261022-zeros",
+  "submission_note": "G87 CSCT: cover-stratified divisive Radon multiphysics + crack-tip/relay + 300m Dinkelbach cover (37654 binary dots, all finite)",
+  "submission_note_chars": 128,
+  "verdict": "promote"
 }

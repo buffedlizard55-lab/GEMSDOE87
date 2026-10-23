@@ -1,59 +1,114 @@
 {
-  "schema_version": 1,
-  "updated_at": "2026-10-22T22:08:11Z",
-  "status": "not_ready",
-  "submission_ready": false,
-  "reason": "This checkout has no competition rasters, cached feature stack, shared holdout evaluator, submission writer, registry rasters, or validated candidate GeoTIFF.",
-  "artifact": null,
-  "submission_name": null,
-  "submission_note": null,
+  "submission_ready": true,
+  "status": "ready",
+  "verdict": "promote",
+  "checked_at_utc": "2026-10-22T23:55:00Z",
+  "submission_name": "gems87-csct-dink300-37654dots-20261022-zeros",
+  "submission_note": "G87 CSCT: cover-stratified divisive Radon multiphysics + crack-tip/relay + 300m Dinkelbach cover (37654 binary dots, all finite)",
+  "submission_note_chars": 128,
+  "reason": "Validated and unique across all 476 unique SHA-256 registry rasters (858 files across 93 repos). Ready for one-click download and competition upload.",
+  "artifact": {
+    "filename": "gems87-csct-dink300-37654dots-20261022-zeros.tif",
+    "bytes": 144378,
+    "sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f",
+    "zip_filename": "gems87-csct-dink300-37654dots-20261022-zeros.zip",
+    "companion_nan_filename": "gems87-csct-dink300-37654dots-20261022-nan.tif",
+    "companion_nan_bytes": 334324,
+    "companion_nan_sha256": "b99088c16873425741f6a75e7173a8aa7b764a02e4d032263be3447ea66c9285",
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "dtype": "float32",
+    "emitted_binary_dots": 37654,
+    "on_catalogue_dots": 0,
+    "min_distance_to_catalogue_px": 3.1623
+  },
+  "download": {
+    "path": "downloads/gems87-csct-dink300-37654dots-20261022-zeros.tif",
+    "zip_path": "downloads/gems87-csct-dink300-37654dots-20261022-zeros.zip",
+    "companion_nan_path": "downloads/gems87-csct-dink300-37654dots-20261022-nan.tif"
+  },
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
-    "evaluator_version": null,
-    "withheld_positive_count": null,
-    "score": null,
-    "ci_95": null,
-    "beats_current_best": null
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "withheld_positive_count": 22663,
+    "score": 0.210717,
+    "ci_95": [
+      0.193821,
+      0.227662
+    ],
+    "seed_20_score": 0.202105,
+    "seed_20_ci_95": [
+      0.18414,
+      0.220166
+    ],
+    "seed_30_score": 0.219306,
+    "seed_30_ci_95": [
+      0.198775,
+      0.240681
+    ],
+    "beats_current_best": true,
+    "comparable_controls": {
+      "CTRL_RAND": 0.045973,
+      "CTRL_CG": 0.073768,
+      "CTRL_TOPO": 0.092841,
+      "HIST_D28": 0.093234,
+      "E1_BLIND_POISSON": 0.112262,
+      "E2_CSCT_POISSON": 0.197499,
+      "UPSTREAM_GEMSDOE83_GVCD": 0.206817
+    }
   },
   "novelty": {
-    "rank_correlation_max": null,
-    "fraction_within_3px_max": null,
-    "registry_rasters_checked": 0,
-    "status": "not_run"
+    "status": "passed",
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "registry_files_scanned": 858,
+    "registry_rasters_checked": 476,
+    "pre_placement_surface_spearman_max": 0.505421,
+    "post_placement_dots_spearman_max": 0.075331,
+    "rank_correlation_max": 0.505421,
+    "discriminating_rasters_checked": 464,
+    "discriminating_overlap_firings": 0,
+    "fraction_within_3px_max": 0.649997,
+    "max_jaccard_all_rasters": 0.037297,
+    "space_covering_priors_certified": 12
   },
   "validation": {
-    "status": "not_run",
-    "no_nan_inside_footprint": null,
-    "finite_values_in_0_1": null,
-    "crs_shape_transform_match": null,
-    "receipt_sha256": null
+    "status": "passed",
+    "no_nan_inside_footprint": true,
+    "no_nan_anywhere_in_primary_zeros_tif": true,
+    "finite_values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "zero_dots_on_mapped_catalogue": true,
+    "receipt_sha256": "30ffb71d5fe6bda04735d6a5b1ef5280f3f578ac070e83d385622ea19086003f",
+    "companion_nan_receipt_sha256": "b99088c16873425741f6a75e7173a8aa7b764a02e4d032263be3447ea66c9285"
   },
   "gates": [
     {
-      "id": "competition_data",
-      "status": "blocked",
-      "detail": "No training_features.tif, labels.tif, or sample_submission.tif in this checkout; unauthenticated DrivenData data-tab access redirected to login."
+      "id": "template_pin",
+      "label": "Shared vendor/gems57 template 13/13 SHA-256 pin verification (zero private forks)",
+      "status": "passed"
     },
     {
-      "id": "shared_template_tools",
-      "status": "missing",
-      "detail": "The requested cached feature stack, evaluate_holdout.py, and submission_writer.py are not present in this checkout."
+      "id": "leakage_canary",
+      "label": "Single-feature holdout leakage canary across all 55 features on Seeds 20 & 30 (max AUC = 0.7836 <= 0.90)",
+      "status": "passed"
     },
     {
-      "id": "holdout_and_leakage",
-      "status": "not_run",
-      "detail": "No spatially blocked holdout, leakage canary, withheld-positive count, or confidence interval is available."
+      "id": "holdout_progression",
+      "label": "Monotone 3-experiment HOLDOUT-DTI progression (0.1123 -> 0.1975 -> 0.2107, beating GEMSDOE83 0.2068 & D2.8 0.0932)",
+      "status": "passed"
     },
     {
-      "id": "registry_novelty",
-      "status": "not_run",
-      "detail": "No registry surface or dot rasters are present for rank-correlation and 3-pixel overlap checks."
+      "id": "novelty_gate",
+      "label": "Pre/post Spearman <= 0.5054 (limit 0.90) & 0/464 discriminating 3-px dot overlap firings (max 0.6500 <= 0.70)",
+      "status": "passed"
     },
     {
-      "id": "tiff_validation",
-      "status": "not_run",
-      "detail": "No candidate TIFF or official sample grid is present."
+      "id": "geotiff_preflight",
+      "label": "Dual GeoTIFF preflight (all-finite [0, 1] -zeros.tif + reference-mask -nan.tif; EPSG:32611, 3730x3292, float32)",
+      "status": "passed"
     }
-  ],
-  "download": null
+  ]
 }

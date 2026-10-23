@@ -4,14 +4,24 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 
-# Local work products: keep competition rasters and ZIPs out of Git.
+# Local work products and heavy restored datasets/caches: keep out of Git.
 *.tif
 *.tiff
 *.zip
-# A validated, named submission may be published here only after every readiness gate passes.
+data/cache/
+data/bridge/
+data/external/
+data/scored/
+data/registry_rasters/
+data/*.csv
+data/*.npz
+
+# A validated, named submission and its single-TIFF ZIP are published in downloads/ after all readiness gates pass.
 !downloads/
 !downloads/*.tif
-# Keep transient evidence scratch out of Git; small final receipts may be tracked.
+!downloads/*.zip
+
+# Keep transient evidence scratch out of Git; final machine-readable receipts in evidence/*.json are tracked.
 evidence/tmp/
 
 # Site build output
