@@ -142,8 +142,10 @@ class SnapReleaseTests(unittest.TestCase):
     def test_three_snap_rows_are_unique_and_complete(self) -> None:
         rows = self._rows()
         snap = [r for r in rows if r["axis"] == "SNAP"]
-        self.assertEqual(len(snap), 3, "expected exactly 3 BUILT SNAP variants for this session")
-        self.assertEqual({r["value"] for r in snap}, {"tmi-hg", "scarp", "grav-argmax"})
+        # Union ledger: this session's 3 crest-snap arms plus the parallel edge-argmax session's
+        # arms (tmi2/grav2/comb2) coexist; (parent, axis, value) and sha256 stay unique below.
+        self.assertGreaterEqual(len(snap), 3, "expected at least this session's 3 BUILT SNAP variants")
+        self.assertLessEqual({"tmi-hg", "scarp", "grav-argmax"}, {r["value"] for r in snap})
         self.assertEqual(len({r["sha256"] for r in rows}), len(rows), "duplicate sha256 in the ledger")
         pairs = {(r["parent"], r["axis"], r["value"]) for r in rows}
         self.assertEqual(len(pairs), len(rows), "duplicate (parent, axis, value) in the ledger")
