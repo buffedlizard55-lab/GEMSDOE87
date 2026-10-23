@@ -56,6 +56,16 @@ The public leaderboard was observed on 2026-10-22 at **0.4413** on the [official
 
 We verified from decoded bytes that H33 removes 2,545 near-catalogue pixels from a 40,199-pixel parent and adds none, yielding 37,654 pixels. That is exactly a 200 m catalogue-flank prune. Under the official metric, removing low marginal-coverage mass can reduce false-positive cost. Hidden labels and receipts are unavailable, so this is a plausible mechanism, **not** a causal proof of the reported historical result. See [the full mathematical analysis](research/analysis.md) and [measured raster ancestry](docs/evidence/h33_forensics.json).
 
+## Latest repository review (2026-10-23; no new scientific experiment)
+
+The complete user brief, including this run's protocol and Core Values, remains preserved in the archived section below and was reread before review. H87 remains frozen as a negative: no corrected scientific measurement, new TIFF, final-dot placement, competition upload, or weekly slot selection was performed.
+
+- Restored only the two small SHA-256-pinned grid/catalogue mirrors needed for local software checks. Current receipt: [`data/restore_receipt.json`](data/restore_receipt.json). The large feature raster/cache was not restored for this review, and mirror integrity is not organizer authentication.
+- Verification: **103 Python tests passed**; **37 Chromium checks passed** at 320/390/768/1440 px; offline site audit passed (7 pages, 120 local targets, 4 compatibility entry points); TIFF format-only preflight exited 0; normal authorization check exited 2 with `safe_to_submit=false` and `DO NOT SUBMIT`. Receipts: [browser](docs/evidence/browser_validation.json), [site](docs/evidence/site_validation.json), [independent validation](docs/evidence/independent_validation.json).
+- The source-health feed still records its latest attempt at `2026-10-22T22:33:20.895788Z`: **0/13** official-source transports reachable, with the dated public-leaderboard observation retained. No new official-source fetch or current account-cap/receipt check is claimed in this review; see [the feed](docs/data/feed.json).
+
+Tracked changes are limited to the dated review notes, the current two-file restore receipt, refreshed browser-validation evidence, the rebuilt verification page, and its decision-status timestamp. No scientific output changed. Detailed three-pass review: [`research/verification.md`](research/verification.md).
+
 ## Reproduce the automated file inspection
 
 Python 3.11+, `gh`, and the existing GitHub connection are required. No passwords, tokens, or manual data placement are requested. Large inputs and caches are ignored by Git.

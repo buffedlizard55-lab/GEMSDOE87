@@ -74,3 +74,30 @@ CI is defined in `.github/workflows/ci.yml`. Pages/read-only source refresh is d
 Concurrent main readiness work at `f4f5944` and hardening through `a7a7c77` was integrated on this same fixed branch, with exact-byte snapshots and its code/tests preserved. Compatibility root status now distinguishes a research download from competition approval; historical documents are labeled as snapshots. No second scientific lane was executed. Pages settings write was denied to the integration; the already successful upload/deploy pattern is reused without changing those settings.
 
 The original request is **not fully satisfied as a winning or protocol-cleared submission**. Literal universal overlap, lack of control improvement, the frozen experiment's edge defect, unauthenticated originals/cap/receipts, one malformed prior, and incomplete historical mechanism review remain explicit. A separately authorized next run must resolve the protocol contradiction before any new experiment; see the research queue. No user action or human inspector is required to repeat local software/file validation, but software cannot create hidden truth or organizer authorization.
+
+## Repository review addendum — 2026-10-23 UTC
+
+This is a software, provenance, and requirements review only. The experiment budget, registry thresholds, frozen raster, scientific results, and negative verdict were not altered. No feature computation, holdout rerun, final-dot placement, selector action, or competition submission was performed.
+
+### Pass 1 — inventory and requirement reconciliation
+
+- Read `AGENTS.md`, the full README including its archived user brief, the preregistration, template pin, run card, hypotheses, analysis, irregularities, and prior verification record.
+- Confirmed the archived README contains the full supplied request, including the parallel-run protocol, three-pass requirement, H33 and leaderboard claims, 0.3195 target, submission-format error, current-feed request, and Arena Core Values.
+- Confirmed H33's reported 0.2778 is **not ORGANIZER-CONFIRMED**: the linked project page labels it unscored/no-receipt. The independent raster audit establishes only that H33 deletes 2,545 of its parent's 40,199 positive pixels, all within a 200 m catalogue flank; it does not establish the cause of a score.
+- Confirmed the held-out H87 diagnostic does not beat its matched magnetic-gradient control, and the saturated-support witness blocks every nonempty dot set under the literal overlap rule. The extant TIFF is a computed, locally format-valid **research artifact**, not a unique/approved competition submission.
+
+### Pass 2 — implementation, edge cases, and executable checks
+
+- Installed the pinned Python and browser-test dependencies in ignored local environments. Restored only the small `existing_faults` and `sample_submission` mirrors using their pinned GitHub references; their SHA-256 values match `registry/data_manifest.json`. The current receipt intentionally lists these two files only; the large feature stack was not restored for this review.
+- `python -m pytest -q`: **103 passed, 0 skipped** after restoring the two fixtures. Before fixture restoration, 100 passed and three data-dependent integration checks were skipped; those checks were then executed.
+- `npm run test:browser`: **37 passed**, Chromium 153, all seven Pages, four viewports (320, 390, 768, 1440 px), actual downloaded TIFF hash, search, clipboard success/fallback, failed-feed behavior, compatibility redirects, and no-JavaScript download/decision.
+- `scripts/check_site.py`: passed; 7 pages, 120 local targets, 4 compatibility entry points, no audit errors.
+- `scripts/check_submission.py --format-only`: exit 0; actual TIFF/ZIP and reference-grid checks pass locally. `scripts/check_submission.py`: expected exit 2, `safe_to_submit=false`, `DO NOT SUBMIT`. This remains local preflight, not organizer acceptance.
+- No source code or scientific output defect was found in the review. The prior IR87-016 scientific boundary-guard defect remains disclosed and the corrected code remains synthetic-test-only; no old score or TIFF was relabeled as corrected.
+
+### Pass 3 — final state and freshness audit
+
+- The immutable TIFF SHA-256 remains `10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d`; run-card verdict remains `negative`; zero slots were used.
+- The latest recorded public source-health attempt remains `2026-10-22T22:33:20.895788Z`. It reports 0/13 reachable transports in this sandbox, while preserving the dated `PUBLIC-LEADERBOARD-OBSERVATION` and leaving organizer receipts/cap null. No new official page retrieval or account-specific check is claimed; the timestamp was not advanced artificially.
+- README's latest-review note distinguishes software re-validation from science. The full raw brief remains archived rather than silently rewritten. `data/restore_receipt.json` now reflects the two small inputs actually restored in this review; it no longer implies that the 418 MB training raster is present in the current working data directory.
+- Outcome remains **negative / DO NOT SUBMIT**. A fresh, nonempty competition entry cannot satisfy the literal overlap gate while the universal witness is in the registry. Resolving that specification contradiction requires an authorized policy clarification before another scientific run; do not work around it by changing thresholds or reclassifying dense support.
