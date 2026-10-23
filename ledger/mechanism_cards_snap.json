@@ -1,0 +1,38 @@
+{
+  "h33-h33-2-b2-SNAPtmihg-20261023-d0a0c668": {
+    "axis": "SNAP",
+    "value": "tmihg",
+    "band": "b03 tmi_hg",
+    "pct_changed": 55.5,
+    "mean_displacement_px": 0.8313,
+    "hypothesis": "R0 dots sit on H19-5 composite ridges, which are blurred by roughly the kernel radius. Steeply dipping faults that juxtapose rocks of contrasting magnetization (basalt or tuff against basin fill) put their sharpest magnetic contrast where the fault reaches the shallowest magnetic source. The crest of the TMI horizontal gradient should therefore sit within 100-200 m of the trace, closer than the composite ridge does.",
+    "mechanism": "Each R0 dot moves to the strongest 4-direction maximum of band 03 tmi_hg within <= 2 px (200 m). The move is refused if it would put the dot within sqrt(5) px of another dot, inside the 2 px catalogue collar, or outside the footprint. The count stays 37,654. A dot on truth gains credit 1/3 per px of approach (triangular kernel, R = 3 px) and loses the same per px of retreat.",
+    "non_fault_mimic": "TMI is not reduced to the pole. At the inclination of the Nevada field, the maxima of the TMI horizontal gradient shift down-dip, off the source edge, by a fraction of the source depth. Flat flow margins, dikes, intrusive contacts and the 400 m flight-line gridding (GeoDAWN Area 2) also make crests with no fault behind them.",
+    "predicted_live_change": "-0.003 DTI [MODEL] versus R0; range -0.010 to +0.003. Basis: on the catalogue PROXY, TMI-HG movers gain less credit per moved dot than random-crest movers (about -0.7% of near-truth credit).",
+    "falsifier": "Live Delta >= +0.01 versus R0's receipt would mean the TMI-HG crests localize new faults better than the H19-5 ridge at the 100-200 m scale. That would be a reason to combine SNAP with PRUNE3/CONCc10."
+  },
+  "h33-h33-2-b2-SNAPgravhg-20261023-67fcb1e8": {
+    "axis": "SNAP",
+    "value": "gravhg",
+    "band": "b18 iso_grav_anom_hg",
+    "pct_changed": 5.05,
+    "mean_displacement_px": 0.0777,
+    "hypothesis": "Basin-bounding normal faults put dense bedrock against low-density basin fill. The crest of the isostatic-gravity horizontal gradient marks the steepest basement step, and steep faults sit near that step.",
+    "mechanism": "Same operator on band 18 iso_grav_anom_hg: move <= 2 px to the strongest 4-direction maximum, keep the count, the exclusions and the sqrt(5) px spacing.",
+    "non_fault_mimic": "Gravity stations are spaced at km scale, so crest positions on a 100 m grid are interpolation products. Dipping (45-60 degree) range-front faults shift the gradient maximum basinward, onto the hanging wall. Density contrasts at plutons and buried caldera walls also make crests.",
+    "predicted_live_change": "0.000 DTI [MODEL] versus R0; range -0.003 to +0.003. Only ~5% of dots find a gravity crest within 200 m (smooth field), so the variant is close to a no-op and cannot clear the 0.01 evidence bar.",
+    "falsifier": "Live Delta >= +0.01 versus R0 would mean gravity-gradient crests localize new faults to <= 200 m, which contradicts the km-scale resolution argument."
+  },
+  "h33-h33-2-b2-SNAPslope-20261023-81ae160f": {
+    "axis": "SNAP",
+    "value": "slope",
+    "band": "b19 det_elev_slope",
+    "pct_changed": 89.36,
+    "mean_displacement_px": 1.3266,
+    "hypothesis": "Fault scarps and faceted range fronts are local maxima of slope on detrended elevation. If the unmapped new faults have topographic expression, slope crests within 200 m locate the trace more precisely than the H19-5 ridge does.",
+    "mechanism": "Same operator on band 19 det_elev_slope: move <= 2 px to the strongest 4-direction maximum, keep the count, the exclusions and the sqrt(5) px spacing.",
+    "non_fault_mimic": "Stream-cut valley walls, terrace risers, lake shorelines and resistant bedding all make slope crests. On a range front the steepest 100 m slope is usually uphill of the trace, so the snap can move dots off the piedmont junction where the fault actually sits.",
+    "predicted_live_change": "+0.004 DTI [MODEL] versus R0; range -0.006 to +0.012. Basis: on the catalogue PROXY, slope-crest movers beat random-crest movers by about +4% of near-truth credit (about +0.011 if new faults behaved like the catalogue). Discounted by more than half because mapped Quaternary faults are scarp-selected and new faults are probably less expressed.",
+    "falsifier": "Live Delta >= +0.01 versus R0 would mean new faults are topographically expressed and the 100 m slope crest is within ~1 px of the trace. Then lidar-scale (3DEP) scarp snapping becomes worth building."
+  }
+}

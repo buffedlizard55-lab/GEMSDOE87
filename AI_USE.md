@@ -4,6 +4,12 @@ Prepared per Section 3 of the [DOE/NLR GEMS Prize Official Rules PDF](https://do
 
 ## 1. What Generative AI Wrote (2026-10-23 UTC)
 
+- **Session `arena/46cc0109-gemsdoe87` (`AXIS = SNAP`):**
+  - `src/gems87/snap.py`: the 4-direction crest picker and the deterministic `<= 2 px` snap with spacing and exclusion constraints.
+  - `scripts/build_snap_variants.py`: manifest verification, the byte-exact R0 rebuild, the three SNAP variants, re-read gates, the ledger rows and the report-only PROXY diagnostics.
+  - `tests/test_snap_axis.py`, `ledger/mechanism_cards_snap.json`, `releases/snap_manifest.json`, `docs/evidence/exp87_snap_build.json`.
+  - Edits to SLOT_PLAN.md, docs/SUBMIT.md (Part 0), IRREGULARITIES.md (IR-07 to IR-10) and the README CURRENT STATE block.
+  - The AI picked SNAP after the human skipped the axis question. The AI also chose the bands and wrote the MODEL predictions. The human decides whether any SNAP file is uploaded.
 - **Session `arena/82031087-gemsdoe87` (`AXIS = PRUNE`):**
   - `scripts/build_prune_variants.py`: verifies all SHA-256 pins in `registry/data_manifest.json`, rebuilds Parent `R0` (`h33-h33-2-b2`, `37,654` dots) with exact byte-level SHA-256 identity (`c55bafc4…` zeros / `baeae321…` NaN), builds three fixed-count (`37,654` dots) `AXIS = PRUNE` variants (`PRUNE3`, `PRUNE1`, `PRUNE4`) on `R0`'s own `H19-5` parent ridges ranked by exact sequential DTI marginal gain (`vendor/gems57/metric.py`, `R = 300 m` kernel, `FIXED_SEED = 0`, deterministic row-major tie-break), runs re-read GeoTIFF format/catalogue/hash gates, and computes report-only `PROXY` diagnostics (`releases/manifest.json`).
   - `tests/test_dti_algebra_and_prune.py` & `tests/test_refresh_feed.py`: unit-tests derived DTI algebra (`DTI = T / (0.2T + 0.2(S-M) + 0.8|G|)`), isolated vs. line-like truth marginal-gain behavior, `drivendata.org`/`dropbox.com` fetch blocking in `scripts/refresh_feed.py`, and re-read GeoTIFF receipts.

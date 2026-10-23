@@ -1,0 +1,469 @@
+{
+  "schema_version": 1,
+  "axis": "SNAP",
+  "generated_date_utc": "20261023",
+  "git_head_at_build": "d1f1b2d34165b732fdc227a6a68b1a7bcbc626e1",
+  "fixed_seed": 0,
+  "null_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "snap_radius_px": 2.0,
+  "min_dist_sq": 5,
+  "crest_min_dirs": 2,
+  "exclusions": "footprint & ~catalogue & d_cat > 2 px (identical to R0)",
+  "manifest_verified_files": 25,
+  "parent_r0_rebuild_receipt": {
+    "parent_id": "h33-h33-2-b2",
+    "n_dots": 37654,
+    "content_digest8": "e5eb6e7e",
+    "zeros_sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+    "expected_zeros_sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+    "zeros_sha256_exact_match": true,
+    "nan_sha256": "baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd",
+    "expected_nan_sha256": "baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd",
+    "nan_sha256_exact_match": true
+  },
+  "variants": [
+    {
+      "id": "h33-h33-2-b2-SNAPtmihg-20261023-d0a0c668",
+      "parent": "h33-h33-2-b2",
+      "axis": "SNAP",
+      "value": "tmihg",
+      "band": "b03 tmi_hg",
+      "n_dots": 37654,
+      "pct_changed": 55.5,
+      "sha256": "d0a0c668a92d3bd89c48210a137e731478e497d06047efea7eb1e3533a1334d5",
+      "zeros_sha256": "affc2db94b19ce088ad2d944c9a91c94f82ce239ac829046c268410933e053f8",
+      "content_digest8": "b85fda0e",
+      "primary_file": "releases/h33-h33-2-b2-SNAPtmihg-20261023-d0a0c668.tif",
+      "primary_bytes": 356585,
+      "zeros_fallback_file": "releases/h33-h33-2-b2-SNAPtmihg-20261023-d0a0c668-zeros.tif",
+      "zeros_bytes": 220117,
+      "status": "BUILT",
+      "predicted_change": "-0.003 [MODEL; range -0.010 to +0.003]",
+      "form_note": "h33-h33-2-b2; SNAP<=2px to tmi_hg crest (55.5% moved, mean 0.83px); pred -0.003 MODEL",
+      "form_note_length": 85,
+      "snap_stats": {
+        "n_dots": 37654,
+        "n_with_better_crest": 23651,
+        "n_moved": 20898,
+        "n_blocked_by_spacing": 2753,
+        "pct_moved": 55.5001,
+        "mean_displacement_px_all_dots": 0.8313,
+        "mean_displacement_px_moved_dots": 1.4979,
+        "mean_displacement_m_all_dots": 83.1,
+        "displacement_histogram_px": {
+          "0.0000": 16756,
+          "1.0000": 6214,
+          "1.4142": 7306,
+          "2.0000": 7378
+        }
+      },
+      "crest_pixels_in_allowed": 615351,
+      "mean_band_value_at_dots": {
+        "R0": 33.223404,
+        "variant": 40.180432
+      },
+      "parent_diff": {
+        "n_dots": 37654,
+        "parent_n_dots": 37654,
+        "shared_with_parent": 16756,
+        "removed_from_parent": 20898,
+        "added_to_parent": 20898,
+        "symmetric_diff_dots": 41796,
+        "pct_changed": 55.5001,
+        "pct_symmetric_diff_over_parent": 111.0002,
+        "d_catalogue_px": {
+          "min": 2.2361,
+          "p10": 4.0,
+          "median": 19.6469,
+          "p90": 68.0074
+        },
+        "nearest_neighbor_px": {
+          "min": 2.2361,
+          "p05": 2.2361,
+          "median": 3.1623
+        },
+        "block_density_cv_10km": {
+          "parent_r0": 0.6381,
+          "variant": 0.6369
+        },
+        "block_density_cv_15km": {
+          "parent_r0": 0.5162,
+          "variant": 0.5153
+        }
+      },
+      "mechanism_card": {
+        "hypothesis": "R0 dots sit on H19-5 composite ridges, which are blurred by roughly the kernel radius. Steeply dipping faults that juxtapose rocks of contrasting magnetization (basalt or tuff against basin fill) put their sharpest magnetic contrast where the fault reaches the shallowest magnetic source. The crest of the TMI horizontal gradient should therefore sit within 100-200 m of the trace, closer than the composite ridge does.",
+        "mechanism": "Each R0 dot moves to the strongest 4-direction maximum of band 03 tmi_hg within <= 2 px (200 m). The move is refused if it would put the dot within sqrt(5) px of another dot, inside the 2 px catalogue collar, or outside the footprint. The count stays 37,654. A dot on truth gains credit 1/3 per px of approach (triangular kernel, R = 3 px) and loses the same per px of retreat.",
+        "non_fault_mimic": "TMI is not reduced to the pole. At the inclination of the Nevada field, the maxima of the TMI horizontal gradient shift down-dip, off the source edge, by a fraction of the source depth. Flat flow margins, dikes, intrusive contacts and the 400 m flight-line gridding (GeoDAWN Area 2) also make crests with no fault behind them.",
+        "predicted_live_change": "-0.003 DTI [MODEL] versus R0; range -0.010 to +0.003. Basis: on the catalogue PROXY, TMI-HG movers gain less credit per moved dot than random-crest movers (about -0.7% of near-truth credit).",
+        "falsifier": "Live Delta >= +0.01 versus R0's receipt would mean the TMI-HG crests localize new faults better than the H19-5 ridge at the 100-200 m scale. That would be a reason to combine SNAP with PRUNE3/CONCc10."
+      },
+      "format_validation": {
+        "nan_validator_ready": true,
+        "nan_validator_errors": [],
+        "zeros_gems57_all_checks_passed": true,
+        "on_catalogue_positive_pixels": 0
+      }
+    },
+    {
+      "id": "h33-h33-2-b2-SNAPgravhg-20261023-67fcb1e8",
+      "parent": "h33-h33-2-b2",
+      "axis": "SNAP",
+      "value": "gravhg",
+      "band": "b18 iso_grav_anom_hg",
+      "n_dots": 37654,
+      "pct_changed": 5.05,
+      "sha256": "67fcb1e8c9dc2208e5380d5475db1b0d77a4b5b4415af86d777731eb4df7474b",
+      "zeros_sha256": "95e3270cd4e9e369b8fef2918b78c740274f458e6109ce9d09cf46ddd1590e32",
+      "content_digest8": "06493825",
+      "primary_file": "releases/h33-h33-2-b2-SNAPgravhg-20261023-67fcb1e8.tif",
+      "primary_bytes": 355608,
+      "zeros_fallback_file": "releases/h33-h33-2-b2-SNAPgravhg-20261023-67fcb1e8-zeros.tif",
+      "zeros_bytes": 219047,
+      "status": "BUILT",
+      "predicted_change": "0.000 [MODEL; range -0.003 to +0.003]",
+      "form_note": "h33-h33-2-b2; SNAP<=2px to iso_grav_anom_hg crest (5.0% moved, mean 0.08px); pred 0.000 MODEL",
+      "form_note_length": 93,
+      "snap_stats": {
+        "n_dots": 37654,
+        "n_with_better_crest": 2323,
+        "n_moved": 1900,
+        "n_blocked_by_spacing": 423,
+        "pct_moved": 5.0459,
+        "mean_displacement_px_all_dots": 0.0777,
+        "mean_displacement_px_moved_dots": 1.5397,
+        "mean_displacement_m_all_dots": 7.8,
+        "displacement_histogram_px": {
+          "0.0000": 35754,
+          "1.0000": 475,
+          "1.4142": 682,
+          "2.0000": 743
+        }
+      },
+      "crest_pixels_in_allowed": 59251,
+      "mean_band_value_at_dots": {
+        "R0": -0.124208,
+        "variant": -0.11892
+      },
+      "parent_diff": {
+        "n_dots": 37654,
+        "parent_n_dots": 37654,
+        "shared_with_parent": 35754,
+        "removed_from_parent": 1900,
+        "added_to_parent": 1900,
+        "symmetric_diff_dots": 3800,
+        "pct_changed": 5.0459,
+        "pct_symmetric_diff_over_parent": 10.0919,
+        "d_catalogue_px": {
+          "min": 2.2361,
+          "p10": 4.0,
+          "median": 19.6469,
+          "p90": 68.0125
+        },
+        "nearest_neighbor_px": {
+          "min": 2.2361,
+          "p05": 2.8284,
+          "median": 3.0
+        },
+        "block_density_cv_10km": {
+          "parent_r0": 0.6381,
+          "variant": 0.6382
+        },
+        "block_density_cv_15km": {
+          "parent_r0": 0.5162,
+          "variant": 0.5161
+        }
+      },
+      "mechanism_card": {
+        "hypothesis": "Basin-bounding normal faults put dense bedrock against low-density basin fill. The crest of the isostatic-gravity horizontal gradient marks the steepest basement step, and steep faults sit near that step.",
+        "mechanism": "Same operator on band 18 iso_grav_anom_hg: move <= 2 px to the strongest 4-direction maximum, keep the count, the exclusions and the sqrt(5) px spacing.",
+        "non_fault_mimic": "Gravity stations are spaced at km scale, so crest positions on a 100 m grid are interpolation products. Dipping (45-60 degree) range-front faults shift the gradient maximum basinward, onto the hanging wall. Density contrasts at plutons and buried caldera walls also make crests.",
+        "predicted_live_change": "0.000 DTI [MODEL] versus R0; range -0.003 to +0.003. Only ~5% of dots find a gravity crest within 200 m (smooth field), so the variant is close to a no-op and cannot clear the 0.01 evidence bar.",
+        "falsifier": "Live Delta >= +0.01 versus R0 would mean gravity-gradient crests localize new faults to <= 200 m, which contradicts the km-scale resolution argument."
+      },
+      "format_validation": {
+        "nan_validator_ready": true,
+        "nan_validator_errors": [],
+        "zeros_gems57_all_checks_passed": true,
+        "on_catalogue_positive_pixels": 0
+      }
+    },
+    {
+      "id": "h33-h33-2-b2-SNAPslope-20261023-81ae160f",
+      "parent": "h33-h33-2-b2",
+      "axis": "SNAP",
+      "value": "slope",
+      "band": "b19 det_elev_slope",
+      "n_dots": 37654,
+      "pct_changed": 89.36,
+      "sha256": "81ae160fb11c68045bdcf008231e1ca0b23fb4d912c2c2c75c9a571483b73c4e",
+      "zeros_sha256": "50328a3a9c0ecefb96baecfbf0d28c642a10b6160bcea40083d0f2f1f0076eae",
+      "content_digest8": "df82fbd7",
+      "primary_file": "releases/h33-h33-2-b2-SNAPslope-20261023-81ae160f.tif",
+      "primary_bytes": 356429,
+      "zeros_fallback_file": "releases/h33-h33-2-b2-SNAPslope-20261023-81ae160f-zeros.tif",
+      "zeros_bytes": 219901,
+      "status": "BUILT",
+      "predicted_change": "+0.004 [MODEL; range -0.006 to +0.012]",
+      "form_note": "h33-h33-2-b2; SNAP<=2px to det_elev_slope crest (89.4% moved, mean 1.33px); pred +0.004 MODEL",
+      "form_note_length": 93,
+      "snap_stats": {
+        "n_dots": 37654,
+        "n_with_better_crest": 34754,
+        "n_moved": 33648,
+        "n_blocked_by_spacing": 1106,
+        "pct_moved": 89.361,
+        "mean_displacement_px_all_dots": 1.3266,
+        "mean_displacement_px_moved_dots": 1.4846,
+        "mean_displacement_m_all_dots": 132.7,
+        "displacement_histogram_px": {
+          "0.0000": 4006,
+          "1.0000": 10643,
+          "1.4142": 11437,
+          "2.0000": 11568
+        }
+      },
+      "crest_pixels_in_allowed": 1576599,
+      "mean_band_value_at_dots": {
+        "R0": 8.571072,
+        "variant": 14.168314
+      },
+      "parent_diff": {
+        "n_dots": 37654,
+        "parent_n_dots": 37654,
+        "shared_with_parent": 4006,
+        "removed_from_parent": 33648,
+        "added_to_parent": 33648,
+        "symmetric_diff_dots": 67296,
+        "pct_changed": 89.361,
+        "pct_symmetric_diff_over_parent": 178.722,
+        "d_catalogue_px": {
+          "min": 2.2361,
+          "p10": 4.1231,
+          "median": 19.6469,
+          "p90": 68.0074
+        },
+        "nearest_neighbor_px": {
+          "min": 2.2361,
+          "p05": 2.2361,
+          "median": 3.1623
+        },
+        "block_density_cv_10km": {
+          "parent_r0": 0.6381,
+          "variant": 0.6412
+        },
+        "block_density_cv_15km": {
+          "parent_r0": 0.5162,
+          "variant": 0.5179
+        }
+      },
+      "mechanism_card": {
+        "hypothesis": "Fault scarps and faceted range fronts are local maxima of slope on detrended elevation. If the unmapped new faults have topographic expression, slope crests within 200 m locate the trace more precisely than the H19-5 ridge does.",
+        "mechanism": "Same operator on band 19 det_elev_slope: move <= 2 px to the strongest 4-direction maximum, keep the count, the exclusions and the sqrt(5) px spacing.",
+        "non_fault_mimic": "Stream-cut valley walls, terrace risers, lake shorelines and resistant bedding all make slope crests. On a range front the steepest 100 m slope is usually uphill of the trace, so the snap can move dots off the piedmont junction where the fault actually sits.",
+        "predicted_live_change": "+0.004 DTI [MODEL] versus R0; range -0.006 to +0.012. Basis: on the catalogue PROXY, slope-crest movers beat random-crest movers by about +4% of near-truth credit (about +0.011 if new faults behaved like the catalogue). Discounted by more than half because mapped Quaternary faults are scarp-selected and new faults are probably less expressed.",
+        "falsifier": "Live Delta >= +0.01 versus R0 would mean new faults are topographically expressed and the 100 m slope crest is within ~1 px of the trace. Then lidar-scale (3DEP) scarp snapping becomes worth building."
+      },
+      "format_validation": {
+        "nan_validator_ready": true,
+        "nan_validator_errors": [],
+        "zeros_gems57_all_checks_passed": true,
+        "on_catalogue_positive_pixels": 0
+      }
+    }
+  ],
+  "report_only_diagnostics": {
+    "catalogue_snap_proxy": {
+      "evidence_label": "PROXY",
+      "note": "REPORT ONLY. Truth = mapped catalogue (biased toward scarps), not new-fault truth.",
+      "n_source_dots": 10261,
+      "source_mean_credit": 0.38542,
+      "random_crest_null": {
+        "delta_credit_mean_over_seeds": 0.01468,
+        "per_seed": [
+          0.01428,
+          0.01735,
+          0.01675,
+          0.01582,
+          0.00921
+        ],
+        "pct_moved": 91.72,
+        "mean_disp_px": 1.305
+      },
+      "bands": {
+        "tmihg": {
+          "delta_credit_per_moved_dot": 0.01117,
+          "null_delta_credit_per_moved_dot": 0.01601,
+          "excess_over_null_per_source_dot": -0.00248,
+          "excess_relative_to_source_credit": -0.0064,
+          "delta_credit": 0.00571,
+          "delta_credit_ci95_10km_blocks": [
+            0.00128,
+            0.01019
+          ],
+          "delta_minus_null": -0.00897,
+          "pct_moved": 51.1451,
+          "mean_disp_px": 0.7753,
+          "frac_landing_on_catalogue": 0.06637
+        },
+        "gravhg": {
+          "delta_credit_per_moved_dot": 0.00531,
+          "null_delta_credit_per_moved_dot": 0.01601,
+          "excess_over_null_per_source_dot": -0.00054,
+          "excess_relative_to_source_credit": -0.0014,
+          "delta_credit": 0.00027,
+          "delta_credit_ci95_10km_blocks": [
+            -0.001,
+            0.00148
+          ],
+          "delta_minus_null": -0.01441,
+          "pct_moved": 5.0872,
+          "mean_disp_px": 0.0807,
+          "frac_landing_on_catalogue": 0.00594
+        },
+        "slope": {
+          "delta_credit_per_moved_dot": 0.03353,
+          "null_delta_credit_per_moved_dot": 0.01601,
+          "excess_over_null_per_source_dot": 0.01566,
+          "excess_relative_to_source_credit": 0.0406,
+          "delta_credit": 0.02996,
+          "delta_credit_ci95_10km_blocks": [
+            0.02321,
+            0.03631
+          ],
+          "delta_minus_null": 0.01528,
+          "pct_moved": 89.3675,
+          "mean_disp_px": 1.3363,
+          "frac_landing_on_catalogue": 0.14121
+        }
+      }
+    },
+    "static_hide_and_recover_proxy": {
+      "evidence_label": "PROXY",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "caveat": "Static full-catalogue d_cat > 2 px collar on every arm; withheld components only reachable by kernel tail.",
+      "scores": {
+        "R0": {
+          "dti": 0.004006,
+          "ci95": [
+            0.003424,
+            0.00469
+          ],
+          "withheld_positive_pixels": 22663
+        },
+        "SNAPtmihg": {
+          "dti": 0.004426,
+          "ci95": [
+            0.003802,
+            0.005113
+          ],
+          "withheld_positive_pixels": 22663
+        },
+        "SNAPgravhg": {
+          "dti": 0.003999,
+          "ci95": [
+            0.003377,
+            0.004676
+          ],
+          "withheld_positive_pixels": 22663
+        },
+        "SNAPslope": {
+          "dti": 0.003858,
+          "ci95": [
+            0.003314,
+            0.004507
+          ],
+          "withheld_positive_pixels": 22663
+        }
+      },
+      "paired_R0_minus_arm": {
+        "SNAPtmihg": {
+          "delta": -0.00042,
+          "ci95": [
+            -0.000771,
+            -8.8e-05
+          ]
+        },
+        "SNAPgravhg": {
+          "delta": 7e-06,
+          "ci95": [
+            -7.4e-05,
+            9.7e-05
+          ]
+        },
+        "SNAPslope": {
+          "delta": 0.000148,
+          "ci95": [
+            -0.000347,
+            0.000692
+          ]
+        }
+      }
+    },
+    "leakage_canary": {
+      "evidence_label": "PROXY",
+      "n_pos": 60988,
+      "n_neg": 200000,
+      "limit": 0.9,
+      "max_sym_auc": 0.57406,
+      "passed": true,
+      "top5": [
+        {
+          "channel": "b04_geod_2ndinv",
+          "auc": 0.57406,
+          "sym_auc": 0.57406
+        },
+        {
+          "channel": "b16_ieq_n100a15",
+          "auc": 0.5733,
+          "sym_auc": 0.5733
+        },
+        {
+          "channel": "b07_geod_shearrate",
+          "auc": 0.57244,
+          "sym_auc": 0.57244
+        },
+        {
+          "channel": "b19_det_elev_slope",
+          "auc": 0.55979,
+          "sym_auc": 0.55979
+        },
+        {
+          "channel": "b06_tc",
+          "auc": 0.44347,
+          "sym_auc": 0.55653
+        }
+      ]
+    },
+    "sgmc_control_proxy": {
+      "evidence_label": "PROXY",
+      "n_truth": 62122,
+      "scores": {
+        "R0": {
+          "dti": 0.095386,
+          "coverage": 0.088819
+        },
+        "SNAPtmihg": {
+          "dti": 0.094639,
+          "coverage": 0.088125
+        },
+        "SNAPgravhg": {
+          "dti": 0.095313,
+          "coverage": 0.088751
+        },
+        "SNAPslope": {
+          "dti": 0.09557,
+          "coverage": 0.089008
+        }
+      }
+    },
+    "elapsed_s": 119.5
+  },
+  "elapsed_s": 153.4
+}

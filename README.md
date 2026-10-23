@@ -120,14 +120,24 @@ AI assistance (Arena.ai coding agent) is disclosed transparently per Section 3.2
 
 ---
 
-## CURRENT STATE (agent brief v2 — 2026-10-23)
+## CURRENT STATE (agent brief v2 — 2026-10-23, SNAP session)
 
-- **Parent R0:** `h33-h33-2-b2` (`GEMSDOE32`) — `37,654` unit-mass dots, `0` within `2 px` of the catalogue, exact byte-verified SHA-256 `c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9` (zeros) / `baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd` (NaN) rebuilt from `H19-5` via `dot_thin(2.8) ∩ {d>2}`. Live `0.2778` is **CLAIM** until a receipt is recorded in [`ledger/submissions.csv`](ledger/submissions.csv).
-- **Best RECEIPT:** none (`H87-CMGEP` `0.171555` and local holdout metrics are **PROXY**, never live scores).
-- **TOP_PUBLIC:** `____` *(human fills from the [public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) with date; never fetched automatically)*.
-- **Slots left:** this rolling week `__ / 3` · total to deadline `2026-12-03` `__` *(human confirms on [problem page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/); 1 entity, 1 blind final file per [rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf))*.
-- **Built axes in `ledger/submissions.csv` (`releases/`):** `MASS` (`GEMSDOE88`: `m10minus`, `m10plus`, `m20minus`), `CONCENTRATION` (`CONCc10` `a9e67bab`, `CONCc15` `25e403d0`, `CONCc20` `03244051`), and **`PRUNE` (this session, fixed `37,654` dots on `H19-5` via exact DTI marginal gain `dT`)**: `PRUNE3` (`bc00a06c`, `5.77%` changed, `+0.005` to `+0.012` `MODEL`), `PRUNE1` (`4679d91c`, `6.76%` changed, `-0.012` to `-0.005` `MODEL`), `PRUNE4` (`f5c53782`, `10.16%` changed, `-0.004` to `+0.006` `MODEL`).
-- **Next 3 slots ([`SLOT_PLAN.md`](SLOT_PLAN.md) · [`docs/SUBMIT.md`](docs/SUBMIT.md)):** 1) `h33-h33-2-b2-PRUNE3-20261023-bc00a06c` (tests `>=3 px` Hard Constraint 4 collar vs `2 px` at fixed mass) 2) `h33-h33-2-b2-CONCc10-20261023-a9e67bab` (or `PRUNE4`/`PRUNE1` if Slot 1 `|Δ| >= 0.01`) 3) `SNAP <= 2 px` on TMI/gravity gradients.
+- **Parent R0:** `h33-h33-2-b2` (`GEMSDOE32`): `37,654` unit-mass dots, none within `2 px` of the catalogue. Rebuilt again this session from the pinned manifest with a byte-exact SHA-256 match: `baeae321…` (NaN), `c55bafc4…` (zeros). Live `0.2778` is a **CLAIM** until a receipt is recorded in [`ledger/submissions.csv`](ledger/submissions.csv).
+- **Best RECEIPT:** none. Every local number is **PROXY**; every prediction is **MODEL**.
+- **TOP_PUBLIC:** `____`. The human fills this in from the [public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), with the date. It is never fetched automatically.
+- **Slots left:** this rolling week `__ / 3`; total to the `2026-12-03` deadline `__`. The human confirms both on the [problem page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/). The [rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf) allows 1 entity and 1 blind final file.
+- **Built axes (ledger, `releases/`):**
+  - `MASS` (m10minus, m10plus, m20minus)
+  - `CONCENTRATION` (c10 `a9e67bab`, c15, c20)
+  - `PRUNE` (3 `bc00a06c`, 1, 4)
+  - **`SNAP`, built this session.** Each dot moves `<= 2 px` onto a 4-direction crest of one provided band. Count, exclusions and the `sqrt(5)` px spacing are unchanged.
+    - `SNAPslope` `81ae160f`: 89.4% of dots moved, mean 1.33 px; pred `+0.004` MODEL.
+    - `SNAPtmihg` `d0a0c668`: 55.5% moved, mean 0.83 px; pred `-0.003` MODEL.
+    - `SNAPgravhg` `67fcb1e8`: 5.0% moved, mean 0.08 px; pred `0.000` MODEL.
+- **Next 3 slots ([`SLOT_PLAN.md`](SLOT_PLAN.md), [`docs/SUBMIT.md`](docs/SUBMIT.md)):**
+  1. `h33-h33-2-b2-PRUNE3-20261023-bc00a06c`
+  2. `h33-h33-2-b2-CONCc10-20261023-a9e67bab`, or `PRUNE4`/`PRUNE1` if slot 1 gives `|Δ| >= 0.01`
+  3. `h33-h33-2-b2-SNAPslope-20261023-81ae160f`
 
 ---
 

@@ -29,3 +29,23 @@
 
 - **Observed:** Inherited prose cited `"3 per 24h"`, `18` bands (`c0eb1eff…`), and `142,272` fault pixels, whereas the [DOE/NLR Rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf) specifies **3 scored submissions per rolling week per entity** and **1 blind final file**, and byte-verified `registry/data_manifest.json` has **19 float32 bands** (`4371c82e…`) and **60,988** fault pixels (`7ba308cc…`).
 - **Decision:** Planned `SLOT_PLAN.md` at 3 slots/rolling week for ONE entity and verified all manifest files directly from bytes.
+
+## IR-87-V2-07: AXIS, TOP_PUBLIC and slots blank again; SNAP chosen by default (2026-10-23)
+
+- **Observed:** The brief again left AXIS, TOP_PUBLIC and slots blank. I asked the human in-session; the question was skipped. MASS, CONCENTRATION and PRUNE already have 3 values each in the ledger.
+- **Decision:** Built `AXIS = SNAP`, which SLOT_PLAN had already scheduled as slot 3. TOP_PUBLIC and slots stay blank for the human. If the human meant a different axis, the SNAP files are inert until uploaded.
+
+## IR-87-V2-08: The lidar-scarp raster is pinned but was not used for SNAP
+
+- **Observed:** `registry/data_manifest.json` pins `external/lidar_scarp_features_u8.tif` (owner-derived from USGS 3DEP). The brief allows lidar-derived rasters for SNAP "only if the human supplies them".
+- **Decision:** SNAP used only provided competition bands: b03 `tmi_hg`, b18 `iso_grav_anom_hg`, b19 `det_elev_slope`. A lidar SNAP goes ahead only if the human confirms the manifest file counts as human-supplied **and** SNAPslope gives a live `Δ >= +0.01`.
+
+## IR-87-V2-09: H19-5 contains zero catalogue pixels, which biases any snap-to-catalogue proxy
+
+- **Observed:** No H19-5 pixel lies on the catalogue (`h19_5 & catalogue = 0`). Near-trace parent dots can therefore never sit on catalogue truth, and any move raises their catalogue credit on average. A random-crest snap gains +0.015.
+- **Decision:** The catalogue snap PROXY is read against a 5-seed random-crest null, normalised per moved dot, never against "stay". It is report-only and never a gate.
+
+## IR-87-V2-10: README body labels R0's 0.2778 as ORGANIZER-CONFIRMED
+
+- **Observed:** A heading in README.md, outside the CURRENT STATE block, calls `0.2778` "ORGANIZER-CONFIRMED". There is no receipt in `ledger/`.
+- **Decision:** It is treated as a CLAIM everywhere in this session's outputs. I did not edit that heading, because the brief limits README edits to the CURRENT STATE block. The human should correct it or paste a receipt.

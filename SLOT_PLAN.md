@@ -1,29 +1,37 @@
-# SLOT_PLAN — GEMS Prize (#306, ONE Entity, 3 Scored Slots / Rolling Week)
+# SLOT_PLAN — GEMS Prize #306 (one entity, 3 scored slots per rolling week, 1 blind final)
 
-**As of:** 2026-10-23 UTC · **Deadline:** 2026-12-03 (confirm on [problem page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)) · **Quota:** 3 scored submissions/rolling week, 1 blind final file ([official rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf)).
-**Parent R0:** `h33-h33-2-b2` (`37,654` dots, `d_cat > 2 px`, exact rebuilt SHA-256 `baeae321...` NaN / `c55bafc4...` zeros; `0.2778` = `CLAIM` until receipt in `ledger/`).
-**Ledger Inventory (`ledger/submissions.csv`):** `MASS` (`GEMSDOE88`: `m10minus`, `m10plus`, `m20minus`), `CONCENTRATION` (`CONCc10`, `CONCc15`, `CONCc20`), and **`PRUNE` (built this session: `PRUNE3`, `PRUNE1`, `PRUNE4`)**. Treat `|Δ live| < 0.01` on public chunks as **no evidence**.
+**As of:** 2026-10-23. **Deadline:** 2026-12-03 (confirm on the [problem page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)). **Rules:** [rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf).
+**Parent R0:** `h33-h33-2-b2`, `37,654` dots, rebuilt byte-exact. `0.2778` is a CLAIM. TOP_PUBLIC `____`; slots left `__` (human fills both).
+**Built (ledger):**
+- MASS (m10minus, m10plus, m20minus)
+- CONCENTRATION (c10, c15, c20)
+- PRUNE (3, 1, 4)
+- **SNAP (slope, tmihg, gravhg)**
 
-## 1. Next 3 Slots in Order & Decision Rules
+A live `|Δ| < 0.01` counts as no evidence. That covers public chunks only.
 
-1. **Slot 1 — `h33-h33-2-b2-PRUNE3-20261023-bc00a06c` (`AXIS=PRUNE, value=3`, `37,654` dots, `5.77%` changed, pred `+0.005` to `+0.012` [`MODEL`]):**
-   Removes `2,171` R0 dots in `2 < d_cat <= 3 px` (`200–300 m`) and refills `2,171` dots onto uncovered `H19-5` ridge gaps (`d_cat > 3 px`) by exact DTI marginal gain `dT`. Resolves mass vs. collar confounding and brings the baseline into `>= 3 px` compliance (Brief §4.4).
-   - **If `Δ >= +0.01` (`RECEIPT`):** Known-fault halo FP dominates inside `300 m`. Adopt `PRUNE3` as parent `R1`; test `PRUNE4` (`f5c53782`, `400 m` [GeoDAWN line spacing](https://data.usgs.gov/datacatalog/data/USGS:657e1d85d34e23d3533209f7)) in **Slot 2**.
-   - **If `|Δ| < 0.01` (`RECEIPT`):** `2–3 px` vs `>3 px` is neutral at fixed mass. Adopt `PRUNE3` as `>= 3 px`-compliant parent and spend **Slot 2** on `CONCc10` (`h33-h33-2-b2-CONCc10-20261023-a9e67bab`, `+0.004` [`MODEL`]).
-   - **If `Δ <= -0.01` (`RECEIPT`):** New-fault strands of existing systems ([forum #11516](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516), [#11536](https://community.drivendata.org/t/where-do-you-draw-the-line/11536)) sit within `200–300 m`. Spend **Slot 2** on `PRUNE1` (`4679d91c`) to test `100–200 m` inward recovery at fixed mass.
-2. **Slot 2 — `h33-h33-2-b2-CONCc10-20261023-a9e67bab` (`CONCENTRATION`, `10.00%` changed) OR Conditional `PRUNE4` / `PRUNE1`:**
-   Tests 1 km block relocation if `PRUNE3` is neutral (`|Δ| < 0.01`), or follows the active `PRUNE` slope if `|Δ(PRUNE3)| >= 0.01`. Never burn all 3 slots on one axis without a receipt.
-3. **Slot 3 — `SNAP` (`<= 2 px` TMI/isostatic-gravity horizontal-gradient crest alignment, next session):**
-   Same count (`37,654`), same `>= 3 px` exclusion; corrects `~300–400 m` airborne gridding offset; report mean displacement.
+## Next 3 slots, in order
 
-## 2. Six-Week Schedule to Deadline (2026-10-23 → 2026-12-03, Max 18 Weekly Slots + 1 Final)
+1. **`h33-h33-2-b2-PRUNE3-20261023-bc00a06c`** (5.77% changed; pred +0.005 to +0.012 MODEL). This is the cleanest single-mechanism test, and it makes the parent compliant with the `>= 3 px` collar.
+   - `Δ >= +0.01`: adopt PRUNE3 as R1. Score PRUNE4 next.
+   - `|Δ| < 0.01`: adopt PRUNE3 as R1 anyway (compliance). Go to slot 2.
+   - `Δ <= -0.01`: new strands hug the known traces. Score PRUNE1 next.
+2. **`h33-h33-2-b2-CONCc10-20261023-a9e67bab`** (10% changed; pred +0.004 MODEL). If slot 1 moved by `>= 0.01`, follow the PRUNE slope instead.
+3. **`h33-h33-2-b2-SNAPslope-20261023-81ae160f`** (89.4% of dots moved, mean 1.33 px; pred +0.004 MODEL, range -0.006 to +0.012). It is the only SNAP variant that beat the random-crest null on the catalogue PROXY (+4.1% of near-trace credit). TMI-HG lost to the null (-0.6%), and gravity-HG barely moves.
+   - `Δ >= +0.01`: positioning error is resolvable at 100-200 m and new faults are topographically expressed. Build SNAP on the R1 parent, and ask the human whether to use the pinned 3DEP lidar-scarp raster.
+   - `Δ <= -0.01`: H19-5 positions beat 100 m slope crests. Retire SNAP; never score SNAPtmihg or SNAPgravhg.
+   - `|Δ| < 0.01`: SNAP is unresolvable at this metric. Retire it and spend the slots on combining axes.
 
-- **Wk 1–2 (Oct 23 – Nov 5, 6 slots):** Score 1 informative variant each across `PRUNE` (`PRUNE3`), `CONCENTRATION` (`CONCc10`), `MASS` (`GEMSDOE88`), `SNAP`, and `RELIEF` (basin/piedmont/range-front tercile shift on `det_elev`).
-- **Wk 3–4 (Nov 6 – Nov 19, 6 slots):** Combine the two orthogonal axes with `RECEIPT Δ >= +0.01` on the winning parent; test top proposed structural axes below as single-factor edits (`1–50%` changed).
-- **Wk 5–6 (Nov 20 – Dec 3, 6 slots + 1 blind final):** Confirm combined winner, build Phase 2 `TRACKB` (`>= 1 km` strike-consistent GeoJSON + raster traces with geologist evidence notes), lock 1 blind final file + 1 fallback, and re-verify format and `AI_USE.md`.
+Do not score SNAPtmihg or SNAPgravhg unless SNAPslope gives `Δ >= +0.01`. Never spend 3 slots on one axis without a receipt.
 
-## 3. Proposed Better Axes for Weeks 3–4 (Do Not Build This Session)
+## Weeks to the deadline (about 6 weeks, up to 18 slots + 1 final)
 
-1. **`DIP_COLLAR` (Asymmetric Hanging-Wall vs. Footwall Collar):** Great Basin normal faults dip `45°–60°` basinward, shifting subsurface magnetic/gravity basement steps `300–800 m` into the hanging wall (`depth_to_base_surf` gradient) while footwall scarps reflect erosional retreat. *Confounder:* antithetic graben faults flip polarity. *Falsifier:* `RECEIPT Δ < +0.01` vs. symmetric `PRUNE3`.
-2. **`TIP_RELAY` (Along-Strike Termination & Relay-Ramp Reallocation):** Shift `15%` of lowest-`dT` flank dots into `0.3–2.5 km` along-strike cones ahead of mapped fault tips and `0.5–3 km` en-echelon step-overs ([Faulds/INGENIOUS prior](https://gdr.openei.org/submissions/1391)). *Confounder:* radiating fan-head channels at canyon mouths. *Falsifier:* `RECEIPT Δ <= -0.01` vs. parent.
-3. **`STRIKE_AGREE` (Cross-Field Orientation Agreement >= 1 km):** Retain/promote dots where magnetic and gravity structure-tensor strikes agree over `>= 1 km` vs. closed caldera/shoreline rims. *Confounder:* plutonic contacts. *Falsifier:* `RECEIPT Δ < +0.01` vs. parent.
+- **Wk 1–2 (Oct 23 – Nov 5, 6 slots):** the 3 slots above, then MASS m10plus, RELIEF (not built yet), and the PRUNE follow-up the receipts call for.
+- **Wk 3–4 (Nov 6 – Nov 19, 6 slots):** combine the two axes with `Δ >= +0.01` receipts on the winning parent (for example PRUNE3 + CONCc10, or PRUNE3 + SNAPslope). Test one proposed axis below as a single-factor edit.
+- **Wk 5–6 (Nov 20 – Dec 3, 6 slots + final):** confirm the combined winner with one repeat-free variant. Choose the blind final file and a fallback, re-validate both against `sample_submission.tif`, and finish AI_USE.md. Build TRACKB (Phase 2 traces) in parallel; it uses no slot.
+
+## Proposed better axes (not built this session)
+
+1. **SNAP_CONTROL (random-crest snap at matched displacement).** *Mechanism:* separates "being moved" from "being moved to a crest". If SNAPslope gives `Δ >= +0.01`, a matched random snap is the only way to attribute the gain to slope. *Confounder:* density changes from blocked moves. *Falsifier:* the random snap scores within 0.01 of SNAPslope.
+2. **DIP_COLLAR (asymmetric hanging-wall shift).** *Mechanism:* normal faults dipping 45–60° put the potential-field step basinward of the surface trace, so moving collar dots toward the footwall side should help. *Confounder:* antithetic faults flip polarity. *Falsifier:* `Δ < +0.01` against PRUNE3.
+3. **TIP_RELAY (along-strike tips and step-overs).** *Mechanism:* move 15% of the lowest-gain dots into 0.3–2.5 km cones ahead of mapped fault tips and into en-echelon step-overs, using the [Faulds/INGENIOUS prior](https://gdr.openei.org/submissions/1391) only as a zone prior. *Confounder:* fan-head channels at canyon mouths. *Falsifier:* `Δ <= -0.01`.
