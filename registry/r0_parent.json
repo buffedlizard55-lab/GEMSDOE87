@@ -1,0 +1,14 @@
+{
+  "parent_id": "h33-h33-2-b2",
+  "source_repo": "buffedlizard55-lab/GEMSDOE32",
+  "source_path_zeros": "docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+  "sha256_zeros": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+  "bytes_zeros": 219065,
+  "sha256_nan": "baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd",
+  "n_dots": 37654,
+  "recipe": "supp(GEMSDOE25 dotted-h19-5-d2-8) intersect {d(existing_faults) > 2 px}",
+  "parent_rebuild_pixel_identity": true,
+  "parent_reencode_sha_matched": false,
+  "score": 0.2778,
+  "evidence_label": "CLAIM"
+}

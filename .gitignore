@@ -14,6 +14,9 @@ data/bridge/
 !downloads/
 !downloads/*.tif
 !downloads/*.zip
+!releases/
+!releases/*.tif
+!releases/*.zip
 # Keep transient evidence scratch out of Git; small final receipts may be tracked.
 evidence/tmp/
 
