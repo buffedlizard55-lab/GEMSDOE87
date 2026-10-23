@@ -19,3 +19,6 @@ evidence/tmp/
 
 # Site build output
 _site/
+
+# Session work products (ranking arrays, restored inputs)
+work/

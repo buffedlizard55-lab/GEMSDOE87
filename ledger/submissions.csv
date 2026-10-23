@@ -1,0 +1,7 @@
+id,parent,axis,value,n_dots,pct_changed,sha256,status,score_claim,evidence,predicted_change,receipt_score,receipt_date,receipt_y_n
+gems19-h19-5-e27054cf,-,FIELD,binary-mask-121131px,121131,,ec1f9b56b83ce33cad781ceb9f104b18fb4f2ff785263a4e89616af4aabdee8d,SCORED-CLAIM,0.1922,CLAIM (owner-reported; no receipt in ledger/),,,N
+gems24-h25-1-dotted-h19-5-d2-8-e56ea318,gems19-h19-5-e27054cf,THIN,dot_thin-d2.8,44090,,91eae1ca42ec845eaa8c2ba32da49806e24751743459b8a10017c479bbe639b8,SCORED-CLAIM,0.2600,CLAIM (owner-reported; no receipt in ledger/),,,N
+gems28-h27-4-r1-solo-d2-8-8acb75e1,gems24-h25-1-dotted-h19-5-d2-8-e56ea318,PRUNE,dcat-gt-1px,40199,,ab02300152248fdda04e988e2cd2a0c13f35eec42fcf670a15e8b76b19e24a73,SCORED-CLAIM,0.2708,CLAIM (owner-reported; no receipt in ledger/),,,N
+h33-h33-2-b2-e5eb6e7e,gems28-h27-4-r1-solo-d2-8-8acb75e1,PRUNE,dcat-gt-2px,37654,,c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9,INCUMBENT-CLAIM,0.2778,CLAIM (owner-reported; no receipt in ledger/),,,N
+h33-2-b2-massminus10-20261023-a00d6355,h33-h33-2-b2-e5eb6e7e,MASS,-10%,33889,9.9989,a00d63556a22dacc8af41f8d6e24209bbeee75b9774a0bd840004a4529a7aa78,BUILT,,MODEL (never a score),"+0.000 to +0.008 (MODEL; |d|<0.01 = no evidence)",,,N
+h33-2-b2-massplus10-20261023-70e3d289,h33-h33-2-b2-e5eb6e7e,MASS,+10%,41419,9.9989,70e3d289f368e9197ca4f7834dfed7b86f4aeec5d94e8fc6334727b29ec8ad1e,BUILT,,MODEL (never a score),"-0.008 to 0.000 (MODEL; |d|<0.01 = no evidence)",,,N

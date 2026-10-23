@@ -1,0 +1,20 @@
+{
+  "id": "h33-2-b2-massminus10-20261023-a00d6355",
+  "parent": "h33-h33-2-b2 (GEMSDOE32)",
+  "parent_sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+  "axis": "MASS",
+  "value": "-10%",
+  "change": "drop the 3,765 lowest-LOO (most redundant) dots",
+  "n_parent": 37654,
+  "n_dots": 33889,
+  "delta_dots": -3765,
+  "pct_changed": 9.9989,
+  "sha256": "a00d63556a22dacc8af41f8d6e24209bbeee75b9774a0bd840004a4529a7aa78",
+  "zeros_sha256": "d0cb72cf86165eea5d91a405f2517ef75036f376c49838ce71ad7b06c9ac5857",
+  "dots_on_catalogue": 0,
+  "mass_on_catalogue": 0.0,
+  "min_dist_catalogue_px": 2.23606797749979,
+  "min_inter_dot_sep_px": 2.8284271247461903,
+  "git_sha": "2b59f5d66fa2f3d11fba73cffe658454b45ae334",
+  "elapsed_s": 4.6
+}
