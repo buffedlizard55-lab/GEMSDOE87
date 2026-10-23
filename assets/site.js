@@ -131,6 +131,20 @@
     }
   }
 
+  document.querySelectorAll("[data-copy-text]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const txt = btn.getAttribute("data-copy-text") || "";
+      try {
+        await navigator.clipboard.writeText(txt);
+        const orig = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => { btn.textContent = orig; }, 1600);
+      } catch {
+        window.prompt("Copy text:", txt);
+      }
+    });
+  });
+
   loadSubmissionStatus();
   loadFeed();
 })();

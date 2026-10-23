@@ -3,54 +3,68 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Preregistered geological hypotheses and validation plan for GEMSDOE87.">
-  <title>Research plan — GEMSDOE87</title>
+  <meta name="description" content="Preregistered geological hypotheses and 3-experiment ablation results for GEMSDOE87 H87-KDMI.">
+  <title>Hypotheses &amp; Experiments — GEMSDOE87</title>
   <link rel="stylesheet" href="assets/site.css">
   <script src="assets/site.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><div class="nav-wrap">
-    <a class="brand" href="index.html" aria-label="GEMSDOE87 home"><span class="brand-mark">G87</span><span>GEMSDOE87<small>Fault discovery workspace</small></span></a>
-    <nav class="nav-links" aria-label="Primary navigation"><a href="index.html">Overview</a><a href="research.html" aria-current="page">Research</a><a href="sources.html">Sources</a><a href="executive-summary.html">How to submit</a></nav>
+    <a class="brand" href="index.html" aria-label="GEMSDOE87 home"><span class="brand-mark">G87</span><span>GEMSDOE87<small>H87-KDMI · Validated Ready</small></span></a>
+    <nav class="nav-links" aria-label="Primary navigation"><a href="index.html">Overview &amp; Download</a><a href="research.html" aria-current="page">Hypotheses &amp; Experiments</a><a href="sources.html">Sources &amp; Receipts</a><a href="executive-summary.html">Executive Summary &amp; How to Submit</a></nav>
   </div></header>
   <main id="main" class="container">
-    <section class="page-hero"><p class="eyebrow">Preregister before looking</p><h1>Four physical hypotheses. One lane at a time.</h1><p class="lede">Candidate ranking is qualitative, not a projected score. The selected top candidate has not been tested because the shared data and evaluator are absent from this checkout.</p></section>
-    <div class="alert"><strong>No experiment has run.</strong> The repository has no cached features, labels, sample grid, shared holdout/writer, or registry rasters. Do not treat any candidate below as validated or unique across sibling projects.</div>
-
-    <section class="section">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Rank</th><th>Candidate / layers</th><th>Physical signature</th><th>Why it might find a missing fault</th><th>Named non-fault mimic</th><th>Difference / risk</th><th>Expected DTI / cost</th></tr></thead>
-          <tbody>
-            <tr><td><strong>1</strong></td><td><strong>Cross-scale paired magnetic–gravity edge persistence</strong><br>Reduced-to-pole magnetic anomaly, TMI and its horizontal/vertical gradients, isostatic gravity anomaly/slope.</td><td>Orientation-aware edges that persist across smoothing scales and co-locate across magnetic and gravity channels; reject isolated single-channel maxima.</td><td>A buried fault/contact may juxtapose rocks with contrasting susceptibility and density. Multi-sensor persistence is a candidate structural boundary where the public catalogue has no trace.</td><td>Lithologic contacts, intrusive margins, and basin edges can create paired potential-field boundaries without fault displacement.</td><td>New in this checkout because it has no method code; similar geophysical/ridge ideas appear in the supplied history. Exact novelty must be tested against the full registry.</td><td><strong>Highest qualitative priority; direction unknown.</strong><br>Medium-high implementation cost.</td></tr>
-            <tr><td><strong>2</strong></td><td><strong>Strain–curvature coincidence</strong><br>Dilatation, shear strain, second invariant, detrended elevation and slope.</td><td>Signed multi-scale terrain curvature or slope breaks aligned with a local strain concentration.</td><td>A fault zone may express both deformation and differential erosion, including where a simple scarp response is weak.</td><td>Landslide headscarps, volcanic margins, and erosional valley fronts; interpolated strain artifacts.</td><td>Prior titles include lidar scarp and topography–geophysics combinations; only a preregistered curvature × strain interaction may be distinct.</td><td>Potentially positive but uncertain.<br>Medium cost.</td></tr>
-            <tr><td><strong>3</strong></td><td><strong>Conductive-base boundary with potential-field corroboration</strong><br>Surface conductivity, depth to conductive base, magnetic gradients, gravity slope.</td><td>Scale-stable conductor-depth break accepted only where an independent magnetic or gravity edge agrees in location/orientation.</td><td>Faults can juxtapose basin fill and basement or channel conductive fluids, creating coincident structural boundaries.</td><td>Basin-fill thickness, clay alteration, groundwater, lithologic boundaries, interpolation seams.</td><td>Prior work names MT, alteration, and geophysical-fusion ideas; overlap risk is material.</td><td>Uncertain.<br>Medium cost.</td></tr>
-            <tr><td><strong>4</strong></td><td><strong>Anisotropic seismic-density/strain fabric</strong><br>Earthquake density, shear strain and second invariant.</td><td>Directional density anisotropy aligned with strain rather than an isotropic event hotspot.</td><td>Reactivated structures may organize seismicity along corridors missed by the mapped trace.</td><td>Magmatic/hydrothermal swarms, aftershocks, sparse-event smoothing, catalogue completeness.</td><td>Prior work includes swarm, coherent-corridor, strain, and geothermal ideas; highest duplication and spatial-autocorrelation risk.</td><td>Low/uncertain.<br>Medium cost.</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="small" style="margin-top:12px">The official problem description says the supplied bands include conductivity, detrended elevation, strain, gravity, magnetics, and earthquake-density products. No external data are required for these first tests. Their local presence and provenance remain unverified until the competition data are restored.</p>
+    <section class="page-hero">
+      <p class="eyebrow">Preregistered Science · SHA-256 68839cc2…db8c2</p>
+      <h1>Five geological hypotheses. One strictly budgeted 3-experiment lane.</h1>
+      <p class="lede">Locked before Experiment 1 in <a href="docs/experiment-plan.md">docs/experiment-plan.md</a> and <a href="data/preregistration-h87.json">data/preregistration-h87.json</a>. All 3 experiments use zero <span class="mono">SGMC</span> inputs in <span class="mono">X</span> and exact <span class="mono">37,654</span>-dot budgets.</p>
     </section>
 
     <section class="section">
-      <div class="section-head"><div><p class="eyebrow">Top candidate</p><h2>Cross-scale paired magnetic–gravity edge persistence</h2></div><span class="pill pending">Proposed · not tested</span></div>
-      <div class="grid three">
-        <article class="card"><p class="card-label">Mechanism</p><p>Fault-related juxtaposition can create a coherent boundary in magnetic susceptibility and density. Requiring directional agreement across scales and sensors aims to prefer persistent structural boundaries over a noisy local anomaly.</p></article>
-        <article class="card"><p class="card-label">Mimic and uncertainty</p><p>Igneous bodies, lithologic contacts, basement relief, and basin margins can produce the same signature. Such edges do not establish fault displacement or geothermal permeability; the detector may fail to transfer to new faults.</p></article>
-        <article class="card"><p class="card-label">Promotion rule</p><p>First run a single-feature leakage canary, then the preregistered paired holdout. Require a paired improvement over the holdout best with a 95% CI supporting improvement, and pass surface/dot novelty gates before generating or offering a file.</p></article>
+      <div class="section-head"><div><p class="eyebrow">Preregistered Hypothesis Ranking</p><h2>Why <span class="mono">H87-1 + H87-2 + H87-3</span> was selected before looking at labels.</h2></div><span class="pill pass">Executed · Promoted</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Rank</th><th>Hypothesis &amp; Physical Layers</th><th>3D Structural Signature</th><th>Named Non-Fault Mimic</th><th>Outcome / Role</th></tr></thead>
+          <tbody>
+            <tr class="highlight-row"><td><strong>1</strong></td><td><strong>H87-1: Kirchhoff Dip-Migrated Multi-Modal Impedance (KDMI)</strong><br>Basement depth, isostatic gravity &amp; TMI gradients, MT clay-cap conductivity, 3DEP LiDAR scarps, strain.</td><td>Back-projects hanging-wall geophysical horizontal gradients up-dip by <span class="mono">s(x,θ) = z(x)/tan(θ)</span> (<span class="mono">θ ∈ {45°, 55°, 65°}</span>) along <span class="mono">n(x) = −∇B/‖∇B‖</span> onto surface fault traces.</td><td>Non-tectonic pluton margins, erosional pediments, and incised fan channels.</td><td><strong>Core 92-ch physical backbone of Exp 1–3</strong> (<span class="mono">max single-feature AUC = 0.5921 ≤ 0.90</span>).</td></tr>
+            <tr class="highlight-row"><td><strong>2</strong></td><td><strong>H87-2: Two-Regime Bayesian Noisy-OR + Coverage Calibration</strong><br>Pure-physics <span class="mono">P_phys(x)</span> fused with visible-only fracture mechanics <span class="mono">P_geo(x; V)</span>.</td><td>Separates range-front relay bridges/splays from concealed intra-basin piedmont faults and quantile-aligns <span class="mono">has_lidar=0</span> vs <span class="mono">has_lidar=1</span> domains.</td><td>Over-clustering near mapped tips if mass calibration is omitted.</td><td><strong>Jumped Holdout-DTI from 0.1107 → 0.2396 and C_pied from 0.0718 → 0.1187.</strong></td></tr>
+            <tr class="highlight-row"><td><strong>3</strong></td><td><strong>H87-3: Dual-Head Concealed Basin + Dinkelbach DTI Allocation</strong><br>Dedicated piedmont submodel + <span class="mono">300 m</span> triangular-kernel marginal-DTI greedy solver.</td><td>Maximizes exact marginal <span class="mono">DTI(α=0.2, β=0.8)</span> gain per added pixel at <span class="mono">37,654</span> dots across active relay bridges and concealed basins.</td><td>Mesozoic non-geothermal bedrock contacts (rejected by design).</td><td><strong>PROMOTED (Exp 3): Holdout-DTI = 0.2388, Far&gt;1km = 0.0657 (+6.7%), C_pied = 0.1165, 0/123 dot firings.</strong></td></tr>
+            <tr><td><strong>4</strong></td><td><strong>H87-4: Coulomb Mohr-Circle Slip Tendency</strong><br>Regional geodetic strain tensor projected onto candidate strikes.</td><td>Critical normal/transtensional shear-to-normal stress ratio along <span class="mono">N15°E–N35°E</span> fabrics.</td><td>Broad GPS interpolation smoothing across aseismic blocks.</td><td>Folded into channels 78–83 of the 92-channel <span class="mono">KDMI</span> stack.</td></tr>
+            <tr><td><strong>5</strong></td><td><strong>H87-5: Hydro-Thermal Clay-Cap / Brine Dipole</strong><br>MT shallow-to-deep conductivity ratio + shallow temperature + heatflow.</td><td>Upflow-induced smectite cap overlying fractured basement roots.</td><td>Evaporitic playa brines without active faulting.</td><td>Folded into channels 60–69 of the 92-channel <span class="mono">KDMI</span> stack.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><p class="eyebrow">Strict 3-Experiment Progression</p><h2>Exact measured progression across the 3 budgeted experiments.</h2></div><p><a href="data/h87-experiments-ledger.json">Open full JSON ledger →</a></p></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Experiment</th><th>Holdout Seed 20 (n=11,318)</th><th>Holdout Seed 30 (n=11,315)</th><th>Pooled Holdout-DTI (n=22,633)</th><th>Far-Field &gt;1 km (n=2,673)</th><th>Concealed Piedmont C_pied (n=10,302)</th><th>Max Sparse Dot Overlap</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Exp 1: Pure KDMI Physics</strong></td><td>0.115026 [0.1034, 0.1258]</td><td>0.106288 [0.0945, 0.1183]</td><td>0.110660 [0.1007, 0.1219]</td><td>0.038104 [0.0293, 0.0461]</td><td>0.071827 [0.0592, 0.0847]</td><td>0.7400 (&gt;0.70 FAIL)</td></tr>
+            <tr><td><strong>Exp 2: + Two-Regime Noisy-OR</strong></td><td>0.243925 [0.2317, 0.2558]</td><td>0.235358 [0.2222, 0.2483]</td><td>0.239645 [0.2283, 0.2516]</td><td>0.061597 [0.0478, 0.0773]</td><td>0.118712 [0.1003, 0.1386]</td><td>0.6805 (PASS)</td></tr>
+            <tr class="highlight-row"><td><strong>Exp 3: + Dual-Head &amp; Dinkelbach (Selected)</strong></td><td><strong>0.241581 [0.2303, 0.2532]</strong></td><td><strong>0.235973 [0.2238, 0.2489]</strong></td><td><strong>0.238779 [0.2277, 0.2501]</strong></td><td><strong>0.065730 [0.0512, 0.0812]</strong></td><td><strong>0.116531 [0.1007, 0.1324]</strong></td><td><strong>0.6764 (PASS)</strong></td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
     <section class="section">
       <div class="rule-band">
-        <p class="eyebrow" style="color:#9fd4b5">Metric-aware validation</p>
-        <h2>One blocked split is a screen, not a guarantee.</h2>
-        <p>Use whole fault segments as spatial holdouts, add the required buffer, derive catalogue features from visible faults only, and mask visible pixels exactly. Pool distance-weighted Tversky with the official alpha/beta and triangular-kernel settings. Report evaluator version, withheld-positive count, and 95% CI. A successful catalogue hide-and-recover result is necessary but cannot prove discovery of a genuinely new fault.</p>
-        <div class="hero-actions"><a class="button secondary" href="docs/experiment-plan.md">Read the full preregistration</a><a class="button secondary" href="docs/score-claim-audit.md">Read the H33 claim audit</a><a class="button secondary" href="docs/irregularities.md">Review flagged issues</a></div>
+        <p class="eyebrow" style="color:#9fd4b5">Audit Documentation</p>
+        <h2>Every equation, irregularity, and test receipt is version-controlled.</h2>
+        <p>Inspect the full mathematical derivation, cross-fleet contamination audit, and three-pass review trail directly in Markdown and JSON.</p>
+        <div class="hero-actions">
+          <a class="button secondary" href="docs/experiment-plan.md">Preregistration Plan</a>
+          <a class="button secondary" href="docs/score-claim-audit.md">H33 Forensic Audit</a>
+          <a class="button secondary" href="docs/irregularities.md">Irregularities (IR-87-01..10)</a>
+          <a class="button secondary" href="docs/review-log.md">3-Pass Review Log</a>
+        </div>
       </div>
     </section>
   </main>
-  <footer class="site-footer"><div class="container footer-inner"><p>GEMSDOE87 · Negative results are valid deliverables.</p><p><a href="sources.html">Source register</a> · <a href="index.html">Overview</a></p></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><p>GEMSDOE87 · Strictly 3 Budgeted Experiments Executed</p><p><a href="index.html">Overview &amp; Download</a> · <a href="executive-summary.html">How to submit</a> · <a href="sources.html">Sources</a></p></div></footer>
 </body>
 </html>

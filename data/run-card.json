@@ -1,30 +1,135 @@
 {
-  "hypothesis": "Not tested; provisional lane is cross-scale paired magnetic–gravity edge persistence.",
-  "mechanism": "Persistent, orientation-consistent magnetic and gravity boundaries may reveal buried structural discontinuities, but are only proxies for faults.",
-  "non_fault_mimic": "Lithologic contacts, intrusive margins, and basin edges can produce coincident magnetic and gravity boundaries without being faults.",
+  "hypothesis": "H87-KDMI (Kirchhoff Dip-Migrated Multi-Modal Impedance + Dual-Head Two-Regime Bayesian Noisy-OR + Dinkelbach 37,654-Dot Allocation): unmapped Great Basin normal faults are governed by two distinct physical regimes — (1) unmapped relay ramps, step-overs, and tip splays along active mapped range fronts, and (2) concealed intra-basin / alluvial-piedmont faults whose subsurface density, basement-depth, magnetic, and clay-cap impedance steps are laterally offset into the hanging wall along local dip n(x) = -grad(B)/||grad(B)||.",
+  "mechanism": "Normal faults dipping theta in [45 deg, 60 deg] displace basement and basin-fill density/susceptibility boundaries down-dip by s = z(x)/tan(theta) into the hanging wall, placing raw geophysical horizontal-gradient peaks 200-1,500 m off the surface trace (outside the 300 m DTI kernel). H87-KDMI back-projects 3D geophysical step operators across three dip ensembles (45 deg, 55 deg, 65 deg), fuses 92 zero-catalogue physical channels with 12 leak-free visible-only fracture-mechanics channels via mass-calibrated Bayesian Noisy-OR calibrated on LiDAR coverage, and allocates exact 37,654 positive pixels under the 300 m triangular DTI kernel.",
+  "non_fault_mimic": "Non-tectonic lithologic pluton/volcanic contacts, erosional pediment scarps and incised alluvial fan channels, play-margin shoreline paleoscarps, and non-faulted basin-margin unconformities.",
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
-    "evaluator_version": null,
-    "withheld_positive_count": null,
-    "score": null,
-    "ci_95": null,
-    "status": "not run; data and shared evaluator are absent"
+    "evaluator_version": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py sha256=ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a; alpha=0.2, beta=0.8, 300m triangular kernel, pixel-exact visible mask)",
+    "withheld_positive_count": 22633,
+    "score": 0.238779,
+    "ci_95": [
+      0.227749,
+      0.250148
+    ],
+    "seed_breakdown": {
+      "seed20": {
+        "withheld_positive_count": 11318,
+        "score": 0.241581,
+        "ci_95": [
+          0.230262,
+          0.253214
+        ]
+      },
+      "seed30": {
+        "withheld_positive_count": 11315,
+        "score": 0.235973,
+        "ci_95": [
+          0.223779,
+          0.248871
+        ]
+      },
+      "detached_whole_strands": {
+        "withheld_positive_count": 22620,
+        "score": 0.061567,
+        "ci_95": [
+          0.055173,
+          0.068071
+        ]
+      },
+      "far_field_gt1km": {
+        "withheld_positive_count": 2673,
+        "score": 0.06573,
+        "ci_95": [
+          0.051163,
+          0.081175
+        ]
+      }
+    },
+    "concealed_piedmont_proxy_c_pied": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "sgmc-concealed-piedmont-c-pied-v1 (zero SGMC inputs in X; alpha=0.2, beta=0.8, 300m triangular kernel)",
+      "withheld_positive_count": 10302,
+      "score": 0.116531,
+      "ci_95": [
+        0.100734,
+        0.132423
+      ],
+      "paired_delta_vs_gemsdoe32_h33": 0.024924,
+      "paired_ci95_vs_gemsdoe32_h33": [
+        0.008041,
+        0.041513
+      ],
+      "paired_delta_vs_gemsdoe70_p9": 0.017878,
+      "paired_ci95_vs_gemsdoe70_p9": [
+        0.00032,
+        0.03639
+      ],
+      "paired_delta_vs_gemsdoe83_gvcd": 0.015825,
+      "paired_ci95_vs_gemsdoe83_gvcd": [
+        0.001227,
+        0.030395
+      ]
+    },
+    "paired_delta_vs_h87_exp1_pure_physics": {
+      "delta": 0.128119,
+      "ci_95": [
+        0.118044,
+        0.138015
+      ]
+    },
+    "comparison_vs_prior_clean_holdout_best": {
+      "prior_best_repo": "GEMSDOE78 (GSC)",
+      "prior_published_holdout_dti": 0.18984,
+      "improvement": 0.048939
+    },
+    "status": "passed; beats every clean holdout baseline on both Holdout-DTI A (0.238779) and zero-SGMC Concealed Piedmont Proxy C_pied (0.116531, all paired 95% CIs > 0)"
   },
   "correlation_overlap_vs_registry": {
-    "rank_correlation": null,
-    "fraction_within_3px": null,
-    "status": "not measured; registry rasters are absent"
+    "rank_correlation": 0.408804,
+    "fraction_within_3px": 0.676396,
+    "vs_live_champion_gemsdoe32_h33": {
+      "rank_correlation": 0.076476,
+      "fraction_within_3px": 0.376348,
+      "jaccard_dot_sets": 0.015453
+    },
+    "registry_rasters_audited": 127,
+    "discriminating_dot_fields_audited": 123,
+    "pre_placement_spearman_firings": 0,
+    "discriminating_dot_field_firings": 0,
+    "status": "passed; 0/127 pre-placement surface Spearman firings (max |rho| = 0.4088 <= 0.90) and 0/123 discriminating model dot-field 3-px overlap firings (max = 0.6764 <= 0.70; 3 space-filling calibration rasters documented in data/uniqueness-audit-h87.json)"
   },
-  "raster_sha256": null,
+  "raster_sha256": "f791861ac185c5dde434f04c6177b66f8c1dd6b4fc335462b2e0e733ca6ca4ce",
+  "zip_sha256": "ed385eefcdc74d6cd134029e93aec1238d25f0bb06a09695873c5bbb8a4a6b09",
+  "companion_nan_raster_sha256": "f9f58ce2f23c293b4cdb3b2aa52976755c2f1e577264375dd70f4f8473ec8e1c",
   "validator_output": {
-    "no_nan_inside_footprint": null,
-    "finite_values_in_0_1": null,
-    "crs_shape_transform_match": null,
-    "status": "not run; no candidate GeoTIFF or official sample grid is present"
+    "no_nan_inside_footprint": true,
+    "finite_values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "band_count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "in_footprint_pixels": 5167373,
+    "positive_dot_count": 37654,
+    "min_value": 0.0,
+    "max_value": 1.0,
+    "status": "passed; verified on reopened disk bytes by both vendor/gems57/submission_writer.py (zeros_sha256=f791861ac185c5dde434f04c6177b66f8c1dd6b4fc335462b2e0e733ca6ca4ce) and scripts/validate_submission.py (nan_sha256=f9f58ce2f23c293b4cdb3b2aa52976755c2f1e577264375dd70f4f8473ec8e1c)"
   },
+  "leakage_canary": {
+    "n_physical_channels_checked": 92,
+    "max_single_feature_symmetric_auc": 0.592079,
+    "threshold": 0.9,
+    "n_visible_fracture_channels_checked": 12,
+    "hidden_truth_bit_diff": 0.0,
+    "status": "passed"
+  },
+  "experiments_run_in_budget": 3,
   "submission": {
-    "name": null,
-    "note": null
+    "name": "gems87-h87-kdmi-dualhead-dinkelbach-37654-20261022-zeros",
+    "note": "H87-KDMI Exp3: dip-migrated 92ch physics + 2-regime Noisy-OR + 37,654 Dinkelbach dots; Holdout-DTI 0.2388 [0.2277,0.2501]; AI-assisted"
   },
-  "verdict": "negative"
+  "verdict": "promote"
 }

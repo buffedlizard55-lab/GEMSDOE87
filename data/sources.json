@@ -13,7 +13,7 @@
       "id": "competition_data",
       "label": "DrivenData — competition data tab",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
-      "role": "Official data-download entry point; sign-in may be required",
+      "role": "Official data-download entry point; sign-in required for direct portal download",
       "feed_check": true,
       "expected_terms": ["login"]
     },
@@ -29,7 +29,7 @@
       "id": "official_rules_pdf",
       "label": "DOE/NLR — GEMS Prize official rules PDF",
       "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
-      "role": "Official prize rules, submission process, and AI disclosure requirement",
+      "role": "Official prize rules, submission process, weekly caps, and AI disclosure requirement",
       "feed_check": false,
       "expected_terms": []
     },
@@ -43,9 +43,9 @@
     },
     {
       "id": "usgs_geodawn",
-      "label": "USGS — GeoDAWN data release",
+      "label": "USGS — GeoDAWN data release (DOI 10.5066/P93LGLVQ)",
       "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
-      "role": "Official GeoDAWN survey description and data-release provenance",
+      "role": "Official GeoDAWN airborne magnetic/radiometric survey provenance (CC0 1.0)",
       "feed_check": true,
       "expected_terms": ["10.5066/P93LGLVQ", "CC0"]
     },
@@ -53,33 +53,49 @@
       "id": "ingenious_gbcge",
       "label": "GBCGE — INGENIOUS project",
       "url": "https://gbcge.org/current-projects/ingenious/",
-      "role": "Project context and INGENIOUS dataset reference",
+      "role": "Great Basin geothermal structural context and INGENIOUS compilation",
       "feed_check": true,
       "expected_terms": ["INGENIOUS"]
     },
     {
       "id": "ingenious_gdr",
-      "label": "DOE Geothermal Data Repository — INGENIOUS regional compilation",
+      "label": "DOE Geothermal Data Repository — INGENIOUS regional compilation (1391)",
       "url": "https://gdr.openei.org/submissions/1391",
-      "role": "Public dataset catalog, resource list, and license statement",
+      "role": "Public regional geoscience dataset catalog and CC BY 4.0 license statement",
       "feed_check": true,
       "expected_terms": ["10.15121/1881483"]
+    },
+    {
+      "id": "usgs_sgmc_ds1052",
+      "label": "USGS — State Geologic Map Compilation (SGMC, DS-1052)",
+      "url": "https://pubs.usgs.gov/ds/1052/",
+      "role": "External off-catalogue geological fault compilation used strictly as evaluation proxy (never in X)",
+      "feed_check": false,
+      "expected_terms": []
     },
     {
       "id": "epsg_32611",
       "label": "EPSG registry — WGS 84 / UTM zone 11N",
       "url": "https://epsg.io/32611",
-      "role": "CRS identifier and units reference",
+      "role": "CRS identifier and metre units reference",
       "feed_check": true,
       "expected_terms": ["WGS 84 / UTM zone 11N", "metre"]
     },
     {
+      "id": "gemsdoe57_shared_template",
+      "label": "buffedlizard55-lab/57GEMSDOE — shared holdout & writer template",
+      "url": "https://github.com/buffedlizard55-lab/57GEMSDOE",
+      "role": "Shared evaluate_holdout.py, submission_writer.py, uniqueness.py, and competition data release mirror",
+      "feed_check": true,
+      "expected_terms": ["57GEMSDOE"]
+    },
+    {
       "id": "gemdoe32_project_page",
-      "label": "GEMSDOE32 — prior project artifact and claim context",
-      "url": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
-      "role": "Project-owner documentation only; not an organizer receipt",
-      "feed_check": false,
-      "expected_terms": []
+      "label": "buffedlizard55-lab/GEMSDOE32 — prior H33-2-B2 artifact repository",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE32",
+      "role": "Source code, 19-band manifest, and exact bytes for h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+      "feed_check": true,
+      "expected_terms": ["GEMSDOE32"]
     }
   ]
 }

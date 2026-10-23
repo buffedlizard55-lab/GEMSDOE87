@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - arena/d84f25db-gemsdoe87
+      - arena/007cc050-gemsdoe87
   pull_request:
     branches:
       - main
@@ -25,6 +25,6 @@ jobs:
       - name: Install validation dependencies
         run: python -m pip install -r requirements-validation.txt
       - name: Compile Python files
-        run: python -m compileall -q scripts tests
+        run: python -m compileall -q src scripts tests vendor
       - name: Run unit tests
         run: python -m unittest discover -s tests -v

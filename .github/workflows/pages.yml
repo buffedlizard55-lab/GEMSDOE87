@@ -9,9 +9,11 @@ on:
       - "executive-summary.html"
       - "research.html"
       - "sources.html"
+      - "README.md"
       - "assets/**"
       - "data/**"
       - "docs/**"
+      - "downloads/**"
       - "scripts/refresh_feed.py"
       - ".github/workflows/pages.yml"
   schedule:
@@ -45,8 +47,8 @@ jobs:
           mkdir -p _site/data _site/assets _site/docs
           cp index.html executive-summary.html research.html sources.html README.md _site/
           cp -R assets/. _site/assets/
-          cp data/sources.json data/submission-status.json data/run-card.json _site/data/
-          cp docs/experiment-plan.md docs/score-claim-audit.md docs/source-audit.md docs/irregularities.md docs/review-log.md _site/docs/
+          cp data/*.json _site/data/
+          cp docs/*.md _site/docs/
           if [ -d downloads ]; then
             mkdir -p _site/downloads
             cp -R downloads/. _site/downloads/

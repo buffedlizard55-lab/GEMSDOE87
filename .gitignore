@@ -1,5 +1,6 @@
-# Python test/build artifacts
+# Python test/build artifacts & local heavy feature/raster caches
 .venv/
+.cache/
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -11,6 +12,7 @@ __pycache__/
 # A validated, named submission may be published here only after every readiness gate passes.
 !downloads/
 !downloads/*.tif
+!downloads/*.zip
 # Keep transient evidence scratch out of Git; small final receipts may be tracked.
 evidence/tmp/
 
