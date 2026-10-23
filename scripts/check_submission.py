@@ -101,12 +101,64 @@ def checked_report_output(output: Path, card: dict, root: Path = ROOT) -> Path:
     return _distinct_output_path(output, protected)
 
 
+def check_h87b_bundle(h87b: dict, root: Path = ROOT, data_dir: Path | None = None) -> dict:
+    path = root / h87b['artifact']['path']
+    zip_path = root / h87b['artifact']['zip_path']
+    download_root = (root / 'docs/downloads').resolve()
+    if path.resolve().parent != download_root or zip_path.resolve().parent != download_root:
+        raise ValueError('Artifact path escapes the download directory')
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    if digest != h87b['raster_sha256']:
+        raise ValueError('The shipped H87B TIFF differs from the H87B run card hash')
+    reference_dir = data_dir or root / 'data/raw'
+    manifest = json.loads((root / 'registry/data_manifest.json').read_text())
+    references = {entry['id']: entry for entry in manifest['files']}
+    for identifier in ('sample_submission', 'existing_faults'):
+        entry = references[identifier]
+        reference = reference_dir / entry['dest']
+        if not reference.is_file() or hashlib.sha256(reference.read_bytes()).hexdigest() != entry['sha256']:
+            raise ValueError(f'Reference mirror hash mismatch: {identifier}; restore pinned inputs before inspection')
+    grid = load_grid(reference_dir)
+    report = validate(path, grid.footprint, grid.catalogue)
+    template = gates.format_report(path, reference_dir / 'sample_submission.tif', footprint=grid.footprint)
+    with zipfile.ZipFile(zip_path) as z:
+        zip_names_ok = z.namelist() == [path.name]
+        zip_bytes_ok = zip_names_ok and z.read(path.name) == path.read_bytes()
+        zip_crc_ok = z.testzip() is None
+    format_ok = bool(report['all_checks_passed'] and template['ok'] and zip_names_ok and zip_bytes_ok and zip_crc_ok)
+    permitted = False
+    return dict(local_format_valid=format_ok, safe_to_submit=permitted,
+                reference_mirror_hashes_match=True,
+                no_nan_inside_footprint=report['checks']['in_footprint_all_finite'],
+                range_0_1=report['checks']['range_0_1_guaranteed'],
+                crs_shape_transform_match=bool(template['ok']),
+                zip_contains_exactly_one_matching_tiff=bool(zip_names_ok and zip_bytes_ok and zip_crc_ok),
+                raster_sha256=digest, validator=report, template_report=template,
+                submission_name=h87b['submission_name'], note=h87b['submission_note'],
+                note_length=len(h87b['submission_note']),
+                approved_for_weekly_slot=permitted,
+                decision='DO NOT SUBMIT',
+                authorization_scope='Session 2 H87B-STFD held fail-closed under literal dense-witness rule; zero weekly slots used',
+                submission_slots_used=h87b['budget']['weekly_slots_used'])
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--format-only', action='store_true')
+    parser.add_argument('--h87b', action='store_true',
+                        help='Inspect Session 2 H87B-STFD GeoTIFF & ZIP without modifying frozen Session 1 receipts')
     parser.add_argument('--output', type=Path, default=Path('docs/evidence/independent_validation.json'),
                         help='New .json receipt path, or the designated default; existing other files are never overwritten')
     args = parser.parse_args()
+    if args.h87b:
+        h87b = json.loads((ROOT / 'docs/evidence/h87b_run_card.json').read_text())
+        try:
+            result = check_h87b_bundle(h87b)
+        except (OSError, ValueError, zipfile.BadZipFile, RuntimeError) as exc:
+            print(json.dumps(dict(safe_to_submit=False, inspection_completed=False, errors=[str(exc)]), indent=2))
+            return 2
+        print(json.dumps(result, indent=2, allow_nan=False))
+        return 0 if result['local_format_valid'] and (args.format_only or result['safe_to_submit']) else 2
     card = json.loads((ROOT / 'docs/evidence/run_card.json').read_text())
     try:
         output = checked_report_output(args.output, card)

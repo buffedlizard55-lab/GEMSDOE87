@@ -35,7 +35,7 @@ let projectBase = process.env.GEMS_PROJECT_URL || null;
   if (process.env.GEMS_START_SERVER === '1') {
     const http = require('node:http');
     const docs = path.join(root, 'docs');
-    const types = {'.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.png': 'image/png', '.tif': 'image/tiff', '.zip': 'application/zip'};
+    const types = {'.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.tif': 'image/tiff', '.zip': 'application/zip'};
     server = http.createServer((req, res) => {
       try {
         const name = decodeURIComponent(new URL(req.url, 'http://local.test').pathname);
@@ -74,14 +74,29 @@ let projectBase = process.env.GEMS_PROJECT_URL || null;
       assert.equal(horizontalOverflow, false, `desktop horizontal overflow: ${file}`);
       const h1 = await page.locator('main h1').first().innerText();
       assert.ok(h1.trim().length > 0, `heading: ${file}`);
+      if (file === 'science.html') await page.locator('#forensic-figures').screenshot({path: path.join(output, 'science_figures.png')});
+      if (file === 'registry.html') await page.locator('.figure-card').first().screenshot({path: path.join(output, 'registry_figure.png')});
       checks.push({page: file, viewport: 'desktop', status: response.status(), no_horizontal_overflow: true});
     }
     await page.goto(`${base}/index.html`, {waitUntil: 'networkidle'});
     await page.screenshot({path: path.join(output, 'desktop.png'), fullPage: true});
     const card = JSON.parse(fs.readFileSync(path.join(root, 'docs/evidence/run_card.json')));
+    const h87bCard = JSON.parse(fs.readFileSync(path.join(root, 'docs/evidence/h87b_run_card.json')));
+    const brokenImages = await page.evaluate(() => [...document.images].filter(img => !img.complete || img.naturalWidth === 0).map(img => img.src));
+    assert.deepEqual(brokenImages, [], 'all index.html images decode cleanly');
+    const [dlH87b] = await Promise.all([
+      page.waitForEvent('download'),
+      page.locator('[data-h87b-download]').first().click()
+    ]);
+    assert.equal(dlH87b.suggestedFilename(), path.basename(h87bCard.artifact.path));
+    const savedH87b = path.join(output, dlH87b.suggestedFilename());
+    await dlH87b.saveAs(savedH87b);
+    const hashH87b = crypto.createHash('sha256').update(fs.readFileSync(savedH87b)).digest('hex');
+    assert.equal(hashH87b, h87bCard.raster_sha256, 'actual H87B browser download SHA-256');
+    checks.push({actual_h87b_tiff_download_verified: true, raster_sha256: hashH87b});
     const [download] = await Promise.all([
       page.waitForEvent('download'),
-      page.locator('a[download]').first().click()
+      page.locator('[data-frozen-download]').first().click()
     ]);
     assert.equal(download.suggestedFilename(), card.submission_file);
     const downloaded = path.join(output, download.suggestedFilename());

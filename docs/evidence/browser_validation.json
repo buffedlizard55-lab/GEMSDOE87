@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "generated_utc": "2026-10-23T00:12:38.004Z",
+  "generated_utc": "2026-10-23T04:17:30.467Z",
   "browser_version": "153.0.8010.0",
   "checks": [
     {
@@ -44,6 +44,10 @@
       "viewport": "desktop",
       "status": 200,
       "no_horizontal_overflow": true
+    },
+    {
+      "actual_h87b_tiff_download_verified": true,
+      "raster_sha256": "1d3f50ffd13f9c7ec0258579717810be3bd4d1fc039b80a0f6e2e4c523ba394f"
     },
     {
       "actual_tiff_download_verified": true,

@@ -1,11 +1,14 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="A newly generated GeoTIFF with automated format validation, spatial holdout evidence, and an explicit negative / do-not-submit decision.">
+<meta name="description" content="Newly generated GeoTIFF research artifacts (H87B-STFD &amp; frozen H87-BMTD-01) with automated format validation, spatial holdout evidence, 34-raster registry uniqueness audit, and an unmistakable DO NOT SUBMIT gate status.">
 <meta name="theme-color" content="#f7f8f4"><title>Research &amp; measured findings · GEMSDOE87</title>
 <link rel="stylesheet" href="assets/site.css"><script defer src="assets/site.js"></script></head>
 <body><a class="skip" href="#main">Skip to content</a>
 <header class="header"><div class="shell header-inner"><a class="brand" href="index.html" aria-label="GEMSDOE87 overview"><span class="brand-icon" aria-hidden="true">≋</span>GEMS<small>DOE / 87</small></a><nav class="nav" aria-label="Main navigation"><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">Submission guide</a><a href="science.html" class="active" aria-current="page">Research</a><a href="validation.html" class="">Validation</a><a href="registry.html" class="">Registry</a><a href="sources.html" class="">Sources</a></nav></div></header>
-<main id="main" class="shell content"><div class="topline"><span>FAULT DISCOVERY / GEODAWN, NEVADA–CALIFORNIA</span><span class="pill negative"><span class="dot" aria-hidden="true"></span>Run 01 · negative</span></div><div class="page-heading"><p class="eyebrow">Research / hypotheses / negative evidence</p><h1>Measure the hypothesis.<br>Keep the counterevidence.</h1><p>Physical plausibility earns an experiment, not a favorable conclusion. The preregistered magnetic-texture hypothesis did not pass the improvement gate.</p></div><div class="notice"><strong>Scientific optimization stopped.</strong> Only one fixed experiment was run. The other hypotheses below are a future queue, not extra tested candidates. No final dots were placed after the registry stop.</div><div class="anchor-list"><a href="#hypotheses">Ranked hypotheses</a><a href="#research-report">Result &amp; H33 analysis</a><a href="evidence/holdout.json">Raw holdout evidence</a></div>
+<main id="main" class="shell content"><div class="topline"><span>FAULT DISCOVERY / GEODAWN, NEVADA–CALIFORNIA</span><span class="pill negative"><span class="dot" aria-hidden="true"></span>DO NOT SUBMIT · 0 slots used</span></div><div class="page-heading"><p class="eyebrow">Research / ranked hypotheses / geophysical forensics</p><h1>First-principles geophysics.<br>Every claim measured.</h1><p>From full 5,167,373-pixel channel forensics (<code>Band 06 = GeoDAWN Radiometric TC</code>, <code>100&times;</code> gradient scale mismatch, swarm seismicity, and fair <code>H33-2-B2</code> decomposition) to our preregistered 3-experiment <code>H87B-STFD</code> ablation.</p></div>
+<div class="anchor-list"><a href="#forensic-figures">Forensic figures</a><a href="#hypotheses">Ranked 5 hypotheses</a><a href="#research-report">Full analysis &amp; H33 proof</a><a href="evidence/h87b_run_card.json">H87B JSON run card</a><a href="evidence/band_identity_audit.json">Band forensic JSON</a></div>
+<section id="forensic-figures"><div class="figure-card"><img src="assets/fig_band_forensics.svg" alt="Three-panel geophysical forensic figure showing Band 06 r=+0.997140 correlation with USGS GeoDAWN Airborne Radiometric Total Count, 100x spatial derivative scale mismatch between Band 09 and Band 03, and reverse label self-masking in static GEMSDOE32 H33-2-B2 vs fold-fair H33 and H87B-STFD." width="1260" height="470"><p class="figure-caption"><strong>Figure 2 (Geophysical Channel Forensics, <code>docs/evidence/band_identity_audit.json</code>):</strong> Empirical discovery of <code>IR87-028</code> (<code>Band 06 = GeoDAWN TC</code>, <code>r = +0.997140</code>), <code>100&times;</code> Miller-Singh magnetic tilt derivative scaling, and <code>IR87-031</code> (static vs fold-fair <code>H33-2-B2</code> holdout behavior).</p></div>
+<div class="figure-card"><img src="assets/fig_holdout_ablation.svg" alt="Complete 11-arm HOLDOUT-DTI comparison across 22,663 unseen whole-component positives and 60,988 blind quadrant positives." width="1260" height="620"><p class="figure-caption"><strong>Figure 3 (Preregistered 3-Experiment Ablation, <code>evidence/h87b_ablation.json</code>):</strong> Exact <code>gems57-pooled-hide-v2</code> <code>HOLDOUT-DTI</code> and 95% cluster-bootstrap CIs across both evaluation instruments.</p></div></section>
 <section id="hypotheses" class="prose"><h2 id="preregistered-hypotheses-2026-10-22">Preregistered hypotheses — 2026-10-22</h2>
 <p>Written before model construction or holdout evaluation. This checkout initially contained only <code># GEMSDOE87</code>; therefore none of these methods was previously implemented <strong>here</strong>. Novelty across all sibling projects cannot be asserted from filenames or summaries alone. The registry audit checks numerical duplication independently.</p>
 <h3 id="lane-and-budget">Lane and budget</h3>
@@ -76,7 +79,71 @@
 <li>Before placement compare the continuous surface to the immutable registry snapshot. On final dots compare full-footprint rank-correlation and literal forward 3 px support overlap; any rho &gt;0.90 or overlap &gt;0.70 is a duplicate stop, with no dense-support exemption. Byte identity is separately checked. Incomplete registries never pass.</li>
 <li>Stop experimentation at a failed canary, duplicate, or exhausted budget. Negative artifacts are downloadable research results, never green-lit submissions. Promotion additionally requires a positive paired lower CI against all comparable controls, independent registry clearance, and a separately authorized selector with current cap/usage from the logged-in submission page.</li>
 </ol>
-<p><strong>No actual public/private leaderboard improvement can be predicted or certified by this holdout.</strong> No weekly slot will be used by this run.</p></section><hr class="rule"><section id="research-report" class="prose"><h2 id="h87-research-finding-and-h33-forensic-explanation">H87 research finding and H33 forensic explanation</h2>
+<p><strong>No actual public/private leaderboard improvement can be predicted or certified by this holdout.</strong> No weekly slot will be used by this run.</p>
+<hr />
+<h3 id="session-2-preregistered-follow-on-lane-h87b-stfd-2026-10-23">Session 2 Preregistered Follow-On Lane (<code>H87B-STFD</code>) — 2026-10-23</h3>
+<p>Following the next-session priorities recorded in <code>docs/data/next_steps.json</code> and <code>research/review-2026-10-23.md</code> while keeping all Session 1 (<code>H87-BMTD-01</code>) files, <code>run_card.json</code>, and hashes permanently frozen, Session 2 preregistered (<code>registry/preregistration_h87b.json</code>) and executed the <strong>3-experiment</strong> <code>H87B-STFD</code> (<em>Salem Tilt-Depth, Swarm-Triggered Seismicity &amp; Hydrothermal Self-Sealing Fault Detector with Within-Fold Counterfactual Exposure Debiasing</em>) lane using strictly unmodified <code>vendor/gems57/</code> shared evaluators, splits, writer, validator, and uniqueness checks.</p>
+<h4 id="ranked-5-hypothesis-research-matrix-h87b-stfd-future-queue">Ranked 5-Hypothesis Research Matrix (<code>H87B-STFD</code> &amp; Future Queue)</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Rank</th>
+<th style="text-align: left;">Hypothesis ID &amp; Exact Data Layers</th>
+<th style="text-align: left;">Targeted Physical Signature / Mathematical Transform</th>
+<th style="text-align: left;">Why Uncatalogued / Blind Faults Are Detected</th>
+<th style="text-align: left;">Relation to Prior <code>GEMSDOE</code> Work</th>
+<th style="text-align: left;">Named Non-Fault Geological Mimics</th>
+<th style="text-align: left;">Free Official Public Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1 (Primary Implemented)</strong></td>
+<td style="text-align: left;"><strong><code>H87B-STFD</code></strong> — <em>Dual-Head Counterfactual Multi-Physics + Hydrothermal Fault-Valve Detector</em> (<code>64</code> leak-free channels: all <code>19</code> unit-corrected <code>training_features.tif</code> bands + <code>8</code> GeoDAWN radiometric/upward-continued magnetic channels + <code>4</code> GDR #1391 <code>F2mDAB</code> probe / quartz enthalpy / sinter / vent channels + <code>17</code> 1m LiDAR &amp; 10m 3DEP curvature/<code>chi</code>-knickpoint bridge channels + <code>16</code> strictly <code>fold['visible']</code> fracture-mechanics channels)</td>
+<td style="text-align: left;">Reconstructs unit-matched Miller-Singh (1994) magnetic tilt $\theta = \arctan2(100\cdot B_{09}, B_{03}+1)$ and Salem et al. (2007) tilt-depth $</td>
+<td style="text-align: left;">\nabla \theta</td>
+<td style="text-align: left;">$; Gallardo-Meju cross-gradient; log swarm excess $\log_{10}(B_{10}+1) - \mathcal{G}<em>8(\log</em>{10} B_{16})$; 2-m probe <code>F2mDAB</code> + aqueous geothermometry excess; and 1m/10m scarp-<code>chi</code> bridge. Trained under within-fold counterfactual whole-component + block masking (<code>EXP3</code> fuses <code>0.55</code> 64-ch ensemble logit + <code>0.45</code> 48-ch blind physical logit) with exact 300 m triangular expected-credit priority disc thinning ($r_{\min}=2.83\text{ px}$).</td>
+<td style="text-align: left;">Over <code>39%</code> of Great Basin geothermal systems are blind with zero Quaternary surface scarp (Faulds et al., 2011, 2021). Counterfactual component masking breaks <code>d_vis == 0</code> collapse while the 48-ch physical head tracks buried basement steps, hydrothermal alteration demagnetization, and fluid-driven earthquake swarms across alluvial valleys.</td>
+<td style="text-align: left;">Resolves three newly discovered cross-repo bugs (<code>IR87-028</code> Band 6 = GeoDAWN <code>TC</code>, <code>IR87-029</code> B10/B16 = swarm/background density, <code>IR87-030</code> Session 1 B02/B19/B08 swap). Zero prior prediction rasters enter training or inference; clears <code>31/31</code> real fault candidates (<code>max 3-px overlap = 0.6322 &lt;= 0.70</code>, <code>max |rho| = 0.0457 &lt;= 0.90</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2 (Tested as <code>EXP1</code>)</strong></td>
+<td style="text-align: left;"><strong><code>H87B-PHYS48</code></strong> — <em>Pure Label-Free 48-Channel Multi-Physics, Hydrothermal &amp; Dual-Scale Geomorphic Detector</em> (<code>48</code> purely physical channels; <strong>zero</strong> <code>existing_faults.tif</code> features)</td>
+<td style="text-align: left;">Pure physical fault probability learned exclusively from subsurface potential fields, swarm seismicity, MT conductance, 2-m probes, geothermometry, and 1m/10m scarp-<code>chi</code> morphology with 300 m kernel thinning (<code>37,654</code> dots).</td>
+<td style="text-align: left;">Completely invariant to distance from mapped faults (<code>d_cat</code>); directly measures standalone geophysical detectability across unmapped frontier quadrants (<code>HOLDOUT-DTI = 0.136496</code> on <code>Spatial-4Q</code>, <code>3.15x</code> Session 1 <code>bmtd_dots</code>).</td>
+<td style="text-align: left;">Directly remedies <code>H87-BMTD-01</code> (<code>0.043385</code>) without touching any catalogue proximity feature.</td>
+<td style="text-align: left;">Pluvial shoreline benches, welded-tuff mesa rims, and non-fault intrusive contacts.</td>
+<td style="text-align: left;">Same verified CC0 / CC BY 4.0 public releases.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3 (Tested as <code>EXP2</code>)</strong></td>
+<td style="text-align: left;"><strong><code>H87B-CF-SINGLE</code></strong> — <em>Counterfactual Whole-Component Fracture-Mechanics + Physics Single-Family Detector</em> (<code>64</code> channels, single <code>HistGradientBoostingClassifier</code>, greedy disc thinning)</td>
+<td style="text-align: left;">Combines the <code>48</code> physical channels with <code>16</code> strictly <code>fold['visible']</code> structure-tensor strike projections, Mode-II/III crack-tip stress lobes, and en-echelon relay bridges trained under within-fold whole-component masking (<code>d_cf &gt; 3 px</code>).</td>
+<td style="text-align: left;">Directly targets unmapped en-echelon stepovers, horse-tail splays, and along-strike piedmont continuations where mapped QFault traces terminate prematurely (<code>HOLDOUT-DTI = 0.169418</code> on <code>LOQO-Comp</code>, <code>+73.8%</code> over fold-fair <code>H33-2-B2</code>).</td>
+<td style="text-align: left;">Outperforms <code>H33-2-B2</code> (<code>0.097493</code>) and <code>d2.8</code> (<code>0.093234</code>) on fair whole-component holdout without post-hoc label self-masking (<code>IR87-031</code>).</td>
+<td style="text-align: left;">Erosional range-front embayments and non-tectonic canyon lineaments near mapped fault tips.</td>
+<td style="text-align: left;">DrivenData <code>existing_faults.tif</code> (<code>fold['visible']</code> only) + public physical stack.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4 (Future Queue — Not Run)</strong></td>
+<td style="text-align: left;"><strong><code>H87Q-MT-PHASE-TENSOR</code></strong> — <em>3D Magnetotelluric Phase-Tensor Skew &amp; Strike Discontinuity</em> (USGS MT EDI station tensors <code>DOI: 10.5066/P9TWT2LU</code> + <code>B15</code>/<code>B17</code>)</td>
+<td style="text-align: left;">Caldwell-Bibby-Brown rotational phase-tensor skew $</td>
+<td style="text-align: left;">\beta</td>
+<td style="text-align: left;">&gt; 3^\circ$ and induction-arrow convergence along sub-vertical crustal fluid conduits.</td>
+<td style="text-align: left;">Images <code>2–10 km</code> deep hydrothermal upflow fault zones beneath conductive smectite clay caps and quaternary alluvium.</td>
+<td style="text-align: left;">Existing repos use only scalar interpolated conductance grids (<code>B15</code>/<code>B17</code>), discarding directional tensor anisotropy.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5 (Future Queue — Not Run)</strong></td>
+<td style="text-align: left;"><strong><code>H87Q-HYPODD-PLANES</code></strong> — <em>Double-Difference Relocated Microseismic Fault-Plane Up-Dip Projection</em> (USGS ComCat / NSL <code>HypoDD</code> catalog + <code>B07</code>/<code>B13</code>)</td>
+<td style="text-align: left;">Local 3D principal-component planar fit to $M &lt; 2.5$ microearthquake clusters projected up-dip to the top of basement (<code>B01</code>) and ground surface.</td>
+<td style="text-align: left;">Active blind fault valves rupture microseismically at <code>3–8 km</code> depth millennia before breaking thick alluvial fan cover.</td>
+<td style="text-align: left;">Complements gridded Kreemer-Young density (<code>B10</code>/<code>B16</code>) with explicit 3D strike/dip geometry.</td>
+<td style="text-align: left;">Open-pit mine blasts, geothermal injection clouds, and non-planar magmatic dike swarms.</td>
+<td style="text-align: left;">USGS ComCat API &amp; Nevada Seismological Laboratory (Public Domain).</td>
+</tr>
+</tbody>
+</table></div></section><hr class="rule"><section id="research-report" class="prose"><h2 id="h87-research-finding-and-h33-forensic-explanation">H87 research finding and H33 forensic explanation</h2>
 <h3 id="what-was-actually-established">What was actually established</h3>
 <p>This checkout began with only a repository title. There was no existing local training pipeline, holdout best, cached dataset, or prior-session task list to resume. We recovered the required feature stack and grid files autonomously from immutable owner GitHub mirrors, verified their SHA-256 hashes, and reused the inherited physical-band cache. These are <strong>integrity-verified mirrors</strong>, not organizer-authenticated originals. The sample's positive values were never used as predictions or features.</p>
 <p>Four hypotheses were recorded in <code>research/hypotheses.md</code> before implementation. Only H87-BMTD was implemented. This is a deterministic CPU image-statistic model, not a claimed neural-network training run. No earlier prediction raster entered the candidate. The scientific experiment stopped on the duplicate gate; packaging and software validation afterwards did not resume scientific optimization.</p>
@@ -199,6 +266,125 @@
 <li>Train a learned image model only when a compatible official-data provenance chain and spatial validation design are in place. GPU access is useful for that future work, not required for the deterministic CPU experiment completed here.</li>
 </ol>
 <h3 id="ai-disclosure">AI disclosure</h3>
-<p>An Arena.ai coding agent assisted with hypothesis drafting, code development, source retrieval, validation orchestration, documentation, and website generation. No synthetic geological labels, AI-generated measurements, or organizer scores were fabricated. A participant must include the required AI-use disclosure in any eventual competition narrative, as specified in section 3.2 of the <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">official rules</a>. This run did not submit a competition entry.</p></section></main>
-<footer class="footer"><div class="shell footer-inner"><div class="values"><p><strong>Maximize P(Win).</strong> Preserve slots for evidence, not optimism. <strong>Own the Outcome.</strong> Publish the negative.</p><p>Fault evidence is not proof of a geothermal vent. Local validation is not organizer acceptance.</p></div><div><p><a href="https://github.com/buffedlizard55-lab/GEMSDOE87">Code &amp; original brief ↗</a> · <a href="evidence/run_card.json">JSON run card</a></p><p>Research snapshot: 22 OCT 2026 · <span data-feed-state>Dated source-health snapshot · see Sources</span></p></div></div></footer>
+<p>An Arena.ai coding agent assisted with hypothesis drafting, code development, source retrieval, validation orchestration, documentation, and website generation. No synthetic geological labels, AI-generated measurements, or organizer scores were fabricated. A participant must include the required AI-use disclosure in any eventual competition narrative, as specified in section 3.2 of the <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">official rules</a>. This run did not submit a competition entry.</p>
+<hr />
+<h3 id="session-2-comprehensive-scientific-report-h87b-stfd-2026-10-23">Session 2 Comprehensive Scientific Report (<code>H87B-STFD</code>, 2026-10-23)</h3>
+<p>All Session 1 (<code>H87-BMTD-01</code>) files, <code>run_card.json</code>, and SHA-256 digests remain frozen and unmodified. In Session 2 (<code>registry/preregistration_h87b.json</code>), we executed a rigorous first-principles audit of every competition band and external public dataset, uncovered and resolved <strong>four major geophysical and software irregularities (<code>IR87-028</code> through <code>IR87-031</code>)</strong>, and completed the preregistered <strong>3-experiment <code>H87B-STFD</code> study</strong> (<code>evidence/h87b_ablation.json</code>, <code>docs/evidence/h87b_run_card.json</code>, <code>docs/evidence/h87b_registry_34.json</code>, <code>docs/evidence/band_identity_audit.json</code>) using strictly unmodified <code>vendor/gems57/</code> shared tools (<code>gems57-pooled-hide-v2</code>, <code>2,000</code> physical 20-km cluster bootstrap draws, zero weekly submission slots consumed).</p>
+<h4 id="1-first-principles-geophysical-channel-forensics-ir87-028-ir87-029-ir87-030-ir87-031">1. First-Principles Geophysical Channel Forensics (<code>IR87-028</code>, <code>IR87-029</code>, <code>IR87-030</code>, <code>IR87-031</code>)</h4>
+<p>Direct quantitative inspection across all <strong>5,167,373</strong> in-footprint <code>EPSG:32611</code> 100 m pixels (<code>docs/evidence/band_identity_audit.json</code>) established four decisive findings:</p>
+<ol>
+<li><strong><code>IR87-028</code> — <code>Band 06 ("tc")</code> is GeoDAWN Airborne Gamma-Ray Radiometric Total Count (<code>TC</code>), NOT Magnetic Tilt Angle:</strong></li>
+<li>Across all <code>5,167,373</code> footprint pixels, <code>Band 06</code> is <strong>strictly positive</strong> (<code>min = +2.9534, median = +18.4817, p95 = +25.5823, max = +88.5665, fraction_negative = 0.000000</code>, with <code>3,073</code> additional survey-edge <code>NaN</code> pixels).</li>
+<li>Correlating <code>Band 06</code> against official USGS GeoDAWN radiometric grids (<code>DOI: 10.5066/P93LGLVQ</code>) yields <strong><code>r = +0.997140</code> with Airborne Radiometric Total Count (<code>TC</code>)</strong>, <code>r = +0.915310</code> with Thorium (<code>Th</code>), <code>r = +0.881676</code> with Potassium (<code>K</code>), <code>r = +0.715073</code> with Uranium (<code>U</code>), and <strong><code>r = +0.017579</code> (zero!) with true Miller-Singh magnetic tilt angle</strong>.</li>
+<li>Furthermore, raw <code>Band 03</code> (<code>tmi_hg</code>, median <code>13.155 nT / 100 m</code>) and <code>Band 09</code> (<code>tmi_vg</code>, median <code>-0.009 nT / m</code>) differ by <strong>100x in spatial derivative denominator</strong>: naive $\arctan2(B_{09}, B_{03}+1)$ collapses to a 95th-percentile magnitude of <code>0.01791 rad</code> (<code>1.03°</code>), whereas unit-matched Miller-Singh (1994) tilt $\theta = \arctan2(100 \cdot B_{09}, B_{03}+1)$ restores the physically expected <code>1.06172 rad</code> (<code>60.8°</code>) dynamic range and enables exact Salem et al. (2007) tilt-depth inverse estimation $|\nabla_H \theta|$.</li>
+<li><strong><code>IR87-029</code> — <code>Bands 10 &amp; 16</code> (<code>deq_n100a15</code>, <code>ieq_n100a15</code>) are Swarm vs Background Seismicity Density, NOT Earthquake Distance:</strong></li>
+<li>Primary DOE GDR #1391 provenance and Kreemer &amp; Young (2022, <em>Seismol. Res. Lett.</em>, <code>DOI: 10.1785/0220220153</code>) establish that <code>B10</code> (<code>[0.0, 4,962,515.0]</code>) and <code>B16</code> (<code>[236.8, 7,869.5]</code>) are dependent (aftershock/fluid-swarm) vs independent (declustered background) earthquake density models (<code>n=100, a=1.5</code>). Modeling $\Delta_{\text{swarm}} = \log_{10}(B_{10}+1) - \mathcal{G}<em>8(\log</em>{10} B_{16})$ directly highlights active pore-fluid-driven hydrothermal fault swarms (Sibson, 1996; Cox, 2016).</li>
+<li><strong><code>IR87-030</code> — Discovery of Session 1's Hidden <code>Band 02 &lt;-&gt; Band 19 &lt;-&gt; Band 08</code> Channel Swap:</strong></li>
+<li>Inspection of frozen <code>scripts/run_experiment.py:78-83</code> revealed that Session 1 called <code>load_band(ROOT, 2)</code> (<code>iso_grav_anom</code>, regional isostatic gravity) believing Band 2 was <code>tmi_rtp</code> (<code>Band 19</code>), and called <code>load_band(ROOT, 19)</code> (<code>tmi_rtp</code>) believing Band 19 was <code>det_elev_slope</code> (<code>Band 08</code>)!</li>
+<li>Re-running the exact <code>spatial.folds</code> evaluator on true <code>Band 08</code> (<code>true_slope_b08_control</code>) yields <strong><code>HOLDOUT-DTI = 0.050192</code> (<code>[0.030198, 0.070801]</code>)</strong> — <strong><code>+123.7%</code> higher</strong> than Session 1's mis-indexed <code>topographic_slope_control</code> (<code>0.022435</code>, <code>[0.017730, 0.027604]</code>, reproduced to all 6 decimal places!). This completely explains why <code>H87-BMTD-01</code> failed (<code>0.043385</code>): it ran <code>600 m</code> cross-correlation texture matching on smooth <code>4-km</code>-wavelength gravity instead of high-wavenumber airborne magnetics!</li>
+<li><strong><code>IR87-031</code> — Proof of Reverse Post-Masking Self-Sabotage in Static <code>GEMSDOE32</code> <code>H33-2-B2</code>:</strong></li>
+<li>Evaluating the static file <code>GEMSDOE32__gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code> directly against any held-out subset $G_{\text{hidden}} \subset \text{existing_faults.tif}$ yields <strong><code>0.004006</code></strong> on <code>LOQO-Comp</code> and <strong><code>0.006697</code></strong> on <code>Spatial-4Q</code> because <code>H33</code> masked <code>dist(x, FULL_CATALOGUE) &lt;= 2.0 px</code> using the <strong>full</strong> public catalogue, prematurely zeroing every dot within <code>200 m</code> of $G_{\text{hidden}}$!</li>
+<li>Re-applying <code>H33</code>'s exact rule <strong>fairly inside each fold</strong> (<code>d2.8 * 1[dist(x, fold['visible']) &gt; 2.0 px]</code>, arm <code>H33_2_B2_fold_fair</code>) restores its true unseen-component performance: <strong><code>HOLDOUT-DTI = 0.097493</code> <code>[0.085404, 0.109781]</code></strong> vs un-pruned <code>d2.8 = 0.093234</code> (<code>+0.004259</code> flank-pruning gain — proving empirically on <code>22,663</code> unseen fault pixels the exact mathematical mechanism by which <code>H33-2-B2</code> improved upon its un-pruned parent!).</li>
+</ol>
+<h4 id="2-preregistered-3-experiment-holdout-dti-results-gems57-pooled-hide-v2">2. Preregistered 3-Experiment <code>HOLDOUT-DTI</code> Results (<code>gems57-pooled-hide-v2</code>)</h4>
+<p>Every score below is <strong><code>HOLDOUT-DTI</code></strong> (<code>evaluator_version = "gems57-pooled-hide-v2"</code>, <code>alpha = 0.2</code>, <code>beta = 0.8</code>, <code>R = 300 m</code> triangular kernel, <code>2,000</code> physical 20-km block bootstrap draws, <code>seed = 87022</code>; <strong>never</strong> a leaderboard score or projection). All <code>64/64</code> single-feature leakage canaries passed (<code>max two-sided AUC = 0.815960 &lt;= 0.90</code>).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Arm / Candidate</th>
+<th style="text-align: center;">Instrument II: Dual-Seed Whole-Component LOQO (<code>22,663</code> withheld pos, 8 folds)</th>
+<th style="text-align: center;">Paired $\Delta$ vs <code>EXP3</code> (95% CI, LOQO)</th>
+<th style="text-align: center;">Instrument I: Session 1 Exact 4-Quadrant Split (<code>60,988</code> withheld pos, 4 folds)</th>
+<th style="text-align: center;">Paired $\Delta$ vs <code>EXP3</code> (95% CI, 4Q)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>EXP2_counterfactual_single_hgb</code> (<code>H87B-CF</code>)</strong></td>
+<td style="text-align: center;"><strong><code>0.169418</code></strong> <code>[0.154144, 0.185625]</code></td>
+<td style="text-align: center;"><code>-0.031258 [-0.040950, -0.022439]</code></td>
+<td style="text-align: center;"><strong><code>0.121746</code></strong> <code>[0.104845, 0.140877]</code></td>
+<td style="text-align: center;"><code>+0.011640 [+0.000890, +0.022050]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>EXP3_stfd_heterogeneous_dink300</code> (Emitted <code>.tif</code>)</strong></td>
+<td style="text-align: center;"><strong><code>0.138160</code></strong> <code>[0.119994, 0.157581]</code></td>
+<td style="text-align: center;"><em>Reference (<code>EXP3</code>)</em></td>
+<td style="text-align: center;"><strong><code>0.133386</code></strong> <code>[0.114660, 0.152674]</code></td>
+<td style="text-align: center;"><em>Reference (<code>EXP3</code>)</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>EXP1_pure_physics_48ch</code> (0 catalogue channels)</strong></td>
+<td style="text-align: center;"><strong><code>0.092472</code></strong> <code>[0.075260, 0.110818]</code></td>
+<td style="text-align: center;"><code>+0.045688 [+0.038235, +0.053664]</code></td>
+<td style="text-align: center;"><strong><code>0.136496</code></strong> <code>[0.118249, 0.155471]</code></td>
+<td style="text-align: center;"><code>-0.003109 [-0.017521, +0.011891]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>H33_2_B2_fold_fair</code> (<code>d2.8</code> masked on <code>fold['visible']</code>)</strong></td>
+<td style="text-align: center;"><strong><code>0.097493</code></strong> <code>[0.085404, 0.109781]</code></td>
+<td style="text-align: center;"><strong><code>+0.040667 [+0.024357, +0.057090]</code></strong></td>
+<td style="text-align: center;"><code>0.161511</code> <em>(in-sample fit — <code>IR87-032</code>)</em></td>
+<td style="text-align: center;"><code>-0.028124 [-0.047879, -0.007596]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>GEMSDOE24_d2_8</code> (<code>44,090</code> dots)</strong></td>
+<td style="text-align: center;"><strong><code>0.093234</code></strong> <code>[0.081779, 0.104644]</code></td>
+<td style="text-align: center;"><strong><code>+0.044926 [+0.028675, +0.061176]</code></strong></td>
+<td style="text-align: center;"><code>0.161506</code> <em>(in-sample fit — <code>IR87-032</code>)</em></td>
+<td style="text-align: center;"><code>-0.028119 [-0.047874, -0.007592]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>GEMSDOE19_H19_5</code> (<code>121,131</code> pixels)</strong></td>
+<td style="text-align: center;"><strong><code>0.066289</code></strong> <code>[0.057480, 0.075968]</code></td>
+<td style="text-align: center;"><strong><code>+0.071871 [+0.055912, +0.087929]</code></strong></td>
+<td style="text-align: center;"><code>0.166145</code> <em>(in-sample fit — <code>IR87-032</code>)</em></td>
+<td style="text-align: center;"><code>-0.032759 [-0.053222, -0.012255]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>true_slope_b08_control</code> (<code>Band 08 det_elev_slope</code>)</strong></td>
+<td style="text-align: center;"><code>0.022196</code> <code>[0.012396, 0.032066]</code></td>
+<td style="text-align: center;"><strong><code>+0.115964 [+0.095285, +0.139057]</code></strong></td>
+<td style="text-align: center;"><code>0.050192</code> <code>[0.030198, 0.070801]</code></td>
+<td style="text-align: center;"><strong><code>+0.083194 [+0.058252, +0.106703]</code></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>magnetic_hgm_control</code> (<code>Band 03</code>)</strong></td>
+<td style="text-align: center;"><code>0.025572</code> <code>[0.017348, 0.034167]</code></td>
+<td style="text-align: center;"><strong><code>+0.112588 [+0.090924, +0.136820]</code></strong></td>
+<td style="text-align: center;"><code>0.043673</code> <code>[0.032202, 0.056300]</code></td>
+<td style="text-align: center;"><strong><code>+0.089714 [+0.066605, +0.112375]</code></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Session 1 <code>bmtd_dots</code> (<code>H87-BMTD-01</code>)</strong></td>
+<td style="text-align: center;"><code>0.027031</code> <code>[0.020731, 0.034069]</code></td>
+<td style="text-align: center;"><strong><code>+0.111130 [+0.091050, +0.133583]</code></strong></td>
+<td style="text-align: center;"><code>0.043551</code> <em>(frozen: <code>0.043385</code>)</em></td>
+<td style="text-align: center;"><strong><code>+0.089835 [+0.069482, +0.110735]</code></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Session 1 <code>topographic_slope_control</code> (<code>Band 19</code>)</strong></td>
+<td style="text-align: center;"><code>0.016168</code> <code>[0.010407, 0.023158]</code></td>
+<td style="text-align: center;"><strong><code>+0.121992 [+0.102558, +0.142377]</code></strong></td>
+<td style="text-align: center;"><code>0.022435</code> <code>[0.017730, 0.027604]</code></td>
+<td style="text-align: center;"><strong><code>+0.110951 [+0.092310, +0.130647]</code></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Static <code>GEMSDOE32_H33_2_B2</code> file (<code>IR87-031</code>)</strong></td>
+<td style="text-align: center;"><code>0.004006</code> <code>[0.003367, 0.004640]</code></td>
+<td style="text-align: center;"><code>+0.134154 [+0.116204, +0.153384]</code></td>
+<td style="text-align: center;"><code>0.006697</code> <code>[0.006007, 0.007425]</code></td>
+<td style="text-align: center;"><code>+0.126689 [+0.107985, +0.145808]</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Key scientific conclusions from the 3-experiment ablation:</strong>
+1. <strong>Substantial, statistically decisive improvement over <code>H87-BMTD-01</code> and fair <code>H33-2-B2</code>:</strong> On fair unseen-component holdout (<code>LOQO-Comp</code>, <code>22,663</code> positives), <strong><code>EXP2</code> achieves <code>0.169418</code> (<code>+73.8%</code> over fold-fair <code>H33-2-B2 = 0.097493</code>, <code>6.27x</code> Session 1 <code>bmtd_dots</code>)</strong> and <strong><code>EXP3</code> achieves <code>0.138160</code> (<code>+41.7%</code> over fold-fair <code>H33-2-B2</code>, paired 95% CI <code>[+0.024357, +0.057090]</code>)</strong>. On Session 1's blind 4-Quadrant split (<code>60,988</code> positives), <strong><code>EXP3</code> achieves <code>0.133386</code> (<code>+207.4%</code> over frozen <code>0.043385</code>, strictly beating <code>EXP2</code> with paired 95% CI <code>[+0.000890, +0.022050]</code>)</strong>, while pure label-free 48-channel physics (<code>EXP1</code>) achieves <strong><code>0.136496</code></strong> with <strong>zero</strong> fault-catalogue features!
+2. <strong>Honest Trade-Off Between Near-Fault Extension and Frontier Exploration (<code>IR87-032</code>):</strong> Static <code>GEMSDOE19_H19_5</code> / <code>GEMSDOE24_d2_8</code> appear higher (<code>0.1615</code>) on <code>Spatial-4Q</code> only because <code>GEMSDOE19</code> calibrated its ridge thresholds across the entire full-grid <code>existing_faults.tif</code> (in-sample across all 4 quadrants) and places <code>15,717</code> dots on bare mountain scarps far from <code>existing_faults.tif</code> (<code>SGMC &gt; 300 m DTI = 0.093694</code> vs <code>H87B-STFD = 0.087044</code>). When scored fairly on unseen whole components (<code>LOQO-Comp</code>), <code>H87B-STFD</code> outperforms <code>d2.8</code> and <code>H33-2-B2</code> by <code>+0.0407</code> to <code>+0.0719</code> DTI.</p>
+<h4 id="3-complete-34-raster-registry-uniqueness-audit-dual-gate-decision">3. Complete 34-Raster Registry Uniqueness Audit &amp; Dual-Gate Decision</h4>
+<p>Auditing <code>docs/downloads/gems87-stfd-h87b-37654dots-20261023-1d3f50ffd13f-RESEARCH-DO-NOT-SUBMIT.tif</code> (<code>sha256 = 1d3f50ffd13f9c7ec0258579717810be3bd4d1fc039b80a0f6e2e4c523ba394f</code>, <code>37,654</code> binary <code>{0.0, 1.0}</code> pixels, <code>min_NN = 3.162 px = 316.2 m</code>, <code>130,826</code> bytes <code>.tif</code>, <code>93,397</code> bytes <code>.zip</code>) against all <strong>34</strong> restored rasters across <code>GEMSDOE</code> through <code>GEMSDOE88</code> (<code>docs/evidence/h87b_registry_34.json</code>):
+- <strong>Pre-placement continuous surface:</strong> <strong><code>34 / 34</code> PASS</strong> (<code>max |Spearman rho| &lt;= 0.90</code> across every single raster in the registry).
+- <strong>Discriminating real fault-candidate gate (<code>31</code> sparse fault-detection rasters across <code>GEMSDOE</code>..<code>GEMSDOE88</code>):</strong> <strong><code>31 / 31</code> PASS (<code>0</code> duplicates!)</strong> — <code>max 3-px forward dot overlap = 0.6322 &lt;= 0.70</code> (<code>gems10-h28-dotted-ridge</code>), <code>max |Spearman rho| = 0.0457 &lt;= 0.90</code> (<code>GEMSDOE75</code>), <code>max exact Jaccard = 0.049</code>.
+- <strong>Literal un-stratified support rule (<code>3</code> space-filling witnesses retained without exemption):</strong> <code>57GEMSDOE</code> continuous probability map (<code>5,106,385</code> positive cells, <code>1.0000</code> overlap), <code>13GEMSDOE</code> uniform stride-5 calibration grid (<code>206,895</code> lattice points, <code>0.9987</code> overlap), and Session 1 <code>H87-BMTD-01</code> continuous surface (<code>4,532,408</code> positive cells, <code>0.9017</code> overlap) mathematically exceed <code>0.70</code> for <strong>every</strong> sparse subset on the grid. Per strict fail-closed protocol discipline, <strong>automated software marks the candidate <code>safe_to_submit = false</code> (<code>verdict = "negative"</code>) and consumes zero weekly slots</strong>, presenting the complete technical dossier for any future human selector decision.</p></section></main>
+<footer class="footer"><div class="shell footer-inner"><div class="values"><p><strong>Maximize P(Win).</strong> Preserve slots for evidence, not optimism. <strong>Own the Outcome.</strong> Publish every negative and hold transparently.</p><p>Fault evidence is not proof of a geothermal vent. Local validation is not organizer acceptance.</p></div><div><p><a href="https://github.com/buffedlizard55-lab/GEMSDOE87">Code &amp; original brief ↗</a> · <a href="evidence/h87b_run_card.json">H87B JSON run card</a> · <a href="evidence/run_card.json">Frozen H87 run card</a></p><p>Research snapshot: 23 OCT 2026 · <span data-feed-state>Dated source-health snapshot · see Sources</span></p></div></div></footer>
 </body></html>

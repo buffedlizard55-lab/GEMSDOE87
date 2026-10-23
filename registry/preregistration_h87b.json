@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "lane_id": "H87B-STFD",
+  "registered_utc": "2026-10-23T00:22:00+00:00",
+  "parent_frozen_run": {
+    "experiment_id": "H87-BMTD-01",
+    "status": "immutable-preserved-negative",
+    "frozen_run_card": "run_card.json",
+    "frozen_artifact": "docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif"
+  },
+  "hypothesis_title": "Salem Tilt-Depth, Swarm-Triggered Seismicity & Hydrothermal Self-Sealing Fault Detector with Within-Fold Counterfactual Exposure Debiasing (H87B-STFD)",
+  "empirical_band_discoveries_preregistered": [
+    {
+      "id": "IR87-028",
+      "band": 6,
+      "tag": "tc",
+      "finding": "Band 6 correlates at r = +0.9957 with USGS GeoDAWN Airborne Radiometric Total Count (TC) and is strictly positive [3.37, 62.18]; it is total gamma-ray counts, NOT magnetic tilt angle.",
+      "resolution": "Compute true Miller-Singh (1994) analytic magnetic tilt angle atan2(100 * B09_tmi_vg, B03_tmi_hg) and Salem et al. (2007) tilt-depth inverse |grad(tilt)| directly from unit-consistent B09 and B03, while treating B06 properly as total radiometric counts."
+    },
+    {
+      "id": "IR87-029",
+      "bands": [10, 16],
+      "tags": ["deq_n100a15", "ieq_n100a15"],
+      "finding": "Per primary DOE GDR #1391 metadata and Kreemer & Young (2022, DOI 10.1785/0220220153), B10 and B16 are Nevada Geodetic Laboratory dependent (aftershock/swarm) and independent (declustered background) earthquake density models (n=100, a=1.5), NOT distance to earthquake.",
+      "resolution": "Form log-swarm excess log10(B10 + 1) - log10(B16) and seismic-to-geodetic coupling log10(B16) / (B04 + eps) to isolate pore-fluid-driven hydrothermal fault swarms beneath zero-scarp basin fill."
+    }
+  ],
+  "ranked_hypotheses": [
+    {
+      "rank": 1,
+      "id": "H87B-STFD",
+      "status": "PRIMARY_IMPLEMENTED_LANE",
+      "layers": [
+        "training_features.tif Bands 1-19 (all 19 physical layers with unit/identity corrections)",
+        "USGS GeoDAWN DOI 10.5066/P93LGLVQ (K, Th, U, TC, Th/K, U/K, U/Th, TMI_up150)",
+        "DOE GDR #1391 DOI 10.15121/1881483 (27,092 well/spring geothermometers; 3,800 2m temperature probes F2mDAB; 709 paleo-sinter/travertine seals; 21 Quaternary vents — label columns strictly forbidden)",
+        "USGS 3DEP 1m LiDAR scarp features (12 bands, 75.4% coverage) + 10m 3DEP curvature/chi-knickpoints (18 bands, 100% coverage bridging 24.6% NE NV LiDAR gap)",
+        "Fold-visible existing_faults.tif ONLY for 16 structural fracture-mechanics channels"
+      ],
+      "signature": "Unit-consistent Salem tilt-depth magnetic contact + upward-continuation demagnetization + opposite-flank gravity/basement flexure + fluid-driven swarm excess + 2m probe F2mDAB / quartz enthalpy excess + 1m/10m scarp-chi bridge, coupled with within-fold counterfactual whole-component exposure debiasing, 4-family heterogeneous learning (Deep-HGB + Regularized-HGB + Smooth Neural MLP + Spline-Logistic), cover-regime propensity normalization, and 300m expected-credit priority disc thinning.",
+      "why_uncatalogued": "Over 39% of Great Basin geothermal systems lack surface scarps or springs (Faulds et al., 2011, 2021), and standard catalogue-trained models collapse when d_cat > 0. Counterfactual masking + blind subsurface/hydrothermal signatures directly target buried intrabasin, piedmont, and relay faults.",
+      "named_non_fault_mimic": "Pleistocene Lake Lahontan/Bonneville pluvial shoreline benches, lateral thermal outflow plumes in permeable fanglomerates, pre-Tertiary pluton intrusive contacts, and primary high-K ash-flow tuffs."
+    },
+    {
+      "rank": 2,
+      "id": "H87B-PHYS48",
+      "status": "TESTED_AS_EXP_1",
+      "layers": ["48 purely label-free physical, hydrothermal, and geomorphic channels"],
+      "signature": "Pure physical + hydrothermal + 1m/10m geomorphic fault-probability surface with zero catalogue topology features at training or inference.",
+      "why_uncatalogued": "Completely independent of mapped fault proximity; tests pure geophysical & hydrothermal blind fault detectability across the entire study footprint.",
+      "named_non_fault_mimic": "Pluvial shoreline scarps, pluton margins, and welded-tuff mesa rims."
+    },
+    {
+      "rank": 3,
+      "id": "H87B-CF-SINGLE",
+      "status": "TESTED_AS_EXP_2",
+      "layers": ["48 physical channels + 16 strictly visible-only counterfactual fracture-mechanics channels"],
+      "signature": "Single-family HistGradientBoostingClassifier trained on within-fold masked whole fault components (d_vis > 3 px) without neural/spline manifold blending or cover-regime propensity balancing.",
+      "why_uncatalogued": "Isolates the exact lift of counterfactual exposure debiasing over pure physics before multi-family & cover-regime allocation.",
+      "named_non_fault_mimic": "Erosional range-front embayments and non-tectonic canyon lineaments near mapped fault tips."
+    },
+    {
+      "rank": 4,
+      "id": "H87Q-MT-PHASE-TENSOR",
+      "status": "FUTURE_QUEUE_NOT_RUN",
+      "layers": ["USGS ScienceBase DOI 10.5066/P9TWT2LU station-level EDI magnetotelluric phase tensors"],
+      "signature": "Caldwell-Bibby-Brown rotational phase-tensor skew beta > 3 deg marking 3D anisotropic crustal fluid conduits.",
+      "why_uncatalogued": "Images deep (2-10 km) sub-vertical fluid conduits independent of surface Quaternary rupture.",
+      "named_non_fault_mimic": "Graphitic Paleozoic black-shale thrust sheets in central/eastern Nevada."
+    },
+    {
+      "rank": 5,
+      "id": "H87Q-HYPODD-PLANES",
+      "status": "FUTURE_QUEUE_NOT_RUN",
+      "layers": ["USGS ComCat / Nevada Seismological Laboratory double-difference relocated microseismicity"],
+      "signature": "3D principal-component planar alignment of M < 2.5 microearthquake hypocenters projected to surface trace via local dip.",
+      "why_uncatalogued": "Illuminates active blind brittle shear planes in real time beneath aseismic surface cover.",
+      "named_non_fault_mimic": "Mining blasts, geothermal injection clusters, and non-planar volcanic dike swarms."
+    }
+  ],
+  "forbidden_inputs": [
+    "gdr_wellspring_in_footprint.csv:dist_known_fault_px",
+    "gdr_volcanic_vents_in_footprint.csv:dist_known_fault_px",
+    "derived_sgmc_faults_100m_u8.tif (reserved strictly as zero-training external evaluation diagnostic)",
+    "gdr_qfaults_traces.csv",
+    "any prior GEMSDOE prediction raster"
+  ],
+  "fixed_parameters": {
+    "target_dots": 37654,
+    "min_nn_px": 2.83,
+    "catalogue_collar_px": 2.24,
+    "canary_auc_limit": 0.90,
+    "registry_rho_limit": 0.90,
+    "registry_overlap_limit": 0.70,
+    "experiments_allowed": 3,
+    "hours_allowed": 2.0,
+    "bootstrap_draws": 2000,
+    "bootstrap_seed": 87202
+  }
+}

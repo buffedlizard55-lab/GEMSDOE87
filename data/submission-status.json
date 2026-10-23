@@ -1,12 +1,14 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-10-23T00:13:11.248181+00:00",
+  "updated_at": "2026-10-23T04:17:40.587217+00:00",
   "status": "negative_research_only",
   "submission_ready": false,
   "safe_to_submit": false,
-  "reason": "Frozen H87 negative: no demonstrated control gain, literal universal-overlap duplicate and disclosed original edge-guard defect. Local format is valid; submission is NOT authorized.",
+  "reason": "Held fail-closed: Session 2 H87B-STFD passes 15/15 format checks and clears 31/31 real sparse fault candidates (+41.7% over fold-fair H33-2-B2), while 3 dense space-filling witnesses exceed the literal 0.70 overlap rule and Session 1 H87-BMTD-01 remains frozen negative. Submission is NOT authorized.",
   "artifact": "gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif",
   "raster_sha256": "10f022d5f38457332f472591ead1196ac369c38f6275c37d21021ead3d56cc2d",
+  "session2_artifact": "docs/downloads/gems87-stfd-h87b-37654dots-20261023-1d3f50ffd13f-RESEARCH-DO-NOT-SUBMIT.tif",
+  "session2_sha256": "1d3f50ffd13f9c7ec0258579717810be3bd4d1fc039b80a0f6e2e4c523ba394f",
   "submission_name": "GEMSDOE87-BMTD-01-NEGATIVE",
   "submission_note": "H87 magnetic texture dislocation; NEGATIVE: no control gain; literal registry-overlap duplicate. Research only; DO NOT SUBMIT.",
   "holdout_dti": {
@@ -26,7 +28,7 @@
     "fraction_within_3px_max": 1.0,
     "registry_rasters_checked": 2,
     "status": "duplicate-stop",
-    "maxima_scope": "Two inspected references only; not a global correlation maximum or clearance."
+    "maxima_scope": "Two inspected references in frozen Session 1 card; full 34-raster audit in docs/evidence/h87b_registry_34.json."
   },
   "validation": {
     "status": "local_format_pass_not_submission_approval",
@@ -39,37 +41,38 @@
     {
       "id": "competition_data",
       "status": "recorded-integrity-pass",
-      "detail": "Three pinned mirrors restored for the frozen experiment; organizer authenticity unverified and raw caches intentionally unbundled."
+      "detail": "Pinned mirrors verified by SHA-256; organizer login session external."
     },
     {
       "id": "shared_template_tools",
       "status": "pass",
-      "detail": "23 unchanged shared modules and unchanged inherited physical-band builder."
+      "detail": "23 unchanged shared vendor/gems57 modules verified by SHA-256."
     },
     {
       "id": "holdout_and_leakage",
-      "status": "negative",
-      "detail": "Individual canaries did not trigger, but the paired lower confidence bound did not beat the best matched control."
+      "status": "h87b-pass-session1-negative",
+      "detail": "H87B-STFD 64/64 canaries <= 0.8160 and LOQO-Comp 0.13816 (+41.7% vs fair H33-2-B2); frozen Session 1 remains negative."
     },
     {
       "id": "registry_novelty",
       "status": "duplicate-stop",
-      "detail": "Universal saturated-support witness; no final dots or unauthorized density exemption."
+      "detail": "31/31 sparse fault candidates PASS (<= 0.6322); 3 dense space-filling witnesses exceed literal 0.70 rule."
     },
     {
       "id": "tiff_validation",
       "status": "local-format-pass",
-      "detail": "Actual TIFF/ZIP re-read; this cannot authorize a scientific negative."
+      "detail": "15/15 checks pass on written TIFF/ZIP bytes without human intervention."
     },
     {
       "id": "selector",
       "status": "blocked",
-      "detail": "Zero competition slots; no authenticated cap or selector authorization."
+      "detail": "Zero weekly competition slots spent; requires explicit human selector rule decision."
     }
   ],
   "download": null,
   "research_download": "docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.tif",
   "research_download_status": "RESEARCH ONLY \u2014 DO NOT SUBMIT",
   "path_resolution": "relative to project site root",
-  "current_run_card": "docs/evidence/run_card.json"
+  "current_run_card": "docs/evidence/run_card.json",
+  "session2_run_card": "docs/evidence/h87b_run_card.json"
 }

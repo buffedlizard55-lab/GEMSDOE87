@@ -137,14 +137,15 @@ def check(source):
 def main():
     path = ROOT / 'docs/data/feed.json'
     prior = json.loads(path.read_text()) if path.exists() else {}
-    sources = json.loads((ROOT / 'registry/sources.json').read_text())['sources']
+    sources_doc = json.loads((ROOT / 'registry/sources.json').read_text())
+    sources = sources_doc['sources']
     # Owner H33 is a historical research source, not part of official URL health.
     sources = [s for s in sources if s['id'] != 'h33']
     with ThreadPoolExecutor(max_workers=4) as pool:
         outcomes = list(pool.map(check, sources))
     observations = [observation for _, observation in outcomes if observation]
     output = dict(schema_version=1, last_attempt_utc=datetime.now(timezone.utc).isoformat(),
-                  research_content_reviewed_utc_date='2026-10-22',
+                  research_content_reviewed_utc_date=sources_doc.get('reviewed_utc_date', '2026-10-23'),
                   checks=[row for row, _ in outcomes],
                   public_leaderboard_observation=observations[-1] if observations else prior.get('public_leaderboard_observation'),
                   observation_refreshed_this_attempt=bool(observations),

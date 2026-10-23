@@ -68,6 +68,11 @@ jobs:
           URL="${PAGES_URL%/}/docs/downloads/$FILE?gems87=$SHA"
           curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$URL" -o .cache/published-research.tif
           echo "$SHA  .cache/published-research.tif" | sha256sum --check
+          H87B_FILE=$(python -c "import json, pathlib; print(pathlib.Path(json.load(open('docs/evidence/h87b_run_card.json'))['artifact']['path']).name)")
+          H87B_SHA=$(python -c "import json; print(json.load(open('docs/evidence/h87b_run_card.json'))['raster_sha256'])")
+          H87B_URL="${PAGES_URL%/}/docs/downloads/$H87B_FILE?gems87=$H87B_SHA"
+          curl --fail --location --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$H87B_URL" -o .cache/published-h87b.tif
+          echo "$H87B_SHA  .cache/published-h87b.tif" | sha256sum --check
           FEED_SHA=$(sha256sum docs/data/feed.json | cut -d ' ' -f 1)
           FEED_URL="${PAGES_URL%/}/docs/data/feed.json?gems87_run=$GITHUB_RUN_ID"
           curl --fail --location --silent --show-error --header 'Cache-Control: no-cache' --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 150 --connect-timeout 15 --max-time 60 "$FEED_URL" -o .cache/published-feed.json

@@ -74,3 +74,27 @@ CI is defined in `.github/workflows/ci.yml`. Pages/read-only source refresh is d
 Concurrent main readiness work at `f4f5944` and hardening through `a7a7c77` was integrated on this same fixed branch, with exact-byte snapshots and its code/tests preserved. Compatibility root status now distinguishes a research download from competition approval; historical documents are labeled as snapshots. No second scientific lane was executed. Pages settings write was denied to the integration; the already successful upload/deploy pattern is reused without changing those settings.
 
 The original request is **not fully satisfied as a winning or protocol-cleared submission**. Literal universal overlap, lack of control improvement, the frozen experiment's edge defect, unauthenticated originals/cap/receipts, one malformed prior, and incomplete historical mechanism review remain explicit. A separately authorized next run must resolve the protocol contradiction before any new experiment; see the research queue. No user action or human inspector is required to repeat local software/file validation, but software cannot create hidden truth or organizer authorization.
+
+---
+
+## Session 2 Follow-On Verification Record (`H87B-STFD`, 2026-10-23)
+
+All Session 1 artifacts (`run_card.json`, `data/run-card.json`, `docs/evidence/run_card.json`, `data/submission-status.json`, `evidence/budget.json`, and `docs/downloads/gems87-bmtd-20261022-50041440adba-RESEARCH-DO-NOT-SUBMIT.{tif,zip,json}`) were preserved byte-for-byte (`sha256` verified by `pytest`).
+
+### Pass 1 — Full End-to-End Implementation & Execution
+
+- Restored and SHA-256-verified `data/raw/*`, `.cache/features/band-01..19.npy`, public external rasters/CSVs in `.cache/ext_data/` (`GEMSDOE24@07345ea0`, GeoDAWN, GDR #1391, USGS 3DEP 1m/10m, SGMC), and `34` cross-repo prediction rasters (`GEMSDOE` through `GEMSDOE88`) in `.cache/reg_audit/`.
+- Verified live official public sources (`fetch_page` on `2026-10-23 UTC`): DrivenData #306 public leaderboard (`#1 xiaofanhu = 0.4413`, `#50 arnofault = 0.2817`), DrivenData problem/rules pages, DOE GEMS Prize Rules PDF (`docs.nlr.gov/docs/fy26osti/96647.pdf`), USGS GeoDAWN (`10.5066/P93LGLVQ`), DOE GDR #1391 (`10.15121/1881483`), and GBCGE INGENIOUS.
+- Executed full `5,167,373`-pixel band forensics (`docs/evidence/band_identity_audit.json`), proving `Band 06 = GeoDAWN TC` (`r = +0.997140`), `100x` `B09/B03` gradient unit scale, `Bands 10 & 16` swarm/background density (`IR87-029`), Session 1 `B02/B19/B08` swap (`IR87-030`), and static `GEMSDOE32` reverse label self-masking (`IR87-031`).
+- Executed all `12/12` memory-isolated out-of-fold workers (`comp:0..7` + `quad:0..3`) and `Phase 4/4` coordinator (`PYTHONPATH=src:vendor .venv/bin/python scripts/run_h87b_pipeline.py`), emitting `docs/downloads/gems87-stfd-h87b-37654dots-20261023-1d3f50ffd13f-RESEARCH-DO-NOT-SUBMIT.{tif,zip,json}` (`sha256 = 1d3f50ffd13f9c7ec0258579717810be3bd4d1fc039b80a0f6e2e4c523ba394f`, `130,826 B` `.tif`, `93,397 B` `.zip`).
+
+### Pass 2 — Bug, Edge-Case & Misleading-State Audit
+
+- **Bug found & fixed during Pass 2 (Dual-Head Calibration):** Initial single-head `m3` placement concentrated `97.4%` of dots within `2.5 km` of mapped faults (`990` frontier dots), slightly trailing `EXP2` on `Spatial-4Q` (`0.1187` vs `0.1217`). Adding leak-free dual-head out-of-fold calibration (`0.55 * logit(m3) + 0.45 * logit(m1)`, zero extra experiments) boosted frontier coverage `3.1x` (`3,058` dots `> 2.5 km`, `SGMC > 2.5 km DTI = 0.012139`), beating `EXP2` strictly on `Spatial-4Q` (`0.133386` vs `0.121746`, paired 95% CI `[+0.000890, +0.022050]`) and beating `H33_2_B2_fold_fair` by `+41.7%` on `LOQO-Comp` (`0.138160` vs `0.097493`, paired 95% CI `[+0.024357, +0.057090]`).
+- **Bug found & fixed during Pass 2 (Session 1 `bmtd_dots` Holdout Re-scoring):** Reading `50041440adba...tif` directly under-scored Session 1 (`0.022630`) because `package_negative.py` zeroed `existing_faults.tif` pixels after scoring; computing `compute_bmtd(load_band(ROOT, 2), fp)` directly restored faithful `0.043551` comparison (`0.043385` frozen).
+- **Bug found & fixed during Pass 2 (`IR87-033` Hardcoded Feed Date):** Fixed hardcoded `'2026-10-22'` string in `scripts/update_feed.py` to dynamic UTC date (`2026-10-23`).
+
+### Pass 3 — Full Line-by-Line Prompt Reconciliation & Automated Verification
+
+- Verified zero `NaN`/`Inf` inside `5,167,373` footprint cells, exact `[0.0, 1.0]` values (`37,654` ones, `0` catalogue pixels), `EPSG:32611`, `(3730, 3292)` float32 grid, `64/64` single-feature canaries `<= 0.90` (`max = 0.815960`), `31/31` real fault-candidate uniqueness (`max overlap = 0.6322 <= 0.70`), and fail-closed `DO NOT SUBMIT` (`safe_to_submit = false`) status due to the `3` universal space-filling witnesses (`57GEMSDOE`, `13GEMSDOE`, `H87-BMTD-01`).
+- Verified full `pytest` regression suite, `scripts/validate_submission.py`, `scripts/check_submission.py`, `scripts/check_site.py`, and headless Chromium `scripts/browser_smoke.cjs` across `1440px`, `768px`, `390px`, and `320px` viewports with zero errors or horizontal overflow.
