@@ -1,39 +1,31 @@
-# IRREGULARITIES — items that change a decision
+# IRREGULARITIES — Decision-Changing Items Only (Agent Brief v2)
 
-## IR-87-V2-01 — R0 re-encode SHA vs pixel identity (2026-10-23)
+## IR-87-V2-01 — R0 re-encode SHA vs. exact `predictor=3, zlevel=9` byte match (2026-10-23)
 
-**Reported:** Rebuild R0 and match its sha256; never approximate the parent.
+- **Observed:** Default rasterio deflate/tiled-256 (`predictor=1/2`, default `zlevel`) did not match R0's SHA-256 in the prior `CONCENTRATION` run (`registry/r0_parent.json`), whereas inspecting `GEMSDOE32/src/gems32/submission.py` (`compress="deflate", predictor=3, zlevel=9, tiled=True, blockxsize=256, blockysize=256`) and running `dot_thin_geodesic_bfs(h19_5 & foot & ~cat, 2.8) & (d_cat > 2.0)` in `scripts/build_prune_variants.py` reproduces **exact byte-for-byte SHA-256 identity** on both R0 twins (`c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9` zeros and `baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd` NaN).
+- **Decision:** Both pixel identity and byte-level R0 rebuild are now verified from pinned `registry/data_manifest.json` inputs without approximating the parent.
 
-**Observed:** GEMSDOE25 nan (`91eae1ca…`, 44,090 dots) ∩ {d(catalogue)>2} is pixel-identical to R0 zeros (`c55bafc4…`, 37,654 dots) across the full 3730×3292 grid. Writing that array with rasterio deflate/tiled 256 does **not** reproduce sha256 `c55bafc4…` (size 148,876 vs 219,065). Original R0 bytes from GEMSDOE32 match `c55bafc4…`.
+## IR-87-V2-02 — 2 px parent collar vs. Brief §4.4 (`>= 3 px` unless `AXIS=PRUNE`)
 
-**Decision:** Use original R0 bytes as parent. Do not ship a re-encoded “R0”. Variants start from the verified pixel support.
+- **Observed:** R0 (`h33-h33-2-b2`) has `min d_cat = 2.2361 px` and **`2,171` dots with `2 < d_cat <= 3 px`** (`1,611` strictly `< 3 px`). Enforcing `>= 3 px` inside a non-`PRUNE` axis confounds two mechanisms; keeping `d_cat > 2 px` leaves `< 3 px` dots in place.
+- **Decision:** Session `arena/82031087-gemsdoe87` built `AXIS = PRUNE` (`PRUNE3`, `PRUNE1`, `PRUNE4` at fixed `37,654` count on `H19-5` ranked by exact DTI marginal gain `dT`), establishing `PRUNE3` (`min d_cat = 3.1623 px`) as a clean `>= 3 px`-compliant candidate parent while keeping `CONCENTRATION` (`2 px` inherited) unconfounded.
 
-## IR-87-V2-02 — 2 px collar vs brief ≥3 px (non-PRUNE)
+## IR-87-V2-03 — Unassigned `AXIS`; `MASS` and `CONCENTRATION` already in `ledger/submissions.csv`
 
-**Reported:** Zero catalogue mass and keep ≥3 px from catalogue unless AXIS=PRUNE.
+- **Observed:** `AXIS`, `TOP_PUBLIC`, and `Slots left` were blank in the pasted brief. `MASS` (`m10minus`, `m10plus`, `m20minus`) was built in `GEMSDOE88` (moreover, `19GEMSDOE`'s continuous `p_h19_5` ranking depends on 15 unpinned `dem10/*.npy` and `context_detector_prob_*.tif` files absent from `registry/data_manifest.json`), and `CONCENTRATION` (`c10`, `c15`, `c20`) was built in PR #25.
+- **Decision:** Built `AXIS = PRUNE` (`values = 3, 1, 4`) with zero `(parent, axis, value)` or SHA-256 overlap across all 9 `ledger/submissions.csv` rows; left `TOP_PUBLIC` and `Slots left` blank for human entry.
 
-**Observed:** R0 has min d=2.236 and **2,171 dots with 2<d≤3**. Enforcing 3 px on CONCENTRATION would also change PRUNE.
+## IR-87-V2-04 — Competition input rasters mirrored in public sibling repos (data-use terms unchecked)
 
-**Decision:** Inherit parent 2 px for this axis. PRUNE-3px is a later slot. CONCc10/c15/c20 have 2,575 / 2,724 / 2,877 dots with d≤3 after relocation (still 0 with d≤2).
+- **Observed:** `registry/data_manifest.json` restores login-walled competition files (`training_features.tif`, `labels.tif`, `existing_faults.tif`, `sample_submission.tif`) from public GitHub commits in `buffedlizard55-lab/GEMSDOE` and `buffedlizard55-lab/GEMSDOE24` ([data tab](https://www.drivendata.org/competitions/306/competition-doe-gems/data/)). Redistribution terms cannot be checked in-sandbox because fetching `drivendata.org` is banned ([DrivenData ToS](https://www.drivendata.org/termsofuse/)).
+- **Decision:** Restored competition inputs strictly into gitignored `.cache/raw/`; committed zero competition input rasters to this repo or `releases/`. Human should check sibling public mirrors against DrivenData data-use rules.
 
-## IR-87-V2-03 — MASS already built (GEMSDOE88)
+## IR-87-V2-05 — Scheduled `scripts/refresh_feed.py` configured to fetch `drivendata.org`
 
-**Reported:** Each (AXIS, value) pair is built once; AXIS assigned by human (blank this session).
+- **Observed:** `.github/workflows/pages.yml` runs `scripts/refresh_feed.py` on cron, and `data/sources.json` previously had `"feed_check": true` on three `drivendata.org` URLs, conflicting with Hard Constraint 1 and [DrivenData ToS](https://www.drivendata.org/termsofuse/).
+- **Decision:** Removed `drivendata.org` from `ALLOWED_HOSTS` in `scripts/refresh_feed.py`, set `"feed_check": false` on all `drivendata.org` entries in `data/sources.json`, and added unit tests blocking `drivendata.org` and `dropbox.com`.
 
-**Observed:** GEMSDOE88 ledger already has MASS m10minus / m10plus / m20minus. No CONCENTRATION rows.
+## IR-87-V2-06 — Submission quota & inherited `docs/source-audit.md` metadata drift
 
-**Decision:** This session built CONCENTRATION only. MASS hashes are recorded in `ledger/submissions.csv` for dedupe, not rebuilt.
-
-## IR-87-V2-04 — TOP_PUBLIC unfilled; H19-5 is binary
-
-**Reported:** TOP_PUBLIC = ____ (human fills). Parent ranking from recorded recipe.
-
-**Observed:** Leaderboard was not fetched (terms ban automated access). H19-5 (`ec1f9b56…`) is a **binary** 121,131-dot field, not a continuous ranking; R0 ⊂ H19-5. Block prior = H19-5 count per 1 km cell.
-
-**Decision:** No TOP_PUBLIC number is written as a target. Ranking is H19-5 block mass, not a fabricated per-dot score.
-
-## IR-87-V2-05 — Catalogue count 60,988 vs older 142,272 prose
-
-**Observed:** Pinned `existing_faults.tif` (`7ba308cc…`) has 60,988 positives, identical to finite-1 cells of `sample_submission.tif`. Older GEMSDOE87 prose cited 142,272.
-
-**Decision:** Use the pinned raster. Collar statistics in this session are against 60,988 cells.
+- **Observed:** Inherited prose cited `"3 per 24h"`, `18` bands (`c0eb1eff…`), and `142,272` fault pixels, whereas the [DOE/NLR Rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf) specifies **3 scored submissions per rolling week per entity** and **1 blind final file**, and byte-verified `registry/data_manifest.json` has **19 float32 bands** (`4371c82e…`) and **60,988** fault pixels (`7ba308cc…`).
+- **Decision:** Planned `SLOT_PLAN.md` at 3 slots/rolling week for ONE entity and verified all manifest files directly from bytes.

@@ -5,31 +5,31 @@
       "id": "competition_problem",
       "label": "DrivenData — GEMS problem description",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
-      "role": "Official task, 18-band input stack, Distance-weighted Tversky Index (DTI), and GeoTIFF submission format",
-      "feed_check": true,
+      "role": "Official task, input stack, Distance-weighted Tversky Index (DTI), and GeoTIFF submission format (manual human review only; automated fetch disabled per DrivenData ToS)",
+      "feed_check": false,
       "expected_terms": ["distance-weighted", "EPSG 32611", "float32"]
     },
     {
       "id": "competition_data",
       "label": "DrivenData — competition data tab",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
-      "role": "Official data-download entry point; mirrored with SHA-256 verification via registry/data_manifest.json",
-      "feed_check": true,
+      "role": "Official data-download entry point; mirrored with SHA-256 verification via registry/data_manifest.json (manual human review only; automated fetch disabled per DrivenData ToS)",
+      "feed_check": false,
       "expected_terms": ["login"]
     },
     {
       "id": "competition_leaderboard",
       "label": "DrivenData — public leaderboard",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-      "role": "Live public leaderboard (top observed scores 0.4413 and 0.3195; GEMSDOE32 organizer-confirmed 0.2778)",
-      "feed_check": true,
+      "role": "Live public leaderboard (human supplies TOP_PUBLIC with date; automated fetch disabled per DrivenData ToS)",
+      "feed_check": false,
       "expected_terms": ["leaderboard"]
     },
     {
       "id": "official_rules_pdf",
       "label": "DOE/NLR — GEMS Prize official rules PDF",
       "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
-      "role": "Official prize rules, 3-per-day submission cap, single final selection, and AI disclosure requirement",
+      "role": "Official prize rules: 3 scored submissions per rolling week per entity, single final blind selection, reproducible code, and AI disclosure requirement",
       "feed_check": false,
       "expected_terms": []
     },

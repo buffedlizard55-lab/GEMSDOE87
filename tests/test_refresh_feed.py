@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts.refresh_feed import build_feed, classify_page
+from scripts.refresh_feed import build_feed, classify_page, fetch_source
 
 
 class RefreshFeedTests(unittest.TestCase):
@@ -84,6 +84,15 @@ class RefreshFeedTests(unittest.TestCase):
             self.assertEqual(saved["checked_at"], "2026-10-22T00:00:00Z")
             self.assertTrue(saved["numeric_scores_omitted"])
             self.assertNotIn("scores", saved)
+
+    def test_fetch_source_blocks_drivendata_and_dropbox(self) -> None:
+        for url in (
+            "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+            "https://drivendata.org/competitions/306/",
+            "https://www.dropbox.com/s/example/file.tif",
+        ):
+            res = fetch_source({"id": "blocked", "label": "Blocked", "url": url})
+            self.assertEqual(res["status"], "blocked_url")
 
 
 if __name__ == "__main__":
