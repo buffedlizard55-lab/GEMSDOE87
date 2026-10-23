@@ -121,3 +121,41 @@
 - **Off-catalogue USGS SGMC control `PROXY`** (`62,122` bedrock fault px at `d_cat > 3 px`): `R0` `0.095386`; `tmi-hg` `0.094801`; `scarp` `0.093186`; `grav-argmax` `0.091822` [`PROXY`]. All three arms are *below* R0 here while `grav-argmax` is *above* it on the hide-and-recover proxy: the two proxies disagree in sign, which is why no SNAP file is promoted on proxy evidence.
 - **Leakage canary `PROXY`:** `23` channels audited (all 19 training bands, the three residual edge fields, and the binary H19-5 parent); max symmetric AUC = **`0.56883 <= 0.90`**, `0` flagged [`PROXY`].
 - **Static-raster `PROXY`** (`~0.0039` for every arm) is reported only to document the `IR87-031` self-masking artefact: the literal files carry the full-catalogue `2 px` collar, so they zero their own credit against withheld truth.
+
+---
+
+## Part E — `AXIS = RELIEF` Variants (This Session, Reproducible via `python3 scripts/build_relief_variants.py`)
+
+**Parent `R0` rebuild receipt (re-verified this session):** All `25/25` `registry/data_manifest.json` SHA-256 pins verified; rebuilt `R0` (`37,654` dots) matched both twins byte-for-byte (`zeros` `c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9`, `NaN` `baeae3219bba6a19bc8cfe79224e28555c50184b7c1ca65c2a822f54807c77dd`).
+
+**Operator (`src/gems87/relief.py`, `FIXED_SEED = 0`):** Partitions the `5,167,373`-pixel footprint into exact geomorphic relief terciles (`T0` Basin `<= 0.3323`, `T1` Piedmont `0.3323–0.6632`, `T2` Range-Front `> 0.6632`) using the empirical-quantile composite `0.85 * q(Band 12 det_elev) + 0.15 * q(Band 19 det_elev_slope)` from the two organizer-provided detrended-elevation bands. Shifts `10%–15%` of `R0` mass strictly from `src_tercile` (dropping lowest exact leave-one-out DTI marginal-loss `dT_loss` dots on `H19-5`) into `dst_tercile` at **inherited minimum spacing `sqrt(8) = 2.8284 px`** (`MIN_SEP2 = 8`, zero sub-`sqrt(8)` pairs) and **inherited `d_cat > 2.0 px` collar** (`0` on catalogue), placing Tier-1 dots on uncovered `H19-5` ridges by exact sequential DTI marginal gain `dT` (`gems57.metric`) and completing Tier-2 dots on isotropic `|grad_H(RTP)|` (`Band 02`) + `iso_grav_anom_slope` (`Band 05`) 1-D Hessian crests. The uninvolved third tercile is `100%` untouched in every arm.
+
+### E1. `RELIEFr2p12` — Recommended Slot 2 (`Range-Front -> Piedmont, 12.00%` = `4,518` shifted)
+
+- **File (NaN outside, per spec):** `releases/h33-h33-2-b2-RELIEFr2p12-20261023-0689ea4c.tif` (`353,724 B`, sha256 `0689ea4cdf5245cd88c2a0812dae25f0f0ecf723be58852aa7fe076f4d2cd724`)
+- **Fallback (zeros outside):** `releases/h33-h33-2-b2-RELIEFr2p12-20261023-0689ea4c-zeros.tif` (`217,129 B`, sha256 `5ff5f69b2d25ba25dedb216559186c3b4723a2b04b17a71fef7ce833f2667f99`)
+- **Name:** `h33-h33-2-b2-RELIEFr2p12-20261023-0689ea4c`
+- **Note (98/140):** `h33-h33-2-b2; RELIEF Range->Piedmont 12.00% (n=37654, 4518 shifted); pred +0.004 to +0.012 [MODEL]`
+- **Parent-diff & format receipt:** `37,654` dots (`4,518` removed from `T2`, `4,518` added to `T1`: `3,959` Tier-1 exact-DTI + `559` Tier-2 crests; `T0 Basin = 6,029` untouched; `T1: 17,303 -> 21,821`; `T2: 14,322 -> 9,804`); `min_nn = 2.8284 px`; `min d_cat = 2.2361 px`; `0` on catalogue. Re-read from disk: `validate_submission` `ready=true`, `errors=[]`; `gems57.validate` `all_checks_passed=true`.
+
+### E2. `RELIEFr2b10` — Concealed Intrabasin Arm (`Range-Front -> Basin, 10.00%` = `3,765` shifted)
+
+- **File (NaN outside):** `releases/h33-h33-2-b2-RELIEFr2b10-20261023-ffcd12c0.tif` (`352,250 B`, sha256 `ffcd12c04c4b0f2d7de260283ecdcc010cba7a2bb5d9db0ed02e4e5a57468131`)
+- **Fallback (zeros outside):** `releases/h33-h33-2-b2-RELIEFr2b10-20261023-ffcd12c0-zeros.tif` (`215,919 B`, sha256 `b15f21187cacae88f71c0d81e4d60aae6480575187f1ace98da712ce5feb2f69`)
+- **Name:** `h33-h33-2-b2-RELIEFr2b10-20261023-ffcd12c0`
+- **Note (95/140):** `h33-h33-2-b2; RELIEF Range->Basin 10.00% (n=37654, 3765 shifted); pred +0.002 to +0.010 [MODEL]`
+- **Parent-diff & format receipt:** `37,654` dots (`3,765` removed from `T2`, `3,765` added to `T0`: `1,191` Tier-1 exact-DTI + `2,574` Tier-2 isotropic RTP/gravity crests; `T1 Piedmont = 17,303` untouched; `T0: 6,029 -> 9,794`; `T2: 14,322 -> 10,557`); `min_nn = 2.8284 px`; `min d_cat = 2.2361 px`; `0` on catalogue; validators `ready=true` / `all_checks_passed=true`.
+
+### E3. `RELIEFb2r15` — Opposite-Sign Bedrock Bracket (`Basin -> Range-Front, 15.00%` = `5,648` shifted)
+
+- **File (NaN outside):** `releases/h33-h33-2-b2-RELIEFb2r15-20261023-982da990.tif` (`356,317 B`, sha256 `982da990cb9bf7cd30090c94616f324539466bda85211a367ebbf9e3851c2ce3`)
+- **Fallback (zeros outside):** `releases/h33-h33-2-b2-RELIEFb2r15-20261023-982da990-zeros.tif` (`220,382 B`, sha256 `305c03e034e3f3afd95bf44d566c14448a56158e6e795fe4f0338b2d0d5fee3d`)
+- **Name:** `h33-h33-2-b2-RELIEFb2r15-20261023-982da990`
+- **Note (95/140):** `h33-h33-2-b2; RELIEF Basin->Range 15.00% (n=37654, 5648 shifted); pred -0.012 to +0.008 [MODEL]`
+- **Parent-diff & format receipt:** `37,654` dots (`5,648` removed from `T0`, `5,648` added to `T2`: `2,892` Tier-1 exact-DTI + `2,756` Tier-2 crests; `T1 Piedmont = 17,303` untouched; `T0: 6,029 -> 381`; `T2: 14,322 -> 19,970`); `min_nn = 2.8284 px`; `min d_cat = 2.2361 px`; `0` on catalogue; validators `ready=true` / `all_checks_passed=true`. Hold in reserve unless `RELIEFr2p12` returns `RECEIPT Δ <= -0.01`.
+
+### E4. Report-Only `PROXY` Diagnostics (`releases/manifest_RELIEF.json` — never gates, never called scores)
+
+- **Fold-proper Quaternary hide-and-recover `PROXY`** (`gems57-pooled-hide-v2`, `n = 22,663` withheld positives, 1,000-draw block-bootstrap 95% CI): `R0_fp` `0.097493 [0.0857, 0.1094]`; `RELIEFr2p12_fp` **`0.097845 [0.0857, 0.1102]`**; `RELIEFr2b10_fp` `0.096964 [0.0850, 0.1094]`; `RELIEFb2r15_fp` `0.090812 [0.0798, 0.1023]` [`PROXY`].
+- **Off-catalogue USGS SGMC bedrock control `PROXY`** (`62,122` bedrock fault px at `d_cat > 3 px`, `66.0%` in `T2` vs `9.0%` in `T0`): `R0` `0.095386`; `RELIEFr2p12` `0.088891` (`-0.006495`); `RELIEFr2b10` `0.089179` (`-0.006207`); `RELIEFb2r15` **`0.097333` (`+0.001947`)** [`PROXY`]. Quaternary and bedrock proxies flip cleanly in opposite signs across `RELIEF`.
+- **Leakage canary `PROXY`:** `22` channels audited (`19` raw `training_features.tif` bands + `relief_index`, `subsurface_crest`, `h19_5`); max symmetric AUC = **`0.56883 <= 0.90`**, `0` flagged [`PROXY`].
